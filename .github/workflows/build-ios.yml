@@ -39,6 +39,7 @@ jobs:
             -configuration Release \
             -arch arm64 \
             -sdk iphoneos \
+            CONFIGURATION_BUILD_DIR=$(pwd)/build \
             build \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED="NO" \
@@ -49,11 +50,8 @@ jobs:
       - name: 7. Pack Output into Physical .ipa Container
         run: |
           cd ios/App
-          # The exact path Xcode dumps into with raw build:
-          APP_PATH=$(find . -name "App.app" -type d | head -n 1)
-          
           mkdir -p Payload
-          cp -r "$APP_PATH" Payload/
+          cp -r build/App.app Payload/
           zip -r GembaOS_Spatial.ipa Payload
           
       - name: 8. Publish Artifact for User Download
