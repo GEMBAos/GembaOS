@@ -1,0 +1,1103 @@
+{
+    "translation": {
+        "auth": {
+            "loginTitle": "Welcome Back",
+            "loginDesc": "Log in to sync your progress.",
+            "signUpTitle": "Create Account",
+            "signUpDesc": "Join the Kaizen movement.",
+            "login": "Log In",
+            "signUp": "Sign Up",
+            "logout": "Log Out",
+            "profile": "Profile",
+            "rank": "Rank",
+            "streak": "Streak",
+            "admin": "Admin"
+        },
+        "nav": {
+            "home": "Home Hub",
+            "mobile": "Mobile",
+            "spatial": "Spatial",
+            "simulations": "Simulations",
+            "projects": "Projects",
+            "tools": "Tools",
+            "academy": "Academy",
+            "audit": "Audit Hub",
+            "signage": "Signage Hub",
+            "community": "Community",
+            "training": "Training",
+            "execution": "Execution",
+            "activeProject": "Active Project"
+        },
+        "modules": "Active Modules",
+        "beta": "Launch Beta",
+        "dashboard": {
+            "title": "Projects & Execution",
+            "desc": "Charters, Roadmaps, Reports"
+        },
+        "spatial": {
+            "title": "Spatial & GPS Tools",
+            "desc": "Motion tracking & Floor plans"
+        },
+        "vsm": {
+            "title": "Value Stream Mapping",
+            "desc": "Map processes & overall lead times"
+        },
+        "kpi": {
+            "title": "Live KPI / Data Tracker",
+            "desc": "Log hourly outputs & pace labor"
+        },
+        "fivewhys": {
+            "title": "5 Whys Investigator",
+            "desc": "Solve root causes permanently"
+        },
+        "simulations": {
+            "title": "Lean Simulations Hub",
+            "desc": "Interactive principles & mini-games"
+        },
+        "macro": {
+            "title": "PC Macro Builder",
+            "badge": "NEW",
+            "desc": "Auto-generate Stream Deck actions for digital processes"
+        },
+        "padlet": {
+            "submitTitle": "Submit JFI Observation",
+            "submitDesc": "See an easy fix? File a quick JFI and put it in the priority queue.",
+            "submitBtn": "Submit Form →",
+            "padletTitle": "Idea Review",
+            "padletDesc": "Review and vote on submitted ideas on the interactive virtual wall.",
+            "padletBtn": "Open Padlet Board →"
+        },
+        "jfi": {
+            "title": "Submit a JFI",
+            "desc": "Record improvements and earn Streak XP"
+        },
+        "promo": {
+            "featured": "Featured Module",
+            "launch": "Try Now!",
+            "boardgame": {
+                "title": "NEW: Process Board Game",
+                "desc": "Experience the true cost of Motion Waste in our new interactive dice simulation. Roll to produce!"
+            },
+            "bottleneck": {
+                "title": "Spot the Bottleneck",
+                "desc": "Apply the Theory of Constraints. Can you analyze process cycle times and identify the true limit to throughput?"
+            },
+            "macro": {
+                "title": "PC Macro Builder",
+                "desc": "Automate repetitive digital tasks instantly. Generate Multi-Action Scripts for standard PC work."
+            },
+            "spot": {
+                "title": "Spot the Waste (DOWNTIME)",
+                "desc": "Can you identify all 8 types of Lean waste in our latest visual observation simulation? Sharpen your 'Lean eyes' now!"
+            }
+        },
+        "sidebar": {
+            "leaderStats": "Leader Stats",
+            "activeStreak": "JFI Days in a Row",
+            "submissionStreak": "Active Submission Streak",
+            "personalBest": "Personal Best",
+            "xp": "Improvement Points",
+            "points_awarded": "+{{points}} Improvement Points",
+            "days": "{{count}} Days",
+            "padlet": "📌 Padlet Board",
+            "submitJfi": "📝 Submit JFI & Streak Up",
+            "launchMobile": "🌐 Launch Mobile Tunnel",
+            "starting": "Starting..."
+        },
+        "hub": {
+            "savings": "Savings",
+            "impact": "Impact",
+            "nextQuote": "Next Quote"
+        },
+        "sim": {
+            "5s": {
+                "start": "START",
+                "restart": "Restart Simulation",
+                "complete": "Kaizen Complete!",
+                "lessons": "Lessons Learned",
+                "identify": "Identify the 2 Missing Numbers!",
+                "find": "Find",
+                "r1": {
+                    "title": "Round 1: Chaos",
+                    "desc": "Numbers 1-100 are scattered. No organization. Can you find 49 in order?"
+                },
+                "r2": {
+                    "title": "Round 2: Sort",
+                    "desc": "Removing the \"Muda\". Numbers 50-100 are gone. Does your speed improve?"
+                },
+                "r3": {
+                    "title": "Round 3: Visual Management",
+                    "desc": "Adding a 3x3 grid to help region searching."
+                },
+                "r4": {
+                    "title": "Round 4: Standardize",
+                    "desc": "A perfect grid. Maximum efficiency."
+                },
+                "r5": {
+                    "title": "Round 5: Detection (Chaos)",
+                    "desc": "2 numbers are missing from the chaotic view. Count-up timer."
+                },
+                "r6": {
+                    "title": "Round 6: Detection (Standard)",
+                    "desc": "2 numbers are missing from the perfect grid. Instant feedback."
+                },
+                "lesson1": {
+                    "title": "Sort",
+                    "desc": "Removing what you don't need (50-100) instantly clarifies the \"work area\"."
+                },
+                "lesson2": {
+                    "title": "Set in Order",
+                    "desc": "The standard grid eliminated the waste of searching and motion."
+                },
+                "lesson3": {
+                    "title": "Visual Controls",
+                    "desc": "Identifying a missing item in a grid took {{timeStandard}}s vs {{timeChaos}}s in chaos. This is why shadow boards work."
+                }
+            },
+            "spot": {
+                "title": "Spot the Waste",
+                "intro": "Observe the work area carefully. Can you spot the hidden DOWNTIME wastes? Click on the parts of the image where you see inefficiencies.",
+                "start": "START OBSERVATION",
+                "complete": "Observation Complete!",
+                "success": "You successfully identified all {{count}} forms of waste in this area.",
+                "active": "Observation Mode Active",
+                "found": "Wastes Found",
+                "detected": "{{type}} Detected",
+                "continue": "CONTINUE OBSERVATION",
+                "restart": "Play Again"
+            },
+            "gps": {
+                "title": "GPS Motion Tracker",
+                "subtitle": "Auto-traces your walking path via mobile GPS",
+                "start": "Start GPS Trace",
+                "stop": "Stop Tracking",
+                "metrics": "Live Metrics",
+                "curDist": "Current Path Distance",
+                "roiCalc": "ROI Calculator",
+                "export": "Export PDF Report"
+            }
+        },
+        "spatial_hub": {
+            "title": "Perspective Hub",
+            "subtitle": "Advanced space management, layout builders, and motion tracking.",
+            "categories": {
+                "design": "🏗️ Design & Layout",
+                "motion": "👣 Analysis & Motion"
+            },
+            "tools": {
+                "floorplan": {
+                    "title": "2D Floor Plan Builder",
+                    "desc": "Drag-and-drop equipment & workstations"
+                },
+                "lidar": {
+                    "title": "3D LiDAR Viewer",
+                    "desc": "Inspect digital twins (.glb/.gltf)"
+                },
+                "drone": {
+                    "title": "Drone to 3D",
+                    "desc": "Convert flyover video to 3D model"
+                },
+                "gps": {
+                    "title": "GPS Spaghetti Tracker",
+                    "desc": "Live motion tracking via mobile GPS"
+                },
+                "manual": {
+                    "title": "Manual 2D Tracker",
+                    "desc": "Draw paths manually on a floor plan"
+                }
+            },
+            "back": "← Back to Hub"
+        },
+        "feedback": {
+            "button": "BETA FEEDBACK",
+            "title": "We value your input!",
+            "desc": "Your feedback helps us build the ultimate tool for Lean leaders.",
+            "type": "Feedback Type",
+            "types": {
+                "bug": "🐞 Bug / Issue",
+                "idea": "💡 Improvement Idea",
+                "question": "❓ Question"
+            },
+            "message": "Your Message",
+            "placeholder": "Describe what happened or your idea here...",
+            "submit": "Submit Feedback",
+            "successTitle": "Thank You!",
+            "successDesc": "Your feedback has been recorded. Let's keep kaizening!"
+        },
+        "portal": {
+            "jfiTitle": "Submit a JFI",
+            "jfiDesc": "Submit your \"Just Fix It\" improvement idea in 2 seconds.",
+            "gembaTitle": "Gemba Videos",
+            "gembaDesc": "Linked to all videos around the world.",
+            "executionTitle": "Execution Hub",
+            "executionDesc": "Manage projects, roadmaps, and daily action items.",
+            "perspectiveTitle": "Perspective Hub",
+            "perspectiveDesc": "3D scanning, floor plans, and motion tracking analysis.",
+            "trainingTitle": "Training Hub",
+            "trainingDesc": "Master Lean principles through simulations and academy courses.",
+            "communityTitle": "Community Hub",
+            "communityDesc": "Connect with Lean experts and share lifestyle hacks.",
+            "firstTimeTitle": "First Time Here?",
+            "executionGuide": "Start a **Project Charter** in the Execution Hub to set your goals.",
+            "spatialGuide": "Capture your current state using **Spatial Tools** to find waste.",
+            "trainingGuide": "Play a **Simulation** to learn how to eliminate the waste you found.",
+            "mobileTitle": "Mobile Connection",
+            "mobileDesc": "Scan this to access Kaizen Copilot on your mobile device (must be on the same network).",
+            "publicTunnel": "Public Tunnel (Away Access)",
+            "auditTitle": "Audit Hub (Kamishibai)",
+            "auditDesc": "Create and flip printable TPM task cards.",
+            "signageTitle": "Signage Hub",
+            "signageDesc": "Plant-wide visual standards and vector assets.",
+            "shareTitle": "Share GembaOS",
+            "shareDesc": "Invite your team via QR Code or direct promo link.",
+            "lswTitle": "Standard Work Builder",
+            "lswDesc": "Design an intentional daily and weekly leadership time budget.",
+            "qrTitle": "Share GembaOS 🚀",
+            "qrDesc": "Scan this QR code or copy the link below to invite your team. The link opens our Top 5 Promo Page.",
+            "promoPage": "Promo Page",
+            "copyLink": "Copy Link",
+            "directApp": "Direct App (Beta)",
+            "close": "Close"
+        },
+        "quotes": [
+            {
+                "text": "Searching for car keys for 2 mins every single morning",
+                "savings": "12 hours saved / year",
+                "impact": "Equal to a whole extra day of leisure time reclaimed annually."
+            },
+            {
+                "text": "Pre-sorting laundry into whites and darks at the point of use",
+                "savings": "15 mins / week",
+                "impact": "Saves 13 hours a year of 'batching' and sorting effort."
+            },
+            {
+                "text": "Putting your car keys on the exact same hook every day",
+                "savings": "10 hours saved / year",
+                "impact": "Reclaims 2 full Saturday mornings spent tearing couch cushions apart."
+            },
+            {
+                "text": "Organizing your fridge so the oldest milk is always on the left",
+                "savings": "30 mins saved / year",
+                "impact": "Avoids annual 'spoiled milk' surprises by keeping dates visible."
+            },
+            {
+                "text": "Setting out your workout clothes next to the bed at night",
+                "savings": "5 mins / morning",
+                "impact": "Reclaims 30 hours of 'morning decision fatigue' per year."
+            },
+            {
+                "text": "Using a dedicated 'landing zone' for mail and house bills",
+                "savings": "1 hour / month",
+                "impact": "Eliminates late fees and the stress of missing critical documents."
+            },
+            {
+                "text": "Meal prepping for just 1 hour on Sunday afternoons",
+                "savings": "5 hours / week",
+                "impact": "Saves 260 hours a year—equivalent to 10 full days of time!"
+            },
+            {
+                "text": "Charging all devices in a single nightly 'docking station'",
+                "savings": "5 mins / day",
+                "impact": "Ends the 'where's my charger?' panic for good."
+            },
+            {
+                "text": "Keeping a small trash bag in the car door bin",
+                "savings": "10 mins / week",
+                "impact": "Prevents the 'Big Car Clean-out' every single weekend."
+            },
+            {
+                "text": "Standardizing the kitchen spice rack by frequency of use",
+                "savings": "10 mins / week",
+                "impact": "Reduces 'searching waste' by 8 hours annually while cooking."
+            },
+            {
+                "text": "Setting your morning alarm 50 feet away from the bed",
+                "savings": "No Snooze Waste",
+                "impact": "Eliminates 30 hours of 'drifting' per year; immediate productivity."
+            },
+            {
+                "text": "Unsubscribing from 10 retail 'Junk' emails today",
+                "savings": "3 mins / day",
+                "impact": "Saves 18 hours of 'digital sorting' time per year."
+            },
+            {
+                "text": "Creating a 'donation box' in the closet for immediate sorting",
+                "savings": "2 hours / month",
+                "impact": "Eliminates the 'Sunday declutter' stress entirely."
+            },
+            {
+                "text": "Using clear bins for seasonal storage with large labels",
+                "savings": "2 hours / season",
+                "impact": "Saves 8 hours a year of 'rummaging' for holiday gear."
+            },
+            {
+                "text": "Automating 5 monthly bill payments to autopay",
+                "savings": "30 mins / month",
+                "impact": "6 hours a year regained for focus on high-value personal goals."
+            },
+            {
+                "text": "Putting a magnetic shopping list pen on the fridge",
+                "savings": "3 mins / list",
+                "impact": "Captures 100% of grocery needs without walking to the office."
+            },
+            {
+                "text": "Synchronizing family calendars on a shared digital app",
+                "savings": "2 hours / month",
+                "impact": "Eliminates 24 family scheduling conflicts per year."
+            },
+            {
+                "text": "Labeling the 'mystery' power cords in your junk drawer",
+                "savings": "1 hour / year",
+                "impact": "Prevents the 'unplugged-the-wrong-thing' catastrophe."
+            },
+            {
+                "text": "Keeping a set of pre-packed gym clothes in the trunk",
+                "savings": "20 mins / workout",
+                "impact": "Removes the 'going home' friction, increasing health by 50%."
+            },
+            {
+                "text": "Storing the vacuum cleaner on the main living floor",
+                "savings": "5 mins / use",
+                "impact": "Doubles the frequency of cleaning with 50% less effort."
+            },
+            {
+                "text": "Digitizing all paper receipts immediately via phone camera",
+                "savings": "10 hours / tax season",
+                "impact": "Turns tax prep from a nightmare into a 15-minute task."
+            },
+            {
+                "text": "Using a 'One In, One Out' rule for every new clothing item",
+                "savings": "4 hours / year",
+                "impact": "Maintains closet capacity with zero extra organizing effort."
+            },
+            {
+                "text": "Shadow-boarding the most used tools in the garage",
+                "savings": "15 mins / project",
+                "impact": "Saves 4 full work days over 5 years of searching for tools."
+            },
+            {
+                "text": "Pre-packing your kids backpacks at 7 PM sharp",
+                "savings": "10 mins / morning",
+                "impact": "Ensures no 'forgotten homework' and a calm start to 180 days."
+            },
+            {
+                "text": "Keeping a small umbrella by every single exit door",
+                "savings": "5 mins / storm",
+                "impact": "Reclaims 2 hours a year otherwise spent drying off or searching."
+            },
+            {
+                "text": "Buying household consumables (soap, TP) in 6-month batches",
+                "savings": "12 hours / year",
+                "impact": "Eliminates 12 emergency 'oops' trips to the store."
+            },
+            {
+                "text": "Folding laundry while the dryer is still warm",
+                "savings": "10 mins / load",
+                "impact": "Eliminates the need for ironing 90% of your wardrobe."
+            },
+            {
+                "text": "Setting up a 'return-to-store' bin in the car trunk",
+                "savings": "2 hours / month",
+                "impact": "Ensures 100% of returns happen during normal errands."
+            },
+            {
+                "text": "Grouping similar apps into folders on your phone home screen",
+                "savings": "1 min / search",
+                "impact": "Saves 6 hours a year of 'mindless scrolling' fatigue."
+            },
+            {
+                "text": "Doing a '10-minute tidy' every night as a family",
+                "savings": "1 hour / morning",
+                "impact": "Reclaims 365 hours of morning productivity for the house."
+            },
+            {
+                "text": "Printing a 'House Guest' Wi-Fi info sheet",
+                "savings": "5 mins / guest",
+                "impact": "Saves 2 hours a year of repetitive technical support."
+            },
+            {
+                "text": "Cleaning the shower with a squeegee daily after use",
+                "savings": "30 mins / week",
+                "impact": "Saves 26 hours a year of 'heavy scrubbing' maintenance."
+            },
+            {
+                "text": "Setting all house clocks 5 minutes fast",
+                "savings": "Punctuality",
+                "impact": "Eliminates the 'late-arrival' stress tax on your reputation."
+            },
+            {
+                "text": "Kitting your carry-on bag with permanent toiletries",
+                "savings": "20 mins / trip",
+                "impact": "Eliminates 'did I pack the toothbrush?' anxiety for every trip."
+            },
+            {
+                "text": "Organizing the freezer by protein type with clear labels",
+                "savings": "2 mins / dinner",
+                "impact": "Saves 12 hours a year of 'guessing what's in the foil'."
+            },
+            {
+                "text": "Using a 'digital burner' email for one-time signups",
+                "savings": "Zero Spam",
+                "impact": "Keeps your main inbox clean, saving 15 hours of cleanup a year."
+            },
+            {
+                "text": "Scheduling all medical appointments in a single block",
+                "savings": "3 hours / year",
+                "impact": "Reduces 'travel waste' by 50% for annual checkups."
+            },
+            {
+                "text": "Pre-chopping vegetables for 15 mins after shopping",
+                "savings": "5 mins / meal",
+                "impact": "Makes healthy cooking the 'path of least resistance' daily."
+            },
+            {
+                "text": "Standardizing your morning coffee setup the night before",
+                "savings": "3 mins / morning",
+                "impact": "18 hours a year regained for focus before the day starts."
+            },
+            {
+                "text": "Using a single 'master' grocery list shared on your phone",
+                "savings": "15 mins / trip",
+                "impact": "Saves 35 hours a year of 'doubling back' through aisles."
+            },
+            {
+                "text": "Color-coding the family bath towels",
+                "savings": "No Confusion",
+                "impact": "Reduces laundry volume by 20% by preventing 'clean' towel washes."
+            },
+            {
+                "text": "Implementing a 'Wait 24 Hours' rule for online shopping",
+                "savings": "$1,200 / year",
+                "impact": "Eliminates 'impulse waste' and preserves 10 hours of return effort."
+            },
+            {
+                "text": "Using a voice assistant to set immediate reminders",
+                "savings": "Zero Forgetfulness",
+                "impact": "Captures 100% of tasks at the point of thought, no 're-thinking'."
+            },
+            {
+                "text": "Pre-filling the coffee maker water reservoir",
+                "savings": "2 mins / morning",
+                "impact": "Reduces 'morning fumble' waste by 12 hours annually."
+            },
+            {
+                "text": "Storing lawn tools on a wall-mount vertical rack",
+                "savings": "5 mins / mow",
+                "impact": "Reclaims the floor space and 2 hours a year of 'shuffling'."
+            },
+            {
+                "text": "Creating a digital 'Reference' folder for instruction manuals",
+                "savings": "20 mins / search",
+                "impact": "Eliminates the 'physical paper' clutter in the office."
+            },
+            {
+                "text": "Standardizing the placement of your gym bag in the hallway",
+                "savings": "3 mins / day",
+                "impact": "Reduces the 'searching' barrier to exercise by 18 hours a year."
+            },
+            {
+                "text": "Checking your car tire pressure monthly",
+                "savings": "3% Fuel Efficiency",
+                "impact": "Saves $150 and 2 hours of 'emergency repair' time per year."
+            },
+            {
+                "text": "Using a dish wand with soap built-in for quick rinses",
+                "savings": "5 mins / day",
+                "impact": "Prevents the 'pile of dishes' backlog by cleaning as you go."
+            },
+            {
+                "text": "Consolidating all paper mail into one digital scanner app",
+                "savings": "4 hours / month",
+                "impact": "Reclaims 48 hours of 'paper-filing' headache every year."
+            },
+            {
+                "text": "Turning off all non-human phone notifications",
+                "savings": "30 mins / day",
+                "impact": "Reclaims 180 hours a year of 'distraction waste' and focus."
+            },
+            {
+                "text": "Using a password manager for all digital logins",
+                "savings": "5 mins / week",
+                "impact": "Eliminates 'password reset' loops and 4 hours of annual frustration."
+            },
+            {
+                "text": "Cleaning your desktop downloads folder every Friday",
+                "savings": "10 mins / week",
+                "impact": "Saves 8 hours a year of searching for 'that one file'."
+            },
+            {
+                "text": "Setting up a 'Read Later' folder for web articles",
+                "savings": "20 mins / day",
+                "impact": "Reclaims 120 hours of productive daytime from 'rabbithole' reading."
+            },
+            {
+                "text": "Using 'Text Replacement' shortcuts for your email address",
+                "savings": "10 seconds / use",
+                "impact": "Saves 2 hours a year of repetitive typing on mobile devices."
+            },
+            {
+                "text": "Archiving all emails over 30 days old today",
+                "savings": "Zero Visual Noise",
+                "impact": "Reduces 'inbox anxiety' and reclaims 15 mins of daily sorting."
+            },
+            {
+                "text": "Standardizing your file naming convention (YYYY-MM-DD)",
+                "savings": "5 mins / search",
+                "impact": "Saves 10 hours a year of 'which version is this?' waste."
+            },
+            {
+                "text": "Using two monitors for office or hobby work",
+                "savings": "10% Faster Tasks",
+                "impact": "Reclaims 200 hours a year of 'window switching' and tab-toggling."
+            },
+            {
+                "text": "Pre-writing template replies for common questions",
+                "savings": "5 mins / email",
+                "impact": "Saves 40 hours a year of 're-inventing the wheel' for messages."
+            },
+            {
+                "text": "Setting a 'Scheduled Summary' for phone notifications",
+                "savings": "Focused Mornings",
+                "impact": "Batching 50 interruptions into 1 saves 45 mins of daily focus."
+            },
+            {
+                "text": "Canceling 3 unused digital subscriptions today",
+                "savings": "$450 / year",
+                "impact": "Saves the 'mental load' of tracking 3 unnecessary expenses."
+            },
+            {
+                "text": "Using a 'Quick Access' pin for your 5 most-used folders",
+                "savings": "2 mins / search",
+                "impact": "Saves 12 hours a year of navigating deep file paths."
+            },
+            {
+                "text": "Setting a 'Digital Sunset' time for all screens",
+                "savings": "+1 Hour Sleep",
+                "impact": "Improves daily energy levels by 20% through better rest."
+            },
+            {
+                "text": "Using a dedicated 'To-Do' app instead of sticky notes",
+                "savings": "Zero Lost Tasks",
+                "impact": "Eliminates the 'scavenger hunt' for lost paper lists."
+            },
+            {
+                "text": "Batching all social media usage into 2 time-slots",
+                "savings": "1 hour / day",
+                "impact": "Reclaims 365 hours—over 15 full days—per year!"
+            },
+            {
+                "text": "Standardizing your computer's desktop wallpaper to neutral",
+                "savings": "Zero Distraction",
+                "impact": "Improves 'first-click focus' by 5 mins every morning."
+            },
+            {
+                "text": "Using a 'Do Not Disturb' physical sign for deep work",
+                "savings": "Zero Interruptions",
+                "impact": "Saves 20 mins of 'recovery time' for every avoided tap on the shoulder."
+            },
+            {
+                "text": "Learning 5 keyboard shortcuts for your most-used app",
+                "savings": "2 seconds / action",
+                "impact": "Saves 15 hours a year of 'mouse-travel' waste."
+            },
+            {
+                "text": "Emptying your computer's trash bin every Monday morning",
+                "savings": "System Speed",
+                "impact": "Prevents 'disk full' emergencies at critical project moments."
+            },
+            {
+                "text": "Using 'Pin to Top' for your current active project folder",
+                "savings": "1 min / access",
+                "impact": "Saves 5 hours a year of 'drilling down' into directories."
+            },
+            {
+                "text": "Self-hosting a 'personal wiki' for family knowledge",
+                "savings": "15 mins / search",
+                "impact": "Eliminates the 'Mom, where is the...?' cycle forever."
+            },
+            {
+                "text": "Auditing your phone's contact list for duplicates",
+                "savings": "Seamless Comms",
+                "impact": "Saves 2 hours a year of 'texting the wrong number' waste."
+            },
+            {
+                "text": "Using a 'Pomodoro' timer for focused 25-min bursts",
+                "savings": "25% Higher Output",
+                "impact": "Accomplish 8 hours of work in 6 through extreme focus."
+            },
+            {
+                "text": "Setting up a 'Template' folder for common document types",
+                "savings": "10 mins / doc",
+                "impact": "Saves 20 hours a year of formatting and 'starting from scratch'."
+            },
+            {
+                "text": "Unlinking your social media from your work browser",
+                "savings": "Zero Temptation",
+                "impact": "Eliminates 30 hours of 'micro-procrastination' annually."
+            },
+            {
+                "text": "Standardizing the 'Leftovers' container size",
+                "savings": "Zero Tetris Waste",
+                "impact": "Saves 5 mins of 'fridge-shuffling' every single night."
+            },
+            {
+                "text": "Using a dedicated 'Bread Station' with toaster and jam",
+                "savings": "2 mins / breakfast",
+                "impact": "Reclaims 12 hours a year of 'kitchen-wandering' for supplies."
+            },
+            {
+                "text": "Pre-rinsing dishes and stacking by size for the dishwasher",
+                "savings": "10 mins / load",
+                "impact": "Increases dishwasher capacity by 20% and saves 30 hours a year."
+            },
+            {
+                "text": "Storing heavy flour and sugar bins on pull-out rollers",
+                "savings": "80% Less Lifting",
+                "impact": "Reduces back strain and speeds up baking prep by 5 mins."
+            },
+            {
+                "text": "Using a 'FIFO' (First In, First Out) rack for canned goods",
+                "savings": "Zero Expired Food",
+                "impact": "Saves $200/year in wasted groceries and 2 hours of 'date-checking'."
+            },
+            {
+                "text": "Grouping all 'Coffee & Tea' supplies in one cabinet",
+                "savings": "1 min / cup",
+                "impact": "Saves 6 hours a year of 'brewing ritual' travel waste."
+            },
+            {
+                "text": "Pre-boiling water in an electric kettle before the stove",
+                "savings": "5 mins / meal",
+                "impact": "Reduces 'waiting waste' by 15 hours a year for pasta and soups."
+            },
+            {
+                "text": "Using a magnetic knife strip instead of a drawer block",
+                "savings": "30 seconds / use",
+                "impact": "Reduces 'searching' and protects blades for 5 years longer."
+            },
+            {
+                "text": "Batch-cooking 2x protein portions every Monday",
+                "savings": "3 hours / week",
+                "impact": "Ensures healthy mid-week meals with zero extra cleanup."
+            },
+            {
+                "text": "Labeling the 'Open Date' on all condiments",
+                "savings": "Food Safety",
+                "impact": "Eliminates the 'is this still good?' hesitation for 50 items."
+            },
+            {
+                "text": "Using a compost bin with a foot-pedal lid",
+                "savings": "Hands-Free",
+                "impact": "Reduces 'cleanup motion' by 50% during heavy vegetable prep."
+            },
+            {
+                "text": "Standardizing the 'Dinner Table' set-up process",
+                "savings": "3 mins / night",
+                "impact": "Teaches kids 'standard work' and reclaims 18 hours a year."
+            },
+            {
+                "text": "Storing the most-used pans on the stovetop hooks",
+                "savings": "Zero Reach Waste",
+                "impact": "Eliminates the 'loud-cabinet-clash' search every morning."
+            },
+            {
+                "text": "Using a vegetable peeler that works in both directions",
+                "savings": "50% Faster Prep",
+                "impact": "Saves 5 mins per large salad or stew preparation."
+            },
+            {
+                "text": "Buying pre-washed spinach and greens in bulk",
+                "savings": "10 mins / meal",
+                "impact": "Removes the 'processing' hurdle to daily healthy eating."
+            },
+            {
+                "text": "Setting a 'Grocery Day' schedule with the same route",
+                "savings": "30 mins / trip",
+                "impact": "Reclaims 26 hours a year of 'aimless aisle-wandering'."
+            },
+            {
+                "text": "Using a single 'Master Spice' blend for quick seasoning",
+                "savings": "2 mins / meal",
+                "impact": "Eliminates the '10-jar juggle' for 300 dinners a year."
+            },
+            {
+                "text": "Pre-filling the dog's water bowl at the same time as yours",
+                "savings": "Point-of-Use",
+                "impact": "Reduces 'extra trips' to the sink by 365 per year."
+            },
+            {
+                "text": "Standardizing the 'Clean Dish' hand-off to kids",
+                "savings": "Zero Friction",
+                "impact": "Everyone knows where the plates go—no 'where does this live?'."
+            },
+            {
+                "text": "Using clear glass jars for frequently used dry goods",
+                "savings": "Visual Inventory",
+                "impact": "Instantly see when you're low on rice—zero 'out-of-stock' stress."
+            },
+            {
+                "text": "Keeping a 'Snack Box' at eye-level for healthy choices",
+                "savings": "Lower Decision Fatigue",
+                "impact": "Reduces 'pantry-gazing' time by 5 mins every afternoon."
+            },
+            {
+                "text": "Using a silicone mat for easy baking cleanup",
+                "savings": "8 mins / use",
+                "impact": "Eliminates the 'scrubbing' waste and saves $30/yr in parchment."
+            },
+            {
+                "text": "Kitting the 'Pizza Night' supplies in one bin",
+                "savings": "12 mins / set-up",
+                "impact": "Turns a chaotic kitchen into a 5-minute family activity."
+            },
+            {
+                "text": "Storing the cutting board vertically against the wall",
+                "savings": "Counter Speed",
+                "impact": "Reclaims 2 sq-ft of workspace and 20 seconds / meal."
+            },
+            {
+                "text": "Using a multi-timer for complex holiday cooking",
+                "savings": "Zero Rework",
+                "impact": "Prevents 'burnt turkey' catastrophes through visual management."
+            },
+            {
+                "text": "Shadow-boarding your 5 most common desk tools",
+                "savings": "10 mins / day",
+                "impact": "Stops the 'where is the stapler?' hunt in mid-flow."
+            },
+            {
+                "text": "Using a 'Standing Desk' to increase afternoon output",
+                "savings": "15% More Energy",
+                "impact": "Eliminates the 'post-lunch slump' waste for 200 days a year."
+            },
+            {
+                "text": "Standardizing your 'New Project' folder template",
+                "savings": "15 mins / start",
+                "impact": "Ensures every project has a 'Leads' and 'Assets' folder instantly."
+            },
+            {
+                "text": "Moving the printer to the center of the office",
+                "savings": "500 miles / year",
+                "impact": "Reduces 'walking waste' for the whole team by 10 mins daily."
+            },
+            {
+                "text": "Using 'Read Receipts' to eliminate 'Did you get it?' pings",
+                "savings": "Zero Follow-up",
+                "impact": "Saves 20 emails a week of pure overhead communication."
+            },
+            {
+                "text": "Setting a 25-minute 'Default' for all meetings",
+                "savings": "5 mins / meeting",
+                "impact": "Reclaims 2 hours of team output every single week."
+            },
+            {
+                "text": "Using a dual-monitor setup for spreadsheet work",
+                "savings": "25% Faster Entry",
+                "impact": "Saves 100 hours a year of 'alt-tab' eye-strain and errors."
+            },
+            {
+                "text": "Labeling the 'Empty' vs 'Full' paper tray",
+                "savings": "Visual Management",
+                "impact": "Prevents 'printer-jam' frustration for the entire staff."
+            },
+            {
+                "text": "Standardizing the 'Out of Office' message format",
+                "savings": "Professionalism",
+                "impact": "Ensures customers always have the right contact, 100% of the time."
+            },
+            {
+                "text": "Using a 'One-Touch' rule for physical mail",
+                "savings": "Zero Batching",
+                "impact": "Decide: File, Action, or Trash immediately—don't let it pile up."
+            },
+            {
+                "text": "Using 'Reply All' only when 100% necessary",
+                "savings": "Team Focus",
+                "impact": "Reduces 'noise waste' for the entire company by 50%."
+            },
+            {
+                "text": "Standardizing your email subject lines (ACTION, INFO, URGENT)",
+                "savings": "3 mins / read",
+                "impact": "Saves 15 hours a year of 'what is this about?' scanning."
+            },
+            {
+                "text": "Using a physical 'Inbox' tray for all pending paperwork",
+                "savings": "Zero Clutter",
+                "impact": "Captures 100% of physical inputs in one visual location."
+            },
+            {
+                "text": "Setting a '5-Minute' rule for small tasks",
+                "savings": "Zero Procrastination",
+                "impact": "If it takes <5 mins, do it now—saves 40 hours of 're-thinking' a year."
+            },
+            {
+                "text": "Standardizing your 'Meeting Minutes' format",
+                "savings": "15 mins / meeting",
+                "impact": "Ensures 100% alignment on action items immediately."
+            },
+            {
+                "text": "Using 'Quick Parts' in Outlook for repetitive paragraphs",
+                "savings": "5 mins / email",
+                "impact": "Reclaims 2 full work weeks per year of typing overhead."
+            },
+            {
+                "text": "Labeling the 'Project' vs 'Reference' files in the cloud",
+                "savings": "Visual Clarity",
+                "impact": "Instantly identifies where active work lives—zero searching."
+            },
+            {
+                "text": "Standardizing the 'File Naming' for all team versions",
+                "savings": "Zero Overwriting",
+                "impact": "Prevents the 'I worked on the wrong version' catastrophe."
+            },
+            {
+                "text": "Using a 'Buffer' 5-min gap between all calendar invites",
+                "savings": "Zero Overlap",
+                "impact": "Reduces 'context-switching' stress for 250 work days a year."
+            },
+            {
+                "text": "Archiving 'Done' projects into a separate folder",
+                "savings": "System Speed",
+                "impact": "Keeps your 'active view' focused on the 20% that matters."
+            },
+            {
+                "text": "Using a 'Shared Clip' tool for team assets",
+                "savings": "10 mins / search",
+                "impact": "Saves 50 hours of 'Hey, where's the logo?' pings per year."
+            },
+            {
+                "text": "Setting your 'Deep Work' status in Slack/Teams",
+                "savings": "Zero Distraction",
+                "impact": "Reclaims 2 hours of 'maker time' daily from 'manager' pings."
+            },
+            {
+                "text": "Using 'Rules' to auto-sort your inbox as it arrives",
+                "savings": "Focused Inbox",
+                "impact": "Turns 100 emails into 10 'Urgent' ones instantly."
+            },
+            {
+                "text": "Standardizing the 'New Hire' onboarding checklist",
+                "savings": "20 hours / hire",
+                "impact": "Ensures 100% consistency and faster 'time to value'."
+            },
+            {
+                "text": "Using 'Pin' for your 3 most critical browser tabs",
+                "savings": "Zero Tab-Hunting",
+                "impact": "Saves 1 min every time you switch tasks—6 hours a year!"
+            },
+            {
+                "text": "Setting a 'Recurring' task for weekly system backups",
+                "savings": "Zero Risk",
+                "impact": "Protects 10,000 hours of work from a single drive failure."
+            },
+            {
+                "text": "Using 'Dark Mode' to reduce eye strain and battery waste",
+                "savings": "15% Battery Life",
+                "impact": "Improves 'focus endurance' for long coding or writing sessions."
+            },
+            {
+                "text": "Standardizing the 'Version Control' commit messages",
+                "savings": "Zero Confusion",
+                "impact": "Instantly identifies 'why' a change was made 6 months later."
+            },
+            {
+                "text": "Using 'Search' instead of 'Folder Drilling' (Win+S)",
+                "savings": "30 seconds / file",
+                "impact": "Saves 10 hours a year of 'clicking through the hierarchy'."
+            },
+            {
+                "text": "Deleting 10 gigabytes of 'temp' files today",
+                "savings": "System Performance",
+                "impact": "Speeds up every application launch by 2 seconds."
+            },
+            {
+                "text": "Using 'Dictation' for long-form brainstorming notes",
+                "savings": "3x Faster Entry",
+                "impact": "Captures the 'speed of thought' without the 'typing bottleneck'."
+            },
+            {
+                "text": "Standardizing the 'Team Signature' for uniformity",
+                "savings": "Brand Identity",
+                "impact": "Ensures every client interaction feels professional."
+            },
+            {
+                "text": "Using 'Focus Mode' (Win+N) during critical presentations",
+                "savings": "Zero Embarrassment",
+                "impact": "Prevents 'personal notification' pop-ups in front of stakeholders."
+            },
+            {
+                "text": "Shadow-boarding your 'Morning Routine' (gym, prep, coffee)",
+                "savings": "Zero Friction",
+                "impact": "Eliminates 'morning decision fatigue' entirely."
+            },
+            {
+                "text": "Standardizing your 'Evening Tidy-up' sequence",
+                "savings": "Calm Evenings",
+                "impact": "Resets the house to 'State A' for 365 productive mornings."
+            },
+            {
+                "text": "Using 'Batching' for all home errands (one loop)",
+                "savings": "2 hours / week",
+                "impact": "Reduces 'travel waste' and fuel costs by 30%."
+            },
+            {
+                "text": "Standardizing the 'Mail Processing' station by the door",
+                "savings": "Zero Pile-up",
+                "impact": "All paper is actioned or trashed within 60 seconds."
+            },
+            {
+                "text": "Using a 'Grocery Hub' (all food in one visual place)",
+                "savings": "Zero Over-buying",
+                "impact": "Saves $40/week in duplicate purchases and 'expired' food."
+            },
+            {
+                "text": "Shadow-boarding the 'Cleaning Cabinet' by frequency",
+                "savings": "3 mins / clean",
+                "impact": "Reduces the 'mental effort' barrier to keeping a tidy home."
+            },
+            {
+                "text": "Standardizing the 'Kid's Shoes' landing zone",
+                "savings": "Zero Morning Panic",
+                "impact": "Saves 5 mins of 'where's my other sneaker?' every day."
+            },
+            {
+                "text": "Using a 'Charging Valet' for all family phones at 8 PM",
+                "savings": "+2 Hours Sleep",
+                "impact": "Increases team sleep by 1,400 hours a year for the whole family."
+            },
+            {
+                "text": "Standardizing the 'Emergency Info' sheet on the fridge",
+                "savings": "Zero Delay",
+                "impact": "Ensures anyone can handle a crisis with 100% accuracy."
+            },
+            {
+                "text": "Using a 'Laundry Sort' bin with 3 compartments",
+                "savings": "Zero Batching",
+                "impact": "Eliminates the 'dump and sort' waste on Sunday nights."
+            },
+            {
+                "text": "Shadow-boarding the 'Pantry' with tiered risers",
+                "savings": "Visual Management",
+                "impact": "Instantly see inventory levels—reduces 'out-of-stock' stress."
+            },
+            {
+                "text": "Standardizing the 'Dog Walk' bag (leash, bags, treats)",
+                "savings": "Zero Search",
+                "impact": "Turns a chore into a 30-second seamless departure."
+            },
+            {
+                "text": "Using a 'Donation Station' in the garage (always ready)",
+                "savings": "Zero Clutter",
+                "impact": "Captures 'outgrown' items immediately—reclaims house volume."
+            },
+            {
+                "text": "Standardizing the 'Car Maintenance' digital log",
+                "savings": "+$1,000 Resale",
+                "impact": "Proves 100% maintenance history for the life of the vehicle."
+            },
+            {
+                "text": "Using a 'Smart Plug' to automate house lighting",
+                "savings": "3 mins / night",
+                "impact": "Reclaims 18 hours a year of 'checking the switches' rounds."
+            },
+            {
+                "text": "Standardizing the 'Key Landing' spot for 100% adherence",
+                "savings": "Zero Anxiety",
+                "impact": "Ends the 'where are my keys?' panic forever."
+            },
+            {
+                "text": "Implementing a 'Saturday Kaizen' (1 hour of improvement)",
+                "savings": "Compound Growth",
+                "impact": "Solves 52 major household annoyances every single year."
+            },
+            {
+                "text": "Using Kaizen Copilot to track your personal gains",
+                "savings": "Infinity",
+                "impact": "Turns every small win into a data-driven lifestyle revolution."
+            }
+        ],
+        "signage": {
+            "title": "Signage Hub",
+            "subtitle": "Plant-wide visual standards and vector assets.",
+            "sections": {
+                "plantsigns": "Plant Signs",
+                "departmentalsigns": "Departmental Signs",
+                "sitesigns": "Site Signs"
+            },
+            "categories": {
+                "plantsigns": "Plant Signs",
+                "departmentalsigns": "Departmental Signs",
+                "sitesigns": "Site Signs"
+            }
+        },
+        "executionHub": {
+            "title": "Execution Hub",
+            "desc": "Manage and track your active Kaizen projects.",
+            "activeProjects": "Active Projects",
+            "milestonesDone": "Milestones Done",
+            "submitJfi": "🚀 Submit JFI (Just Fix It)",
+            "gembaVideos": "📌 Gemba Videos",
+            "gembaDocs": "📑 GembaDocs",
+            "yourRoadmaps": "Your Roadmaps",
+            "startNewProject": "+ Start New Project",
+            "noProjectsTitle": "No projects active",
+            "noProjectsDesc": "Start a new Kaizen project to track observation, analysis, and implementation milestones.",
+            "createFirst": "Create Your First Project",
+            "backToGateway": "← Back to Portal Gateway",
+            "createNewRoadmap": "Create New Kaizen Roadmap",
+            "backToRoadmaps": "← Back to Roadmaps"
+        },
+        "projectDashboard": {
+            "overview": "📊 Overview",
+            "charter": "📝 Charter",
+            "actionItems": "📋 Action Items",
+            "reportOut": "📢 Report Out",
+            "overallProgress": "Overall Progress",
+            "milestones": "Milestones",
+            "day": "DAY",
+            "evidenceLog": "📎 Evidence Log",
+            "addObservation": "Add observation, note, or data point...",
+            "add": "Add",
+            "viewSpatial": "View Spatial Digital Twin",
+            "noEvidence": "No evidence captured for this phase yet.",
+            "rcaTitle": "💡 Root Cause Analysis",
+            "rcaDesc": "Attack the cause, not just the symptom, before implementing solutions.",
+            "runFiveWhys": "🤔 Run 5-Whys Analysis",
+            "recordTimeStudy": "⏱️ Record Time Study",
+            "suggestedTools": "🛠 Suggested Tools",
+            "noTools": "No specific tools recommended for this phase."
+        },
+        "actionItems": {
+            "quickAdd": "⚡ Quick Add Action",
+            "taskDesc": "Task Description",
+            "placeholder": "e.g., Order new bins for flow rack",
+            "owner": "Owner",
+            "ownerPlaceholder": "Name/Role",
+            "difficulty": "Difficulty",
+            "easy": "Easy (Quick Win)",
+            "medium": "Medium",
+            "hard": "Hard (Resource Heavy)",
+            "addTask": "Add Task",
+            "title": "Action Items",
+            "kanbanBoard": "Kanban Board",
+            "listView": "List View",
+            "velocityChart": "📈 Velocity Chart",
+            "todo": "To Do",
+            "doing": "In Progress",
+            "done": "Done",
+            "emptyBacklog": "Your backlog is empty",
+            "emptyDesc": "Add tasks above or generate some quick wins below.",
+            "impact": "Impact",
+            "deletePrompt": "Are you sure you want to delete this task?",
+            "inspiration": "Need Inspiration?"
+        },
+        "burndown": {
+            "title": "Project Velocity (14-Day Sprint)",
+            "tasksRemaining": "{{current}} / {{total}} Tasks Remaining",
+            "ideal": "Ideal Burndown",
+            "actual": "Actual Progress",
+            "empty": "Add items to your roadmap to generate a burndown chart.",
+            "day": "Day"
+        }
+    }
+}

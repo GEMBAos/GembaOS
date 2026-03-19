@@ -1,0 +1,66 @@
+name: "Compile iOS Spatial Core"
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+# The goal of this pipeline is to leverage GitHub's massive macOS runner fleet to silently 
+# compile our App and generate an unsigned Apple .ipa file we can sideload.
+jobs:
+  build-mac-ios:
+    runs-on: macos-latest
+    
+    steps:
+      - name: 1. Clone Repository
+        uses: actions/checkout@v4
+
+      - name: 2. Stand Up Build Matrix (Node 20)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 3. Install Capacitor Assets
+        run: npm ci || npm install
+        
+      - name: 4. Build Vite Web Execution Pack
+        run: npm run build
+        
+      - name: 5. Sync Assets into the iOS Xcode Wrapper
+        run: npx cap sync ios
+        
+      - name: 6. Xcode Fast Compile (Architecture Engine)
+        # We run this explicitly avoiding Code Signing. Because we are sideloading,
+        # we do not have (or need) a $99 Apple Developer paid certificate right now.
+        run: |
+          cd ios/App
+          xcodebuild \
+            -workspace App.xcworkspace \
+            -scheme App \
+            -configuration Release \
+            -arch arm64 \
+            -sdk iphoneos \
+            build \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED="NO" \
+            CODE_SIGN_ENTITLEMENTS="" \
+            CODE_SIGNING_ALLOWED="NO" \
+            COMPILER_INDEX_STORE_ENABLE=NO
+          
+      - name: 7. Pack Output into Physical .ipa Container
+        run: |
+          cd ios/App
+          # The exact path Xcode dumps into with raw build:
+          APP_PATH=$(find . -name "App.app" -type d | head -n 1)
+          
+          mkdir -p Payload
+          cp -r "$APP_PATH" Payload/
+          zip -r GembaOS_Spatial.ipa Payload
+          
+      - name: 8. Publish Artifact for User Download
+        uses: actions/upload-artifact@v4
+        with:
+          name: GembaOS-iPhone-Bundle
+          path: ios/App/GembaOS_Spatial.ipa
+          retention-days: 7

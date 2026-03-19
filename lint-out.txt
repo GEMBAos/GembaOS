@@ -1,0 +1,364 @@
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\AgentPanel.tsx
+  16:9  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\AgentPanel.tsx:16:9
+  14 |     useEffect(() => {
+  15 |         // Simulate AI loading / thinking
+> 16 |         setIsTyping(true);
+     |         ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  17 |         setAnalysis(null);
+  18 |
+  19 |         const timer = setTimeout(() => {  react-hooks/set-state-in-effect
+  25:8  warning  React Hook useEffect has a missing dependency: 'phase'. Either include it or remove the dependency array. If 'setAnalysis' needs the current value of 'phase', you can also switch to useReducer instead of useState and read 'phase' in the reducer                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    react-hooks/exhaustive-deps
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\ChatInterface.tsx
+  17:9   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\ChatInterface.tsx:17:9
+  15 |     // Initial greeting
+  16 |     useEffect(() => {
+> 17 |         setMessages([
+     |         ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  18 |             {
+  19 |                 id: '1',
+  20 |                 role: 'agent',  react-hooks/set-state-in-effect
+  93:43  error  'node' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+  94:44  error  'node' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\Dashboard.tsx
+  70:123  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\Dashboard.tsx:70:123
+  68 |                                                     const targ = parseFloat(project.kpis[0].target) || 100;
+  69 |                                                     const progressRatio = (i + 1) / project.phases.length;
+> 70 |                                                     const simulatedValue = base + ((targ - base) * progressRatio * (0.8 + Math.random() * 0.4)); // Some faux variation
+     |                                                                                                                           ^^^^^^^^^^^^^ Cannot call impure function
+  71 |                                                     return { day: p.day, value: Math.round(simulatedValue) };
+  72 |                                                 })
+  73 |                                             }  react-hooks/purity
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\HomeHub.tsx
+   5:24  error  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+  14:14  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\RoadmapView.tsx
+  97:80  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\charts\ProgressRing.tsx
+  17:9  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\charts\ProgressRing.tsx:17:9
+  15 |     useEffect(() => {
+  16 |         const progressOffset = circumference - (progress / 100) * circumference;
+> 17 |         setOffset(progressOffset);
+     |         ^^^^^^^^^ Avoid calling setState() directly within an effect
+  18 |     }, [setOffset, circumference, progress, offset]);
+  19 |
+  20 |     return (  react-hooks/set-state-in-effect
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\DiceFlowGame.tsx
+  24:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\DiceFlowGame.tsx:24:13
+  22 |     useEffect(() => {
+  23 |         if (stationC >= 1 && firstProductTime === null && isRunning) {
+> 24 |             setFirstProductTime(timeElapsed);
+     |             ^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  25 |         }
+  26 |         if (stationC === 10 && isRunning) {
+  27 |             setIsRunning(false);  react-hooks/set-state-in-effect
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx
+   45:27  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx:45:27
+  43 |         const fonts = ['"Times New Roman", serif', 'Georgia, serif', 'Arial, sans-serif', '"Courier New", monospace'];
+  44 |         for (let i = 1; i <= 100; i++) {
+> 45 |             const x = 5 + Math.random() * 90;
+     |                           ^^^^^^^^^^^^^ Cannot call impure function
+  46 |             const y = 5 + Math.random() * 90;
+  47 |             const rotation = (Math.random() - 0.5) * 90;
+  48 |             const scale = 0.6 + Math.random() * 1.4;                                                                                                                                                                                                                                                                                                                                                                                                                                                                  react-hooks/purity
+   46:27  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx:46:27
+  44 |         for (let i = 1; i <= 100; i++) {
+  45 |             const x = 5 + Math.random() * 90;
+> 46 |             const y = 5 + Math.random() * 90;
+     |                           ^^^^^^^^^^^^^ Cannot call impure function
+  47 |             const rotation = (Math.random() - 0.5) * 90;
+  48 |             const scale = 0.6 + Math.random() * 1.4;
+  49 |             const font = fonts[Math.floor(Math.random() * fonts.length)];                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               react-hooks/purity
+   47:31  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx:47:31
+  45 |             const x = 5 + Math.random() * 90;
+  46 |             const y = 5 + Math.random() * 90;
+> 47 |             const rotation = (Math.random() - 0.5) * 90;
+     |                               ^^^^^^^^^^^^^ Cannot call impure function
+  48 |             const scale = 0.6 + Math.random() * 1.4;
+  49 |             const font = fonts[Math.floor(Math.random() * fonts.length)];
+  50 |             const weight = [400, 700, 900][Math.floor(Math.random() * 3)];                                                                                                                                                                                                                                                                                                                                                                                                                                                                         react-hooks/purity
+   48:33  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx:48:33
+  46 |             const y = 5 + Math.random() * 90;
+  47 |             const rotation = (Math.random() - 0.5) * 90;
+> 48 |             const scale = 0.6 + Math.random() * 1.4;
+     |                                 ^^^^^^^^^^^^^ Cannot call impure function
+  49 |             const font = fonts[Math.floor(Math.random() * fonts.length)];
+  50 |             const weight = [400, 700, 900][Math.floor(Math.random() * 3)];
+  51 |             tiles.push({ id: i, value: i, x, y, rotation, scale, color: '#f8fafc', font, weight });                                                                                                                                                                                                                                                                                                                                                                                                                 react-hooks/purity
+   49:43  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx:49:43
+  47 |             const rotation = (Math.random() - 0.5) * 90;
+  48 |             const scale = 0.6 + Math.random() * 1.4;
+> 49 |             const font = fonts[Math.floor(Math.random() * fonts.length)];
+     |                                           ^^^^^^^^^^^^^ Cannot call impure function
+  50 |             const weight = [400, 700, 900][Math.floor(Math.random() * 3)];
+  51 |             tiles.push({ id: i, value: i, x, y, rotation, scale, color: '#f8fafc', font, weight });
+  52 |         }                                                                                                                                                                                                                                                                                                                                                                                                                                           react-hooks/purity
+   50:55  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx:50:55
+  48 |             const scale = 0.6 + Math.random() * 1.4;
+  49 |             const font = fonts[Math.floor(Math.random() * fonts.length)];
+> 50 |             const weight = [400, 700, 900][Math.floor(Math.random() * 3)];
+     |                                                       ^^^^^^^^^^^^^ Cannot call impure function
+  51 |             tiles.push({ id: i, value: i, x, y, rotation, scale, color: '#f8fafc', font, weight });
+  52 |         }
+  53 |         return tiles;                                                                                                                                                                                                                                                                                                                                                                                                                                                                  react-hooks/purity
+   88:13  error    Error: Cannot access variable before it is declared
+
+`endRound` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx:88:13
+  86 |         }
+  87 |         if (timeLeft === 0 && isRunning && phase !== 'round5' && phase !== 'round6') {
+> 88 |             endRound();
+     |             ^^^^^^^^ `endRound` accessed before it is declared
+  89 |         }
+  90 |         return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  91 |     }, [isRunning, timeLeft, phase]);
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx:109:5
+  107 |     };
+  108 |
+> 109 |     const endRound = () => {
+      |     ^^^^^^^^^^^^^^^^^^^^^^^^
+> 110 |         setIsRunning(false);
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 111 |         if (timerRef.current) clearInterval(timerRef.current);
+      ΓÇª
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 122 |         if (phase === 'round6') setPhase('results');
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 123 |     };
+      | ^^^^^^^ `endRound` is declared here
+  124 |
+  125 |     const handleTileClick = (val: number) => {
+  126 |         if (!isRunning || phase === 'round5' || phase === 'round6') return;  react-hooks/immutability
+   91:8   warning  React Hook useEffect has a missing dependency: 'endRound'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       react-hooks/exhaustive-deps
+   93:35  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-explicit-any
+  100:35  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx:100:35
+   98 |
+   99 |         if (newPhase === 'round5' || newPhase === 'round6') {
+> 100 |             const m1 = Math.floor(Math.random() * 49) + 1;
+      |                                   ^^^^^^^^^^^^^ Cannot call impure function
+  101 |             let m2 = Math.floor(Math.random() * 49) + 1;
+  102 |             while (m1 === m2) m2 = Math.floor(Math.random() * 49) + 1;
+  103 |             setMissingNumbers([m1, m2]);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          react-hooks/purity
+  101:33  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx:101:33
+   99 |         if (newPhase === 'round5' || newPhase === 'round6') {
+  100 |             const m1 = Math.floor(Math.random() * 49) + 1;
+> 101 |             let m2 = Math.floor(Math.random() * 49) + 1;
+      |                                 ^^^^^^^^^^^^^ Cannot call impure function
+  102 |             while (m1 === m2) m2 = Math.floor(Math.random() * 49) + 1;
+  103 |             setMissingNumbers([m1, m2]);
+  104 |             setFoundMissing([]);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           react-hooks/purity
+  102:47  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx:102:47
+  100 |             const m1 = Math.floor(Math.random() * 49) + 1;
+  101 |             let m2 = Math.floor(Math.random() * 49) + 1;
+> 102 |             while (m1 === m2) m2 = Math.floor(Math.random() * 49) + 1;
+      |                                               ^^^^^^^^^^^^^ Cannot call impure function
+  103 |             setMissingNumbers([m1, m2]);
+  104 |             setFoundMissing([]);
+  105 |         }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 react-hooks/purity
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\SimulationsHub.tsx
+  13:40  error  '_props' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\spatial\FloorPlanBuilder.tsx
+  149:13  error  Error: This value cannot be modified
+
+Modifying a value returned from 'useState()', which should not be modified directly. Use the setter function to update instead.
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\spatial\FloorPlanBuilder.tsx:149:13
+  147 |             }
+  148 |
+> 149 |             lastLine.points = [startX, startY, point.x, point.y];
+      |             ^^^^^^^^ `lines` cannot be modified
+  150 |
+  151 |             setLines(lines.slice(0, lines.length - 1).concat([lastLine]));
+  152 |         }  react-hooks/immutability
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\ActionItems.tsx
+  24:17  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\ActionItems.tsx:24:17
+  22 |         if (saved) {
+  23 |             try {
+> 24 |                 setItems(JSON.parse(saved));
+     |                 ^^^^^^^^ Avoid calling setState() directly within an effect
+  25 |             } catch (e) {
+  26 |                 console.error("Failed to load Action Items", e);
+  27 |             }  react-hooks/set-state-in-effect
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\KPITracker.tsx
+  18:17  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\KPITracker.tsx:18:17
+  16 |         if (saved) {
+  17 |             try {
+> 18 |                 setKpis(JSON.parse(saved));
+     |                 ^^^^^^^ Avoid calling setState() directly within an effect
+  19 |             } catch (e) {
+  20 |                 console.error("Failed to load KPIs", e);
+  21 |             }  react-hooks/set-state-in-effect
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\LeanAcademy.tsx
+  117:19  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\LeanAcademy.tsx:117:19
+  115 |         const savedProgress = localStorage.getItem('kaizen_academy_progress');
+  116 |         if (savedProgress) {
+> 117 |             try { setCompletedModules(JSON.parse(savedProgress)); } catch (e) { console.error(e); }
+      |                   ^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  118 |         }
+  119 |
+  120 |         const savedSubmissions = localStorage.getItem('kaizen_academy_submissions');  react-hooks/set-state-in-effect
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\ProcessMap.tsx
+   18:17   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\ProcessMap.tsx:18:17
+  16 |         if (saved) {
+  17 |             try {
+> 18 |                 setNodes(JSON.parse(saved));
+     |                 ^^^^^^^^ Avoid calling setState() directly within an effect
+  19 |             } catch (e) {
+  20 |                 console.error("Failed to load process map data", e);
+  21 |             }  react-hooks/set-state-in-effect
+  118:125  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-explicit-any
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\TimeStudy.tsx
+  42:36  error  Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\TimeStudy.tsx:42:36
+  40 |     const startTimer = () => {
+  41 |         if (!isRunning) {
+> 42 |             startTimeRef.current = Date.now() - (elapsedTime * 1000);
+     |                                    ^^^^^^^^^^ Cannot call impure function
+  43 |             timerRef.current = window.setInterval(() => {
+  44 |                 if (startTimeRef.current) {
+  45 |                     setElapsedTime((Date.now() - startTimeRef.current) / 1000);  react-hooks/purity
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\ValueStreamMap.tsx
+  32:57  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     @typescript-eslint/no-explicit-any
+  39:21  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\ValueStreamMap.tsx:39:21
+  37 |                         wip: s.wip || 0
+  38 |                     }));
+> 39 |                     setSteps(loaded);
+     |                     ^^^^^^^^ Avoid calling setState() directly within an effect
+  40 |                 }
+  41 |             } catch (e) {
+  42 |                 console.error("Failed to load VSM data", e);  react-hooks/set-state-in-effect
+
+Γ£û 33 problems (31 errors, 2 warnings)
+

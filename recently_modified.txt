@@ -1,0 +1,10 @@
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\motion_v2\MotionParticipantJoin.tsx
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\OperatingRoom.tsx
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\services\ImprovementEngine.ts
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\motion_v2\MotionMappingV2.tsx
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\kaizen\KaizenSessionHub.tsx
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\App.tsx
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\motion_v2\MotionParticipantPathing.tsx
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\kaizen\KaizenSessionCreator.tsx
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\index.css
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\motion_v2\MotionHostActive.tsx

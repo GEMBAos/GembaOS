@@ -1,0 +1,1103 @@
+{
+    "translation": {
+        "auth": {
+            "loginTitle": "Bienvenido de Nuevo",
+            "loginDesc": "Inicia sesión para sincronizar tu progreso.",
+            "signUpTitle": "Crear Cuenta",
+            "signUpDesc": "Únete al movimiento Kaizen.",
+            "login": "Iniciar Sesión",
+            "signUp": "Registrarse",
+            "logout": "Cerrar Sesión",
+            "profile": "Perfil",
+            "rank": "Rango",
+            "streak": "Racha",
+            "admin": "Admin"
+        },
+        "nav": {
+            "home": "Inicio",
+            "mobile": "Móvil",
+            "spatial": "Espacial",
+            "simulations": "Simulaciones",
+            "projects": "Proyectos",
+            "tools": "Herramientas",
+            "academy": "Academia",
+            "audit": "Audit Hub",
+            "signage": "Signage Hub",
+            "community": "Comunidad",
+            "training": "Entrenamiento",
+            "execution": "Ejecución",
+            "activeProject": "Proyecto Activo"
+        },
+        "modules": "Módulos Activos",
+        "beta": "Launch Beta",
+        "dashboard": {
+            "title": "Proyectos y Ejecución",
+            "desc": "Estatutos, Cronogramas, Informes"
+        },
+        "spatial": {
+            "title": "Herramientas Espaciales y GPS",
+            "desc": "Rastreo de movimiento y Planos"
+        },
+        "vsm": {
+            "title": "Mapeo de la Cadena de Valor",
+            "desc": "Mapear procesos y tiempos de espera globales"
+        },
+        "kpi": {
+            "title": "Rastreador de KPI / Datos en Vivo",
+            "desc": "Registrar producción horaria y ritmo laboral"
+        },
+        "fivewhys": {
+            "title": "Investigador de 5 Porqués",
+            "desc": "Resolver causas raíz permanentemente"
+        },
+        "simulations": {
+            "title": "Centro de Simulaciones Lean",
+            "desc": "Principios interactivos y minijuegos"
+        },
+        "macro": {
+            "title": "Constructor de Macros de PC",
+            "badge": "NUEVO",
+            "desc": "Auto-generar acciones de Stream Deck para procesos digitales"
+        },
+        "padlet": {
+            "submitTitle": "Enviar Observación JFI",
+            "submitDesc": "Ves un problema fácil? Archiva una observación rápida y ponla en la cola de prioridades.",
+            "submitBtn": "Enviar Formulario →",
+            "padletTitle": "Revisión de Ideas",
+            "padletDesc": "Revisa y vota las ideas enviadas por el equipo en el muro virtual interactivo.",
+            "padletBtn": "Abrir Padlet Board →"
+        },
+        "jfi": {
+            "title": "Enviar un JFI",
+            "desc": "Registrar mejoras y ganar experiencia (XP)"
+        },
+        "promo": {
+            "featured": "Módulo Destacado",
+            "launch": "¡Probar Ahora!",
+            "boardgame": {
+                "title": "NUEVO: Juego de Mesa de Procesos",
+                "desc": "Experimente el verdadero costo del desperdicio de movimiento en nuestra nueva simulación interactiva de dados. ¡Tira para producir!"
+            },
+            "bottleneck": {
+                "title": "Encuentra el Cuello de Botella",
+                "desc": "Aplica la Teoría de Restricciones. ¿Puedes analizar los tiempos de ciclo del proceso e identificar el verdadero límite del rendimiento?"
+            },
+            "macro": {
+                "title": "Constructor de Macros de PC",
+                "desc": "Automatiza tareas digitales repetitivas al instante. Genera guiones de acción múltiple para trabajo estándar de PC."
+            },
+            "spot": {
+                "title": "Detecta el Desperdicio (DOWNTIME)",
+                "desc": "¿Puedes identificar los 8 tipos de desperdicio Lean en nuestra última simulación de observación visual? ¡Agudiza tus 'ojos Lean' ahora!"
+            }
+        },
+        "sidebar": {
+            "leaderStats": "Estadísticas",
+            "activeStreak": "Días Seguídos JFI",
+            "submissionStreak": "Racha de Envíos Activa",
+            "personalBest": "Mejor Personal",
+            "xp": "Puntos de Mejora",
+            "points_awarded": "+{{points}} Puntos de Mejora",
+            "days": "{{count}} Días",
+            "padlet": "📌 Tablero Padlet",
+            "submitJfi": "📝 Enviar JFI y Subir Racha",
+            "launchMobile": "🌐 Iniciar Túnel Móvil",
+            "starting": "Iniciando..."
+        },
+        "hub": {
+            "savings": "Ahorro",
+            "impact": "Impacto",
+            "nextQuote": "Siguiente Frase"
+        },
+        "sim": {
+            "5s": {
+                "start": "INICIAR",
+                "restart": "Reiniciar Simulación",
+                "complete": "¡Kaizen Completado!",
+                "lessons": "Lecciones Aprendidas",
+                "identify": "¡Identifica los 2 Números Faltantes!",
+                "find": "Buscar",
+                "r1": {
+                    "title": "Ronda 1: Caos",
+                    "desc": "Números 1-100 están dispersos. Sin organización. ¿Puedes encontrar 49 en orden?"
+                },
+                "r2": {
+                    "title": "Ronda 2: Clasificar (Seiri)",
+                    "desc": "Eliminando el \"Muda\". Los números 50-100 han desaparecido. ¿Mejora tu velocidad?"
+                },
+                "r3": {
+                    "title": "Ronda 3: Gestión Visual",
+                    "desc": "Añadiendo una cuadrícula de 3x3 para ayudar a la búsqueda por regiones."
+                },
+                "r4": {
+                    "title": "Ronda 4: Estandarizar (Seiketsu)",
+                    "desc": "Una cuadrícula perfecta. Máxima eficiencia."
+                },
+                "r5": {
+                    "title": "Ronda 5: Detección (Caos)",
+                    "desc": "Faltan 2 números en la vista caótica. Temporizador ascendente."
+                },
+                "r6": {
+                    "title": "Ronda 6: Detección (Estándar)",
+                    "desc": "Faltan 2 números en la cuadrícula perfecta. Retroalimentación instantánea."
+                },
+                "lesson1": {
+                    "title": "Clasificar",
+                    "desc": "Eliminar lo que no necesitas (50-100) aclara instantáneamente el \"área de trabajo\"."
+                },
+                "lesson2": {
+                    "title": "Orden",
+                    "desc": "La cuadrícula estándar eliminó el desperdicio de búsqueda y movimiento."
+                },
+                "lesson3": {
+                    "title": "Controles Visuales",
+                    "desc": "Identificar un elemento faltante en una cuadrícula tomó {{timeStandard}}s vs {{timeChaos}}s en el caos. Por esto funcionan los tableros de sombras."
+                }
+            },
+            "spot": {
+                "title": "Detecta el Desperdicio",
+                "intro": "Observe el área de trabajo con cuidado. ¿Puedes detectar los desperdicios DOWNTIME ocultos? Haz clic en las partes de la imagen donde veas ineficiencias.",
+                "start": "INICIAR OBSERVACIÓN",
+                "complete": "¡Observación Completada!",
+                "success": "Has identificado con éxito las {{count}} formas de desperdicio en esta área.",
+                "active": "Modo Observación Activo",
+                "found": "Desperdicios Encontrados",
+                "detected": "{{type}} Detectado",
+                "continue": "CONTINUAR OBSERVACIÓN",
+                "restart": "Jugar de Nuevo"
+            },
+            "gps": {
+                "title": "Rastreador de Movimiento GPS",
+                "subtitle": "Rastrea automáticamente su ruta al caminar vía GPS móvil",
+                "start": "Iniciar Rastreo GPS",
+                "stop": "Detener Rastreo",
+                "metrics": "Métricas en Vivo",
+                "curDist": "Distancia de Ruta Actual",
+                "roiCalc": "Calculadora de ROI",
+                "export": "Exportar Reporte PDF"
+            }
+        },
+        "spatial_hub": {
+            "title": "Perspective Hub",
+            "subtitle": "Gestión avanzada de espacios, constructores de diseño y seguimiento de movimiento.",
+            "categories": {
+                "design": "🏗️ Diseño y Diseño",
+                "motion": "👣 Análisis y Movimiento"
+            },
+            "tools": {
+                "floorplan": {
+                    "title": "Constructor de Planos 2D",
+                    "desc": "Arrastrar y soltar equipos y estaciones de trabajo"
+                },
+                "lidar": {
+                    "title": "Visor LiDAR 3D",
+                    "desc": "Inspeccionar gemelos digitales (.glb/.gltf)"
+                },
+                "drone": {
+                    "title": "Dron a 3D",
+                    "desc": "Convertir video de sobrevuelo en modelo 3D"
+                },
+                "gps": {
+                    "title": "Rastreador de Espagueti GPS",
+                    "desc": "Seguimiento de movimiento en vivo vía GPS móvil"
+                },
+                "manual": {
+                    "title": "Rastreador 2D Manual",
+                    "desc": "Dibujar rutas manualmente en un plano de planta"
+                }
+            },
+            "back": "← Volver al Hub"
+        },
+        "feedback": {
+            "button": "COMENTARIOS BETA",
+            "title": "¡Valoramos tu opinión!",
+            "desc": "Tus comentarios nos ayudan a construir la herramienta definitiva para líderes Lean.",
+            "type": "Tipo de Comentario",
+            "types": {
+                "bug": "🐞 Error / Problema",
+                "idea": "💡 Idea de Mejora",
+                "question": "❓ Pregunta"
+            },
+            "message": "Tu Mensaje",
+            "placeholder": "Describe lo que pasó o tu idea aquí...",
+            "submit": "Enviar Comentarios",
+            "successTitle": "¡Gracias!",
+            "successDesc": "Tus comentarios han sido registrados. ¡Sigamos haciendo kaizen!"
+        },
+        "portal": {
+            "jfiTitle": "Enviar un JFI",
+            "jfiDesc": "Envía tu idea de mejora \"Just Fix It\" en 2 segundos.",
+            "gembaTitle": "Videos de Gemba",
+            "gembaDesc": "Enlace a todos los videos de todo el mundo.",
+            "executionTitle": "Centro de Ejecución",
+            "executionDesc": "Gestión de proyectos, cronogramas y tareas diarias.",
+            "perspectiveTitle": "Perspective Hub",
+            "perspectiveDesc": "Escaneo 3D, planos de planta y análisis de seguimiento de movimiento.",
+            "trainingTitle": "Centro de Entrenamiento",
+            "trainingDesc": "Domina los principios Lean a través de simulaciones y cursos de la academia.",
+            "communityTitle": "Centro de Comunidad",
+            "communityDesc": "Conéctate con expertos Lean y comparte trucos de estilo de vida.",
+            "firstTimeTitle": "¿Primera vez aquí?",
+            "executionGuide": "Inicia un **Estatuto de Proyecto** en el Centro de Ejecución para establecer tus objetivos.",
+            "spatialGuide": "Captura tu estado actual usando las **Herramientas Espaciales** para encontrar desperdicios.",
+            "trainingGuide": "Juega una **Simulación** para aprender a eliminar los desperdicios que encontraste.",
+            "mobileTitle": "Conexión Móvil",
+            "mobileDesc": "Escanea esto para acceder a Kaizen Copilot en tu dispositivo móvil (debe estar en la misma red).",
+            "publicTunnel": "Túnel Público (Acceso Remoto)",
+            "auditTitle": "Centro de Auditoría (Kamishibai)",
+            "auditDesc": "Crea y voltea tarjetas de tareas TPM imprimibles.",
+            "signageTitle": "Centro de Señalización",
+            "signageDesc": "Estándares visuales de toda la planta y activos vectoriales.",
+            "shareTitle": "Compartir GembaOS",
+            "shareDesc": "Invita a tu equipo a través de un código QR o un enlace promocional directo.",
+            "lswTitle": "Constructor de Trabajo Estándar",
+            "lswDesc": "Diseña un presupuesto de tiempo de liderazgo diario y semanal.",
+            "qrTitle": "Compartir GembaOS 🚀",
+            "qrDesc": "Escanea este código QR o copia el enlace a continuación para invitar a tu equipo. El enlace abre nuestra página promocional Top 5.",
+            "promoPage": "Página Promocional",
+            "copyLink": "Copiar Enlace",
+            "directApp": "Aplicación Directa (Beta)",
+            "close": "Cerrar"
+        },
+        "quotes": [
+            {
+                "text": "Buscar las llaves del auto por 2 minutos cada mañana",
+                "savings": "12 horas ahorradas al año",
+                "impact": "Equivale a un día entero de tiempo libre recuperado anualmente."
+            },
+            {
+                "text": "Pre-clasificar la ropa en blancos y oscuros en el punto de uso",
+                "savings": "15 min / semana",
+                "impact": "Ahorra 13 horas al año de esfuerzo de clasificación por lotes."
+            },
+            {
+                "text": "Poner las llaves del auto exactamente en el mismo gancho todos los días",
+                "savings": "10 horas ahorradas al año",
+                "impact": "Recupera 2 mañanas de sábado completas dedicadas a buscar entre los cojines del sofá."
+            },
+            {
+                "text": "Organizar el refrigerador para que la leche más vieja esté siempre a la izquierda",
+                "savings": "30 min ahorrados al año",
+                "impact": "Evita sorpresas de leche en mal estado manteniendo las fechas visibles."
+            },
+            {
+                "text": "Preparar la ropa para entrenar junto a la cama por la noche",
+                "savings": "5 min / mañana",
+                "impact": "Recupera 30 horas de fatiga por decisión matutina al año."
+            },
+            {
+                "text": "Usar una 'zona de aterrizaje' dedicada para el correo y las facturas",
+                "savings": "1 hora / mes",
+                "impact": "Elimina cargos por pagos tardíos y el estrés de perder documentos críticos."
+            },
+            {
+                "text": "Preparar comidas por solo 1 hora los domingos por la tarde",
+                "savings": "5 horas / semana",
+                "impact": "Ahorra 260 horas al año, ¡equivalente a 10 días completos de tiempo!"
+            },
+            {
+                "text": "Cargar todos los dispositivos en una única estación de acoplamiento nocturna",
+                "savings": "5 min / día",
+                "impact": "Termina con el pánico de '¿dónde está mi cargador?' para siempre."
+            },
+            {
+                "text": "Mantener una pequeña bolsa de basura en el compartimento de la puerta del auto",
+                "savings": "10 min / semana",
+                "impact": "Evita la gran limpieza del auto cada fin de semana."
+            },
+            {
+                "text": "Estandarizar el estante de especias de la cocina por frecuencia de uso",
+                "savings": "10 min / semana",
+                "impact": "Reduce el desperdicio de búsqueda en 8 horas anuales mientras cocina."
+            },
+            {
+                "text": "Poner la alarma matutina a 15 metros de distancia de la cama",
+                "savings": "Sin desperdicio de Snooze",
+                "impact": "Elimina 30 horas de 'deriva' al año; productividad inmediata."
+            },
+            {
+                "text": "Darse de baja de 10 correos electrónicos basura de tiendas hoy mismo",
+                "savings": "3 min / día",
+                "impact": "Ahorra 18 horas de tiempo de clasificación digital al año."
+            },
+            {
+                "text": "Crear una 'caja de donaciones' en el armario para la clasificación inmediata",
+                "savings": "2 horas / mes",
+                "impact": "Elimina por completo el estrés de ordenar los domingos."
+            },
+            {
+                "text": "Usar contenedores transparentes para almacenamiento estacional con etiquetas grandes",
+                "savings": "2 horas / temporada",
+                "impact": "Ahorra 8 horas al año de hurgar buscando equipo festivo."
+            },
+            {
+                "text": "Automatizar 5 pagos de facturas mensuales",
+                "savings": "30 min / mes",
+                "impact": "6 horas al año recuperadas para centrarse en metas personales de alto valor."
+            },
+            {
+                "text": "Poner un bolígrafo magnético para la lista de compras en el refrigerador",
+                "savings": "3 min / lista",
+                "impact": "Captura el 100% de las necesidades de despensa sin caminar a la oficina."
+            },
+            {
+                "text": "Sincronizar los calendarios familiares en una aplicación digital compartida",
+                "savings": "2 horas / mes",
+                "impact": "Elimina 24 conflictos de programación familiar al año."
+            },
+            {
+                "text": "Etiquetar los cables de alimentación misteriosos en el cajón de los cables",
+                "savings": "1 hora / año",
+                "impact": "Evita la catástrofe de 'desconecté lo que no era'."
+            },
+            {
+                "text": "Mantener un conjunto de ropa de gimnasio pre-empacada en el maletero",
+                "savings": "20 min / entrenamiento",
+                "impact": "Elimina la fricción de 'tener que ir a casa', aumentando la salud en un 50%."
+            },
+            {
+                "text": "Guardar la aspiradora en el piso principal de la vivienda",
+                "savings": "5 min / uso",
+                "impact": "Duplica la frecuencia de limpieza con un 50% menos de esfuerzo."
+            },
+            {
+                "text": "Digitalizar todos los recibos de papel inmediatamente con la cámara del teléfono",
+                "savings": "10 horas / temporada de impuestos",
+                "impact": "Convierte la preparación de impuestos de una pesadilla en una tarea de 15 minutos."
+            },
+            {
+                "text": "Usar una regla de 'uno entra, uno sale' para cada prenda nueva",
+                "savings": "4 horas / año",
+                "impact": "Mantiene la capacidad del armario con cero esfuerzo extra de organización."
+            },
+            {
+                "text": "Tableros de sombras para las herramientas más usadas en el garaje",
+                "savings": "15 min / proyecto",
+                "impact": "Ahorra 4 días de trabajo completos en 5 años de búsqueda de herramientas."
+            },
+            {
+                "text": "Preparar las mochilas de los niños a las 7 PM en punto",
+                "savings": "10 min / mañana",
+                "impact": "Asegura que no haya tareas olvidadas y un comienzo tranquilo durante 180 días."
+            },
+            {
+                "text": "Mantener un paraguas pequeño junto a cada puerta de salida",
+                "savings": "5 min / tormenta",
+                "impact": "Recupera 2 horas al año que de otro modo se pasarían secándose o buscando."
+            },
+            {
+                "text": "Comprar consumibles del hogar (jabón, papel higiénico) en lotes de 6 meses",
+                "savings": "12 horas / año",
+                "impact": "Elimina 12 viajes de emergencia a la tienda por olvidos."
+            },
+            {
+                "text": "Doblar la ropa mientras la secadora aún está caliente",
+                "savings": "10 min / carga",
+                "impact": "Elimina la necesidad de planchar el 90% de tu vestuario."
+            },
+            {
+                "text": "Configurar un contenedor de 'devolución a la tienda' en el maletero del auto",
+                "savings": "2 horas / mes",
+                "impact": "Asegura que el 100% de las devoluciones ocurran durante los recados normales."
+            },
+            {
+                "text": "Agrupar aplicaciones similares en carpetas en la pantalla de inicio del teléfono",
+                "savings": "1 min / búsqueda",
+                "impact": "Ahorra 6 horas al año de fatiga por desplazamiento sin sentido."
+            },
+            {
+                "text": "Hacer un 'orden de 10 minutos' cada noche en familia",
+                "savings": "1 hora / mañana",
+                "impact": "Recupera 365 horas de productividad matutina para el hogar."
+            },
+            {
+                "text": "Imprimir una hoja de información Wi-Fi para invitados",
+                "savings": "5 min / invitado",
+                "impact": "Ahorra 2 horas al año de soporte técnico repetitivo."
+            },
+            {
+                "text": "Limpiar la ducha con un escurridor diariamente después de su uso",
+                "savings": "30 min / semana",
+                "impact": "Ahorra 26 horas al año de mantenimiento de 'limpieza profunda'."
+            },
+            {
+                "text": "Adelantar todos los relojes de la casa 5 minutos",
+                "savings": "Puntualidad",
+                "impact": "Elimina el estrés del 'impuesto por llegada tarde' en tu reputación."
+            },
+            {
+                "text": "Equipar tu bolso de mano con artículos de aseo permanentes",
+                "savings": "20 min / viaje",
+                "impact": "Elimina la ansiedad de '¿empqué el cepillo de dientes?' en cada viaje."
+            },
+            {
+                "text": "Organizar el congelador por tipo de proteína con etiquetas claras",
+                "savings": "2 min / cena",
+                "impact": "Ahorra 12 horas al año de 'adivinar qué hay en el papel de aluminio'."
+            },
+            {
+                "text": "Usar un correo electrónico 'desechable' para registros únicos",
+                "savings": "Cero Spam",
+                "impact": "Mantiene limpia tu bandeja de entrada principal, ahorrando 15 horas de limpieza al año."
+            },
+            {
+                "text": "Programar todas las citas médicas en un solo bloque",
+                "savings": "3 horas / año",
+                "impact": "Reduce el desperdicio de viaje en un 50% para los chequeos anuales."
+            },
+            {
+                "text": "Pre-picar verduras durante 15 minutos después de las compras",
+                "savings": "5 min / comida",
+                "impact": "Hace que la cocina saludable sea el 'camino de menor resistencia' diario."
+            },
+            {
+                "text": "Estandarizar tu cafetera la noche anterior",
+                "savings": "3 min / mañana",
+                "impact": "18 horas al año recuperadas para enfocarse antes de que comience el día."
+            },
+            {
+                "text": "Usar una única lista de compras maestra compartida en tu teléfono",
+                "savings": "15 min / viaje",
+                "impact": "Ahorra 35 horas al año de 'volver atrás' por los pasillos."
+            },
+            {
+                "text": "Codificar por colores las toallas de baño de la familia",
+                "savings": "Sin confusión",
+                "impact": "Reduce el volumen de lavandería en un 20% al evitar lavados de toallas 'limpias'."
+            },
+            {
+                "text": "Implementar una regla de 'esperar 24 horas' para compras en línea",
+                "savings": "$1,200 / año",
+                "impact": "Elimina el 'desperdicio por impulso' y preserva 10 horas de esfuerzo de devolución."
+            },
+            {
+                "text": "Usar un asistente de voz para establecer recordatorios inmediatos",
+                "savings": "Cero olvidos",
+                "impact": "Captura el 100% de las tareas en el momento que surgen, sin 'volver a pensarlas'."
+            },
+            {
+                "text": "Pre-llenar el depósito de agua de la cafetera",
+                "savings": "2 min / mañana",
+                "impact": "Reduce el desperdicio de 'torpeza matutina' en 12 horas anuales."
+            },
+            {
+                "text": "Guardar las herramientas de jardín en un soporte vertical de pared",
+                "savings": "5 min / corte",
+                "impact": "Recupera el espacio del suelo y 2 horas al año de 'reordenar'."
+            },
+            {
+                "text": "Crear una carpeta digital de 'referencia' para manuales de instrucciones",
+                "savings": "20 min / búsqueda",
+                "impact": "Elimina el desorden de papel físico en la oficina."
+            },
+            {
+                "text": "Estandarizar la ubicación de tu bolsa de gimnasio en el pasillo",
+                "savings": "3 min / día",
+                "impact": "Reduce la barrera de 'búsqueda' para hacer ejercicio en 18 horas al año."
+            },
+            {
+                "text": "Revisar la presión de los neumáticos del auto mensualmente",
+                "savings": "3% eficiencia de combustible",
+                "impact": "Ahorra $150 y 2 horas de tiempo de 'reparación de emergencia' al año."
+            },
+            {
+                "text": "Usar un cepillo con jabón incorporado para enjuagues rápidos",
+                "savings": "5 min / día",
+                "impact": "Evita la acumulación de platos sucios limpiando sobre la marcha."
+            },
+            {
+                "text": "Consolidar todo el correo de papel en una aplicación de escaneo digital",
+                "savings": "4 horas / mes",
+                "impact": "Recupera 48 horas de dolor de cabeza por archivar papeles cada año."
+            },
+            {
+                "text": "Apagar todas las notificaciones telefónicas que no sean de humanos",
+                "savings": "30 min / día",
+                "impact": "Recupera 180 horas al año de 'desperdicio por distracción' y enfoque."
+            },
+            {
+                "text": "Usar un gestor de contraseñas para todos los inicios de sesión digitales",
+                "savings": "5 min / semana",
+                "impact": "Elimina los bucles de 'restablecer contraseña' y 4 horas de frustración anual."
+            },
+            {
+                "text": "Limpiar la carpeta de descargas de tu computadora cada viernes",
+                "savings": "10 min / semana",
+                "impact": "Ahorra 8 horas al año buscando 'ese archivo'."
+            },
+            {
+                "text": "Configurar una carpeta de 'leer más tarde' para artículos web",
+                "savings": "20 min / día",
+                "impact": "Recupera 120 horas de tiempo productivo diurno de lecturas interminables."
+            },
+            {
+                "text": "Usar atajos de 'reemplazo de texto' para tu dirección de correo",
+                "savings": "10 segundos / uso",
+                "impact": "Ahorra 2 horas al año de escritura repetitiva en dispositivos móviles."
+            },
+            {
+                "text": "Archivar hoy mismo todos los correos de más de 30 días",
+                "savings": "Cero ruido visual",
+                "impact": "Reduce la 'ansiedad por la bandeja de entrada' y recupera 15 min de clasificación diaria."
+            },
+            {
+                "text": "Estandarizar tu convención de nombres de archivos (AAAA-MM-DD)",
+                "savings": "5 min / búsqueda",
+                "impact": "Ahorra 10 horas al año de desperdicio de '¿qué versión es esta?'."
+            },
+            {
+                "text": "Usar dos monitores para el trabajo de oficina o pasatiempos",
+                "savings": "Tareas 10% más rápidas",
+                "impact": "Recupera 200 horas al año de cambio de ventanas y pestañas."
+            },
+            {
+                "text": "Escribir plantillas de respuesta para preguntas comunes",
+                "savings": "5 min / correo",
+                "impact": "Ahorra 40 horas al año de 'reinventar la rueda' para los mensajes."
+            },
+            {
+                "text": "Establecer un 'resumen programado' para las notificaciones del teléfono",
+                "savings": "Mañanas enfocadas",
+                "impact": "Agrupar 50 interrupciones en 1 ahorra 45 min de enfoque diario."
+            },
+            {
+                "text": "Cancelar hoy mismo 3 suscripciones digitales no utilizadas",
+                "savings": "$450 / año",
+                "impact": "Ahorra la 'carga mental' de seguir 3 gastos innecesarios."
+            },
+            {
+                "text": "Usar un acceso directo fijado para tus 5 carpetas más usadas",
+                "savings": "2 min / búsqueda",
+                "impact": "Ahorra 12 horas al año navegando por rutas de archivos profundas."
+            },
+            {
+                "text": "Establecer una hora de 'ocaso digital' para todas las pantallas",
+                "savings": "+1 hora de sueño",
+                "impact": "Mejora los niveles de energía diarios en un 20% mediante un mejor descanso."
+            },
+            {
+                "text": "Usar una aplicación de tareas dedicada en lugar de notas adhesivas",
+                "savings": "Cero tareas perdidas",
+                "impact": "Elimina la 'búsqueda del tesoro' de listas de papel perdidas."
+            },
+            {
+                "text": "Agrupar todo el uso de redes sociales en 2 bloques de tiempo",
+                "savings": "1 hora / día",
+                "impact": "¡Recupera 365 horas —más de 15 días completos— al año!"
+            },
+            {
+                "text": "Estandarizar el fondo de pantalla de tu computadora a algo neutro",
+                "savings": "Cero distracción",
+                "impact": "Mejora el enfoque al iniciar la mañana en 5 minutos."
+            },
+            {
+                "text": "Usar un cartel físico de 'no molestar' para el trabajo profundo",
+                "savings": "Cero interrupciones",
+                "impact": "Ahorra 20 min de 'tiempo de recuperación' por cada interrupción evitada."
+            },
+            {
+                "text": "Aprender 5 atajos de teclado para tu aplicación más usada",
+                "savings": "2 segundos / acción",
+                "impact": "Ahorra 15 horas al año de desperdicio por 'desplazamiento del mouse'."
+            },
+            {
+                "text": "Vaciar la papelera de reciclaje de tu computadora cada lunes por la mañana",
+                "savings": "Velocidad del sistema",
+                "impact": "Evita emergencias de 'disco lleno' en momentos críticos del proyecto."
+            },
+            {
+                "text": "Usar 'fijar al principio' para tu carpeta de proyecto activa",
+                "savings": "1 min / acceso",
+                "impact": "Ahorra 5 horas al año de navegar entre directorios."
+            },
+            {
+                "text": "Auto-alojar una 'wiki personal' para el conocimiento familiar",
+                "savings": "15 min / búsqueda",
+                "impact": "Elimina el ciclo de 'Mamá, ¿dónde está...?' para siempre."
+            },
+            {
+                "text": "Auditar la lista de contactos de tu teléfono buscando duplicados",
+                "savings": "Comunicaciones fluidas",
+                "impact": "Ahorra 2 horas al año de desperdicio por 'enviar mensajes al número equivocado'."
+            },
+            {
+                "text": "Usar un temporizador 'Pomodoro' para ráfagas enfocadas de 25 min",
+                "savings": "25% mayor rendimiento",
+                "impact": "Logra 8 horas de trabajo en 6 mediante un enfoque extremo."
+            },
+            {
+                "text": "Configurar una carpeta de 'plantillas' para tipos de documentos comunes",
+                "savings": "10 min / doc",
+                "impact": "Ahorra 20 horas al año de formateo y 'empezar de cero'."
+            },
+            {
+                "text": "Desvincula tus redes sociales del navegador de trabajo",
+                "savings": "Cero tentación",
+                "impact": "Elimina 30 horas de 'micro-procrastinación' anualmente."
+            },
+            {
+                "text": "Estandarizar el tamaño de los contenedores para 'sobras'",
+                "savings": "Cero desperdicio de Tetris",
+                "impact": "Ahorra 5 min de 'reorganización del refrigerador' cada noche."
+            },
+            {
+                "text": "Usar una 'estación de pan' dedicada con tostadora y mermelada",
+                "savings": "2 min / desayuno",
+                "impact": "Recupera 12 horas al año de 'deambular por la cocina' buscando suministros."
+            },
+            {
+                "text": "Enjuagar previamente los platos y apilarlos por tamaño para el lavavajillas",
+                "savings": "10 min / carga",
+                "impact": "Aumenta la capacidad del lavavajillas en un 20% y ahorra 30 horas al año."
+            },
+            {
+                "text": "Almacenar contenedores pesados de harina y azúcar sobre rodillos extraíbles",
+                "savings": "80% menos levantamiento",
+                "impact": "Reduce la tensión en la espalda y acelera la preparación de la repostería en 5 min."
+            },
+            {
+                "text": "Usar un estante 'PEPS' (primero en entrar, primero en salir) para productos enlatados",
+                "savings": "Cero comida caducada",
+                "impact": "Ahorra $200 al año en comestibles desperdiciados y 2 horas de 'revisión de fechas'."
+            },
+            {
+                "text": "Agrupar todos los suministros de 'café y té' en un solo gabinete",
+                "savings": "1 min / taza",
+                "impact": "Ahorra 6 horas al año de desperdicio de movimiento en el ritual de preparación."
+            },
+            {
+                "text": "Pre-hervir agua en un hervidor eléctrico antes de ponerla al fuego",
+                "savings": "5 min / comida",
+                "impact": "Reduce el 'desperdicio por espera' en 15 horas al año para pastas y sopas."
+            },
+            {
+                "text": "Usar una banda magnética para cuchillos en lugar de un bloque de cajón",
+                "savings": "30 segundos / uso",
+                "impact": "Reduce las búsquedas y protege las hojas durante 5 años más."
+            },
+            {
+                "text": "Cocinar el doble de porciones de proteína cada lunes",
+                "savings": "3 horas / semana",
+                "impact": "Asegura comidas saludables a mitad de semana con cero limpieza extra."
+            },
+            {
+                "text": "Etiquetar la 'fecha de apertura' en todos los condimentos",
+                "savings": "Seguridad alimentaria",
+                "impact": "Elimina la duda de '¿esto todavía está bueno?' para 50 artículos."
+            },
+            {
+                "text": "Usar un contenedor de compostaje con tapa de pedal",
+                "savings": "Manos libres",
+                "impact": "Reduce el movimiento de limpieza en un 50% durante la preparación intensa de verduras."
+            },
+            {
+                "text": "Estandarizar el proceso de preparación de la mesa para la cena",
+                "savings": "3 min / noche",
+                "impact": "Enseña 'trabajo estandarizado' a los niños y recupera 18 horas al año."
+            },
+            {
+                "text": "Almacenar las sartenes más usadas en ganchos sobre la estufa",
+                "savings": "Cero desperdicio de alcance",
+                "impact": "Elimina la búsqueda en gabinetes ruidosos cada mañana."
+            },
+            {
+                "text": "Usar un pelador de verduras que funcione en ambas direcciones",
+                "savings": "Preparación 50% más rápida",
+                "impact": "Ahorra 5 min por preparación de ensalada grande o guiso."
+            },
+            {
+                "text": "Comprar espinacas y verduras pre-lavadas a granel",
+                "savings": "10 min / comida",
+                "impact": "Elimina el obstáculo del 'procesamiento' para comer sano a diario."
+            },
+            {
+                "text": "Establecer un horario de 'día de compras' con la misma ruta",
+                "savings": "30 min / viaje",
+                "impact": "Recupera 26 horas al año de 'deambular sin rumbo por los pasillos'."
+            },
+            {
+                "text": "Usar una única mezcla de 'especias maestras' para un sazonado rápido",
+                "savings": "2 min / comida",
+                "impact": "Elimina el malabarismo con 10 frascos para 300 cenas al año."
+            },
+            {
+                "text": "Llenar el tazón de agua del perro al mismo tiempo que el tuyo",
+                "savings": "Punto de uso",
+                "impact": "Reduce los viajes extra al fregadero en 365 por año."
+            },
+            {
+                "text": "Estandarizar la entrega de los platos limpios a los niños",
+                "savings": "Cero fricción",
+                "impact": "Todos saben dónde van los platos; no más '¿dónde vive esto?'."
+            },
+            {
+                "text": "Usar frascos de vidrio transparentes para productos secos de uso frecuente",
+                "savings": "Inventario visual",
+                "impact": "Mira instantáneamente cuando te falta arroz; cero estrés por falta de existencias."
+            },
+            {
+                "text": "Mantener una 'caja de refrigerios' a la altura de los ojos para opciones saludables",
+                "savings": "Menor fatiga por decisión",
+                "impact": "Reduce el tiempo de 'mirar la despensa' en 5 min cada tarde."
+            },
+            {
+                "text": "Usar una alfombra de silicona para una limpieza fácil al hornear",
+                "savings": "8 min / uso",
+                "impact": "Elimina el desperdicio de fregado y ahorra $30 al año en papel pergamino."
+            },
+            {
+                "text": "Agrupar los suministros para la 'noche de pizza' en un solo contenedor",
+                "savings": "12 min / preparación",
+                "impact": "Convierte una cocina caótica en una actividad familiar de 5 minutos."
+            },
+            {
+                "text": "Guardar la tabla de cortar verticalmente contra la pared",
+                "savings": "Velocidad en la encimera",
+                "impact": "Recupera 2 pies cuadrados de espacio de trabajo y 20 segundos por comida."
+            },
+            {
+                "text": "Usar un temporizador múltiple para cocciones festivas complejas",
+                "savings": "Cero retrabajo",
+                "impact": "Evita catástrofes de 'pavo quemado' mediante la gestión visual."
+            },
+            {
+                "text": "Tablero de sombras para tus 5 herramientas de escritorio más comunes",
+                "savings": "10 min / día",
+                "impact": "Detiene la búsqueda de '¿dónde está la engrapadora?' en medio del flujo de trabajo."
+            },
+            {
+                "text": "Usar un escritorio de pie para aumentar el rendimiento por la tarde",
+                "savings": "15% más de energía",
+                "impact": "Elimina el desperdicio del 'bajón después del almuerzo' durante 200 días al año."
+            },
+            {
+                "text": "Estandarizar tu plantilla de carpeta para 'nuevos proyectos'",
+                "savings": "15 min / inicio",
+                "impact": "Asegura que cada proyecto tenga carpetas de 'Prospectos' y 'Activos' al instante."
+            },
+            {
+                "text": "Mover la impresora al centro de la oficina",
+                "savings": "500 millas / año",
+                "impact": "Reduce el desperdicio de caminata para todo el equipo en 10 min diarios."
+            },
+            {
+                "text": "Usar 'recibos de lectura' para eliminar preguntas de '¿lo recibiste?'",
+                "savings": "Cero seguimiento",
+                "impact": "Ahorra 20 correos a la semana de pura comunicación general."
+            },
+            {
+                "text": "Establecer un valor predeterminado de 25 minutos para todas las reuniones",
+                "savings": "5 min / reunión",
+                "impact": "Recupera 2 horas de producción del equipo cada semana."
+            },
+            {
+                "text": "Usar una configuración de monitor dual para el trabajo con hojas de cálculo",
+                "savings": "Entrada 25% más rápida",
+                "impact": "Ahorra 100 horas al año de fatiga visual por 'alt-tab' y errores."
+            },
+            {
+                "text": "Etiquetar la bandeja de papel como 'vacía' vs 'llena'",
+                "savings": "Gestión visual",
+                "impact": "Evita la frustración de 'atasco de impresora' para todo el personal."
+            },
+            {
+                "text": "Estandarizar el formato del mensaje de 'fuera de la oficina'",
+                "savings": "Profesionalismo",
+                "impact": "Asegura que los clientes siempre tengan el contacto correcto el 100% del tiempo."
+            },
+            {
+                "text": "Usar la regla de 'un solo toque' para el correo físico",
+                "savings": "Cero procesamiento por lotes",
+                "impact": "Decide: Archivar, actuar o desechar inmediatamente; no permitas que se acumule."
+            },
+            {
+                "text": "Usar 'Responder a todos' solo cuando sea 100% necesario",
+                "savings": "Enfoque del equipo",
+                "impact": "Reduce el 'desperdicio de ruido' para toda la empresa en un 50%."
+            },
+            {
+                "text": "Estandarizar las líneas de asunto del correo (ACCIÓN, INFO, URGENTE)",
+                "savings": "3 min / lectura",
+                "impact": "Ahorra 15 horas al año de escaneo de '¿de qué trata esto?'."
+            },
+            {
+                "text": "Usar una bandeja de 'Entrada' física para todo el papeleo pendiente",
+                "savings": "Cero desorden",
+                "impact": "Captura el 100% de las entradas físicas en una ubicación visual."
+            },
+            {
+                "text": "Establecer una regla de '5 minutos' para tareas pequeñas",
+                "savings": "Cero procrastinación",
+                "impact": "Si toma <5 min, hazlo ahora; ahorra 40 horas de 'volver a pensarlo' al año."
+            },
+            {
+                "text": "Estandarizar tu formato de 'Minutas de reunión'",
+                "savings": "15 min / reunión",
+                "impact": "Asegura el 100% de alineación en los puntos de acción de inmediato."
+            },
+            {
+                "text": "Usar 'Partes rápidas' en Outlook para párrafos repetitivos",
+                "savings": "5 min / correo",
+                "impact": "Recupera 2 semanas de trabajo completas al año de tiempo de escritura."
+            },
+            {
+                "text": "Etiquetar archivos como 'Proyecto' vs 'Referencia' en la nube",
+                "savings": "Claridad visual",
+                "impact": "Identifica instantáneamente dónde vive el trabajo activo; cero búsquedas."
+            },
+            {
+                "text": "Estandarizar los 'Nombres de archivos' para todas las versiones del equipo",
+                "savings": "Cero sobreescritura",
+                "impact": "Evita la catástrofe de 'trabajé en la versión equivocada'."
+            },
+            {
+                "text": "Usar un 'Amortiguador' de 5 min entre las invitaciones del calendario",
+                "savings": "Cero solapamiento",
+                "impact": "Reduce el estrés del 'cambio de contexto' durante 250 días laborables al año."
+            },
+            {
+                "text": "Archivar proyectos 'Terminados' en una carpeta separada",
+                "savings": "Velocidad del sistema",
+                "impact": "Mantiene tu 'vista activa' enfocada en el 20% que importa."
+            },
+            {
+                "text": "Usar una herramienta de 'Clip compartido' para activos del equipo",
+                "savings": "10 min / búsqueda",
+                "impact": "Ahorra 50 horas al año de preguntar 'Oye, ¿dónde está el logo?'."
+            },
+            {
+                "text": "Establecer tu estado de 'Trabajo profundo' en Slack/Teams",
+                "savings": "Cero distracción",
+                "impact": "Recupera 2 horas diarias de 'tiempo de ejecución' frente a interrupciones."
+            },
+            {
+                "text": "Usar 'Reglas' para clasificar automáticamente tu bandeja de entrada",
+                "savings": "Bandeja enfocada",
+                "impact": "Convierte 100 correos en 10 'Urgentes' al instante."
+            },
+            {
+                "text": "Estandarizar la lista de verificación para la incorporación de nuevos empleados",
+                "savings": "20 horas / contratación",
+                "impact": "Asegura el 100% de consistencia y un 'tiempo de valor' más rápido."
+            },
+            {
+                "text": "Usar 'Fijar' para tus 3 pestañas más críticas del navegador",
+                "savings": "Cero búsqueda de pestañas",
+                "impact": "Ahorra 1 min cada vez que cambias de tarea; ¡6 horas al año!"
+            },
+            {
+                "text": "Establecer una tarea 'Recurrente' para copias de seguridad semanales",
+                "savings": "Cero riesgo",
+                "impact": "Protege 10,000 horas de trabajo ante una falla de un solo disco."
+            },
+            {
+                "text": "Usar 'Modo Oscuro' para reducir la fatiga visual y el desperdicio de batería",
+                "savings": "15% vida de batería",
+                "impact": "Mejora la 'resistencia del enfoque' en sesiones largas de programación o escritura."
+            },
+            {
+                "text": "Estandarizar los mensajes de commit en el 'Control de Versiones'",
+                "savings": "Cero confusión",
+                "impact": "Identifica instantáneamente el 'por qué' de un cambio hecho hace 6 meses."
+            },
+            {
+                "text": "Usar 'Buscar' en lugar de 'Navegar por carpetas' (Win+S)",
+                "savings": "30 segundos / archivo",
+                "impact": "Ahorra 10 horas al año de clics a través de la jerarquía."
+            },
+            {
+                "text": "Eliminar 10 gigabytes de archivos 'temporales' hoy mismo",
+                "savings": "Rendimiento del sistema",
+                "impact": "Acelera el lanzamiento de cada aplicación en 2 segundos."
+            },
+            {
+                "text": "Usar 'Dictado' para notas de lluvia de ideas de formato largo",
+                "savings": "Entrada 3x más rápida",
+                "impact": "Captura la 'velocidad del pensamiento' sin el 'cuello de botella del teclado'."
+            },
+            {
+                "text": "Estandarizar la 'Firma del equipo' para uniformidad",
+                "savings": "Identidad de marca",
+                "impact": "Asegura que cada interacción con el cliente se sienta profesional."
+            },
+            {
+                "text": "Usar 'Modo de enfoque' (Win+N) durante presentaciones críticas",
+                "savings": "Cero momentos incómodos",
+                "impact": "Evita que aparezcan notificaciones personales frente a los interesados."
+            },
+            {
+                "text": "Tablero de sombras para tu 'Rutina matutina' (gimnasio, preparación, café)",
+                "savings": "Cero fricción",
+                "impact": "Elimina por completo la 'fatiga de decisión matutina'."
+            },
+            {
+                "text": "Estandarizar tu secuencia de 'Limpieza nocturna'",
+                "savings": "Noches tranquilas",
+                "impact": "Restablece la casa al 'Estado A' para 365 mañanas productivas."
+            },
+            {
+                "text": "Usar 'Procesamiento por lotes' para todos los recados del hogar",
+                "savings": "2 horas / semana",
+                "impact": "Reduce el desperdicio de viaje y los costos de combustible en un 30%."
+            },
+            {
+                "text": "Estandarizar la estación de 'Procesamiento de correo' junto a la puerta",
+                "savings": "Cero acumulación",
+                "impact": "Todo el papel se gestiona o desecha en menos de 60 segundos."
+            },
+            {
+                "text": "Usar un 'Centro de Comestibles' (toda la comida en un lugar visual)",
+                "savings": "Cero exceso de compra",
+                "impact": "Ahorra $40/semana en compras duplicadas y comida caducada."
+            },
+            {
+                "text": "Tablero de sombras para el 'Gabinete de limpieza' por frecuencia",
+                "savings": "3 min / limpieza",
+                "impact": "Reduce la barrera del 'esfuerzo mental' para mantener un hogar ordenado."
+            },
+            {
+                "text": "Estandarizar la zona de 'Zapatos de los niños'",
+                "savings": "Cero pánico matutino",
+                "impact": "Ahorra 5 min de '¿dónde está mi otro zapato?' cada día."
+            },
+            {
+                "text": "Usar un 'Valet de carga' para todos los teléfonos familiares a las 8 PM",
+                "savings": "+2 horas de sueño",
+                "impact": "Aumenta el sueño del equipo en 1,400 horas al año para toda la familia."
+            },
+            {
+                "text": "Estandarizar la hoja de 'Información de emergencia' en el refrigerador",
+                "savings": "Cero retraso",
+                "impact": "Asegura que cualquiera pueda manejar una crisis con 100% de precisión."
+            },
+            {
+                "text": "Usar un contenedor de 'Clasificación de lavandería' con 3 compartimentos",
+                "savings": "Cero procesamiento por lotes",
+                "impact": "Elimina el desperdicio de 'vaciar y clasificar' los domingos por la noche."
+            },
+            {
+                "text": "Tablero de sombras en la 'Despensa' con estantes escalonados",
+                "savings": "Gestión visual",
+                "impact": "Mira instantáneamente los niveles de inventario; reduce el estrés por falta de existencias."
+            },
+            {
+                "text": "Estandarizar la bolsa de 'Paseo del perro' (correa, bolsas, premios)",
+                "savings": "Cero búsqueda",
+                "impact": "Convierte una tarea en una salida fluida de 30 segundos."
+            },
+            {
+                "text": "Usar una 'Estación de donación' en el garaje (siempre lista)",
+                "savings": "Cero desorden",
+                "impact": "Captura artículos que ya no sirven de inmediato; recupera volumen en la casa."
+            },
+            {
+                "text": "Estandarizar el registro digital de 'Mantenimiento del auto'",
+                "savings": "+$1,000 en reventa",
+                "impact": "Prueba el 100% del historial de mantenimiento durante la vida del vehículo."
+            },
+            {
+                "text": "Usar un 'Enchufe inteligente' para automatizar la iluminación de la casa",
+                "savings": "3 min / noche",
+                "impact": "Recupera 18 horas al año de rondas para revisar los interruptores."
+            },
+            {
+                "text": "Estandarizar el punto de 'Aterrizaje de llaves' para un cumplimiento del 100%",
+                "savings": "Cero ansiedad",
+                "impact": "Termina con el pánico de '¿dónde están mis llaves?' para siempre."
+            },
+            {
+                "text": "Implementar un 'Kaizen de sábado' (1 hora de mejora)",
+                "savings": "Crecimiento compuesto",
+                "impact": "Resuelve 52 molestias domésticas importantes cada año."
+            },
+            {
+                "text": "Usar Kaizen Copilot para seguir tus ganancias personales",
+                "savings": "Infinito",
+                "impact": "Convierte cada pequeña victoria en una revolución del estilo de vida basada en datos."
+            }
+        ],
+        "signage": {
+            "title": "Centro de Señalización",
+            "subtitle": "Estándares visuales de toda la planta y activos vectoriales.",
+            "sections": {
+                "plantsigns": "Señalización de Planta",
+                "departmentalsigns": "Señalización Departamental",
+                "sitesigns": "Señalización del Sitio"
+            },
+            "categories": {
+                "plantsigns": "Señalización de Planta",
+                "departmentalsigns": "Señalización Departamental",
+                "sitesigns": "Señalización del Sitio"
+            }
+        },
+        "executionHub": {
+            "title": "Centro de Ejecución",
+            "desc": "Gestiona y haz seguimiento de tus proyectos Kaizen activos.",
+            "activeProjects": "Proyectos Activos",
+            "milestonesDone": "Hitos Completados",
+            "submitJfi": "🚀 Enviar JFI (Solo Arréglalo)",
+            "gembaVideos": "📌 Videos Gemba",
+            "gembaDocs": "📑 GembaDocs",
+            "yourRoadmaps": "Tus Cronogramas",
+            "startNewProject": "+ Iniciar Nuevo Proyecto",
+            "noProjectsTitle": "No hay proyectos activos",
+            "noProjectsDesc": "Inicia un nuevo proyecto Kaizen para hacer un seguimiento de las observaciones, el análisis y los hitos de implementación.",
+            "createFirst": "Crea Tu Primer Proyecto",
+            "backToGateway": "← Volver al Portal de Inicio",
+            "createNewRoadmap": "Crear Nuevo Cronograma Kaizen",
+            "backToRoadmaps": "← Volver a Cronogramas"
+        },
+        "projectDashboard": {
+            "overview": "📊 Resumen",
+            "charter": "📝 Estatuto",
+            "actionItems": "📋 Tareas",
+            "reportOut": "📢 Informe Final",
+            "overallProgress": "Progreso General",
+            "milestones": "Hitos",
+            "day": "DÍA",
+            "evidenceLog": "📎 Registro de Evidencia",
+            "addObservation": "Agrega una observación, nota o dato...",
+            "add": "Agregar",
+            "viewSpatial": "Ver Gemelo Digital Espacial",
+            "noEvidence": "Aún no se ha capturado evidencia para esta fase.",
+            "rcaTitle": "💡 Análisis de Causa Raíz",
+            "rcaDesc": "Ataca la causa, no solo el síntoma, antes de implementar soluciones.",
+            "runFiveWhys": "🤔 Realizar Análisis de 5 Porqués",
+            "recordTimeStudy": "⏱️ Registrar Estudio de Tiempos",
+            "suggestedTools": "🛠 Herramientas Sugeridas",
+            "noTools": "No se recomiendan herramientas específicas para esta fase."
+        },
+        "actionItems": {
+            "quickAdd": "⚡ Agregar Acción Rápida",
+            "taskDesc": "Descripción de la Tarea",
+            "placeholder": "ej. Ordenar nuevos contenedores para rack de flujo",
+            "owner": "Responsable",
+            "ownerPlaceholder": "Nombre/Rol",
+            "difficulty": "Dificultad",
+            "easy": "Fácil (Victoria Rápida)",
+            "medium": "Medio",
+            "hard": "Difícil (Uso Intensivo de Recursos)",
+            "addTask": "Agregar Tarea",
+            "title": "Tareas de Acción",
+            "kanbanBoard": "Tablero Kanban",
+            "listView": "Vista de Lista",
+            "velocityChart": "📈 Gráfico de Velocidad",
+            "todo": "Por Hacer",
+            "doing": "En Progreso",
+            "done": "Terminado",
+            "emptyBacklog": "Tu atraso (backlog) está vacío",
+            "emptyDesc": "Agrega tareas arriba o genera algunas victorias rápidas a continuación.",
+            "impact": "Impacto",
+            "deletePrompt": "¿Estás seguro de que deseas eliminar esta tarea?",
+            "inspiration": "¿Necesitas Inspiración?"
+        },
+        "burndown": {
+            "title": "Velocidad del Proyecto (Sprint de 14 Días)",
+            "tasksRemaining": "{{current}} / {{total}} Tareas Restantes",
+            "ideal": "Descarga Ideal",
+            "actual": "Progreso Real",
+            "empty": "Agrega elementos a tu cronograma para generar un gráfico de velocidad.",
+            "day": "Día"
+        }
+    }
+}

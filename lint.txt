@@ -1,0 +1,109 @@
+
+> kaizen-copilot@0.0.0 lint
+> eslint .
+
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\App.tsx
+  38:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\App.tsx:38:7
+  36 |     const saved = localStorage.getItem('kaizen_project');
+  37 |     if (saved) {
+> 38 |       setProject(JSON.parse(saved));
+     |       ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  39 |     }
+  40 |   }, []);
+  41 |  react-hooks/set-state-in-effect
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\AgentPanel.tsx
+  16:9  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\AgentPanel.tsx:16:9
+  14 |     useEffect(() => {
+  15 |         // Simulate AI loading / thinking
+> 16 |         setIsTyping(true);
+     |         ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  17 |         setAnalysis(null);
+  18 |
+  19 |         const timer = setTimeout(() => {  react-hooks/set-state-in-effect
+  25:8  warning  React Hook useEffect has a missing dependency: 'phase'. Either include it or remove the dependency array. If 'setAnalysis' needs the current value of 'phase', you can also switch to useReducer instead of useState and read 'phase' in the reducer                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    react-hooks/exhaustive-deps
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\ChatInterface.tsx
+  17:9   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\ChatInterface.tsx:17:9
+  15 |     // Initial greeting
+  16 |     useEffect(() => {
+> 17 |         setMessages([
+     |         ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  18 |             {
+  19 |                 id: '1',
+  20 |                 role: 'agent',  react-hooks/set-state-in-effect
+  93:43  error  'node' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+  94:44  error  'node' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\Dashboard.tsx
+  72:123  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\Dashboard.tsx:72:123
+  70 |                                                     const targ = parseFloat(project.kpis[0].target) || 100;
+  71 |                                                     const progressRatio = (i + 1) / project.phases.length;
+> 72 |                                                     const simulatedValue = base + ((targ - base) * progressRatio * (0.8 + Math.random() * 0.4)); // Some faux variation
+     |                                                                                                                           ^^^^^^^^^^^^^ Cannot call impure function
+  73 |                                                     return { day: p.day, value: Math.round(simulatedValue) };
+  74 |                                                 })
+  75 |                                             }  react-hooks/purity
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\RoadmapView.tsx
+  94:80  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\charts\ProgressRing.tsx
+  17:9  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\charts\ProgressRing.tsx:17:9
+  15 |     useEffect(() => {
+  16 |         const progressOffset = circumference - (progress / 100) * circumference;
+> 17 |         setOffset(progressOffset);
+     |         ^^^^^^^^^ Avoid calling setState() directly within an effect
+  18 |     }, [setOffset, circumference, progress, offset]);
+  19 |
+  20 |     return (  react-hooks/set-state-in-effect
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\spatial\FloorPlanBuilder.tsx
+  19:33  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  33:31  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  58:31  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\vite.config.ts
+  15:28  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  16:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  35:26  error  'e' is defined but never used             @typescript-eslint/no-unused-vars
+
+Γ£û 15 problems (14 errors, 1 warning)
+

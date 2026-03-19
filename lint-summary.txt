@@ -1,0 +1,361 @@
+
+--- C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\AgentPanel.tsx ---
+Line 16: Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\AgentPanel.tsx:16:9
+  14 |     useEffect(() => {
+  15 |         // Simulate AI loading / thinking
+> 16 |         setIsTyping(true);
+     |         ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  17 |         setAnalysis(null);
+  18 |
+  19 |         const timer = setTimeout(() => {
+Line 25: React Hook useEffect has a missing dependency: 'phase'. Either include it or remove the dependency array. If 'setAnalysis' needs the current value of 'phase', you can also switch to useReducer instead of useState and read 'phase' in the reducer.
+
+--- C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\ChatInterface.tsx ---
+Line 17: Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\ChatInterface.tsx:17:9
+  15 |     // Initial greeting
+  16 |     useEffect(() => {
+> 17 |         setMessages([
+     |         ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  18 |             {
+  19 |                 id: '1',
+  20 |                 role: 'agent',
+Line 93: 'node' is defined but never used.
+Line 94: 'node' is defined but never used.
+
+--- C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\Dashboard.tsx ---
+Line 70: Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\Dashboard.tsx:70:123
+  68 |                                                     const targ = parseFloat(project.kpis[0].target) || 100;
+  69 |                                                     const progressRatio = (i + 1) / project.phases.length;
+> 70 |                                                     const simulatedValue = base + ((targ - base) * progressRatio * (0.8 + Math.random() * 0.4)); // Some faux variation
+     |                                                                                                                           ^^^^^^^^^^^^^ Cannot call impure function
+  71 |                                                     return { day: p.day, value: Math.round(simulatedValue) };
+  72 |                                                 })
+  73 |                                             }
+
+--- C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\HomeHub.tsx ---
+Line 5: Unexpected any. Specify a different type.
+Line 14: Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components.
+
+--- C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\RoadmapView.tsx ---
+Line 97: Unexpected any. Specify a different type.
+
+--- C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\charts\ProgressRing.tsx ---
+Line 17: Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\charts\ProgressRing.tsx:17:9
+  15 |     useEffect(() => {
+  16 |         const progressOffset = circumference - (progress / 100) * circumference;
+> 17 |         setOffset(progressOffset);
+     |         ^^^^^^^^^ Avoid calling setState() directly within an effect
+  18 |     }, [setOffset, circumference, progress, offset]);
+  19 |
+  20 |     return (
+
+--- C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\DiceFlowGame.tsx ---
+Line 24: Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\DiceFlowGame.tsx:24:13
+  22 |     useEffect(() => {
+  23 |         if (stationC >= 1 && firstProductTime === null && isRunning) {
+> 24 |             setFirstProductTime(timeElapsed);
+     |             ^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  25 |         }
+  26 |         if (stationC === 10 && isRunning) {
+  27 |             setIsRunning(false);
+
+--- C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx ---
+Line 45: Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx:45:27
+  43 |         const fonts = ['"Times New Roman", serif', 'Georgia, serif', 'Arial, sans-serif', '"Courier New", monospace'];
+  44 |         for (let i = 1; i <= 100; i++) {
+> 45 |             const x = 5 + Math.random() * 90;
+     |                           ^^^^^^^^^^^^^ Cannot call impure function
+  46 |             const y = 5 + Math.random() * 90;
+  47 |             const rotation = (Math.random() - 0.5) * 90;
+  48 |             const scale = 0.6 + Math.random() * 1.4;
+Line 46: Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx:46:27
+  44 |         for (let i = 1; i <= 100; i++) {
+  45 |             const x = 5 + Math.random() * 90;
+> 46 |             const y = 5 + Math.random() * 90;
+     |                           ^^^^^^^^^^^^^ Cannot call impure function
+  47 |             const rotation = (Math.random() - 0.5) * 90;
+  48 |             const scale = 0.6 + Math.random() * 1.4;
+  49 |             const font = fonts[Math.floor(Math.random() * fonts.length)];
+Line 47: Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx:47:31
+  45 |             const x = 5 + Math.random() * 90;
+  46 |             const y = 5 + Math.random() * 90;
+> 47 |             const rotation = (Math.random() - 0.5) * 90;
+     |                               ^^^^^^^^^^^^^ Cannot call impure function
+  48 |             const scale = 0.6 + Math.random() * 1.4;
+  49 |             const font = fonts[Math.floor(Math.random() * fonts.length)];
+  50 |             const weight = [400, 700, 900][Math.floor(Math.random() * 3)];
+Line 48: Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx:48:33
+  46 |             const y = 5 + Math.random() * 90;
+  47 |             const rotation = (Math.random() - 0.5) * 90;
+> 48 |             const scale = 0.6 + Math.random() * 1.4;
+     |                                 ^^^^^^^^^^^^^ Cannot call impure function
+  49 |             const font = fonts[Math.floor(Math.random() * fonts.length)];
+  50 |             const weight = [400, 700, 900][Math.floor(Math.random() * 3)];
+  51 |             tiles.push({ id: i, value: i, x, y, rotation, scale, color: '#f8fafc', font, weight });
+Line 49: Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx:49:43
+  47 |             const rotation = (Math.random() - 0.5) * 90;
+  48 |             const scale = 0.6 + Math.random() * 1.4;
+> 49 |             const font = fonts[Math.floor(Math.random() * fonts.length)];
+     |                                           ^^^^^^^^^^^^^ Cannot call impure function
+  50 |             const weight = [400, 700, 900][Math.floor(Math.random() * 3)];
+  51 |             tiles.push({ id: i, value: i, x, y, rotation, scale, color: '#f8fafc', font, weight });
+  52 |         }
+Line 50: Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx:50:55
+  48 |             const scale = 0.6 + Math.random() * 1.4;
+  49 |             const font = fonts[Math.floor(Math.random() * fonts.length)];
+> 50 |             const weight = [400, 700, 900][Math.floor(Math.random() * 3)];
+     |                                                       ^^^^^^^^^^^^^ Cannot call impure function
+  51 |             tiles.push({ id: i, value: i, x, y, rotation, scale, color: '#f8fafc', font, weight });
+  52 |         }
+  53 |         return tiles;
+Line 88: Error: Cannot access variable before it is declared
+
+`endRound` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx:88:13
+  86 |         }
+  87 |         if (timeLeft === 0 && isRunning && phase !== 'round5' && phase !== 'round6') {
+> 88 |             endRound();
+     |             ^^^^^^^^ `endRound` accessed before it is declared
+  89 |         }
+  90 |         return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  91 |     }, [isRunning, timeLeft, phase]);
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx:109:5
+  107 |     };
+  108 |
+> 109 |     const endRound = () => {
+      |     ^^^^^^^^^^^^^^^^^^^^^^^^
+> 110 |         setIsRunning(false);
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 111 |         if (timerRef.current) clearInterval(timerRef.current);
+      ΓÇª
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 122 |         if (phase === 'round6') setPhase('results');
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 123 |     };
+      | ^^^^^^^ `endRound` is declared here
+  124 |
+  125 |     const handleTileClick = (val: number) => {
+  126 |         if (!isRunning || phase === 'round5' || phase === 'round6') return;
+Line 91: React Hook useEffect has a missing dependency: 'endRound'. Either include it or remove the dependency array.
+Line 93: Unexpected any. Specify a different type.
+Line 100: Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx:100:35
+   98 |
+   99 |         if (newPhase === 'round5' || newPhase === 'round6') {
+> 100 |             const m1 = Math.floor(Math.random() * 49) + 1;
+      |                                   ^^^^^^^^^^^^^ Cannot call impure function
+  101 |             let m2 = Math.floor(Math.random() * 49) + 1;
+  102 |             while (m1 === m2) m2 = Math.floor(Math.random() * 49) + 1;
+  103 |             setMissingNumbers([m1, m2]);
+Line 101: Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx:101:33
+   99 |         if (newPhase === 'round5' || newPhase === 'round6') {
+  100 |             const m1 = Math.floor(Math.random() * 49) + 1;
+> 101 |             let m2 = Math.floor(Math.random() * 49) + 1;
+      |                                 ^^^^^^^^^^^^^ Cannot call impure function
+  102 |             while (m1 === m2) m2 = Math.floor(Math.random() * 49) + 1;
+  103 |             setMissingNumbers([m1, m2]);
+  104 |             setFoundMissing([]);
+Line 102: Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\FiveSNumbersGame.tsx:102:47
+  100 |             const m1 = Math.floor(Math.random() * 49) + 1;
+  101 |             let m2 = Math.floor(Math.random() * 49) + 1;
+> 102 |             while (m1 === m2) m2 = Math.floor(Math.random() * 49) + 1;
+      |                                               ^^^^^^^^^^^^^ Cannot call impure function
+  103 |             setMissingNumbers([m1, m2]);
+  104 |             setFoundMissing([]);
+  105 |         }
+
+--- C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\simulations\SimulationsHub.tsx ---
+Line 13: '_props' is defined but never used.
+
+--- C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\spatial\FloorPlanBuilder.tsx ---
+Line 149: Error: This value cannot be modified
+
+Modifying a value returned from 'useState()', which should not be modified directly. Use the setter function to update instead.
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\spatial\FloorPlanBuilder.tsx:149:13
+  147 |             }
+  148 |
+> 149 |             lastLine.points = [startX, startY, point.x, point.y];
+      |             ^^^^^^^^ `lines` cannot be modified
+  150 |
+  151 |             setLines(lines.slice(0, lines.length - 1).concat([lastLine]));
+  152 |         }
+
+--- C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\ActionItems.tsx ---
+Line 24: Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\ActionItems.tsx:24:17
+  22 |         if (saved) {
+  23 |             try {
+> 24 |                 setItems(JSON.parse(saved));
+     |                 ^^^^^^^^ Avoid calling setState() directly within an effect
+  25 |             } catch (e) {
+  26 |                 console.error("Failed to load Action Items", e);
+  27 |             }
+
+--- C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\KPITracker.tsx ---
+Line 18: Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\KPITracker.tsx:18:17
+  16 |         if (saved) {
+  17 |             try {
+> 18 |                 setKpis(JSON.parse(saved));
+     |                 ^^^^^^^ Avoid calling setState() directly within an effect
+  19 |             } catch (e) {
+  20 |                 console.error("Failed to load KPIs", e);
+  21 |             }
+
+--- C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\LeanAcademy.tsx ---
+Line 117: Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\LeanAcademy.tsx:117:19
+  115 |         const savedProgress = localStorage.getItem('kaizen_academy_progress');
+  116 |         if (savedProgress) {
+> 117 |             try { setCompletedModules(JSON.parse(savedProgress)); } catch (e) { console.error(e); }
+      |                   ^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  118 |         }
+  119 |
+  120 |         const savedSubmissions = localStorage.getItem('kaizen_academy_submissions');
+
+--- C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\ProcessMap.tsx ---
+Line 18: Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\ProcessMap.tsx:18:17
+  16 |         if (saved) {
+  17 |             try {
+> 18 |                 setNodes(JSON.parse(saved));
+     |                 ^^^^^^^^ Avoid calling setState() directly within an effect
+  19 |             } catch (e) {
+  20 |                 console.error("Failed to load process map data", e);
+  21 |             }
+Line 118: Unexpected any. Specify a different type.
+
+--- C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\TimeStudy.tsx ---
+Line 42: Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\TimeStudy.tsx:42:36
+  40 |     const startTimer = () => {
+  41 |         if (!isRunning) {
+> 42 |             startTimeRef.current = Date.now() - (elapsedTime * 1000);
+     |                                    ^^^^^^^^^^ Cannot call impure function
+  43 |             timerRef.current = window.setInterval(() => {
+  44 |                 if (startTimeRef.current) {
+  45 |                     setElapsedTime((Date.now() - startTimeRef.current) / 1000);
+
+--- C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\ValueStreamMap.tsx ---
+Line 32: Unexpected any. Specify a different type.
+Line 39: Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Offic\.gemini\antigravity\scratch\kaizen-copilot\src\components\tools\ValueStreamMap.tsx:39:21
+  37 |                         wip: s.wip || 0
+  38 |                     }));
+> 39 |                     setSteps(loaded);
+     |                     ^^^^^^^^ Avoid calling setState() directly within an effect
+  40 |                 }
+  41 |             } catch (e) {
+  42 |                 console.error("Failed to load VSM data", e);

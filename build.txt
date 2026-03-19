@@ -1,0 +1,5 @@
+
+> kaizen-copilot@0.0.0 build
+> tsc -b && vite build
+
+src/components/spatial/LidarViewer.tsx(3,25): error TS6133: 'Environment' is declared but its value is never read.
