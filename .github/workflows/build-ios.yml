@@ -31,12 +31,10 @@ jobs:
         run: npx cap sync ios
         
       - name: 6. Xcode Fast Compile (Architecture Engine)
-        # We run this explicitly avoiding Code Signing. Because we are sideloading,
-        # we do not have (or need) a $99 Apple Developer paid certificate right now.
         run: |
           cd ios/App
           xcodebuild \
-            -workspace App.xcworkspace \
+            -project App.xcodeproj \
             -scheme App \
             -configuration Release \
             -arch arm64 \
