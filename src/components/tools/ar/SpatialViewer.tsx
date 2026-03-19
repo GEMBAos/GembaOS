@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, DeviceOrientationControls, Grid, Text, Sphere, Box } from '@react-three/drei';
+import { OrbitControls, DeviceOrientationControls, Grid, Text, Box } from '@react-three/drei';
 import type { MotionSessionV2, MotionParticipantPathV2 } from '../../../types/motion_v2';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
     participants: MotionParticipantPathV2[];
 }
 
-export default function SpatialViewer({ session, participants }: Props) {
+export default function SpatialViewer({ participants }: Props) {
     const videoRef = useRef<HTMLVideoElement>(null);
     const [cameraActive, setCameraActive] = useState(false);
     const [gyroActive, setGyroActive] = useState(false);
