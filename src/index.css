@@ -35,6 +35,7 @@ body,
   height: 100%;
   width: 100%;
   overflow: hidden;
+  position: fixed;
   overscroll-behavior-y: none;
   overscroll-behavior-x: none;
 }

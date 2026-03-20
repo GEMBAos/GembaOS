@@ -264,8 +264,8 @@ function App() {
             `}</style>
         </header>
 
-        {/* Main Workspace Area */}
-        <main className="main-content process-map-bg" style={{ flex: 1, overflowY: 'auto', padding: 0 }}>
+        {/* Main Workspace Area - STRICT OVERFLOW HIDDEN */}
+        <main className="main-content process-map-bg" style={{ flex: 1, overflow: 'hidden', padding: 0, display: 'flex', flexDirection: 'column' }}>
           {currentView === 'promo' && <PromoLanding onSignUp={() => { setShowAuth(true); handleNavigate('portal'); }} />}
           {currentView === 'portal' && <OperatingRoom onNavigate={handleNavigate} />}
           

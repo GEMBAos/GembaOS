@@ -50,25 +50,39 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
             <div style={{ 
                 flex: 1, 
                 display: 'flex', 
-                flexDirection: 'row', 
-                flexWrap: 'wrap',
+                flexDirection: 'column', 
                 alignItems: 'center', 
                 justifyContent: 'center', 
-                padding: 'clamp(1rem, 3vw, 2.5rem)', 
-                gap: 'clamp(2rem, 5vw, 4rem)',
-                overflow: 'hidden' 
+                padding: 'clamp(0.5rem, 2vw, 2.5rem)', 
+                gap: 'clamp(1rem, 3vw, 4rem)',
+                overflow: 'hidden',
+                minHeight: 0
             }}>
+                <div style={{ 
+                    display: 'flex', 
+                    flexDirection: 'row', 
+                    flexWrap: 'wrap', 
+                    width: '100%', 
+                    height: '100%', 
+                    justifyContent: 'center', 
+                    alignItems: 'center', 
+                    gap: 'clamp(1rem, 3vw, 2rem)',
+                    minHeight: 0,
+                    overflow: 'hidden'
+                }}>
                 
                 {/* LEFT PANE - PRIMARY ACTIONS */}
                 <div style={{ 
-                    flex: '1 1 400px', 
+                    flex: '1 1 300px', 
                     display: 'flex', 
                     flexDirection: 'column', 
                     alignItems: 'center', 
                     justifyContent: 'center', 
                     maxWidth: '600px',
-                    height: '100%',
-                    maxHeight: '800px'
+                    height: 'auto',
+                    maxHeight: '100%',
+                    minHeight: 0,
+                    overflow: 'hidden'
                 }}>
                     
                     {view === 'main' && (
@@ -164,15 +178,17 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
 
                 {/* RIGHT PANE - SIDE NODE (JFI HUB) */}
                 <div style={{ 
-                    flex: '1 1 300px', 
+                    flex: '1 1 250px', 
                     maxWidth: '400px',
                     display: 'flex', 
                     flexDirection: 'column',
                     background: 'var(--bg-panel)',
                     borderRadius: '1.5rem',
                     border: '1px solid rgba(255,255,255,0.05)',
-                    padding: '2rem',
+                    padding: 'clamp(1rem, 3vw, 2rem)',
                     boxShadow: '0 8px 30px rgba(0,0,0,0.5)',
+                    minHeight: 0,
+                    overflow: 'hidden'
                 }}>
                     <div style={{ 
                         fontSize: '0.85rem', 
@@ -222,6 +238,7 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                             <span>Library & Training Videos</span>
                         </a>
                     </div>
+                </div>
                 </div>
             </div>
 
