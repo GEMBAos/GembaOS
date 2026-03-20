@@ -282,21 +282,24 @@ function App() {
                     <h2 style={{ color: '#e2e8f0', fontSize: '2rem', marginBottom: '1rem', fontFamily: "'Orbitron', sans-serif", fontWeight: 700 }}>OBSERVE</h2>
                     <p style={{ maxWidth: '600px', margin: '0 auto', lineHeight: 1.6, marginBottom: '3rem' }}>Process study and motion mapping tools sequence.</p>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 'clamp(0.5rem, 2vh, 2rem)', minHeight: 0, overflow: 'hidden' }}>
                         <div 
                             onClick={() => handleNavigate('motion-v2')}
                             className="module-card hover-glow"
                             style={{ 
+                                flex: '1 1 250px',
                                 background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%)', 
-                                padding: '2rem', 
+                                padding: 'clamp(0.5rem, 2vh, 2rem)', 
                                 borderRadius: '12px', 
                                 border: '1px solid rgba(139, 92, 246, 0.5)', 
                                 cursor: 'pointer',
                                 textAlign: 'left',
                                 display: 'flex',
                                 flexDirection: 'column',
-                                gap: '1rem',
-                                gridColumn: '1 / -1'
+                                gap: 'clamp(0.25rem, 1.5vh, 1rem)',
+                                maxWidth: '800px',
+                                margin: '0 auto',
+                                overflow: 'hidden'
                             }}
                         >
                             <div style={{ fontSize: '2.5rem' }}>📍</div>
@@ -312,17 +315,18 @@ function App() {
                             onClick={() => handleNavigate('time-study')}
                             className="module-card hover-glow"
                             style={{ 
-                                flex: '1 1 300px',
+                                flex: '1 1 250px',
                                 maxWidth: '500px',
                                 background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%)', 
-                                padding: 'clamp(1rem, 2vw, 2rem)', 
+                                padding: 'clamp(0.5rem, 2vh, 2rem)', 
                                 borderRadius: '12px', 
                                 border: '1px solid rgba(16, 185, 129, 0.3)', 
                                 cursor: 'pointer',
                                 textAlign: 'left',
                                 display: 'flex',
                                 flexDirection: 'column',
-                                gap: 'clamp(0.5rem, 1vw, 1rem)'
+                                gap: 'clamp(0.25rem, 1.5vh, 1rem)',
+                                overflow: 'hidden'
                             }}
                         >
                             <div style={{ fontSize: '2.5rem' }}>⏱️</div>
@@ -347,17 +351,18 @@ function App() {
                             onClick={() => handleNavigate('process-check')}
                             className="module-card hover-glow"
                             style={{ 
-                                flex: '1 1 300px',
+                                flex: '1 1 250px',
                                 maxWidth: '500px',
                                 background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%)', 
-                                padding: 'clamp(1rem, 2vw, 2rem)', 
+                                padding: 'clamp(0.5rem, 2vh, 2rem)', 
                                 borderRadius: '12px', 
                                 border: '1px solid rgba(245, 158, 11, 0.3)', 
                                 cursor: 'pointer',
                                 textAlign: 'left',
                                 display: 'flex',
                                 flexDirection: 'column',
-                                gap: 'clamp(0.5rem, 1vw, 1rem)'
+                                gap: 'clamp(0.25rem, 1.5vh, 1rem)',
+                                overflow: 'hidden'
                             }}
                         >
                             <div style={{ fontSize: '2.5rem' }}>📋</div>
@@ -372,17 +377,18 @@ function App() {
                             onClick={() => handleNavigate('line-balance')}
                             className="module-card hover-glow"
                             style={{ 
-                                flex: '1 1 300px',
+                                flex: '1 1 250px',
                                 maxWidth: '500px',
                                 background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%)', 
-                                padding: 'clamp(1rem, 2vw, 2rem)', 
+                                padding: 'clamp(0.5rem, 2vh, 2rem)', 
                                 borderRadius: '12px', 
                                 border: '1px solid rgba(139, 92, 246, 0.3)', 
                                 cursor: 'pointer',
                                 textAlign: 'left',
                                 display: 'flex',
                                 flexDirection: 'column',
-                                gap: 'clamp(0.5rem, 1vw, 1rem)'
+                                gap: 'clamp(0.25rem, 1.5vh, 1rem)',
+                                overflow: 'hidden'
                             }}
                         >
                             <div style={{ fontSize: '2.5rem' }}>⚖️</div>
@@ -407,17 +413,18 @@ function App() {
                             onClick={() => handleNavigate('improvement-card')}
                             className="module-card hover-glow"
                             style={{ 
-                                flex: '1 1 300px',
+                                flex: '1 1 250px',
                                 maxWidth: '500px',
                                 background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%)', 
-                                padding: 'clamp(1rem, 2vw, 2rem)', 
+                                padding: 'clamp(0.5rem, 2vh, 2rem)', 
                                 borderRadius: '12px', 
                                 border: '1px solid rgba(244, 63, 94, 0.3)', 
                                 cursor: 'pointer',
                                 textAlign: 'left',
                                 display: 'flex',
                                 flexDirection: 'column',
-                                gap: 'clamp(0.5rem, 1vw, 1rem)'
+                                gap: 'clamp(0.25rem, 1.5vh, 1rem)',
+                                overflow: 'hidden'
                             }}
                         >
                             <div style={{ fontSize: '2.5rem' }}>⚡</div>

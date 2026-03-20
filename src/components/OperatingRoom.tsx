@@ -35,8 +35,7 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
         );
     }
 
-    return (
-        <div style={{
+        <div className="or-master-container" style={{
             display: 'flex',
             flexDirection: 'column',
             height: '100%',
@@ -45,91 +44,185 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
             background: 'var(--bg-dark)'
         }}>
 
+            <style dangerouslySetInnerHTML={{__html: `
+                .or-master-container {
+                    /* Container locks */
+                    overflow: hidden;
+                }
+                .or-grid-wrapper {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    padding: clamp(0.5rem, 1vw, 2.5rem);
+                    gap: clamp(0.5rem, 2vh, 4rem);
+                    overflow: hidden;
+                    min-height: 0;
+                }
+                .or-grid-inner {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    width: 100%;
+                    height: 100%;
+                    justify-content: center;
+                    align-items: center;
+                    gap: clamp(0.5rem, 3vw, 2rem);
+                    min-height: 0;
+                    overflow: hidden;
+                }
+                .or-left-pane {
+                    flex: 1 1 250px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    max-width: 600px;
+                    height: auto;
+                    max-height: 100%;
+                    min-height: 0;
+                    overflow: hidden;
+                }
+                .or-right-pane {
+                    flex: 1 1 250px;
+                    max-width: 400px;
+                    display: flex;
+                    flex-direction: column;
+                    background: var(--bg-panel);
+                    border-radius: 1.5rem;
+                    border: 1px solid rgba(255,255,255,0.05);
+                    padding: clamp(0.5rem, 3vh, 2rem);
+                    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+                    min-height: 0;
+                    overflow: hidden;
+                }
+                
+                .or-title {
+                    color: var(--text-main);
+                    font-size: clamp(1rem, 4vh, 2.5rem);
+                    margin-bottom: 0.25rem;
+                    text-align: center;
+                    font-weight: 800;
+                    font-family: var(--font-headings);
+                }
+                .or-subtitle {
+                    color: var(--text-muted);
+                    font-size: clamp(0.75rem, 2vh, 1rem);
+                    margin-bottom: clamp(0.5rem, 3vh, 3rem);
+                    text-align: center;
+                    font-weight: 400;
+                }
+                
+                .or-btn-primary {
+                    width: 100%;
+                    padding: clamp(0.5rem, 2vh, 1.5rem) clamp(1rem, 2vw, 2rem);
+                    font-size: clamp(1rem, 3vh, 1.75rem);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 1rem;
+                }
+                .or-btn-secondary {
+                    width: 100%;
+                    padding: clamp(0.5rem, 2vh, 1.5rem) clamp(1rem, 2vw, 2rem);
+                    font-size: clamp(0.85rem, 2.5vh, 1.25rem);
+                    border-radius: 8px;
+                    background: var(--bg-panel);
+                    color: var(--text-main);
+                    border: 1px solid var(--border-light);
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 1rem;
+                    font-weight: 700;
+                    font-family: var(--font-headings);
+                    text-transform: uppercase;
+                    letter-spacing: 2px;
+                    transition: all 0.15s ease-in-out;
+                }
+                .or-btn-secondary:hover {
+                    background: var(--bg-panel-hover);
+                }
+                
+                .or-jfi-title {
+                    font-size: clamp(0.6rem, 1.5vh, 0.85rem);
+                    color: var(--text-muted);
+                    text-transform: uppercase;
+                    letter-spacing: 3px;
+                    font-weight: 700;
+                    text-align: center;
+                    margin-bottom: clamp(0.5rem, 2vh, 2.5rem);
+                }
+                
+                .or-jfi-btn {
+                    padding: clamp(0.5rem, 1.5vh, 1.25rem);
+                    background: rgba(255,255,255,0.03);
+                    border: 1px solid var(--border-light);
+                    color: var(--text-main);
+                    border-radius: 8px;
+                    cursor: pointer;
+                    text-decoration: none;
+                    transition: all 0.2s;
+                    font-weight: 600;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    gap: 1rem;
+                    font-size: clamp(0.75rem, 2vh, 1rem);
+                }
+                .or-jfi-btn:hover {
+                    background: rgba(255,255,255,0.08);
+                    border-color: var(--text-main);
+                }
+                .or-jfi-icon {
+                    font-size: clamp(1rem, 3vh, 1.5rem);
+                }
+
+                @media (max-height: 500px) and (orientation: landscape) {
+                    /* Extreme squash rules for landscape mobile */
+                    .or-grid-inner {
+                        flex-wrap: nowrap;
+                    }
+                    .or-left-pane {
+                        flex: 2;
+                    }
+                    .or-right-pane {
+                        flex: 1;
+                        padding: 0.5rem;
+                        gap: 0.25rem;
+                    }
+                    .or-jfi-btn {
+                        padding: 0.5rem;
+                        gap: 0.5rem;
+                    }
+                }
+            `}} />
 
             {/* Main Content: Single Pane of Glass Layout */}
-            <div style={{ 
-                flex: 1, 
-                display: 'flex', 
-                flexDirection: 'column', 
-                alignItems: 'center', 
-                justifyContent: 'center', 
-                padding: 'clamp(0.5rem, 2vw, 2.5rem)', 
-                gap: 'clamp(1rem, 3vw, 4rem)',
-                overflow: 'hidden',
-                minHeight: 0
-            }}>
-                <div style={{ 
-                    display: 'flex', 
-                    flexDirection: 'row', 
-                    flexWrap: 'wrap', 
-                    width: '100%', 
-                    height: '100%', 
-                    justifyContent: 'center', 
-                    alignItems: 'center', 
-                    gap: 'clamp(1rem, 3vw, 2rem)',
-                    minHeight: 0,
-                    overflow: 'hidden'
-                }}>
+            <div className="or-grid-wrapper">
+                <div className="or-grid-inner">
                 
                 {/* LEFT PANE - PRIMARY ACTIONS */}
-                <div style={{ 
-                    flex: '1 1 300px', 
-                    display: 'flex', 
-                    flexDirection: 'column', 
-                    alignItems: 'center', 
-                    justifyContent: 'center', 
-                    maxWidth: '600px',
-                    height: 'auto',
-                    maxHeight: '100%',
-                    minHeight: 0,
-                    overflow: 'hidden'
-                }}>
+                <div className="or-left-pane">
                     
                     {view === 'main' && (
                         <>
-                            <div style={{ color: 'var(--text-main)', fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', marginBottom: '0.5rem', textAlign: 'center', fontWeight: 800, fontFamily: 'var(--font-headings)' }}>
-                                COMMAND HUB
-                            </div>
-                            <div style={{ color: 'var(--text-muted)', fontSize: '1rem', marginBottom: '3rem', textAlign: 'center', fontWeight: 400 }}>
-                                Initiate or Join a Live Operation
-                            </div>
+                            <div className="or-title">COMMAND HUB</div>
+                            <div className="or-subtitle">Initiate or Join a Live Operation</div>
                             
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(0.5rem, 2vh, 1.5rem)', width: '100%' }}>
                                 <button 
                                     onClick={() => setView('create')}
-                                    className="btn-primary"
-                                    style={{ 
-                                        width: '100%',
-                                        padding: '1.5rem 2rem', 
-                                        fontSize: '1.75rem', 
-                                    }}
+                                    className="btn-primary or-btn-primary"
                                 >
                                     <span>⚡</span> START KAIZEN
                                 </button>
 
                                 <button 
                                     onClick={() => setView('join')}
-                                    style={{ 
-                                        width: '100%',
-                                        padding: '1.5rem 2rem', 
-                                        fontSize: '1.25rem', 
-                                        borderRadius: '8px', 
-                                        background: 'var(--bg-panel)',
-                                        color: 'var(--text-main)',
-                                        border: '1px solid var(--border-light)',
-                                        cursor: 'pointer',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        gap: '1rem',
-                                        fontWeight: 700,
-                                        fontFamily: 'var(--font-headings)',
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '2px',
-                                        transition: 'all 0.15s ease-in-out'
-                                    }}
-                                    onMouseOver={e => e.currentTarget.style.background = 'var(--bg-panel-hover)'}
-                                    onMouseOut={e => e.currentTarget.style.background = 'var(--bg-panel)'}
+                                    className="or-btn-secondary"
                                 >
                                     <span>🔗</span> JOIN KAIZEN
                                 </button>
@@ -138,36 +231,36 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                     )}
 
                     {view === 'join' && (
-                        <div style={{ width: '100%', animation: 'fadeIn 0.2s ease-out' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '2rem' }}>
+                        <div style={{ width: '100%', animation: 'fadeIn 0.2s ease-out', display: 'flex', flexDirection: 'column', height: '100%' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', marginBottom: 'clamp(0.5rem, 2vh, 2rem)' }}>
                                 <button onClick={() => setView('main')} className="global-action-btn" style={{ background: 'transparent', border: 'none', padding: 0 }}>
                                     ← Back
                                 </button>
-                                <h2 style={{ flex: 1, textAlign: 'center', margin: 0, fontFamily: 'var(--font-headings)', fontSize: '1.5rem', color: 'white', letterSpacing: '2px' }}>
+                                <h2 style={{ flex: 1, textAlign: 'center', margin: 0, fontFamily: 'var(--font-headings)', fontSize: 'clamp(1rem, 2.5vh, 1.5rem)', color: 'white', letterSpacing: '2px' }}>
                                     JOIN SESSION
                                 </h2>
                                 <div style={{ width: '60px' }} />
                             </div>
 
-                            <form onSubmit={handleJoinSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', background: 'var(--bg-panel)', padding: '2.5rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                                <div style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '1rem' }}>
-                                    Enter the 6-character access PIN, or scan the QR code using your phone camera.
+                            <form onSubmit={handleJoinSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(0.5rem, 1.5vh, 1rem)', background: 'var(--bg-panel)', padding: 'clamp(1rem, 3vh, 2.5rem)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', flex: 1 }}>
+                                <div style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '0.25rem', fontSize: 'clamp(0.7rem, 1.8vh, 1rem)' }}>
+                                    Enter 6-char PIN or scan QR.
                                 </div>
                                 <input 
                                     type="text" 
-                                    placeholder="Enter PIN (e.g. A3X9Z)"
+                                    placeholder="e.g. A3X9Z"
                                     value={joinCode}
                                     onChange={e => setJoinCode(e.target.value)}
                                     className="input-field-light"
-                                    style={{ fontSize: '1.5rem', textAlign: 'center', letterSpacing: '4px', textTransform: 'uppercase', padding: '1rem' }}
+                                    style={{ fontSize: 'clamp(1rem, 3vh, 1.5rem)', textAlign: 'center', letterSpacing: '4px', textTransform: 'uppercase', padding: 'clamp(0.5rem, 2vh, 1rem)' }}
                                     maxLength={8}
                                     autoFocus
                                 />
                                 <button 
                                     type="submit"
                                     disabled={joinCode.trim().length === 0}
-                                    className="btn-primary"
-                                    style={{ padding: '1rem', fontSize: '1.1rem', marginTop: '1rem' }}
+                                    className="btn-primary or-btn-primary"
+                                    style={{ marginTop: 'auto' }}
                                 >
                                     ENTER KAIZEN
                                 </button>
@@ -177,64 +270,38 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                 </div>
 
                 {/* RIGHT PANE - SIDE NODE (JFI HUB) */}
-                <div style={{ 
-                    flex: '1 1 250px', 
-                    maxWidth: '400px',
-                    display: 'flex', 
-                    flexDirection: 'column',
-                    background: 'var(--bg-panel)',
-                    borderRadius: '1.5rem',
-                    border: '1px solid rgba(255,255,255,0.05)',
-                    padding: 'clamp(1rem, 3vw, 2rem)',
-                    boxShadow: '0 8px 30px rgba(0,0,0,0.5)',
-                    minHeight: 0,
-                    overflow: 'hidden'
-                }}>
-                    <div style={{ 
-                        fontSize: '0.85rem', 
-                        color: 'var(--text-muted)', 
-                        textTransform: 'uppercase', 
-                        letterSpacing: '3px', 
-                        fontWeight: 700,
-                        textAlign: 'center',
-                        marginBottom: '2.5rem'
-                    }}>
+                <div className="or-right-pane">
+                    <div className="or-jfi-title">
                         Just-Do-It (JFI) System
                     </div>
                     <div style={{ 
                         display: 'flex', 
                         flexDirection: 'column', 
-                        gap: '1.25rem'
+                        gap: 'clamp(0.25rem, 1.5vh, 1.25rem)'
                     }}>
                         <button 
                             onClick={() => setShowJFI(true)}
-                            style={{ padding: '1.25rem', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-light)', color: 'var(--text-main)', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s', fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '1rem' }}
-                            onMouseOver={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.borderColor = 'var(--text-main)'; }}
-                            onMouseOut={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; e.currentTarget.style.borderColor = 'var(--border-light)'; }}
+                            className="or-jfi-btn"
                         >
-                            <span style={{ fontSize: '1.5rem' }}>💡</span> 
+                            <span className="or-jfi-icon">💡</span> 
                             <span>Instant Idea Generator</span>
                         </button>
                         <a 
                             href="https://form.jotform.com/233406028319149" 
                             target="_blank" 
                             rel="noreferrer" 
-                            style={{ padding: '1.25rem', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-light)', color: 'var(--text-main)', borderRadius: '8px', cursor: 'pointer', textDecoration: 'none', transition: 'all 0.2s', fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '1rem' }}
-                            onMouseOver={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.borderColor = 'var(--text-main)'; }}
-                            onMouseOut={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; e.currentTarget.style.borderColor = 'var(--border-light)'; }}
+                            className="or-jfi-btn"
                         >
-                            <span style={{ fontSize: '1.5rem' }}>📝</span> 
+                            <span className="or-jfi-icon">📝</span> 
                             <span>Submit Formal JFI Ticket</span>
                         </a>
                         <a 
                             href="https://padlet.com" 
                             target="_blank" 
                             rel="noreferrer" 
-                            style={{ padding: '1.25rem', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-light)', color: 'var(--text-main)', borderRadius: '8px', cursor: 'pointer', textDecoration: 'none', transition: 'all 0.2s', fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '1rem' }}
-                            onMouseOver={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.borderColor = 'var(--text-main)'; }}
-                            onMouseOut={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; e.currentTarget.style.borderColor = 'var(--border-light)'; }}
+                            className="or-jfi-btn"
                         >
-                            <span style={{ fontSize: '1.5rem' }}>📺</span> 
+                            <span className="or-jfi-icon">📺</span> 
                             <span>Library & Training Videos</span>
                         </a>
                     </div>
