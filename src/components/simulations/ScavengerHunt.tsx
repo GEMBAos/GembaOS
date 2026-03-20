@@ -66,7 +66,7 @@ export default function ScavengerHunt() {
                     </div>
                     <div style={{ background: 'var(--bg-panel)', padding: '0.5rem 1rem', borderRadius: '2rem', border: '1px solid var(--border-light)' }}>
                         <span style={{ color: 'var(--text-muted)' }}>Found: </span>
-                        <span style={{ fontSize: '1.25rem', fontWeight: 900, color: '#f59e0b' }}>{totalFound} / {targets.length}</span>
+                        <span style={{ fontSize: '1.25rem', fontWeight: 900, color: '#ffffff' }}>{totalFound} / {targets.length}</span>
                     </div>
                 </div>
             </header>

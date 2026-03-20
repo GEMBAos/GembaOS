@@ -170,7 +170,7 @@ export default function DiceFlowGame() {
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2rem', padding: '1rem', background: 'var(--bg-dark)', borderRadius: '0.5rem', alignItems: 'center' }}>
                         <div>
                             <span style={{ color: 'var(--text-muted)', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '1px' }}>Current Simulation</span><br />
-                            <strong style={{ fontSize: '1.2rem', color: mode === 'batch' ? '#f59e0b' : '#3b82f6' }}>
+                            <strong style={{ fontSize: '1.2rem', color: mode === 'batch' ? '#ffffff' : '#3b82f6' }}>
                                 {mode === 'batch' ? 'Batch Processing (10 Units)' : 'One-Piece Flow'}
                             </strong>
                         </div>

@@ -138,7 +138,7 @@ export default function KaizenSessionCreator({ onBack, onSessionCreated }: Kaize
                             padding: '1.25rem', 
                             fontSize: '1.15rem', 
                             borderRadius: '8px', 
-                            background: sessionName.trim() ? '#F15A29' : 'rgba(255,255,255,0.1)',
+                            background: sessionName.trim() ? '#71717a' : 'rgba(255,255,255,0.1)',
                             color: sessionName.trim() ? '#FFFFFF' : 'rgba(255,255,255,0.3)',
                             border: 'none',
                             cursor: sessionName.trim() ? 'pointer' : 'not-allowed',
@@ -147,7 +147,7 @@ export default function KaizenSessionCreator({ onBack, onSessionCreated }: Kaize
                             textTransform: 'uppercase',
                             letterSpacing: '2px',
                             transition: 'all 0.2s ease',
-                            boxShadow: sessionName.trim() ? '0 4px 12px rgba(241, 90, 41, 0.3)' : 'none'
+                            boxShadow: sessionName.trim() ? '0 4px 12px rgba(139, 92, 246, 0.3)' : 'none'
                         }}
                     >
                         {isSubmitting ? 'INITIALIZING...' : 'START SESSION'}

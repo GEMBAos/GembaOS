@@ -110,14 +110,14 @@ export default function SpatialViewer({ participants }: Props) {
                         cellColor="#38bdf8" 
                         sectionSize={5} 
                         sectionThickness={3} 
-                        sectionColor="#0ea5e9" 
+                        sectionColor="#52525b" 
                         fadeDistance={25} 
                         infiniteGrid 
                     />
 
                     {/* Example Center Virtual Object (To prove volumetric collision with the real world) */}
                     <Box position={[0, 0.5, 0]} args={[2, 1, 3]}>
-                        <meshStandardMaterial color="#0ea5e9" wireframe opacity={0.6} transparent />
+                        <meshStandardMaterial color="#52525b" wireframe opacity={0.6} transparent />
                     </Box>
                     <Text position={[0, 1.2, 0]} fontSize={0.2} color="#bae6fd" anchorX="center" anchorY="middle">
                         [SYNTHETIC ANCHOR ORIGIN]

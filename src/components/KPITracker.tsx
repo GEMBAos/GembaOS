@@ -96,9 +96,9 @@ export default function KPITracker({ onBack }: KPITrackerProps) {
                     <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem', color: 'var(--text-muted)' }}>SQDC Snapshot</h3>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem' }}>
                         <MetricCard title="Safety (Days w/o Incident)" value={142} trend={12} icon="👷" color="#10b981" />
-                        <MetricCard title="Quality (First Pass Yield)" value="98.2%" trend={2.1} icon="✨" color="#f59e0b" />
+                        <MetricCard title="Quality (First Pass Yield)" value="98.2%" trend={2.1} icon="✨" color="#ffffff" />
                         <MetricCard title="Delivery (On-Time)" value="94.5%" trend={-1.5} icon="🚚" color="#3b82f6" />
-                        <MetricCard title="Cost (Scrap Reduction)" value="$12.4K" trend={15} icon="💰" color="#8b5cf6" />
+                        <MetricCard title="Cost (Scrap Reduction)" value="$12.4K" trend={15} icon="💰" color="#71717a" />
                     </div>
                 </section>
 

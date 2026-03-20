@@ -18,7 +18,7 @@ const LineBalanceBuilder = React.lazy(() => import('./components/tools/LineBalan
 
 // New Operating Room Tools
 const GoalGapMonitor = React.lazy(() => import('./components/tools/GoalGapMonitor'));
-const MotionMapping = React.lazy(() => import('./components/tools/MotionMapping'));
+
 const MotionMappingV2 = React.lazy(() => import('./components/tools/motion_v2/MotionMappingV2'));
 const ProcessCheck = React.lazy(() => import('./components/tools/ProcessCheck'));
 const ImprovementCard = React.lazy(() => import('./components/tools/ImprovementCard'));
@@ -40,7 +40,7 @@ function App() {
   const getInitialView = () => {
     const rawHash = window.location.hash.replace('#/', '');
     const hashPath = rawHash.split('?')[0];
-    if (['portal', 'observe', 'diagnose', 'improve', 'motion-mapping', 'motion-v2', 'time-study', 'process-check', 'improvement-card', 'value-scanner', 'line-balance', 'kaizen-hub'].includes(hashPath)) {
+    if (['portal', 'observe', 'diagnose', 'improve', 'motion-v2', 'time-study', 'process-check', 'improvement-card', 'value-scanner', 'line-balance', 'kaizen-hub'].includes(hashPath)) {
         return hashPath as any;
     }
 
@@ -224,18 +224,18 @@ function App() {
                     borderRadius: '8px',
                     border: '1px solid rgba(255,255,255,0.05)'
                 }} className="hide-on-mobile-flex">
-                    <button onClick={() => handleNavigate('portal')} style={{ background: currentView === 'portal' ? 'var(--accent-primary)' : 'transparent', border: 'none', color: currentView === 'portal' ? '#fff' : '#94a3b8', fontWeight: 600, cursor: 'pointer', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', transition: 'all 0.2s', boxShadow: currentView === 'portal' ? 'inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.2)' : 'none' }}>Command Center</button>
-                    <button onClick={() => handleNavigate('observe')} style={{ background: currentView === 'observe' ? 'var(--accent-primary)' : 'transparent', border: 'none', color: currentView === 'observe' ? '#fff' : '#94a3b8', fontWeight: 600, cursor: 'pointer', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', transition: 'all 0.2s', boxShadow: currentView === 'observe' ? 'inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.2)' : 'none' }}>Observe</button>
-                    <button onClick={() => handleNavigate('diagnose')} style={{ background: currentView === 'diagnose' ? 'var(--accent-primary)' : 'transparent', border: 'none', color: currentView === 'diagnose' ? '#fff' : '#94a3b8', fontWeight: 600, cursor: 'pointer', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', transition: 'all 0.2s', boxShadow: currentView === 'diagnose' ? 'inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.2)' : 'none' }}>Diagnose</button>
-                    <button onClick={() => handleNavigate('improve')} style={{ background: currentView === 'improve' ? 'var(--accent-primary)' : 'transparent', border: 'none', color: currentView === 'improve' ? '#fff' : '#94a3b8', fontWeight: 600, cursor: 'pointer', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', transition: 'all 0.2s', boxShadow: currentView === 'improve' ? 'inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.2)' : 'none' }}>Improve</button>
+                    <button onClick={() => handleNavigate('portal')} style={{ background: currentView === 'portal' ? 'var(--accent-primary)' : 'transparent', border: 'none', color: currentView === 'portal' ? '#000' : '#94a3b8', fontWeight: 600, cursor: 'pointer', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', transition: 'all 0.2s', boxShadow: currentView === 'portal' ? 'inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.2)' : 'none' }}>Command Center</button>
+                    <button onClick={() => handleNavigate('observe')} style={{ background: currentView === 'observe' ? 'var(--accent-primary)' : 'transparent', border: 'none', color: currentView === 'observe' ? '#000' : '#94a3b8', fontWeight: 600, cursor: 'pointer', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', transition: 'all 0.2s', boxShadow: currentView === 'observe' ? 'inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.2)' : 'none' }}>Observe</button>
+                    <button onClick={() => handleNavigate('diagnose')} style={{ background: currentView === 'diagnose' ? 'var(--accent-primary)' : 'transparent', border: 'none', color: currentView === 'diagnose' ? '#000' : '#94a3b8', fontWeight: 600, cursor: 'pointer', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', transition: 'all 0.2s', boxShadow: currentView === 'diagnose' ? 'inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.2)' : 'none' }}>Diagnose</button>
+                    <button onClick={() => handleNavigate('improve')} style={{ background: currentView === 'improve' ? 'var(--accent-primary)' : 'transparent', border: 'none', color: currentView === 'improve' ? '#000' : '#94a3b8', fontWeight: 600, cursor: 'pointer', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', transition: 'all 0.2s', boxShadow: currentView === 'improve' ? 'inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.2)' : 'none' }}>Improve</button>
                 </nav>
             </div>
             
             {/* Utilities */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
                 <div style={{ display: 'flex', gap: '0.25rem', background: 'rgba(255,255,255,0.03)', padding: '0.25rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }} className="hide-on-mobile-flex">
-                    <button onClick={() => i18n.changeLanguage('en')} style={{ padding: '0.25rem 0.5rem', background: i18n.language.startsWith('en') ? 'var(--accent-primary)' : 'transparent', borderRadius: '4px', border: 'none', color: i18n.language.startsWith('en') ? '#fff' : '#64748b', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 'bold', transition: 'all 0.2s' }}>EN</button>
-                    <button onClick={() => i18n.changeLanguage('es')} style={{ padding: '0.25rem 0.5rem', background: i18n.language.startsWith('es') ? 'var(--accent-primary)' : 'transparent', borderRadius: '4px', border: 'none', color: i18n.language.startsWith('es') ? '#fff' : '#64748b', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 'bold', transition: 'all 0.2s' }}>ES</button>
+                    <button onClick={() => i18n.changeLanguage('en')} style={{ padding: '0.25rem 0.5rem', background: i18n.language.startsWith('en') ? 'var(--accent-primary)' : 'transparent', borderRadius: '4px', border: 'none', color: i18n.language.startsWith('en') ? '#000' : '#64748b', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 'bold', transition: 'all 0.2s' }}>EN</button>
+                    <button onClick={() => i18n.changeLanguage('es')} style={{ padding: '0.25rem 0.5rem', background: i18n.language.startsWith('es') ? 'var(--accent-primary)' : 'transparent', borderRadius: '4px', border: 'none', color: i18n.language.startsWith('es') ? '#000' : '#64748b', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 'bold', transition: 'all 0.2s' }}>ES</button>
                 </div>
                 {/* User Profile / Login */}
                 {user ? (
@@ -246,7 +246,7 @@ function App() {
                         <img src={profile?.avatar_url || `https://ui-avatars.com/api/?name=${profile?.username || user.email}&background=random`} alt="Avatar" style={{ width: '32px', height: '32px', borderRadius: '50%', border: '2px solid var(--accent-primary)' }} />
                     </div>
                 ) : (
-                    <button onClick={() => setShowAuth(true)} style={{ background: 'var(--accent-primary)', border: 'none', color: '#fff', padding: '0.5rem 1.25rem', borderRadius: '6px', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 'bold', transition: 'all 0.2s', boxShadow: '0 4px 10px rgba(139, 92, 246, 0.3), inset 0 1px 0 rgba(255,255,255,0.2)' }}>Operator Login</button>
+                    <button className="btn-primary" onClick={() => setShowAuth(true)} style={{ padding: '0.5rem 1.25rem', borderRadius: '6px', fontSize: '0.85rem' }}>Operator Login</button>
                 )}
                 {deferredPrompt && (
                     <button className="hide-on-mobile" onClick={() => { deferredPrompt.prompt(); setDeferredPrompt(null); }} style={{ background: 'var(--accent-success)', border: 'none', color: '#fff', padding: '0.5rem 1.25rem', borderRadius: '6px', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 'bold', transition: 'all 0.2s' }}>Install App</button>
@@ -307,42 +307,22 @@ function App() {
                             <div style={{ color: 'var(--accent-primary)', fontWeight: 'bold', fontSize: '0.85rem', marginTop: 'auto', paddingTop: '1rem' }}>LAUNCH TOOL →</div>
                         </div>
 
-                        <div 
-                            onClick={() => handleNavigate('motion-mapping')}
-                            className="module-card hover-glow"
-                            style={{ 
-                                background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%)', 
-                                padding: '2rem', 
-                                borderRadius: '12px', 
-                                border: '1px solid rgba(255, 255, 255, 0.1)', 
-                                cursor: 'pointer',
-                                textAlign: 'left',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: '1rem'
-                            }}
-                        >
-                            <div style={{ fontSize: '2.5rem' }}>📍</div>
-                            <h3 style={{ color: '#cbd5e1', margin: 0, fontSize: '1.25rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Motion Mapping</h3>
-                            <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.9rem', lineHeight: 1.5 }}>
-                                Track operator movement, identify excessive walking, congestion, and excursions from the value-add zone.
-                            </p>
-                            <div style={{ color: '#cbd5e1', fontWeight: 'bold', fontSize: '0.85rem', marginTop: 'auto', paddingTop: '1rem' }}>LAUNCH TOOL →</div>
-                        </div>
 
                         <div 
                             onClick={() => handleNavigate('time-study')}
                             className="module-card hover-glow"
                             style={{ 
+                                flex: '1 1 300px',
+                                maxWidth: '500px',
                                 background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%)', 
-                                padding: '2rem', 
+                                padding: 'clamp(1rem, 2vw, 2rem)', 
                                 borderRadius: '12px', 
                                 border: '1px solid rgba(16, 185, 129, 0.3)', 
                                 cursor: 'pointer',
                                 textAlign: 'left',
                                 display: 'flex',
                                 flexDirection: 'column',
-                                gap: '1rem'
+                                gap: 'clamp(0.5rem, 1vw, 1rem)'
                             }}
                         >
                             <div style={{ fontSize: '2.5rem' }}>⏱️</div>
@@ -356,47 +336,53 @@ function App() {
                 </div>
             )}
             {currentView === 'diagnose' && (
-                <div style={{ padding: '3rem', textAlign: 'center', color: '#94a3b8', maxWidth: '1000px', margin: '0 auto' }}>
-                    <h2 style={{ color: '#e2e8f0', fontSize: '2rem', marginBottom: '1rem', fontFamily: "'Orbitron', sans-serif", fontWeight: 700 }}>DIAGNOSE</h2>
-                    <p style={{ maxWidth: '600px', margin: '0 auto', lineHeight: 1.6, marginBottom: '3rem' }}>Waste identification and root cause analysis tools.</p>
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: 'clamp(1rem, 2vw, 2rem)' }}>
+                    <div style={{ textAlign: 'center', marginBottom: 'clamp(1rem, 2vw, 2rem)', flexShrink: 0 }}>
+                        <h2 style={{ color: '#e2e8f0', fontSize: 'clamp(1.5rem, 3vw, 2rem)', marginBottom: '0.25rem', fontFamily: "'Orbitron', sans-serif", fontWeight: 700 }}>DIAGNOSE</h2>
+                        <p style={{ color: 'var(--text-muted)', margin: 0 }}>Waste identification and root cause analysis tools.</p>
+                    </div>
                     
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+                    <div style={{ flex: 1, display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 'clamp(1rem, 2vw, 2rem)', minHeight: 0, overflow: 'hidden' }}>
                         <div 
                             onClick={() => handleNavigate('process-check')}
                             className="module-card hover-glow"
                             style={{ 
+                                flex: '1 1 300px',
+                                maxWidth: '500px',
                                 background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%)', 
-                                padding: '2rem', 
+                                padding: 'clamp(1rem, 2vw, 2rem)', 
                                 borderRadius: '12px', 
                                 border: '1px solid rgba(245, 158, 11, 0.3)', 
                                 cursor: 'pointer',
                                 textAlign: 'left',
                                 display: 'flex',
                                 flexDirection: 'column',
-                                gap: '1rem'
+                                gap: 'clamp(0.5rem, 1vw, 1rem)'
                             }}
                         >
                             <div style={{ fontSize: '2.5rem' }}>📋</div>
-                            <h3 style={{ color: '#f59e0b', margin: 0, fontSize: '1.25rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Process Check</h3>
+                            <h3 style={{ color: '#ffffff', margin: 0, fontSize: '1.25rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Process Check</h3>
                             <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.9rem', lineHeight: 1.5 }}>
                                 Diagnose motion waste and field exits identified during observation. Determine value vs preparation root causes.
                             </p>
-                            <div style={{ color: '#f59e0b', fontWeight: 'bold', fontSize: '0.85rem', marginTop: 'auto', paddingTop: '1rem' }}>LAUNCH TOOL →</div>
+                            <div style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '0.85rem', marginTop: 'auto', paddingTop: '1rem' }}>LAUNCH TOOL →</div>
                         </div>
 
                         <div 
                             onClick={() => handleNavigate('line-balance')}
                             className="module-card hover-glow"
                             style={{ 
+                                flex: '1 1 300px',
+                                maxWidth: '500px',
                                 background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%)', 
-                                padding: '2rem', 
+                                padding: 'clamp(1rem, 2vw, 2rem)', 
                                 borderRadius: '12px', 
                                 border: '1px solid rgba(139, 92, 246, 0.3)', 
                                 cursor: 'pointer',
                                 textAlign: 'left',
                                 display: 'flex',
                                 flexDirection: 'column',
-                                gap: '1rem'
+                                gap: 'clamp(0.5rem, 1vw, 1rem)'
                             }}
                         >
                             <div style={{ fontSize: '2.5rem' }}>⚖️</div>
@@ -410,24 +396,28 @@ function App() {
                 </div>
             )}
             {currentView === 'improve' && (
-                <div style={{ padding: '3rem', textAlign: 'center', color: '#94a3b8', maxWidth: '1000px', margin: '0 auto' }}>
-                    <h2 style={{ color: '#e2e8f0', fontSize: '2rem', marginBottom: '1rem', fontFamily: "'Orbitron', sans-serif", fontWeight: 700 }}>IMPROVE</h2>
-                    <p style={{ maxWidth: '600px', margin: '0 auto', lineHeight: 1.6, marginBottom: '3rem' }}>Action-oriented countermeasure tracking and experiment tools.</p>
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: 'clamp(1rem, 2vw, 2rem)' }}>
+                    <div style={{ textAlign: 'center', marginBottom: 'clamp(1rem, 2vw, 2rem)', flexShrink: 0 }}>
+                        <h2 style={{ color: '#e2e8f0', fontSize: 'clamp(1.5rem, 3vw, 2rem)', marginBottom: '0.25rem', fontFamily: "'Orbitron', sans-serif", fontWeight: 700 }}>IMPROVE</h2>
+                        <p style={{ color: 'var(--text-muted)', margin: 0 }}>Action-oriented countermeasure tracking and experiment tools.</p>
+                    </div>
                     
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+                    <div style={{ flex: 1, display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 'clamp(1rem, 2vw, 2rem)', minHeight: 0, overflow: 'hidden' }}>
                         <div 
                             onClick={() => handleNavigate('improvement-card')}
                             className="module-card hover-glow"
                             style={{ 
+                                flex: '1 1 300px',
+                                maxWidth: '500px',
                                 background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%)', 
-                                padding: '2rem', 
+                                padding: 'clamp(1rem, 2vw, 2rem)', 
                                 borderRadius: '12px', 
                                 border: '1px solid rgba(244, 63, 94, 0.3)', 
                                 cursor: 'pointer',
                                 textAlign: 'left',
                                 display: 'flex',
                                 flexDirection: 'column',
-                                gap: '1rem'
+                                gap: 'clamp(0.5rem, 1vw, 1rem)'
                             }}
                         >
                             <div style={{ fontSize: '2.5rem' }}>⚡</div>
@@ -445,7 +435,7 @@ function App() {
             
             {/* Operating Room Tools */}
             {currentView === 'goal-gap' && <GoalGapMonitor onClose={() => handleNavigate('portal')} />}
-            {currentView === 'motion-mapping' && <MotionMapping onClose={() => handleNavigate('portal')} />}
+
             {currentView === 'motion-v2' && <MotionMappingV2 onClose={() => handleNavigate('portal')} />}
             {currentView === 'time-study' && <TimeStudy onClose={() => handleNavigate('portal')} />}
             {currentView === 'process-check' && <ProcessCheck onClose={() => handleNavigate('portal')} />}
@@ -508,8 +498,8 @@ function App() {
           <div style={{ paddingBottom: '1rem', borderBottom: '1px solid var(--border-light)' }}>
             <div style={{ fontSize: '1rem', fontWeight: 'bold', marginBottom: '1rem' }}>Preferences</div>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <button onClick={() => { i18n.changeLanguage('en'); setIsMenuOpen(false); }} style={{ flex: 1, padding: '0.5rem', borderRadius: '0.5rem', background: i18n.language.startsWith('en') ? 'var(--accent-primary)' : 'rgba(255,255,255,0.05)', color: 'white', border: 'none', fontWeight: 'bold' }}>EN</button>
-              <button onClick={() => { i18n.changeLanguage('es'); setIsMenuOpen(false); }} style={{ flex: 1, padding: '0.5rem', borderRadius: '0.5rem', background: i18n.language.startsWith('es') ? 'var(--accent-primary)' : 'rgba(255,255,255,0.05)', color: 'white', border: 'none', fontWeight: 'bold' }}>ES</button>
+              <button onClick={() => { i18n.changeLanguage('en'); setIsMenuOpen(false); }} style={{ flex: 1, padding: '0.5rem', borderRadius: '0.5rem', background: i18n.language.startsWith('en') ? 'var(--accent-primary)' : 'rgba(255,255,255,0.05)', color: i18n.language.startsWith('en') ? '#000' : 'white', border: 'none', fontWeight: 'bold' }}>EN</button>
+              <button onClick={() => { i18n.changeLanguage('es'); setIsMenuOpen(false); }} style={{ flex: 1, padding: '0.5rem', borderRadius: '0.5rem', background: i18n.language.startsWith('es') ? 'var(--accent-primary)' : 'rgba(255,255,255,0.05)', color: i18n.language.startsWith('es') ? '#000' : 'white', border: 'none', fontWeight: 'bold' }}>ES</button>
             </div>
             
             {user ? (
@@ -517,7 +507,7 @@ function App() {
                 🚪 {t('auth.logout', 'Logout')}
               </button>
             ) : (
-              <button className="btn" style={{ width: '100%', marginTop: '1rem', borderColor: 'var(--accent-primary)', color: 'var(--text-main)' }} onClick={() => { setShowAuth(true); setIsMenuOpen(false); }}>
+              <button className="btn-primary" style={{ width: '100%', marginTop: '1rem' }} onClick={() => { setShowAuth(true); setIsMenuOpen(false); }}>
                 {t('auth.login', 'Log In or Sign Up')}
               </button>
             )}

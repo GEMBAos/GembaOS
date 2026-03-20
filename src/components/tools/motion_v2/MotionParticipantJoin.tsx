@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ImprovementEngine } from '../../../services/ImprovementEngine';
 import type { MotionSessionV2, MotionParticipantPathV2 } from '../../../types/motion_v2';
 import { supabase } from '../../../lib/supabase';
@@ -11,13 +11,12 @@ interface Props {
 export default function MotionParticipantJoin({ sessionId, onJoined }: Props) {
     const [session, setSession] = useState<MotionSessionV2 | null>(ImprovementEngine.getItem<MotionSessionV2>(sessionId));
     const [name] = useState('');
-    const [loading, setLoading] = useState(false);
     const [fetchError, setFetchError] = useState(false);
+    const joinAttemptedRef = useRef(false);
 
     useEffect(() => {
         if (!session && !fetchError) {
             const fetchSession = async () => {
-                setLoading(true);
                 const { data, error } = await supabase.from('motion_sessions_v2')
                     .select('*')
                     .or(`id.eq.${sessionId},access_code.eq.${sessionId}`)
@@ -25,7 +24,6 @@ export default function MotionParticipantJoin({ sessionId, onJoined }: Props) {
                 if (error || !data) {
                     console.error("Failed to load session:", error);
                     setFetchError(true);
-                    setLoading(false);
                     return;
                 }
                 const loadedSession: MotionSessionV2 = {
@@ -55,8 +53,8 @@ export default function MotionParticipantJoin({ sessionId, onJoined }: Props) {
         // PRIORITY 8: QR ENTRY (NO FRICTION)
         // Auto-join the session if a name is provided, or auto-generate one
         const attemptAutoJoin = async () => {
-            if (loading) return;
-            setLoading(true);
+            if (joinAttemptedRef.current) return;
+            joinAttemptedRef.current = true;
 
             const { data } = await supabase.auth.getSession();
             const deviceId = data.session?.user?.id || `anon_${Math.random().toString(36).substring(2, 9)}`;
@@ -89,7 +87,6 @@ export default function MotionParticipantJoin({ sessionId, onJoined }: Props) {
                 }
 
                 if (existing) {
-                    setLoading(false);
                     onJoined(existing.id, session.id);
                     return;
                 }
@@ -106,7 +103,7 @@ export default function MotionParticipantJoin({ sessionId, onJoined }: Props) {
 
             const finalName = name.trim() || defaultName;
 
-            const colors = ['#F15A29', '#E65100', '#FF8F00', '#D84315', '#FF5722', '#FFB300'];
+            const colors = ['#71717a', '#E65100', '#FF8F00', '#D84315', '#FF5722', '#FFB300'];
             const color = colors[Math.floor(Math.random() * colors.length)];
 
             const participantId = `path_${Math.random().toString(36).substring(2, 11)}_${Date.now()}`;
@@ -132,7 +129,6 @@ export default function MotionParticipantJoin({ sessionId, onJoined }: Props) {
             
             localStorage.setItem(`motion_v2_participant_${session.id}`, participant.id);
 
-            setLoading(false);
             onJoined(participant.id, session.id);
         };
 
@@ -152,7 +148,7 @@ export default function MotionParticipantJoin({ sessionId, onJoined }: Props) {
     if (!session) {
         return (
             <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-muted)' }}>
-                <div className="spinner" style={{ margin: '0 auto 1.5rem auto', border: '4px solid rgba(255,255,255,0.1)', borderTop: '4px solid #F15A29', borderRadius: '50%', width: '40px', height: '40px', animation: 'spin 1s linear infinite' }} />
+                <div className="spinner" style={{ margin: '0 auto 1.5rem auto', border: '4px solid rgba(255,255,255,0.1)', borderTop: '4px solid #71717a', borderRadius: '50%', width: '40px', height: '40px', animation: 'spin 1s linear infinite' }} />
                 Loading session...
                 <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
             </div>
@@ -161,9 +157,9 @@ export default function MotionParticipantJoin({ sessionId, onJoined }: Props) {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', alignItems: 'center', justifyContent: 'center', padding: '1rem', background: 'var(--bg-dark)' }}>
-            <div className="card" style={{ maxWidth: '400px', width: '100%', textAlign: 'center', border: '1px solid #F15A29', boxShadow: '0 0 20px rgba(241, 90, 41, 0.2)', background: 'rgba(26,26,26,0.9)' }}>
+            <div className="card" style={{ maxWidth: '400px', width: '100%', textAlign: 'center', border: '1px solid #71717a', boxShadow: '0 0 20px rgba(139, 92, 246, 0.2)', background: 'rgba(26,26,26,0.9)' }}>
                 <div style={{ marginBottom: '2rem' }}>
-                    <div className="spinner" style={{ margin: '0 auto 1.5rem auto', border: '4px solid rgba(255,255,255,0.1)', borderTop: '4px solid #F15A29', borderRadius: '50%', width: '40px', height: '40px', animation: 'spin 1s linear infinite' }} />
+                    <div className="spinner" style={{ margin: '0 auto 1.5rem auto', border: '4px solid rgba(255,255,255,0.1)', borderTop: '4px solid #71717a', borderRadius: '50%', width: '40px', height: '40px', animation: 'spin 1s linear infinite' }} />
                     <h2 style={{ margin: 0, color: 'var(--text-main)', fontFamily: '"Orbitron", sans-serif', textTransform: 'uppercase', letterSpacing: '2px' }}>Connecting</h2>
                     <p style={{ color: 'var(--text-muted)', marginTop: '0.5rem' }}>Joining {session.sessionName}...</p>
                 </div>

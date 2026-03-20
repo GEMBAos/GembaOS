@@ -75,7 +75,7 @@ export default function GembaWalkGuide({ onClose }: GembaWalkGuideProps) {
                 );
             case 'observe':
                 return (
-                    <div className="card" style={{ padding: '2rem', animation: 'fadeIn 0.3s ease-out', borderTop: '4px solid #f59e0b' }}>
+                    <div className="card" style={{ padding: '2rem', animation: 'fadeIn 0.3s ease-out', borderTop: '4px solid #ffffff' }}>
                         <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                             <span>👀</span> Step 1: Silent Observation
                         </h3>

@@ -174,7 +174,7 @@ export default function MotionParticipantPathing({ sessionId, participantId, onL
             {/* PARTICIPANT OVERLAY: HIGH VISIBILITY TRACKING STATUS */}
             <div style={{ 
                 background: 'rgba(26, 26, 26, 0.95)', 
-                borderBottom: '2px solid #F15A29', 
+                borderBottom: '2px solid #71717a', 
                 padding: '0.75rem 1rem', 
                 display: 'flex', 
                 flexDirection: 'column',
@@ -185,9 +185,9 @@ export default function MotionParticipantPathing({ sessionId, participantId, onL
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                         <button className="btn" onClick={onLeave} style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem', background: 'rgba(255,255,255,0.05)', border: 'none' }}>← Leave</button>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(241, 90, 41, 0.15)', padding: '0.4rem 1rem', borderRadius: '4px', border: '1px solid rgba(241, 90, 41, 0.3)' }}>
-                            <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#F15A29', boxShadow: '0 0 10px #F15A29', animation: 'pulse 1.5s infinite' }}></div>
-                            <span style={{ color: '#F15A29', fontWeight: 800, fontSize: '0.85rem', letterSpacing: '2px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(139, 92, 246, 0.15)', padding: '0.4rem 1rem', borderRadius: '4px', border: '1px solid rgba(139, 92, 246, 0.3)' }}>
+                            <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#71717a', boxShadow: '0 0 10px #71717a', animation: 'pulse 1.5s infinite' }}></div>
+                            <span style={{ color: '#71717a', fontWeight: 800, fontSize: '0.85rem', letterSpacing: '2px' }}>
                                 ACTIVE TRACKING
                             </span>
                             <span style={{ marginLeft: '0.5rem', color: 'rgba(255,255,255,0.8)', fontSize: '0.9rem', fontFamily: 'monospace', fontWeight: 'bold' }}>
@@ -208,7 +208,7 @@ export default function MotionParticipantPathing({ sessionId, participantId, onL
                         </span>
                     </div>
                     <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
-                        <span style={{ fontSize: '0.75rem', color: '#F15A29', fontWeight: 800, letterSpacing: '1px' }}>{path.length} POINTS</span>
+                        <span style={{ fontSize: '0.75rem', color: '#71717a', fontWeight: 800, letterSpacing: '1px' }}>{path.length} POINTS</span>
                         <span style={{ fontWeight: 'bold', fontFamily: 'var(--font-headings)', fontSize: '1.25rem', color: 'white' }}>
                             {totalDistance.toFixed(1)} {session.calibrationUnit !== 'none' ? session.calibrationUnit : ''}
                         </span>
@@ -231,7 +231,7 @@ export default function MotionParticipantPathing({ sessionId, participantId, onL
             >
                 {session.layoutImageUrl ? (
                     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-                        <div style={{ position: 'absolute', top: '20px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(26,26,26,0.85)', color: 'white', padding: '8px 16px', borderRadius: '24px', fontSize: '0.85rem', pointerEvents: 'none', border: '1px solid #F15A29', zIndex: 10, letterSpacing: '1px', fontWeight: 800, whiteSpace: 'nowrap', boxShadow: '0 4px 12px rgba(0,0,0,0.5)' }}>
+                        <div style={{ position: 'absolute', top: '20px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(26,26,26,0.85)', color: 'white', padding: '8px 16px', borderRadius: '24px', fontSize: '0.85rem', pointerEvents: 'none', border: '1px solid #71717a', zIndex: 10, letterSpacing: '1px', fontWeight: 800, whiteSpace: 'nowrap', boxShadow: '0 4px 12px rgba(0,0,0,0.5)' }}>
                             {isTraceMode ? '✍️ DRAW DIRECTLY ON MAP TO TRACE PATH' : `📍 TAP VIEWPORT TO DROP ${mode === 'STOP' ? 'STOP' : 'POINT'}`}
                         </div>
                         <img 
@@ -316,7 +316,7 @@ export default function MotionParticipantPathing({ sessionId, participantId, onL
             <div style={{ padding: '0.75rem 1rem', background: 'rgba(26,26,26,1)', display: 'flex', gap: '0.5rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
                 <button 
                     className="btn" 
-                    style={{ flex: 1, background: mode === 'MOVE' && !isTraceMode ? '#F15A29' : 'rgba(255,255,255,0.05)', color: mode === 'MOVE' && !isTraceMode ? '#fff' : 'var(--text-muted)', fontWeight: 800, letterSpacing: '1px', textTransform: 'uppercase', fontSize: '0.75rem', border: mode === 'MOVE' && !isTraceMode ? 'none' : '1px solid rgba(255,255,255,0.1)' }}
+                    style={{ flex: 1, background: mode === 'MOVE' && !isTraceMode ? '#71717a' : 'rgba(255,255,255,0.05)', color: mode === 'MOVE' && !isTraceMode ? '#fff' : 'var(--text-muted)', fontWeight: 800, letterSpacing: '1px', textTransform: 'uppercase', fontSize: '0.75rem', border: mode === 'MOVE' && !isTraceMode ? 'none' : '1px solid rgba(255,255,255,0.1)' }}
                     onClick={() => { setMode('MOVE'); setIsTraceMode(false); }}
                 >
                     📍 Point
@@ -324,7 +324,7 @@ export default function MotionParticipantPathing({ sessionId, participantId, onL
                 <button 
                     className="btn" 
                     title="Manual Trace Fallback"
-                    style={{ flex: 1.5, background: isTraceMode ? '#F15A29' : 'rgba(255,255,255,0.05)', color: isTraceMode ? '#fff' : 'var(--text-muted)', fontWeight: 800, letterSpacing: '1px', textTransform: 'uppercase', fontSize: '0.75rem', border: isTraceMode ? 'none' : '1px solid rgba(255,255,255,0.1)' }}
+                    style={{ flex: 1.5, background: isTraceMode ? '#71717a' : 'rgba(255,255,255,0.05)', color: isTraceMode ? '#fff' : 'var(--text-muted)', fontWeight: 800, letterSpacing: '1px', textTransform: 'uppercase', fontSize: '0.75rem', border: isTraceMode ? 'none' : '1px solid rgba(255,255,255,0.1)' }}
                     onClick={() => { setMode('MOVE'); setIsTraceMode(true); }}
                 >
                     ✍️ Trace Map

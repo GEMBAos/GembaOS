@@ -128,7 +128,7 @@ export default function ExecutionHub({ onNavigateBack, project, setProject, onVi
                         }
                         window.open('https://form.jotform.com/233406028319149', '_blank');
                     }}
-                    style={{ flex: 1, padding: '1rem', borderRadius: '0.75rem', background: 'rgba(249, 115, 22, 0.1)', border: '1px solid #f97316', color: '#f97316', cursor: 'pointer', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
+                    style={{ flex: 1, padding: '1rem', borderRadius: '0.75rem', background: 'rgba(249, 115, 22, 0.1)', border: '1px solid #ffffff', color: '#ffffff', cursor: 'pointer', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
                 >
                     {t('executionHub.submitJfi')}
                 </button>

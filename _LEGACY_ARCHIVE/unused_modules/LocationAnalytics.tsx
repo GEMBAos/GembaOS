@@ -218,7 +218,7 @@ export default function LocationAnalytics() {
                                         <span style={{ 
                                             padding: '0.25rem 0.5rem', borderRadius: '1rem', fontSize: '0.7rem', fontWeight: 'bold',
                                             background: sub.impact_level === 'Quick Win' ? 'rgba(16,185,129,0.2)' : sub.impact_level === 'Moderate' ? 'rgba(245,158,11,0.2)' : 'rgba(239,68,68,0.2)',
-                                            color: sub.impact_level === 'Quick Win' ? '#10b981' : sub.impact_level === 'Moderate' ? '#f59e0b' : '#ef4444'
+                                            color: sub.impact_level === 'Quick Win' ? '#10b981' : sub.impact_level === 'Moderate' ? '#ffffff' : '#ef4444'
                                         }}>{sub.impact_level}</span>
                                      </td>
                                      <td style={{ padding: '0.75rem', textAlign: 'center' }}>

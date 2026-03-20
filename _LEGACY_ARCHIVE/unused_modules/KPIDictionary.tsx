@@ -184,7 +184,7 @@ export default function KPIDictionary({ onClose }: KPIDictionaryProps) {
                                         <div style={{ background: 'rgba(249, 115, 22, 0.05)', border: '1px solid rgba(249, 115, 22, 0.2)', borderRadius: '0.75rem', padding: '1.5rem' }}>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
                                                 <span>🚀</span>
-                                                <div style={{ fontSize: '0.9rem', textTransform: 'uppercase', color: '#f97316', fontWeight: 'bold' }}>JFI Ideas to Improve This</div>
+                                                <div style={{ fontSize: '0.9rem', textTransform: 'uppercase', color: '#ffffff', fontWeight: 'bold' }}>JFI Ideas to Improve This</div>
                                             </div>
                                             <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                                                 {metric.jfiIdeas.map((idea, idx) => (

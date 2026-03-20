@@ -162,7 +162,7 @@ export default function ResponsiveSimulator({ children }: { children: React.Reac
                     {/* Header */}
                     <div style={{ padding: '1.5rem', borderBottom: '1px solid #334155', backgroundColor: 'rgba(0,0,0,0.2)' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                            <h2 style={{ margin: 0, color: '#f97316', fontSize: '1.25rem', fontWeight: 900 }}>{stageData.title}</h2>
+                            <h2 style={{ margin: 0, color: '#ffffff', fontSize: '1.25rem', fontWeight: 900 }}>{stageData.title}</h2>
                             <span style={{ color: '#94a3b8', fontSize: '0.8rem', fontWeight: 'bold' }}>Phase {currentStage + 1} of 3</span>
                         </div>
                         <p style={{ margin: 0, color: '#cbd5e1', fontSize: '0.9rem', lineHeight: 1.5 }}>{stageData.description}</p>
@@ -241,7 +241,7 @@ export default function ResponsiveSimulator({ children }: { children: React.Reac
                             disabled={!isCorrect}
                             style={{
                                 padding: '0.75rem 1.5rem',
-                                backgroundColor: isCorrect ? '#f97316' : '#334155',
+                                backgroundColor: isCorrect ? '#ffffff' : '#334155',
                                 color: 'white',
                                 border: 'none',
                                 borderRadius: '0.5rem',

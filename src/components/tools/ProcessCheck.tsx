@@ -41,15 +41,19 @@ export default function ProcessCheck({ onClose }: { onClose: () => void }) {
     const handleSaveDiagnosis = () => {
         if (!selectedSession) return;
 
+        const cycleTime = selectedSession.pathCoordinates && selectedSession.pathCoordinates.length > 1 
+            ? (selectedSession.pathCoordinates[selectedSession.pathCoordinates.length - 1].timestamp - selectedSession.pathCoordinates[0].timestamp) / 1000 
+            : 0;
+
         ImprovementEngine.createItem<ProcessCheckType>({
             type: 'ProcessCheck',
             motionSessionId: selectedSession.id,
             processName: selectedSession.sessionName,
             operatorId: selectedSession.operatorId,
-            findings: `Interruption: ${interruptionCause}\nValue Classification: ${isValueWork ? 'Value Work' : 'Preparation/Waste'}\nNotes: ${rootCauseNotes}`,
+            findings: `Interruption: ${interruptionCause}\nValue Classification: ${isValueWork ? 'Value Work' : 'Preparation/Waste'}\nNotes: ${rootCauseNotes}\nObserved Field Exits: ${selectedSession.longestSegment}`,
             wasteTypes: [interruptionCause],
             targetCycleTime: 0,
-            actualCycleTime: 0
+            actualCycleTime: Math.round(cycleTime)
         });
 
         // Reset
@@ -58,7 +62,7 @@ export default function ProcessCheck({ onClose }: { onClose: () => void }) {
         setInterruptionCause('');
         setIsValueWork(null);
         setRootCauseNotes('');
-        alert("Diagnosis Saved. Ready for Improvement Handoff.");
+        onClose(); // Auto-close module instead of alert pop-up
     };
 
     return (
@@ -144,7 +148,7 @@ export default function ProcessCheck({ onClose }: { onClose: () => void }) {
                 {step === 1 && selectedSession && (
                     <div className="card" style={{ background: 'rgba(15, 23, 42, 0.8)', padding: 'clamp(1rem, 3vw, 2rem)', borderRadius: '12px', border: '1px solid rgba(245, 158, 11, 0.3)' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-                            <h2 style={{ color: '#f59e0b', margin: 0, fontFamily: "'Orbitron', sans-serif", fontSize: 'clamp(1rem, 3vw, 1.25rem)', letterSpacing: '1px' }}>FIELD EXIT ANALYSIS</h2>
+                            <h2 style={{ color: '#ffffff', margin: 0, fontFamily: "'Orbitron', sans-serif", fontSize: 'clamp(1rem, 3vw, 1.25rem)', letterSpacing: '1px' }}>FIELD EXIT ANALYSIS</h2>
                             <span style={{ color: '#64748b', fontSize: '0.85rem' }}>Analyzing: <strong style={{ color: '#e2e8f0' }}>{selectedSession.sessionName}</strong></span>
                         </div>
                         
@@ -158,7 +162,7 @@ export default function ProcessCheck({ onClose }: { onClose: () => void }) {
                                     style={{
                                         padding: '1rem',
                                         background: interruptionCause === cause ? 'rgba(245, 158, 11, 0.2)' : 'rgba(0,0,0,0.4)',
-                                        border: `1px solid ${interruptionCause === cause ? '#f59e0b' : 'rgba(255,255,255,0.1)'}`,
+                                        border: `1px solid ${interruptionCause === cause ? '#ffffff' : 'rgba(255,255,255,0.1)'}`,
                                         color: interruptionCause === cause ? '#fcd34d' : '#cbd5e1',
                                         borderRadius: '8px',
                                         cursor: 'pointer',
@@ -177,7 +181,7 @@ export default function ProcessCheck({ onClose }: { onClose: () => void }) {
                             <button 
                                 onClick={() => setStep(2)}
                                 disabled={!interruptionCause}
-                                style={{ flex: 1, padding: '0.75rem', background: '#f59e0b', color: '#0f172a', border: 'none', borderRadius: '8px', fontWeight: 'bold', cursor: !interruptionCause ? 'not-allowed' : 'pointer', opacity: !interruptionCause ? 0.5 : 1 }}
+                                style={{ flex: 1, padding: '0.75rem', background: '#ffffff', color: '#0f172a', border: 'none', borderRadius: '8px', fontWeight: 'bold', cursor: !interruptionCause ? 'not-allowed' : 'pointer', opacity: !interruptionCause ? 0.5 : 1 }}
                             >
                                 NEXT: VALUE CLASSIFICATION →
                             </button>
@@ -190,7 +194,7 @@ export default function ProcessCheck({ onClose }: { onClose: () => void }) {
                     <div className="card" style={{ background: 'rgba(15, 23, 42, 0.8)', padding: 'clamp(1rem, 3vw, 2rem)', borderRadius: '12px', border: '1px solid rgba(139, 92, 246, 0.3)' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
                             <h2 style={{ color: '#a78bfa', margin: 0, fontFamily: "'Orbitron', sans-serif", fontSize: 'clamp(1rem, 3vw, 1.25rem)', letterSpacing: '1px' }}>VALUE CLASSIFICATION</h2>
-                            <span style={{ color: '#64748b', fontSize: '0.85rem' }}>Cause: <strong style={{ color: '#f59e0b' }}>{interruptionCause}</strong></span>
+                            <span style={{ color: '#64748b', fontSize: '0.85rem' }}>Cause: <strong style={{ color: '#ffffff' }}>{interruptionCause}</strong></span>
                         </div>
                         
                         <p style={{ color: '#e2e8f0', fontSize: '1.1rem', marginBottom: '2rem', textAlign: 'center' }}>Did this interrupted step actually change the product (patient) in a way the customer values?</p>
@@ -265,7 +269,7 @@ export default function ProcessCheck({ onClose }: { onClose: () => void }) {
                             </div>
                             <div style={{ background: 'rgba(0,0,0,0.3)', padding: '1.25rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
                                 <div style={{ color: '#64748b', fontSize: '0.85rem', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Diagnostic Conclusion</div>
-                                <div style={{ color: '#f59e0b', fontWeight: 'bold', fontSize: '1.1rem' }}>{interruptionCause}</div>
+                                <div style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '1.1rem' }}>{interruptionCause}</div>
                                 <div style={{ color: isValueWork ? '#10b981' : '#ef4444', fontSize: '0.9rem', marginTop: '0.25rem', fontWeight: 'bold' }}>
                                     {isValueWork ? 'Value Work' : 'Preparation / Waste'}
                                 </div>

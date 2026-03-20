@@ -39,25 +39,25 @@ export default function CommunicationBestPractices() {
                 </div>
 
                 {/* Meetings section */}
-                <div className="card" style={{ padding: '2rem', borderTop: '4px solid #f59e0b' }}>
+                <div className="card" style={{ padding: '2rem', borderTop: '4px solid #ffffff' }}>
                     <h3 style={{ fontSize: '1.3rem', display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem', color: 'var(--text-main)' }}>
                         <span style={{ fontSize: '1.5rem' }}>📅</span> Lean Meetings
                     </h3>
                     <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                         <li style={{ background: 'rgba(0,0,0,0.2)', padding: '1rem', borderRadius: '0.5rem' }}>
-                            <strong style={{ color: '#f59e0b', display: 'block', marginBottom: '0.25rem' }}>No Agenda = No Meeting</strong>
+                            <strong style={{ color: '#ffffff', display: 'block', marginBottom: '0.25rem' }}>No Agenda = No Meeting</strong>
                             If an invite does not have a clear agenda and a stated outcome, decline it. Every meeting must have a purpose.
                         </li>
                         <li style={{ background: 'rgba(0,0,0,0.2)', padding: '1rem', borderRadius: '0.5rem' }}>
-                            <strong style={{ color: '#f59e0b', display: 'block', marginBottom: '0.25rem' }}>Halve the Default Time</strong>
+                            <strong style={{ color: '#ffffff', display: 'block', marginBottom: '0.25rem' }}>Halve the Default Time</strong>
                             Most calendar apps default to 60 minutes. Change your default to 30 or 15 minutes. Work expands to fill the time allotted.
                         </li>
                         <li style={{ background: 'rgba(0,0,0,0.2)', padding: '1rem', borderRadius: '0.5rem' }}>
-                            <strong style={{ color: '#f59e0b', display: 'block', marginBottom: '0.25rem' }}>Identify the "DRI"</strong>
+                            <strong style={{ color: '#ffffff', display: 'block', marginBottom: '0.25rem' }}>Identify the "DRI"</strong>
                             Every agenda item must have a Directly Responsible Individual (DRI). If an item doesn't have an owner, it gets cut.
                         </li>
                         <li style={{ background: 'rgba(0,0,0,0.2)', padding: '1rem', borderRadius: '0.5rem', border: '1px solid rgba(245, 158, 11, 0.3)' }}>
-                            <strong style={{ color: '#f59e0b', display: 'block', marginBottom: '0.25rem' }}>Stand-Up Strategy</strong>
+                            <strong style={{ color: '#ffffff', display: 'block', marginBottom: '0.25rem' }}>Stand-Up Strategy</strong>
                             Hold daily status updates standing up. People get to the point much faster when they aren't sitting in comfortable chairs.
                         </li>
                     </ul>

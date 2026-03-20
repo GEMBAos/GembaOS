@@ -121,7 +121,7 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile, localScore 
                 particleCount: 100,
                 spread: 70,
                 origin: { y: 0.6 },
-                colors: ['#3b82f6', '#10b981', '#f59e0b']
+                colors: ['#3b82f6', '#10b981', '#ffffff']
             });
 
             // Habit Loop: Award a unique badge on their first photo capture

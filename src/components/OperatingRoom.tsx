@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import { ImprovementEngine } from '../services/ImprovementEngine';
+import { useState } from 'react';
 import JFIIdeaGenerator from './tools/JFIIdeaGenerator';
 import KaizenSessionCreator from './tools/kaizen/KaizenSessionCreator';
 
@@ -11,21 +10,7 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
     type ViewState = 'main' | 'create' | 'join';
     const [view, setView] = useState<ViewState>('main');
     const [joinCode, setJoinCode] = useState('');
-    const [topStripInfo, setTopStripInfo] = useState('LIVE OPERATIONS • KAIZEN COMMAND');
     const [showJFI, setShowJFI] = useState(false);
-
-    useEffect(() => {
-        const loadLiveData = () => {
-            const obsV2 = ImprovementEngine.getItemsByType<any>('MotionSessionV2');
-            if (obsV2.length > 0) {
-                setTopStripInfo(`LIVE OPERATIONS • ${obsV2.length} ACTIVE SESSIONS`);
-            }
-        };
-        
-        loadLiveData();
-        window.addEventListener('improvement_data_updated', loadLiveData);
-        return () => window.removeEventListener('improvement_data_updated', loadLiveData);
-    }, []);
 
     const handleJoinSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -59,71 +44,53 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
             color: 'var(--text-main)',
             background: 'var(--bg-dark)'
         }}>
-            {/* Minimal Top Strip */}
-            <div style={{ 
-                borderBottom: '1px solid rgba(255,255,255,0.05)', 
-                padding: '0.6rem 2rem', 
-                fontSize: '0.75rem', 
-                color: 'var(--text-muted)', 
-                textTransform: 'uppercase', 
-                letterSpacing: '3px',
-                textAlign: 'center',
-                fontWeight: 600,
-                background: 'rgba(0,0,0,0.2)'
-            }}>
-                {topStripInfo}
-            </div>
 
-            {/* Main Content */}
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', overflowY: 'auto' }}>
+
+            {/* Main Content: Single Pane of Glass Layout */}
+            <div style={{ 
+                flex: 1, 
+                display: 'flex', 
+                flexDirection: 'row', 
+                flexWrap: 'wrap',
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                padding: 'clamp(1rem, 3vw, 2.5rem)', 
+                gap: 'clamp(2rem, 5vw, 4rem)',
+                overflow: 'hidden' 
+            }}>
                 
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', maxWidth: '600px' }}>
+                {/* LEFT PANE - PRIMARY ACTIONS */}
+                <div style={{ 
+                    flex: '1 1 400px', 
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    maxWidth: '600px',
+                    height: '100%',
+                    maxHeight: '800px'
+                }}>
                     
                     {view === 'main' && (
                         <>
-                            <div style={{ color: 'var(--text-muted)', fontSize: '1.25rem', marginBottom: '3rem', textAlign: 'center', fontWeight: 400 }}>
-                                Participate in Kaizen
+                            <div style={{ color: 'var(--text-main)', fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', marginBottom: '0.5rem', textAlign: 'center', fontWeight: 800, fontFamily: 'var(--font-headings)' }}>
+                                COMMAND HUB
+                            </div>
+                            <div style={{ color: 'var(--text-muted)', fontSize: '1rem', marginBottom: '3rem', textAlign: 'center', fontWeight: 400 }}>
+                                Initiate or Join a Live Operation
                             </div>
                             
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%' }}>
                                 <button 
                                     onClick={() => setView('create')}
+                                    className="btn-primary"
                                     style={{ 
                                         width: '100%',
                                         padding: '1.5rem 2rem', 
                                         fontSize: '1.75rem', 
-                                        borderRadius: '12px', 
-                                        background: '#F15A29',
-                                        color: '#FFFFFF',
-                                        boxShadow: '0 6px 16px rgba(0, 0, 0, 0.25)',
-                                        border: '1px solid rgba(255, 255, 255, 0.1)',
-                                        cursor: 'pointer',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        gap: '1.5rem',
-                                        fontWeight: 800,
-                                        fontFamily: 'var(--font-headings)',
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '2px',
-                                        transition: 'all 0.15s ease-in-out'
-                                    }}
-                                    onMouseOver={e => {
-                                        e.currentTarget.style.transform = 'translateY(-2px)';
-                                        e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.35)';
-                                        e.currentTarget.style.background = '#d94a1d';
-                                    }}
-                                    onMouseOut={e => {
-                                        e.currentTarget.style.transform = 'translateY(0)';
-                                        e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.25)';
-                                        e.currentTarget.style.background = '#F15A29';
-                                    }}
-                                    onMouseDown={e => {
-                                        e.currentTarget.style.transform = 'translateY(2px)';
-                                        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.2)';
                                     }}
                                 >
-                                    <span>⚡</span> START NEW KAIZEN
+                                    <span>⚡</span> START KAIZEN
                                 </button>
 
                                 <button 
@@ -132,7 +99,7 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                                         width: '100%',
                                         padding: '1.5rem 2rem', 
                                         fontSize: '1.25rem', 
-                                        borderRadius: '12px', 
+                                        borderRadius: '8px', 
                                         background: 'var(--bg-panel)',
                                         color: 'var(--text-main)',
                                         border: '1px solid var(--border-light)',
@@ -150,7 +117,7 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                                     onMouseOver={e => e.currentTarget.style.background = 'var(--bg-panel-hover)'}
                                     onMouseOut={e => e.currentTarget.style.background = 'var(--bg-panel)'}
                                 >
-                                    <span>🔗</span> JOIN ONGOING KAIZEN
+                                    <span>🔗</span> JOIN KAIZEN
                                 </button>
                             </div>
                         </>
@@ -195,8 +162,18 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                     )}
                 </div>
 
-                {/* JFI HUB */}
-                <div style={{ marginTop: '6rem', width: '100%', maxWidth: '800px', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+                {/* RIGHT PANE - SIDE NODE (JFI HUB) */}
+                <div style={{ 
+                    flex: '1 1 300px', 
+                    maxWidth: '400px',
+                    display: 'flex', 
+                    flexDirection: 'column',
+                    background: 'var(--bg-panel)',
+                    borderRadius: '1.5rem',
+                    border: '1px solid rgba(255,255,255,0.05)',
+                    padding: '2rem',
+                    boxShadow: '0 8px 30px rgba(0,0,0,0.5)',
+                }}>
                     <div style={{ 
                         fontSize: '0.85rem', 
                         color: 'var(--text-muted)', 
@@ -204,43 +181,45 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                         letterSpacing: '3px', 
                         fontWeight: 700,
                         textAlign: 'center',
-                        marginBottom: '1.5rem'
+                        marginBottom: '2.5rem'
                     }}>
-                        JFI System
+                        Just-Do-It (JFI) System
                     </div>
                     <div style={{ 
                         display: 'flex', 
-                        justifyContent: 'center', 
-                        flexWrap: 'wrap',
-                        gap: '1rem'
+                        flexDirection: 'column', 
+                        gap: '1.25rem'
                     }}>
                         <button 
                             onClick={() => setShowJFI(true)}
-                            style={{ padding: '0.8rem 1.75rem', background: 'var(--bg-panel)', border: '1px solid var(--border-light)', color: 'var(--text-main)', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem', boxShadow: '0 2px 4px rgba(0,0,0,0.2)' }}
-                            onMouseOver={e => e.currentTarget.style.background = 'var(--bg-panel-hover)'}
-                            onMouseOut={e => e.currentTarget.style.background = 'var(--bg-panel)'}
+                            style={{ padding: '1.25rem', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-light)', color: 'var(--text-main)', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s', fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '1rem' }}
+                            onMouseOver={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.borderColor = 'var(--text-main)'; }}
+                            onMouseOut={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; e.currentTarget.style.borderColor = 'var(--border-light)'; }}
                         >
-                            💡 JFI Generator
+                            <span style={{ fontSize: '1.5rem' }}>💡</span> 
+                            <span>Instant Idea Generator</span>
                         </button>
                         <a 
                             href="https://form.jotform.com/233406028319149" 
                             target="_blank" 
                             rel="noreferrer" 
-                            style={{ padding: '0.8rem 1.75rem', background: 'var(--bg-panel)', border: '1px solid var(--border-light)', color: 'var(--text-main)', borderRadius: '8px', cursor: 'pointer', textDecoration: 'none', transition: 'all 0.2s', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem', boxShadow: '0 2px 4px rgba(0,0,0,0.2)' }}
-                            onMouseOver={e => e.currentTarget.style.background = 'var(--bg-panel-hover)'}
-                            onMouseOut={e => e.currentTarget.style.background = 'var(--bg-panel)'}
+                            style={{ padding: '1.25rem', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-light)', color: 'var(--text-main)', borderRadius: '8px', cursor: 'pointer', textDecoration: 'none', transition: 'all 0.2s', fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '1rem' }}
+                            onMouseOver={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.borderColor = 'var(--text-main)'; }}
+                            onMouseOut={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; e.currentTarget.style.borderColor = 'var(--border-light)'; }}
                         >
-                            📝 Submit JFI
+                            <span style={{ fontSize: '1.5rem' }}>📝</span> 
+                            <span>Submit Formal JFI Ticket</span>
                         </a>
                         <a 
                             href="https://padlet.com" 
                             target="_blank" 
                             rel="noreferrer" 
-                            style={{ padding: '0.8rem 1.75rem', background: 'var(--bg-panel)', border: '1px solid var(--border-light)', color: 'var(--text-main)', borderRadius: '8px', cursor: 'pointer', textDecoration: 'none', transition: 'all 0.2s', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem', boxShadow: '0 2px 4px rgba(0,0,0,0.2)' }}
-                            onMouseOver={e => e.currentTarget.style.background = 'var(--bg-panel-hover)'}
-                            onMouseOut={e => e.currentTarget.style.background = 'var(--bg-panel)'}
+                            style={{ padding: '1.25rem', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-light)', color: 'var(--text-main)', borderRadius: '8px', cursor: 'pointer', textDecoration: 'none', transition: 'all 0.2s', fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '1rem' }}
+                            onMouseOver={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.borderColor = 'var(--text-main)'; }}
+                            onMouseOut={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; e.currentTarget.style.borderColor = 'var(--border-light)'; }}
                         >
-                            📺 Video Library
+                            <span style={{ fontSize: '1.5rem' }}>📺</span> 
+                            <span>Library & Training Videos</span>
                         </a>
                     </div>
                 </div>

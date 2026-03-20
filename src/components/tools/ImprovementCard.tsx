@@ -83,7 +83,7 @@ export default function ImprovementCard({ onClose }: { onClose: () => void }) {
         setExpectedDistance(0);
         setMeasuredDistance('');
         setNextAction('');
-        alert("Improvement Card Saved successfully! The loop is closed.");
+        onClose(); // Seamlessly return to HUD
     };
 
     return (
@@ -127,7 +127,7 @@ export default function ImprovementCard({ onClose }: { onClose: () => void }) {
                                                 <div style={{ color: '#f1f5f9', fontWeight: 'bold', fontSize: '1.1rem' }}>{d.processName}</div>
                                                 <div style={{ color: '#64748b', fontSize: '0.85rem' }}>Surgeon: {d.operatorId}</div>
                                             </div>
-                                            <div style={{ background: 'rgba(0,0,0,0.5)', padding: '0.5rem 1rem', borderRadius: '20px', color: '#f59e0b', fontSize: '0.85rem', fontWeight: 'bold', border: '1px solid rgba(245, 158, 11, 0.2)' }}>
+                                            <div style={{ background: 'rgba(0,0,0,0.5)', padding: '0.5rem 1rem', borderRadius: '20px', color: '#ffffff', fontSize: '0.85rem', fontWeight: 'bold', border: '1px solid rgba(245, 158, 11, 0.2)' }}>
                                                 {d.wasteTypes[0] || 'Unknown Cause'}
                                             </div>
                                         </div>
@@ -166,10 +166,10 @@ export default function ImprovementCard({ onClose }: { onClose: () => void }) {
                 {step === 1 && selectedDiagnosis && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                         {/* Summary Panel */}
-                        <div style={{ background: 'rgba(15, 23, 42, 0.9)', padding: '1rem 1.5rem', borderRadius: '8px', borderLeft: '4px solid #f59e0b', display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
+                        <div style={{ background: 'rgba(15, 23, 42, 0.9)', padding: '1rem 1.5rem', borderRadius: '8px', borderLeft: '4px solid #ffffff', display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
                             <div>
                                 <div style={{ color: '#64748b', fontSize: '0.75rem', textTransform: 'uppercase', marginBottom: '0.25rem' }}>Diagnosed Root Cause</div>
-                                <div style={{ color: '#f59e0b', fontWeight: 'bold', fontSize: '1.1rem' }}>{selectedDiagnosis.wasteTypes[0] || 'Unknown'} for {selectedDiagnosis.processName}</div>
+                                <div style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '1.1rem' }}>{selectedDiagnosis.wasteTypes[0] || 'Unknown'} for {selectedDiagnosis.processName}</div>
                             </div>
                             <button onClick={() => setStep(0)} style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.2)', color: '#94a3b8', padding: '0.5rem 1rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.85rem' }}>Change Handoff</button>
                         </div>

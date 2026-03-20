@@ -27,6 +27,8 @@ export default function MotionHostActive({ sessionId, onBack }: Props) {
     // Feature 4: HTML5 Canvas Heatmap & Spatial Viewer
     const [showHeatmap, setShowHeatmap] = useState(false);
     const [is3DMode, setIs3DMode] = useState(false);
+    const [isHostDrawing, setIsHostDrawing] = useState(false);
+    const lastDrawTimeRef = useRef(0);
     
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -108,7 +110,7 @@ export default function MotionHostActive({ sessionId, onBack }: Props) {
                 sessionId: session.id,
                 deviceId: hostPid,
                 participantName: 'Host Configurator',
-                color: '#F15A29',
+                color: '#71717a',
                 pathCoordinates: [],
                 totalDistance: 0,
                 totalStops: 0,
@@ -142,7 +144,7 @@ export default function MotionHostActive({ sessionId, onBack }: Props) {
         }
     };
 
-    const handleHostDraw = (e: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>) => {
+    const handleHostDraw = (e: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement> | React.PointerEvent<HTMLElement>) => {
         if (!session) return;
 
         const el = e.currentTarget as HTMLElement;
@@ -169,7 +171,7 @@ export default function MotionHostActive({ sessionId, onBack }: Props) {
                 sessionId: session.id,
                 deviceId: hostPid,
                 participantName: 'Host Configurator',
-                color: '#F15A29', // Brand Orange
+                color: '#71717a', // Brand Orange
                 pathCoordinates: [],
                 totalDistance: 0,
                 totalStops: 0,
@@ -206,6 +208,26 @@ export default function MotionHostActive({ sessionId, onBack }: Props) {
         
         // Broadcast to any connected participants (if they care)
         broadcastPathUpdate(hostPid, newPath, newDist);
+    };
+
+    const handlePointerDown = (e: React.PointerEvent<HTMLElement>) => {
+        (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+        setIsHostDrawing(true);
+        handleHostDraw(e);
+    };
+
+    const handlePointerMove = (e: React.PointerEvent<HTMLElement>) => {
+        if (!isHostDrawing) return;
+        const now = Date.now();
+        if (now - lastDrawTimeRef.current > 200) { // Limit to 5 points per sec to prevent DB spam
+            lastDrawTimeRef.current = now;
+            handleHostDraw(e);
+        }
+    };
+
+    const handlePointerUp = (e: React.PointerEvent<HTMLElement>) => {
+        (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+        setIsHostDrawing(false);
     };
 
     const handleDiagnose = () => {
@@ -247,7 +269,7 @@ export default function MotionHostActive({ sessionId, onBack }: Props) {
             {/* PRIORITY 7: HIGH VISIBILITY MULTI-USER STATUS */}
             <div style={{ 
                 background: 'var(--bg-panel)', 
-                borderBottom: '2px solid #F15A29', 
+                borderBottom: '2px solid #71717a', 
                 padding: '0.75rem 1.5rem', 
                 display: 'flex', 
                 alignItems: 'center', 
@@ -261,9 +283,9 @@ export default function MotionHostActive({ sessionId, onBack }: Props) {
                 </div>
                 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(241, 90, 41, 0.15)', padding: '0.4rem 1rem', borderRadius: '20px', border: '1px solid rgba(241, 90, 41, 0.3)' }}>
-                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#F15A29', boxShadow: '0 0 8px #F15A29', animation: 'pulse 2s infinite' }}></div>
-                        <span style={{ color: '#F15A29', fontWeight: 800, fontSize: '0.85rem', letterSpacing: '1px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(139, 92, 246, 0.15)', padding: '0.4rem 1rem', borderRadius: '20px', border: '1px solid rgba(139, 92, 246, 0.3)' }}>
+                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#71717a', boxShadow: '0 0 8px #71717a', animation: 'pulse 2s infinite' }}></div>
+                        <span style={{ color: '#71717a', fontWeight: 800, fontSize: '0.85rem', letterSpacing: '1px' }}>
                             {participants.length} LIVE
                         </span>
                     </div>
@@ -288,7 +310,7 @@ export default function MotionHostActive({ sessionId, onBack }: Props) {
                         
                         <div style={{ textAlign: 'center' }}>
                             <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.3rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Direct Join Code:</div>
-                            <div style={{ fontSize: '2rem', fontFamily: '"Orbitron", monospace', fontWeight: 'bold', color: 'var(--text-main)', letterSpacing: '6px', textShadow: '0 0 10px rgba(241, 90, 41, 0.3)' }}>
+                            <div style={{ fontSize: '2rem', fontFamily: '"Orbitron", monospace', fontWeight: 'bold', color: 'var(--text-main)', letterSpacing: '6px', textShadow: '0 0 10px rgba(139, 92, 246, 0.3)' }}>
                                 {session.accessCode}
                             </div>
                         </div>
@@ -296,7 +318,7 @@ export default function MotionHostActive({ sessionId, onBack }: Props) {
                         <button 
                             className="btn btn-primary" 
                             onClick={handleDiagnose}
-                            style={{ width: '100%', padding: '1rem', fontWeight: 800, letterSpacing: '1px', fontSize: '0.9rem', background: '#F15A29', color: 'white', border: 'none' }}
+                            style={{ width: '100%', padding: '1rem', fontWeight: 800, letterSpacing: '1px', fontSize: '0.9rem', background: '#71717a', color: 'white', border: 'none' }}
                         >
                             END SESSION & DIAGNOSE
                         </button>
@@ -323,7 +345,7 @@ export default function MotionHostActive({ sessionId, onBack }: Props) {
                                                 <div style={{ fontSize: '0.85rem', color: '#fff', fontFamily: 'monospace', fontWeight: 'bold' }}>
                                                     {p.pathCoordinates?.length || 0} pts • {p.totalDistance.toFixed(1)} {session.calibrationUnit !== 'none' ? session.calibrationUnit : ''}
                                                 </div>
-                                                <div style={{ fontSize: '0.7rem', color: isSending ? '#F15A29' : 'var(--text-muted)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px' }}>
+                                                <div style={{ fontSize: '0.7rem', color: isSending ? '#71717a' : 'var(--text-muted)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px' }}>
                                                     {isSending ? '● Sending...' : 'Idle'}
                                                 </div>
                                             </div>
@@ -346,10 +368,13 @@ export default function MotionHostActive({ sessionId, onBack }: Props) {
                             {session.layoutImageUrl ? (
                                 <img 
                                     src={session.layoutImageUrl} 
-                                    style={{ width: '100%', height: '100%', objectFit: 'contain', opacity: 0.8, cursor: 'crosshair' }} 
+                                    draggable={false}
+                                    style={{ width: '100%', height: '100%', objectFit: 'contain', opacity: 0.8, cursor: 'crosshair', touchAction: 'none' }} 
                                     alt="Map Layout"
-                                    onClick={handleHostDraw}
-                                    onTouchEnd={(e) => { e.preventDefault(); handleHostDraw(e); }}
+                                    onPointerDown={handlePointerDown}
+                                    onPointerMove={handlePointerMove}
+                                    onPointerUp={handlePointerUp}
+                                    onPointerCancel={handlePointerUp}
                                 />
                             ) : (
                                 <div 
@@ -361,12 +386,15 @@ export default function MotionHostActive({ sessionId, onBack }: Props) {
                                         backgroundSize: '40px 40px',
                                         display: 'flex',
                                         alignItems: 'center',
-                                        justifyContent: 'center'
+                                        justifyContent: 'center',
+                                        touchAction: 'none'
                                     }}
-                                    onClick={handleHostDraw}
-                                    onTouchEnd={(e) => { e.preventDefault(); handleHostDraw(e); }}
+                                    onPointerDown={handlePointerDown}
+                                    onPointerMove={handlePointerMove}
+                                    onPointerUp={handlePointerUp}
+                                    onPointerCancel={handlePointerUp}
                                 >
-                                    <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: '2rem', fontFamily: 'var(--font-headings)', pointerEvents: 'none' }}>BLANK CANVAS MODE</span>
+                                    <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: '2rem', fontFamily: 'var(--font-headings)', pointerEvents: 'none', userSelect: 'none' }}>BLANK CANVAS MODE</span>
                                 </div>
                             )}
 

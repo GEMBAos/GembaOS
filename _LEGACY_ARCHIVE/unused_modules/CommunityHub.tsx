@@ -188,11 +188,11 @@ export default function CommunityHub({ onNavigateBack }: { onNavigateBack: () =>
                         </div>
                     </div>
 
-                    <div className="card" style={{ padding: '1.5rem', border: '1px solid #f97316', background: 'rgba(249, 115, 22, 0.05)' }}>
-                        <h3 style={{ marginTop: 0, fontSize: '1.1rem', color: '#f97316' }}>⚡ Quick Actions</h3>
+                    <div className="card" style={{ padding: '1.5rem', border: '1px solid #ffffff', background: 'rgba(249, 115, 22, 0.05)' }}>
+                        <h3 style={{ marginTop: 0, fontSize: '1.1rem', color: '#ffffff' }}>⚡ Quick Actions</h3>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                            <button className="btn btn-primary" style={{ background: '#f97316', border: 'none', width: '100%', fontSize: '0.8rem' }} onClick={() => window.open('https://form.jotform.com/233406028319149', '_blank')}>🚀 Submit a JFI</button>
-                            <button className="btn" style={{ borderColor: '#f97316', color: '#f97316', width: '100%', fontSize: '0.8rem' }} onClick={() => window.open('https://padlet.com/leanballers/just-fix-it-npfyeasab7v06qb8', '_blank')}>📌 Gemba Videos</button>
+                            <button className="btn btn-primary" style={{ background: '#ffffff', border: 'none', width: '100%', fontSize: '0.8rem' }} onClick={() => window.open('https://form.jotform.com/233406028319149', '_blank')}>🚀 Submit a JFI</button>
+                            <button className="btn" style={{ borderColor: '#ffffff', color: '#ffffff', width: '100%', fontSize: '0.8rem' }} onClick={() => window.open('https://padlet.com/leanballers/just-fix-it-npfyeasab7v06qb8', '_blank')}>📌 Gemba Videos</button>
                             <button className="btn" style={{ borderColor: 'var(--accent-primary)', color: 'var(--accent-primary)', width: '100%', fontSize: '0.8rem' }} onClick={() => window.open('https://app.gembadocs.com/', '_blank')}>📑 GembaDocs</button>
                         </div>
                     </div>

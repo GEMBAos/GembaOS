@@ -1,4 +1,4 @@
-export type ImprovementEntityType = 'Metric' | 'Observation' | 'Countermeasure' | 'Defect' | 'MotionPath' | 'CycleTime' | 'Idea' | 'ProcessArea' | 'ProcessCheck' | 'ImprovementCard' | 'MotionSessionV2' | 'MotionParticipantPathV2';
+export type ImprovementEntityType = 'Metric' | 'Observation' | 'Countermeasure' | 'Defect' | 'MotionPath' | 'CycleTime' | 'Idea' | 'ProcessArea' | 'ProcessCheck' | 'ImprovementCard' | 'MotionSessionV2' | 'MotionParticipantPathV2' | 'TimeStudySession';
 
 export interface BaseEntity {
   id: string;
@@ -7,6 +7,13 @@ export interface BaseEntity {
   updatedAt: string;
   areaId?: string; 
   owner?: string;
+}
+
+export interface TimeStudySession extends BaseEntity {
+  type: 'TimeStudySession';
+  sessionName: string;
+  laps: { id: string; description: string; timeMs: number }[];
+  averageCycleTimeSeconds: number;
 }
 
 export interface Metric extends BaseEntity {

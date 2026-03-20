@@ -67,8 +67,8 @@ export default function TrainingHub({ onNavigateBack }: { onNavigateBack: () => 
                             </button>
 
                             {/* Communication Best Practices */}
-                            <button className="training-card" onClick={() => setSubView('communication')} style={{ borderLeft: '4px solid #f59e0b', background: 'rgba(245, 158, 11, 0.05)' }}>
-                                <div className="card-icon" style={{ color: '#f59e0b' }}>🗣️</div>
+                            <button className="training-card" onClick={() => setSubView('communication')} style={{ borderLeft: '4px solid #ffffff', background: 'rgba(245, 158, 11, 0.05)' }}>
+                                <div className="card-icon" style={{ color: '#ffffff' }}>🗣️</div>
                                 <div className="card-body">
                                     <h3>Lean Communication</h3>
                                     <p>Eliminate waste in emails, trim down meetings, and master the art of brevity.</p>
@@ -77,8 +77,8 @@ export default function TrainingHub({ onNavigateBack }: { onNavigateBack: () => 
                             </button>
 
                             {/* KPI Dictionary */}
-                            <button className="training-card" onClick={() => setSubView('kpi_dictionary')} style={{ borderLeft: '4px solid #8b5cf6', background: 'rgba(139, 92, 246, 0.05)' }}>
-                                <div className="card-icon" style={{ color: '#8b5cf6' }}>📊</div>
+                            <button className="training-card" onClick={() => setSubView('kpi_dictionary')} style={{ borderLeft: '4px solid #71717a', background: 'rgba(139, 92, 246, 0.05)' }}>
+                                <div className="card-icon" style={{ color: '#71717a' }}>📊</div>
                                 <div className="card-body">
                                     <h3>KPI & Metrics Dictionary</h3>
                                     <p>Glossary of operational metrics, formulas, and how to improve them.</p>

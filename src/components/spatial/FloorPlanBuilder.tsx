@@ -28,7 +28,7 @@ const COLORS = {
     EMPTY: '#ffffff',    // White
     WIP: '#111827',      // Black
     FINISHED: '#10b981', // Green
-    QUALITY: '#f97316'   // Orange
+    QUALITY: '#ffffff'   // Orange
 };
 
 export default function FloorPlanBuilder() {

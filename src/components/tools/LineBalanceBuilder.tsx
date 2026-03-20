@@ -21,6 +21,10 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
     // Stations map to CycleTime entities
     const [stations, setStations] = useState<CycleTime[]>([]);
 
+    // Database Import State
+    const [importingStationId, setImportingStationId] = useState<string | null>(null);
+    const [availableTimeStudies, setAvailableTimeStudies] = useState<any[]>([]);
+
     // Eyes-Up Haptic Pacer State
     const [activePacerId, setActivePacerId] = useState<string | null>(null);
     const [pacerElapsed, setPacerElapsed] = useState(0);
@@ -118,12 +122,28 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
     };
 
     const importFromTimeStudy = (stationId: string) => {
-        // In a real integration, this would pop open a modal to select a recent Time Study.
-        // For right now, it prompts the user for average cycle time to simulate passing the data.
-        const simulatedTime = window.prompt("Enter Average Cycle Time (seconds) from Time Study:");
-        if (simulatedTime && !isNaN(Number(simulatedTime))) {
-            addCycleTimeSample(stationId, Number(simulatedTime));
+        const studies = ImprovementEngine.getItemsByType<any>('TimeStudySession');
+        setAvailableTimeStudies(studies);
+        if (studies.length === 0) {
+            alert("No exported Time Studies found in the Global Engine. Go to the Observe tool, run a Time Study, and click Export first.");
+            return;
         }
+        setImportingStationId(stationId);
+    };
+
+    const handleSelectTimeStudy = (studyId: string) => {
+        if (!importingStationId) return;
+        const study = availableTimeStudies.find(s => s.id === studyId);
+        if (study) {
+            const station = stations.find(s => s.id === importingStationId);
+            if (station && study.laps && study.laps.length > 0) {
+                const newTimes = study.laps.map((l: any) => parseFloat((l.timeMs / 1000).toFixed(1)));
+                ImprovementEngine.updateItem<CycleTime>(importingStationId, {
+                    recordedTimes: [...station.recordedTimes, ...newTimes]
+                });
+            }
+        }
+        setImportingStationId(null);
     };
 
     // Pacer / Haptic Logic
@@ -193,6 +213,37 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
             toolName="LINE BALANCE BUILDER" 
             onClose={onClose}
         >
+            {/* Database Import Modal Overaly */}
+            {importingStationId && (
+                <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(15, 23, 42, 0.95)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
+                    <div className="card" style={{ width: '100%', maxWidth: '600px', padding: '2rem', borderRadius: '12px', border: '1px solid #38bdf8' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                            <h2 style={{ margin: 0, color: '#38bdf8', fontFamily: "'Orbitron', sans-serif" }}>IMPORT FROM DATABASE</h2>
+                            <button onClick={() => setImportingStationId(null)} style={{ background: 'transparent', border: 'none', color: '#94a3b8', fontSize: '1.5rem', cursor: 'pointer' }}>×</button>
+                        </div>
+                        <p style={{ color: '#cbd5e1', marginBottom: '1.5rem' }}>Select an exported Time Study from the Global Engine to populate this station's cycle times.</p>
+                        
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxHeight: '400px', overflowY: 'auto' }}>
+                            {availableTimeStudies.map(study => (
+                                <div 
+                                    key={study.id} 
+                                    onClick={() => handleSelectTimeStudy(study.id)}
+                                    style={{ background: 'rgba(0,0,0,0.5)', padding: '1rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                                >
+                                    <div>
+                                        <div style={{ color: 'white', fontWeight: 'bold' }}>{study.sessionName}</div>
+                                        <div style={{ color: '#94a3b8', fontSize: '0.85rem' }}>{study.laps?.length || 0} cycles recorded</div>
+                                    </div>
+                                    <div style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', padding: '0.5rem 1rem', borderRadius: '4px', fontWeight: 'bold' }}>
+                                        {study.averageCycleTimeSeconds?.toFixed(1)}s Avg
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Haptic Pacer Overlay */}
             {activePacerId && (
                 <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.85)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
@@ -303,7 +354,7 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <span style={{ color: '#cbd5e1', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)' }}>Balance Eff:</span>
-                                <span style={{ fontWeight: 'bold', color: balanceEfficiency >= 85 ? '#4ade80' : '#f59e0b' }}>{balanceEfficiency.toFixed(1)}%</span>
+                                <span style={{ fontWeight: 'bold', color: balanceEfficiency >= 85 ? '#4ade80' : '#ffffff' }}>{balanceEfficiency.toFixed(1)}%</span>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '0.5rem' }}>
                                 <span style={{ color: '#cbd5e1', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)' }}>UPM:</span>
@@ -414,7 +465,7 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
                                 const cycleTime = getCycleTime(station);
                                 const workContent = getWorkContent(station);
                                 const variance = cycleTime - taktTime;
-                                const statusColor = variance > 0 ? '#ef4444' : Math.abs(variance) < 2 ? '#f59e0b' : '#10b981';
+                                const statusColor = variance > 0 ? '#ef4444' : Math.abs(variance) < 2 ? '#ffffff' : '#10b981';
 
                                 return (
                                 <div key={station.id} style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', background: 'rgba(0,0,0,0.3)', padding: '1.5rem', borderRadius: '8px', border: `1px solid ${statusColor}40`, flexWrap: 'wrap' }}>

@@ -108,7 +108,7 @@ export default function KaizenSessionHub({ onNavigate }: KaizenSessionHubProps) 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
                         
                         {/* Tool: Motion Mapper */}
-                        <div style={{ background: 'rgba(241, 90, 41, 0.05)', borderRadius: '12px', padding: '2rem', border: '1px solid rgba(241, 90, 41, 0.2)', display: 'flex', flexDirection: 'column' }}>
+                        <div style={{ background: 'rgba(139, 92, 246, 0.05)', borderRadius: '12px', padding: '2rem', border: '1px solid rgba(139, 92, 246, 0.2)', display: 'flex', flexDirection: 'column' }}>
                             <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>📍</div>
                             <h3 style={{ margin: '0 0 0.5rem 0', fontFamily: 'var(--font-headings)', color: 'white' }}>Motion Mapping</h3>
                             <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '2rem', flex: 1, lineHeight: 1.5 }}>

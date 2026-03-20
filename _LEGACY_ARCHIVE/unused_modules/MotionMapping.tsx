@@ -162,7 +162,7 @@ export default function MotionMapping({ onClose }: { onClose: () => void }) {
                         style={{
                           width: pt.isExit ? '32px' : '24px',
                           height: pt.isExit ? '32px' : '24px',
-                          background: pt.isExit ? 'rgba(239, 68, 68, 0.9)' : (i === 0 ? '#10b981' : i === pathPoints.length - 1 && !interactive ? '#ef4444' : '#8b5cf6'),
+                          background: pt.isExit ? 'rgba(239, 68, 68, 0.9)' : (i === 0 ? '#10b981' : i === pathPoints.length - 1 && !interactive ? '#ef4444' : '#71717a'),
                           borderRadius: pt.isExit ? '4px' : '50%',
                           transform: 'translate(-50%, -50%)',
                           display: 'flex',
@@ -195,18 +195,18 @@ export default function MotionMapping({ onClose }: { onClose: () => void }) {
                 <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: '0.5rem', background: 'rgba(0,0,0,0.3)', padding: '0.5rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
                     <button 
                         onClick={() => setMode('DASHBOARD')}
-                        style={{ flex: 1, padding: '0.75rem', background: mode === 'DASHBOARD' ? '#8b5cf6' : 'transparent', color: mode === 'DASHBOARD' ? 'white' : '#94a3b8', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>
+                        style={{ flex: 1, padding: '0.75rem', background: mode === 'DASHBOARD' ? '#71717a' : 'transparent', color: mode === 'DASHBOARD' ? 'white' : '#94a3b8', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>
                         SESSION DASHBOARD
                     </button>
                     <button 
                         onClick={() => setMode('CAPTURE')}
-                        style={{ flex: 1, padding: '0.75rem', background: mode === 'CAPTURE' ? '#8b5cf6' : 'transparent', color: mode === 'CAPTURE' ? 'white' : '#94a3b8', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>
+                        style={{ flex: 1, padding: '0.75rem', background: mode === 'CAPTURE' ? '#71717a' : 'transparent', color: mode === 'CAPTURE' ? 'white' : '#94a3b8', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>
                         + NEW CAPTURE
                     </button>
                     <button 
                         onClick={() => setMode('COMPARE')}
                         disabled={sessions.length < 2}
-                        style={{ flex: 1, padding: '0.75rem', background: mode === 'COMPARE' ? '#8b5cf6' : 'transparent', color: mode === 'COMPARE' ? 'white' : '#94a3b8', border: 'none', borderRadius: '4px', cursor: sessions.length < 2 ? 'not-allowed' : 'pointer', fontWeight: 'bold', opacity: sessions.length < 2 ? 0.4 : 1 }}>
+                        style={{ flex: 1, padding: '0.75rem', background: mode === 'COMPARE' ? '#71717a' : 'transparent', color: mode === 'COMPARE' ? 'white' : '#94a3b8', border: 'none', borderRadius: '4px', cursor: sessions.length < 2 ? 'not-allowed' : 'pointer', fontWeight: 'bold', opacity: sessions.length < 2 ? 0.4 : 1 }}>
                         BEFORE / AFTER COMPARE
                     </button>
                 </div>
@@ -220,7 +220,20 @@ export default function MotionMapping({ onClose }: { onClose: () => void }) {
                             </div>
                         ) : (
                             sessions.map(s => (
-                                <div key={s.id} className="card" style={{ background: 'rgba(15, 23, 42, 0.7)', padding: '1.5rem', borderRadius: '8px', border: '1px solid rgba(139, 92, 246, 0.2)' }}>
+                                <div key={s.id} className="card" style={{ background: 'rgba(15, 23, 42, 0.7)', padding: '1.5rem', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.1)', position: 'relative' }}>
+                                    <button 
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            if (window.confirm('Delete this mapping session permanently?')) {
+                                                ImprovementEngine.deleteItem(s.id);
+                                                refreshData();
+                                            }
+                                        }}
+                                        style={{ position: 'absolute', top: '0.5rem', right: '0.5rem', background: 'rgba(255,0,0,0.1)', color: 'var(--accent-danger)', border: 'none', borderRadius: '4px', padding: '0.2rem 0.5rem', fontSize: '0.8rem', cursor: 'pointer', zIndex: 10 }}
+                                        title="Delete Session"
+                                    >
+                                        🗑️
+                                    </button>
                                     <h3 style={{ color: 'white', marginBottom: '0.5rem', fontSize: '1.1rem' }}>{s.sessionName}</h3>
                                     <div style={{ color: '#94a3b8', fontSize: '0.85rem', marginBottom: '1rem' }}>Operator: {s.operatorId}</div>
                                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', marginBottom: '1rem' }}>
@@ -321,7 +334,7 @@ export default function MotionMapping({ onClose }: { onClose: () => void }) {
                                   <button 
                                       onClick={handleSaveSession}
                                       disabled={points.length === 0 || sessionState === 'RUNNING'}
-                                      style={{ flex: 2, padding: '0.75rem', background: '#8b5cf6', color: 'white', border: 'none', borderRadius: '4px', cursor: (points.length === 0 || sessionState === 'RUNNING') ? 'not-allowed' : 'pointer', fontWeight: 'bold', opacity: (points.length === 0 || sessionState === 'RUNNING') ? 0.5 : 1 }}>
+                                      style={{ flex: 2, padding: '0.75rem', background: '#71717a', color: 'white', border: 'none', borderRadius: '4px', cursor: (points.length === 0 || sessionState === 'RUNNING') ? 'not-allowed' : 'pointer', fontWeight: 'bold', opacity: (points.length === 0 || sessionState === 'RUNNING') ? 0.5 : 1 }}>
                                       Save Session
                                   </button>
                               </div>

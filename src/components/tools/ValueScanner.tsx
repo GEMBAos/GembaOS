@@ -69,7 +69,7 @@ export default function ValueScanner({ onClose }: { onClose: () => void }) {
                             <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>✅</div>
                             Value Add
                         </button>
-                        <button onClick={() => logObservation('Non-Value Add')} style={{ background: 'rgba(245, 158, 11, 0.2)', border: '1px solid #f59e0b', color: '#fbbf24', padding: '1rem', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}>
+                        <button onClick={() => logObservation('Non-Value Add')} style={{ background: 'rgba(245, 158, 11, 0.2)', border: '1px solid #ffffff', color: '#fbbf24', padding: '1rem', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}>
                             <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>⚠️</div>
                             Non-Value Add (Required)
                         </button>

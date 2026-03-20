@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import type { KaizenProject } from '../../types';
 import HardwareConsoleLayout from './HardwareConsoleLayout';
+import { ImprovementEngine } from '../../services/ImprovementEngine';
+import type { TimeStudySession } from '../../types/improvement';
 
 interface TimeStudyProps {
     project?: KaizenProject;
@@ -58,6 +60,22 @@ export default function TimeStudy({ project, onUpdateProject, onClose }: TimeStu
 
     const handleStartStop = () => {
         setIsRunning(!isRunning);
+    };
+
+    const handleExportSession = () => {
+        if (laps.length === 0) return;
+        const averageCycleTimeSeconds = laps.reduce((acc, lap) => acc + lap.timeMs, 0) / laps.length / 1000;
+        
+        ImprovementEngine.createItem<TimeStudySession>({
+            type: 'TimeStudySession',
+            sessionName: `Observed Time Study - ${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`,
+            laps: laps.map(l => ({ ...l })),
+            averageCycleTimeSeconds
+        });
+        
+        if (onClose) {
+            onClose();
+        }
     };
 
     const handleReset = () => {
@@ -288,6 +306,25 @@ export default function TimeStudy({ project, onUpdateProject, onClose }: TimeStu
                                     })}
                                 </tbody>
                             </table>
+                        </div>
+                        
+                        <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-end' }}>
+                            <button 
+                                onClick={handleExportSession}
+                                style={{ 
+                                    background: '#38bdf8', 
+                                    color: '#0f172a', 
+                                    border: 'none', 
+                                    padding: '1rem 2rem', 
+                                    borderRadius: '8px', 
+                                    fontWeight: 'bold', 
+                                    fontSize: '1rem', 
+                                    cursor: 'pointer',
+                                    boxShadow: '0 4px 15px rgba(56, 189, 248, 0.3)'
+                                }}
+                            >
+                                💾 EXPORT TO YAMAZUMI BUILDER
+                            </button>
                         </div>
                     </div>
                 )}
