@@ -35,6 +35,7 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
         );
     }
 
+    return (
         <div className="or-master-container" style={{
             display: 'flex',
             flexDirection: 'column',
