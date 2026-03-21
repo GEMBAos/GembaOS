@@ -9,19 +9,7 @@ interface OperatingRoomProps {
 export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
     type ViewState = 'main' | 'create' | 'join';
     const [view, setView] = useState<ViewState>('main');
-    const [joinCode, setJoinCode] = useState('');
     const [showJFI, setShowJFI] = useState(false);
-
-    const handleJoinSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (joinCode.trim()) {
-            // App.tsx handleNavigate overwrites the hash, so we just set the view via prop, but append manually
-            onNavigate('motion-v2');
-            setTimeout(() => {
-                window.location.hash = `/motion-v2?session=${joinCode.trim().toUpperCase()}`;
-            }, 0);
-        }
-    };
 
     if (view === 'create') {
         return (
@@ -91,10 +79,10 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                     display: flex;
                     flex-direction: column;
                     background: var(--bg-panel);
-                    border-radius: 1.5rem;
-                    border: 1px solid rgba(255,255,255,0.05);
+                    border-radius: 4px;
+                    border: 1px solid #000;
                     padding: clamp(0.5rem, 3vh, 2rem);
-                    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+                    box-shadow: inset 0 8px 16px rgba(0,0,0,0.5);
                     min-height: 0;
                     overflow: hidden;
                 }
@@ -123,15 +111,17 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                     align-items: center;
                     justify-content: center;
                     gap: 1rem;
+                    border-radius: 4px;
+                    border: 2px solid #000;
                 }
                 .or-btn-secondary {
                     width: 100%;
                     padding: clamp(0.5rem, 2vh, 1.5rem) clamp(1rem, 2vw, 2rem);
                     font-size: clamp(0.85rem, 2.5vh, 1.25rem);
-                    border-radius: 8px;
+                    border-radius: 4px;
                     background: var(--bg-panel);
                     color: var(--text-main);
-                    border: 1px solid var(--border-light);
+                    border: 2px solid var(--border-light);
                     cursor: pointer;
                     display: flex;
                     align-items: center;
@@ -145,6 +135,7 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                 }
                 .or-btn-secondary:hover {
                     background: var(--bg-panel-hover);
+                    border-color: var(--tape-yellow);
                 }
                 
                 .or-jfi-title {
@@ -159,10 +150,10 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                 
                 .or-jfi-btn {
                     padding: clamp(0.5rem, 1.5vh, 1.25rem);
-                    background: rgba(255,255,255,0.03);
-                    border: 1px solid var(--border-light);
+                    background: var(--bg-dark);
+                    border: 2px dashed var(--border-light);
                     color: var(--text-main);
-                    border-radius: 8px;
+                    border-radius: 4px;
                     cursor: pointer;
                     text-decoration: none;
                     transition: all 0.2s;
@@ -174,8 +165,8 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                     font-size: clamp(0.75rem, 2vh, 1rem);
                 }
                 .or-jfi-btn:hover {
-                    background: rgba(255,255,255,0.08);
-                    border-color: var(--text-main);
+                    background: var(--bg-panel-hover);
+                    border-color: var(--accent-primary);
                 }
                 .or-jfi-icon {
                     font-size: clamp(1rem, 3vh, 1.5rem);
@@ -202,112 +193,110 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
             `}} />
 
             {/* Main Content: Single Pane of Glass Layout */}
-            <div className="or-grid-wrapper">
-                <div className="or-grid-inner">
+            <div className="or-grid-wrapper gemba-floor" style={{ padding: '1rem', overflowY: 'auto' }}>
                 
-                {/* LEFT PANE - PRIMARY ACTIONS */}
-                <div className="or-left-pane">
-                    
-                    {view === 'main' && (
-                        <>
-                            <div className="or-title">COMMAND HUB</div>
-                            <div className="or-subtitle">Initiate or Join a Live Operation</div>
+                {view === 'main' && (
+                    <div className="floor-zone-box" style={{ width: '100%', maxWidth: '900px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '3rem', paddingBottom: '6rem' }}>
+                        
+                        {/* PANEL 1: IMPROVEMENT IDEA GENERATOR */}
+                        <div className="gemba-panel zone-marker zone-marker-tl">
+                            <div className="panel-title">
+                                IMPROVEMENT IDEAS
+                                <span className="panel-title-accent" style={{ fontSize: '0.5em', marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>GENERATE</span>
+                            </div>
+                            <div className="panel-subtitle">LOCATION / MACHINE & ISSUE DESCRIPTION</div>
                             
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(0.5rem, 2vh, 1.5rem)', width: '100%' }}>
-                                <button 
-                                    onClick={() => setView('create')}
-                                    className="btn-primary or-btn-primary"
-                                >
-                                    <span>⚡</span> START KAIZEN
-                                </button>
-
-                                <button 
-                                    onClick={() => setView('join')}
-                                    className="or-btn-secondary"
-                                >
-                                    <span>🔗</span> JOIN KAIZEN
-                                </button>
-                            </div>
-                        </>
-                    )}
-
-                    {view === 'join' && (
-                        <div style={{ width: '100%', animation: 'fadeIn 0.2s ease-out', display: 'flex', flexDirection: 'column', height: '100%' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', marginBottom: 'clamp(0.5rem, 2vh, 2rem)' }}>
-                                <button onClick={() => setView('main')} className="global-action-btn" style={{ background: 'transparent', border: 'none', padding: 0 }}>
-                                    ← Back
-                                </button>
-                                <h2 style={{ flex: 1, textAlign: 'center', margin: 0, fontFamily: 'var(--font-headings)', fontSize: 'clamp(1rem, 2.5vh, 1.5rem)', color: 'white', letterSpacing: '2px' }}>
-                                    JOIN SESSION
-                                </h2>
-                                <div style={{ width: '60px' }} />
-                            </div>
-
-                            <form onSubmit={handleJoinSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(0.5rem, 1.5vh, 1rem)', background: 'var(--bg-panel)', padding: 'clamp(1rem, 3vh, 2.5rem)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', flex: 1 }}>
-                                <div style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '0.25rem', fontSize: 'clamp(0.7rem, 1.8vh, 1rem)' }}>
-                                    Enter 6-char PIN or scan QR.
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
+                                <div style={{ flex: '1 1 250px' }}>
+                                    <input type="text" className="gemba-input" placeholder="Type or Scan Location Code" />
                                 </div>
-                                <input 
-                                    type="text" 
-                                    placeholder="e.g. A3X9Z"
-                                    value={joinCode}
-                                    onChange={e => setJoinCode(e.target.value)}
-                                    className="input-field-light"
-                                    style={{ fontSize: 'clamp(1rem, 3vh, 1.5rem)', textAlign: 'center', letterSpacing: '4px', textTransform: 'uppercase', padding: 'clamp(0.5rem, 2vh, 1rem)' }}
-                                    maxLength={8}
-                                    autoFocus
-                                />
-                                <button 
-                                    type="submit"
-                                    disabled={joinCode.trim().length === 0}
-                                    className="btn-primary or-btn-primary"
-                                    style={{ marginTop: 'auto' }}
-                                >
-                                    ENTER KAIZEN
-                                </button>
-                            </form>
+                                <div style={{ flex: '2 1 300px' }}>
+                                    <input type="text" className="gemba-input" placeholder="Describe Waste or Issue..." />
+                                </div>
+                            </div>
+                            
+                            <button className="shadow-btn shadow-btn-accent" onClick={() => setShowJFI(true)} style={{ width: '100%', flexDirection: 'row', gap: '1rem', padding: '1.25rem' }}>
+                                <span className="shadow-btn-icon" style={{ margin: 0 }}>🎲</span> RANDOM SUGGESTION
+                            </button>
+                            <div className="caster-wheel caster-wheel-left"></div>
+                            <div className="caster-wheel caster-wheel-right"></div>
                         </div>
-                    )}
-                </div>
 
-                {/* RIGHT PANE - SIDE NODE (JFI HUB) */}
-                <div className="or-right-pane">
-                    <div className="or-jfi-title">
-                        Just-Do-It (JFI) System
+                        {/* PANEL 2: KAIZEN */}
+                        <div className="gemba-panel zone-marker zone-marker-br">
+                            <div className="panel-title">KAIZEN <span style={{ color: 'var(--zone-yellow)', marginLeft: '0.5rem' }}>BOARD</span></div>
+                            <div className="panel-subtitle">ANALYZE PROCESSES AND ELIMINATE WASTE</div>
+                            
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+                                <button className="shadow-btn" onClick={() => onNavigate('motion-v2')} style={{ flex: '1 1 140px' }}>
+                                    <span className="shadow-btn-icon">👣</span> MOTION MAP
+                                </button>
+                                <button className="shadow-btn" onClick={() => onNavigate('process-check')} style={{ flex: '1 1 140px' }}>
+                                    <span className="shadow-btn-icon">🗑️</span> WASTE
+                                </button>
+                                <button className="shadow-btn" onClick={() => setShowJFI(true)} style={{ flex: '1 1 140px' }}>
+                                    <span className="shadow-btn-icon">💡</span> IDEAS
+                                </button>
+                                <div className="shadow-btn" style={{ flex: '1 1 140px', opacity: 0.5, cursor: 'not-allowed' }}>
+                                    <span className="shadow-btn-icon">📋</span> A3 REPORT
+                                </div>
+                            </div>
+                            <div className="panel-rule"></div>
+                            <div style={{ textAlign: 'center', fontFamily: 'var(--font-headings)', fontWeight: 900, fontSize: '0.9rem', color: 'var(--steel-gray)', letterSpacing: '4px' }}>STANDARDIZE. IMPROVE. REPEAT.</div>
+                            <div className="caster-wheel caster-wheel-left"></div>
+                            <div className="caster-wheel caster-wheel-right"></div>
+                        </div>
+
+                        {/* PANEL 3: TOOL BAG */}
+                        <div className="gemba-panel zone-marker zone-marker-tl">
+                            <div className="panel-title">TOOL BAG</div>
+                            <div className="panel-subtitle">CORE WORKSPACE UTILITIES</div>
+                            
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+                                <button className="shadow-btn" onClick={() => onNavigate('time-study')} style={{ flex: '1 1 140px' }}>
+                                    <span className="shadow-btn-icon">⏱️</span> STOPWATCH
+                                </button>
+                                <button className="shadow-btn" onClick={() => onNavigate('value-scanner')} style={{ flex: '1 1 140px' }}>
+                                    <span className="shadow-btn-icon">🔳</span> 5S SCAN
+                                </button>
+                                <div className="shadow-btn" style={{ flex: '1 1 140px', opacity: 0.5, cursor: 'not-allowed' }}>
+                                    <span className="shadow-btn-icon">🧾</span> AUDIT
+                                </div>
+                                <div className="shadow-btn" style={{ flex: '1 1 140px', opacity: 0.5, cursor: 'not-allowed' }}>
+                                    <span className="shadow-btn-icon">📄</span> STANDARD WORK
+                                </div>
+                            </div>
+                            <div className="caster-wheel caster-wheel-left"></div>
+                            <div className="caster-wheel caster-wheel-right"></div>
+                        </div>
+
+                        {/* PANEL 4: LEARNING TO SEE */}
+                        <div className="gemba-panel zone-marker zone-marker-br">
+                            <div className="panel-title">LEARNING TO SEE</div>
+                            <div className="panel-subtitle">TRAINING AND BEST PRACTICES</div>
+                            
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+                                <button className="shadow-btn" style={{ flex: '1 1 140px' }}>
+                                    <span className="shadow-btn-icon" style={{ color: 'var(--zone-yellow)' }}>👷</span> SAFETY
+                                </button>
+                                <button className="shadow-btn" style={{ flex: '1 1 140px' }}>
+                                    <span className="shadow-btn-icon">🔧</span> LEAN TOOLS
+                                </button>
+                                <a href="https://padlet.com" target="_blank" rel="noreferrer" className="shadow-btn" style={{ flex: '1 1 140px', textDecoration: 'none' }}>
+                                    <span className="shadow-btn-icon">▶️</span> VIDEOS
+                                </a>
+                                <a href="https://form.jotform.com/233406028319149" target="_blank" rel="noreferrer" className="shadow-btn shadow-btn-accent" style={{ flex: '1 1 140px', textDecoration: 'none' }}>
+                                    <span className="shadow-btn-icon" style={{ margin: 0 }}>📝</span> JFI FORM
+                                </a>
+                            </div>
+                            <div className="panel-rule"></div>
+                            <div style={{ textAlign: 'center', fontFamily: 'var(--font-headings)', fontWeight: 900, fontSize: '0.9rem', color: 'var(--steel-gray)', letterSpacing: '4px' }}>DESIGNED TO MOVE BETTER.</div>
+                            <div className="caster-wheel caster-wheel-left"></div>
+                            <div className="caster-wheel caster-wheel-right"></div>
+                        </div>
+
                     </div>
-                    <div style={{ 
-                        display: 'flex', 
-                        flexDirection: 'column', 
-                        gap: 'clamp(0.25rem, 1.5vh, 1.25rem)'
-                    }}>
-                        <button 
-                            onClick={() => setShowJFI(true)}
-                            className="or-jfi-btn"
-                        >
-                            <span className="or-jfi-icon">💡</span> 
-                            <span>Instant Idea Generator</span>
-                        </button>
-                        <a 
-                            href="https://form.jotform.com/233406028319149" 
-                            target="_blank" 
-                            rel="noreferrer" 
-                            className="or-jfi-btn"
-                        >
-                            <span className="or-jfi-icon">📝</span> 
-                            <span>Submit Formal JFI Ticket</span>
-                        </a>
-                        <a 
-                            href="https://padlet.com" 
-                            target="_blank" 
-                            rel="noreferrer" 
-                            className="or-jfi-btn"
-                        >
-                            <span className="or-jfi-icon">📺</span> 
-                            <span>Library & Training Videos</span>
-                        </a>
-                    </div>
-                </div>
-                </div>
+                )}
             </div>
 
             {showJFI && (

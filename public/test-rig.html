@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GembaOS Multi-Viewport Test Rig</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --panel-bg: #161b22;
+            --text-color: #c9d1d9;
+            --border-color: #30363d;
+            --highlight: #58a6ff;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: var(--panel-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background: #21262d;
+            border-color: #8b949e;
+        }
+
+        #url-input {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: #010409;
+            color: white;
+            width: 300px;
+            font-size: 0.9rem;
+        }
+
+        /* The flex layout handles massive ultra-wides better than strict grid */
+        #rig-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .device-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        .device-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            gap: 20px;
+        }
+
+        .device-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #ffffff;
+        }
+
+        .device-dims {
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #8b949e;
+            background: #010409;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .iframe-wrapper {
+            position: relative;
+            background: #000000;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        iframe {
+            border: none;
+            background: var(--bg-color);
+            transform-origin: top left;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🖥️ GembaOS Multi-Viewport Test Rig</h1>
+        <div class="controls">
+            <input type="text" id="url-input" value="http://localhost:5173/?testMode=true#/portal" title="Target URL">
+            <button id="btn-refresh">🔄 Refresh All Feeds</button>
+            <button id="btn-scale">🔍 Toggle Scale (25%)</button>
+        </div>
+    </header>
+
+    <div id="rig-container"></div>
+
+    <script>
+        const devices = [
+            { name: "iPhone 16 Pro Max (P)",    w: 440,  h: 956 },
+            { name: "iPhone 16 Pro Max (L)",    w: 956,  h: 440 },
+            { name: "iPhone 14/15/16 Pro (P)",  w: 393,  h: 852 },
+            { name: "iPhone 14/15/16 Pro (L)",  w: 852,  h: 393 },
+            { name: "Samsung S20 (Portrait)",   w: 360,  h: 800 },
+            { name: "Samsung S20 (Landscape)",  w: 800,  h: 360 },
+            { name: "iPhone SE (Portrait)",     w: 375,  h: 667 },
+            { name: "iPhone SE (Landscape)",    w: 667,  h: 375 },
+            { name: "iPad Mini (Portrait)",     w: 768,  h: 1024 },
+            { name: "iPad Mini (Landscape)",    w: 1024, h: 768 },
+            { name: "iPad Pro 12.9 (Landscape)",w: 1366, h: 1024 },
+            { name: "Desktop (1080p)",          w: 1920, h: 1080 },
+            { name: "Ultra-Wide 49\" Curved",   w: 5120, h: 1440 }
+        ];
+
+        let currentScale = 0.25; 
+
+        const container = document.getElementById('rig-container');
+        const urlInput = document.getElementById('url-input');
+
+        function renderRig() {
+            container.innerHTML = '';
+            const targetUrl = urlInput.value;
+
+            devices.forEach(device => {
+                const card = document.createElement('div');
+                card.className = 'device-card';
+
+                const wrapperHeight = device.h * currentScale;
+                const wrapperWidth = device.w * currentScale;
+
+                card.innerHTML = `
+                    <div class="device-header">
+                        <div class="device-title">${device.name}</div>
+                        <div class="device-dims">${device.w} x ${device.h}</div>
+                    </div>
+                    <div class="iframe-wrapper" style="width: ${wrapperWidth}px; height: ${wrapperHeight}px; margin: 0 auto;">
+                        <iframe 
+                            src="${targetUrl}" 
+                            style="width: ${device.w}px; height: ${device.h}px; transform: scale(${currentScale});"
+                            title="${device.name}"
+                        ></iframe>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        renderRig();
+
+        document.getElementById('btn-refresh').addEventListener('click', () => {
+            const iframes = document.querySelectorAll('iframe');
+            iframes.forEach(iframe => {
+                iframe.src = iframe.src; 
+            });
+        });
+
+        document.getElementById('btn-scale').addEventListener('click', () => {
+            currentScale = currentScale === 0.25 ? 0.40 : (currentScale === 0.40 ? 0.60 : 0.25);
+            document.getElementById('btn-scale').innerText = "🔍 Toggle Scale (" + Math.round(currentScale * 100) + "%)";
+            renderRig();
+        });
+
+        urlInput.addEventListener('change', renderRig);
+    </script>
+
+</body>
+</html>

@@ -1,23 +1,37 @@
 :root {
-  --bg-dark: #000000; /* Pure black background */
-  --bg-panel: #0a0a0a; /* Deep charcoal for raised panels */
-  --bg-panel-hover: #171717; /* Slight highlight */
+  /* GEMBA OS BRAND SYSTEM COLORS */
+  --gemba-black: #111111;
+  --lean-white: #ffffff;
+  --zone-yellow: #ffc20e;
+  --steel-gray: #6b6b8b;
+  --shadow-gray: #2a2aab;
+  
+  --bg-dark: #eaecf0; /* Light concrete floor */
+  --bg-panel: var(--gemba-black);
+  --bg-panel-hover: #1f1f1f; 
 
-  --text-main: #ffffff; /* Crisp white */
-  --text-muted: #a1a1aa; /* Zinc 400 for secondary text */
+  --text-main: var(--gemba-black); 
+  --text-muted: var(--steel-gray); 
+  --text-panel: var(--lean-white);
 
-  --accent-primary: #ffffff; /* Pure White primary accent */
-  --accent-hover: #e4e4e7; /* Light gray hover */
+  --accent-primary: var(--zone-yellow); 
+  --accent-hover: #e6af00; 
 
-  --accent-secondary: #27272a; /* Zinc 800 */
-  --accent-secondary-hover: #3f3f46; /* Zinc 700 */
+  --accent-secondary: var(--steel-gray); 
+  --accent-secondary-hover: #4e4e68; 
 
-  --accent-success: #10b981; /* Bright green */
-  --accent-danger: #ef4444; /* Bright red */
-  --accent-warning: #ffffff; /* Amber */
+  --accent-success: #10b981; 
+  --accent-danger: #ef4444; 
+  --accent-warning: #f59e0b; 
 
-  --border-color: #27272a;
-  --border-light: #3f3f46;
+  --border-color: #333333;
+  --border-light: #444444;
+
+  /* Lean Workspace Vars */
+  --floor-concrete: #eaecf0;
+  --tape-yellow: var(--zone-yellow);
+  --tape-red: #ef4444;
+  --tape-blue: #3b82f6;
 
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-headings: 'Orbitron', 'Inter', system-ui, -apple-system, sans-serif;
@@ -293,18 +307,15 @@ h3 {
 /* UI Elements */
 .card {
   background-color: var(--bg-panel);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 1rem;
+  border: 2px dashed var(--border-light);
+  border-radius: 4px;
   padding: 1.5rem;
-  box-shadow: 0 8px 30px -4px rgba(0, 0, 0, 0.2);
-  /* Deeper, more premium shadow for cards */
-  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease;
+  box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.3); /* Recessed cutout look */
+  transition: border-color 0.2s ease;
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.4);
-  border-color: rgba(255, 255, 255, 0.15);
+  border-color: var(--accent-primary);
 }
 
 .btn {
@@ -1269,3 +1280,282 @@ textarea::placeholder {
     display: none !important;
   }
 }
+/* --- LEAN WORKSPACE UTILITIES --- */
+.floor-zone {
+  border: 4px solid var(--tape-yellow);
+  padding: 1rem;
+  margin: 1rem 0;
+  position: relative;
+  background: var(--floor-concrete);
+}
+.floor-zone::before {
+  content: attr(data-zone);
+  position: absolute;
+  top: -14px;
+  left: 20px;
+  background: var(--tape-yellow);
+  color: #000;
+  padding: 2px 10px;
+  font-family: var(--font-headings);
+  font-weight: 900;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.tape-hazard {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--tape-yellow),
+    var(--tape-yellow) 10px,
+    #000 10px,
+    #000 20px
+  );
+  border: 1px solid #000;
+}
+.tape-hazard-red {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--tape-red),
+    var(--tape-red) 10px,
+    #fff 10px,
+    #fff 20px
+  );
+  border: 1px solid #000;
+}
+.shadow-board {
+  background: var(--bg-panel);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: inset 0 8px 16px rgba(0,0,0,0.6);
+  border: 1px solid #000;
+}
+.shadow-tool-slot {
+  background: rgba(0,0,0,0.4);
+  border: 2px dashed rgba(255,255,255,0.1);
+  border-radius: 4px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 120px;
+}
+.shadow-tool-slot:hover {
+  border-color: var(--accent-primary);
+  background: rgba(0,0,0,0.6);
+}
+/* No glowing or blurring allowed in Lean Workspace! Overriding old classes */
+.hover-glow {
+  box-shadow: none !important;
+  transition: transform 0.1s;
+}
+.hover-glow:hover {
+  transform: scale(0.98); /* physically pressing it down into the slot */
+  box-shadow: inset 0 4px 8px rgba(0,0,0,0.8) !important;
+  border-color: var(--accent-primary) !important;
+}
+.backdrop-blur {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+
+/* --- GEMBA OS BRAND SYSTEM --- */
+
+.gemba-floor {
+  background: var(--floor-concrete);
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Floor tape zone markers */
+.floor-zone-box {
+  position: relative;
+  padding: 2rem;
+  margin: 1rem 0;
+  border: 2px solid transparent; /* invisible border to hold shape */
+}
+
+/* Yellow L-Bracket Corners for Floor Zones */
+.floor-zone-box::before, .floor-zone-box::after {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 6px solid var(--zone-yellow);
+  pointer-events: none;
+  z-index: 10;
+}
+.floor-zone-box::before {
+  top: 0; left: 0;
+  border-right: none; border-bottom: none;
+}
+.floor-zone-box::after {
+  bottom: 0; right: 0;
+  border-left: none; border-top: none;
+}
+
+/* Main workstation panels */
+.gemba-panel {
+  background-color: var(--gemba-black);
+  color: var(--lean-white);
+  border-radius: 8px;
+  position: relative;
+  padding: clamp(1rem, 4vw, 2.5rem);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  border: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Panel Yellow L-Bracket Marker Elements */
+.zone-marker {
+  position: relative;
+}
+.zone-marker::before, .zone-marker::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: var(--zone-yellow);
+  border-style: solid;
+  border-width: 0;
+  z-index: 10;
+}
+.zone-marker-tl::before {
+  top: -8px; left: -8px;
+  border-top-width: 4px; border-left-width: 4px;
+}
+.zone-marker-tr::after {
+  top: -8px; right: -8px;
+  border-top-width: 4px; border-right-width: 4px;
+}
+.zone-marker-br::after {
+  bottom: -8px; right: -8px;
+  border-bottom-width: 4px; border-right-width: 4px;
+}
+
+/* Shadowboard Buttons */
+.shadow-btn {
+  background-color: var(--gemba-black);
+  color: var(--lean-white);
+  border: 2px solid var(--border-light);
+  border-radius: 4px;
+  padding: clamp(0.5rem, 2vw, 1rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-headings);
+  font-weight: 800;
+  font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: inset 0 0 0 transparent;
+}
+
+.shadow-btn:hover {
+  border-color: var(--zone-yellow);
+  color: var(--zone-yellow);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+}
+
+.shadow-btn-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+  transition: all 0.2s;
+}
+
+/* Specialized Solid Accent Button */
+.shadow-btn-accent {
+  background-color: var(--zone-yellow);
+  color: var(--gemba-black);
+  border-color: var(--zone-yellow);
+}
+.shadow-btn-accent:hover {
+  background-color: #ffda47;
+  color: var(--gemba-black);
+  border-color: #ffda47;
+}
+
+/* Panel Typography */
+.panel-title {
+  font-family: var(--font-headings);
+  font-weight: 900;
+  font-size: clamp(2rem, 5vw, 3rem);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--lean-white);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  line-height: 1;
+}
+
+.panel-title-accent {
+  background-color: var(--zone-yellow);
+  color: var(--gemba-black);
+  padding: 0 0.5rem;
+  border-radius: 4px;
+}
+
+.panel-subtitle {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: var(--zone-yellow);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  margin-top: 0.5rem;
+}
+
+.panel-rule {
+  height: 4px;
+  background: var(--zone-yellow);
+  width: 100%;
+  margin: 1.5rem 0;
+  border: none;
+}
+
+/* Industrial Casters */
+.caster-wheel {
+  position: absolute;
+  bottom: -24px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #555, #111);
+  border: 4px solid #000;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.8);
+}
+.caster-wheel-left { left: 40px; }
+.caster-wheel-right { right: 40px; }
+
+/* Flat Inputs */
+.gemba-input {
+  background: transparent;
+  border: 2px solid var(--border-light);
+  color: var(--lean-white);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 1rem;
+  border-radius: 4px;
+  width: 100%;
+  transition: all 0.2s;
+}
+.gemba-input:focus {
+  outline: none;
+  border-color: var(--zone-yellow);
+  background: rgba(255,255,255,0.05);
+}
+.gemba-input::placeholder {
+  color: var(--steel-gray);
+}
+

@@ -195,48 +195,52 @@ function App() {
         />
       )}
 
-      <div className="app-container" style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg-dark)' }}>
-        {/* Top Nav */}
+      <div className="app-container gemba-floor" style={{ display: 'flex', flexDirection: 'column', height: '100dvh' }}>
         <header style={{ 
             display: 'flex', 
             alignItems: 'center', 
             justifyContent: 'space-between',
             padding: '1rem 2rem',
             paddingTop: 'calc(1rem + env(safe-area-inset-top))',
-            background: 'rgba(15, 23, 42, 0.95)',
-            borderBottom: '1px solid rgba(255,255,255,0.05)',
-            backdropFilter: 'blur(10px)',
+            background: 'var(--gemba-black)',
+            borderBottom: '2px solid #000',
             position: 'sticky',
             top: 0,
-            zIndex: 50
+            zIndex: 50,
+            boxShadow: '0 4px 6px rgba(0,0,0,0.5)'
         }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '3rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', cursor: 'pointer' }} onClick={() => handleNavigate('portal')}>
                     <img src={iconLogo} alt="GembaOS" style={{ height: '32px' }} />
                     <span style={{ fontFamily: '"Orbitron", sans-serif', color: '#fff', fontWeight: 800, letterSpacing: '4px', fontSize: '1.4rem' }} className="hide-on-mobile">GEMBA OS</span>
                 </div>
-                {/* Desktop Native App Navigation Tab Bar */}
-                <nav style={{ 
-                    display: 'flex', 
-                    gap: '0.5rem', 
-                    background: 'rgba(255,255,255,0.03)', 
-                    padding: '0.25rem', 
-                    borderRadius: '8px',
-                    border: '1px solid rgba(255,255,255,0.05)'
-                }} className="hide-on-mobile-flex">
-                    <button onClick={() => handleNavigate('portal')} style={{ background: currentView === 'portal' ? 'var(--accent-primary)' : 'transparent', border: 'none', color: currentView === 'portal' ? '#000' : '#94a3b8', fontWeight: 600, cursor: 'pointer', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', transition: 'all 0.2s', boxShadow: currentView === 'portal' ? 'inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.2)' : 'none' }}>Command Center</button>
-                    <button onClick={() => handleNavigate('observe')} style={{ background: currentView === 'observe' ? 'var(--accent-primary)' : 'transparent', border: 'none', color: currentView === 'observe' ? '#000' : '#94a3b8', fontWeight: 600, cursor: 'pointer', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', transition: 'all 0.2s', boxShadow: currentView === 'observe' ? 'inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.2)' : 'none' }}>Observe</button>
-                    <button onClick={() => handleNavigate('diagnose')} style={{ background: currentView === 'diagnose' ? 'var(--accent-primary)' : 'transparent', border: 'none', color: currentView === 'diagnose' ? '#000' : '#94a3b8', fontWeight: 600, cursor: 'pointer', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', transition: 'all 0.2s', boxShadow: currentView === 'diagnose' ? 'inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.2)' : 'none' }}>Diagnose</button>
-                    <button onClick={() => handleNavigate('improve')} style={{ background: currentView === 'improve' ? 'var(--accent-primary)' : 'transparent', border: 'none', color: currentView === 'improve' ? '#000' : '#94a3b8', fontWeight: 600, cursor: 'pointer', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', transition: 'all 0.2s', boxShadow: currentView === 'improve' ? 'inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.2)' : 'none' }}>Improve</button>
-                </nav>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                     {/* Hamburger Menu Area - Kept minimal for skeletal mapping */}
+                     <div style={{ padding: '0.5rem', cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                         <div style={{ width: '24px', height: '2px', background: '#ccc' }}></div>
+                         <div style={{ width: '24px', height: '2px', background: '#ccc' }}></div>
+                         <div style={{ width: '24px', height: '2px', background: '#ccc' }}></div>
+                     </div>
+                </div>
             </div>
             
             {/* Utilities */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-                <div style={{ display: 'flex', gap: '0.25rem', background: 'rgba(255,255,255,0.03)', padding: '0.25rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }} className="hide-on-mobile-flex">
+                <div style={{ display: 'flex', gap: '0.25rem', background: 'var(--bg-dark)', padding: '0.25rem', borderRadius: '4px', border: '1px solid #000' }} className="hide-on-mobile-flex">
                     <button onClick={() => i18n.changeLanguage('en')} style={{ padding: '0.25rem 0.5rem', background: i18n.language.startsWith('en') ? 'var(--accent-primary)' : 'transparent', borderRadius: '4px', border: 'none', color: i18n.language.startsWith('en') ? '#000' : '#64748b', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 'bold', transition: 'all 0.2s' }}>EN</button>
                     <button onClick={() => i18n.changeLanguage('es')} style={{ padding: '0.25rem 0.5rem', background: i18n.language.startsWith('es') ? 'var(--accent-primary)' : 'transparent', borderRadius: '4px', border: 'none', color: i18n.language.startsWith('es') ? '#000' : '#64748b', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 'bold', transition: 'all 0.2s' }}>ES</button>
                 </div>
+                
+                {/* LSW / Kamishibai Panel (Visual Only for now) */}
+                <div className="hide-on-mobile-flex" style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', background: 'var(--bg-dark)', padding: '0.25rem 0.5rem', border: '2px solid var(--border-color)', borderRadius: '4px', boxShadow: 'inset 0 4px 8px rgba(0,0,0,0.5)' }}>
+                     <div style={{ fontSize: '0.65rem', fontWeight: 900, textTransform: 'uppercase', color: 'var(--tape-yellow)', marginRight: '0.5rem', letterSpacing: '1px' }}>LSW CHECKS</div>
+                     <div style={{ display: 'flex', gap: '0.25rem' }}>
+                         <div title="Daily Checks Complete" style={{ width: '16px', height: '16px', borderRadius: '2px', background: 'var(--accent-success)', border: '1px solid #000' }} />
+                         <div title="Weekly Checks Pending" style={{ width: '16px', height: '16px', borderRadius: '2px', background: 'var(--accent-danger)', border: '1px solid #000' }} />
+                     </div>
+                </div>
+
                 {/* User Profile / Login */}
                 {user ? (
                     <div onClick={() => setShowProfileModal(true)} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', padding: '0.25rem 0.5rem', borderRadius: '30px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)', transition: 'background 0.2s' }} onMouseOver={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'} onMouseOut={e => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}>
@@ -265,175 +269,91 @@ function App() {
         </header>
 
         {/* Main Workspace Area - STRICT OVERFLOW HIDDEN */}
-        <main className="main-content process-map-bg" style={{ flex: 1, overflow: 'hidden', padding: 0, display: 'flex', flexDirection: 'column' }}>
+        <main className="main-content" style={{ flex: 1, overflow: 'hidden', padding: 0, display: 'flex', flexDirection: 'column' }}>
           {currentView === 'promo' && <PromoLanding onSignUp={() => { setShowAuth(true); handleNavigate('portal'); }} />}
           {currentView === 'portal' && <OperatingRoom onNavigate={handleNavigate} />}
           
           <Suspense fallback={
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--text-muted)' }}>
-              <div className="spinner" style={{ border: '4px solid rgba(255,255,255,0.1)', borderTop: '4px solid var(--accent-primary)', borderRadius: '50%', width: '40px', height: '40px', animation: 'spin 1s linear infinite' }} />
-              <p style={{ marginTop: '1rem', fontWeight: 'bold' }}>Loading Module...</p>
+              <div className="spinner" style={{ border: '4px solid rgba(255,255,255,0.1)', borderTop: '4px solid var(--zone-yellow)', borderRadius: '50%', width: '40px', height: '40px', animation: 'spin 1s linear infinite' }} />
+              <p style={{ marginTop: '1rem', fontWeight: 'bold', fontFamily: 'var(--font-headings)', letterSpacing: '2px' }}>LOADING STATION...</p>
               <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
             </div>
           }>
             {/* Core Modules Placeholders */}
             {currentView === 'observe' && (
-                <div style={{ padding: '3rem', textAlign: 'center', color: '#94a3b8', maxWidth: '1000px', margin: '0 auto' }}>
-                    <h2 style={{ color: '#e2e8f0', fontSize: '2rem', marginBottom: '1rem', fontFamily: "'Orbitron', sans-serif", fontWeight: 700 }}>OBSERVE</h2>
-                    <p style={{ maxWidth: '600px', margin: '0 auto', lineHeight: 1.6, marginBottom: '3rem' }}>Process study and motion mapping tools sequence.</p>
+                <div className="or-grid-wrapper" style={{ flex: 1, overflowY: 'auto', padding: '1rem' }}>
+                    <div className="gemba-panel zone-marker zone-marker-tl" style={{ maxWidth: '900px', margin: '0 auto', width: '100%' }}>
+                        <div className="panel-title">OBSERVE <span style={{ color: 'var(--zone-yellow)', marginLeft: '0.5rem' }}>STATION</span></div>
+                        <div className="panel-subtitle">PROCESS STUDY AND MOTION MAPPING</div>
+                        
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+                            <button className="shadow-btn" onClick={() => handleNavigate('motion-v2')} style={{ flex: '1 1 250px', padding: '1.5rem', textAlign: 'left', alignItems: 'flex-start' }}>
+                                <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>📍</div>
+                                <h3 style={{ color: 'var(--lean-white)', margin: '0 0 0.5rem 0', fontSize: '1.25rem', fontFamily: 'var(--font-headings)', textTransform: 'uppercase' }}>Motion Mapping V2</h3>
+                                <p style={{ color: 'var(--steel-gray)', margin: 0, fontSize: '0.85rem', fontWeight: 500, lineHeight: 1.5, textTransform: 'none' }}>
+                                    Multi-device spaghetti tracking with calibrated floor plan layouts and live QR connectivity.
+                                </p>
+                            </button>
 
-                    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 'clamp(0.5rem, 2vh, 2rem)', minHeight: 0, overflow: 'hidden' }}>
-                        <div 
-                            onClick={() => handleNavigate('motion-v2')}
-                            className="module-card hover-glow"
-                            style={{ 
-                                flex: '1 1 250px',
-                                background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%)', 
-                                padding: 'clamp(0.5rem, 2vh, 2rem)', 
-                                borderRadius: '12px', 
-                                border: '1px solid rgba(139, 92, 246, 0.5)', 
-                                cursor: 'pointer',
-                                textAlign: 'left',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: 'clamp(0.25rem, 1.5vh, 1rem)',
-                                maxWidth: '800px',
-                                margin: '0 auto',
-                                overflow: 'hidden'
-                            }}
-                        >
-                            <div style={{ fontSize: '2.5rem' }}>📍</div>
-                            <h3 style={{ color: 'var(--accent-primary)', margin: 0, fontSize: '1.25rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Motion Mapping V2 (Beta)</h3>
-                            <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.9rem', lineHeight: 1.5 }}>
-                                Multi-device spaghetti tracking with calibrated floor plan layouts and live QR connectivity.
-                            </p>
-                            <div style={{ color: 'var(--accent-primary)', fontWeight: 'bold', fontSize: '0.85rem', marginTop: 'auto', paddingTop: '1rem' }}>LAUNCH TOOL →</div>
+                            <button className="shadow-btn" onClick={() => handleNavigate('time-study')} style={{ flex: '1 1 250px', padding: '1.5rem', textAlign: 'left', alignItems: 'flex-start' }}>
+                                <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>⏱️</div>
+                                <h3 style={{ color: 'var(--lean-white)', margin: '0 0 0.5rem 0', fontSize: '1.25rem', fontFamily: 'var(--font-headings)', textTransform: 'uppercase' }}>Time Study</h3>
+                                <p style={{ color: 'var(--steel-gray)', margin: 0, fontSize: '0.85rem', fontWeight: 500, lineHeight: 1.5, textTransform: 'none' }}>
+                                    Capture accurate cycle times, compare against Takt, and build objective datasets.
+                                </p>
+                            </button>
                         </div>
-
-
-                        <div 
-                            onClick={() => handleNavigate('time-study')}
-                            className="module-card hover-glow"
-                            style={{ 
-                                flex: '1 1 250px',
-                                maxWidth: '500px',
-                                background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%)', 
-                                padding: 'clamp(0.5rem, 2vh, 2rem)', 
-                                borderRadius: '12px', 
-                                border: '1px solid rgba(16, 185, 129, 0.3)', 
-                                cursor: 'pointer',
-                                textAlign: 'left',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: 'clamp(0.25rem, 1.5vh, 1rem)',
-                                overflow: 'hidden'
-                            }}
-                        >
-                            <div style={{ fontSize: '2.5rem' }}>⏱️</div>
-                            <h3 style={{ color: '#10b981', margin: 0, fontSize: '1.25rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Time Study / Cycle Time</h3>
-                            <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.9rem', lineHeight: 1.5 }}>
-                                Capture accurate cycle times, compare against Takt, and build objective datasets for Line Balance tools.
-                            </p>
-                            <div style={{ color: '#10b981', fontWeight: 'bold', fontSize: '0.85rem', marginTop: 'auto', paddingTop: '1rem' }}>LAUNCH TOOL →</div>
-                        </div>
+                        <div className="caster-wheel caster-wheel-left"></div>
+                        <div className="caster-wheel caster-wheel-right"></div>
                     </div>
                 </div>
             )}
             {currentView === 'diagnose' && (
-                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: 'clamp(1rem, 2vw, 2rem)' }}>
-                    <div style={{ textAlign: 'center', marginBottom: 'clamp(1rem, 2vw, 2rem)', flexShrink: 0 }}>
-                        <h2 style={{ color: '#e2e8f0', fontSize: 'clamp(1.5rem, 3vw, 2rem)', marginBottom: '0.25rem', fontFamily: "'Orbitron', sans-serif", fontWeight: 700 }}>DIAGNOSE</h2>
-                        <p style={{ color: 'var(--text-muted)', margin: 0 }}>Waste identification and root cause analysis tools.</p>
-                    </div>
-                    
-                    <div style={{ flex: 1, display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 'clamp(1rem, 2vw, 2rem)', minHeight: 0, overflow: 'hidden' }}>
-                        <div 
-                            onClick={() => handleNavigate('process-check')}
-                            className="module-card hover-glow"
-                            style={{ 
-                                flex: '1 1 250px',
-                                maxWidth: '500px',
-                                background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%)', 
-                                padding: 'clamp(0.5rem, 2vh, 2rem)', 
-                                borderRadius: '12px', 
-                                border: '1px solid rgba(245, 158, 11, 0.3)', 
-                                cursor: 'pointer',
-                                textAlign: 'left',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: 'clamp(0.25rem, 1.5vh, 1rem)',
-                                overflow: 'hidden'
-                            }}
-                        >
-                            <div style={{ fontSize: '2.5rem' }}>📋</div>
-                            <h3 style={{ color: '#ffffff', margin: 0, fontSize: '1.25rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Process Check</h3>
-                            <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.9rem', lineHeight: 1.5 }}>
-                                Diagnose motion waste and field exits identified during observation. Determine value vs preparation root causes.
-                            </p>
-                            <div style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '0.85rem', marginTop: 'auto', paddingTop: '1rem' }}>LAUNCH TOOL →</div>
-                        </div>
+                <div className="or-grid-wrapper" style={{ flex: 1, overflowY: 'auto', padding: '1rem' }}>
+                    <div className="gemba-panel zone-marker zone-marker-br" style={{ maxWidth: '900px', margin: '0 auto', width: '100%' }}>
+                        <div className="panel-title">DIAGNOSE <span style={{ color: 'var(--zone-yellow)', marginLeft: '0.5rem' }}>STATION</span></div>
+                        <div className="panel-subtitle">WASTE IDENTIFICATION AND ROOT CAUSE ANALYSIS</div>
+                        
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+                            <button className="shadow-btn" onClick={() => handleNavigate('process-check')} style={{ flex: '1 1 250px', padding: '1.5rem', textAlign: 'left', alignItems: 'flex-start' }}>
+                                <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>📋</div>
+                                <h3 style={{ color: 'var(--lean-white)', margin: '0 0 0.5rem 0', fontSize: '1.25rem', fontFamily: 'var(--font-headings)', textTransform: 'uppercase' }}>Process Check</h3>
+                                <p style={{ color: 'var(--steel-gray)', margin: 0, fontSize: '0.85rem', fontWeight: 500, lineHeight: 1.5, textTransform: 'none' }}>
+                                    Diagnose motion waste and field exits identified during observation.
+                                </p>
+                            </button>
 
-                        <div 
-                            onClick={() => handleNavigate('line-balance')}
-                            className="module-card hover-glow"
-                            style={{ 
-                                flex: '1 1 250px',
-                                maxWidth: '500px',
-                                background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%)', 
-                                padding: 'clamp(0.5rem, 2vh, 2rem)', 
-                                borderRadius: '12px', 
-                                border: '1px solid rgba(139, 92, 246, 0.3)', 
-                                cursor: 'pointer',
-                                textAlign: 'left',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: 'clamp(0.25rem, 1.5vh, 1rem)',
-                                overflow: 'hidden'
-                            }}
-                        >
-                            <div style={{ fontSize: '2.5rem' }}>⚖️</div>
-                            <h3 style={{ color: 'var(--accent-primary)', margin: 0, fontSize: '1.25rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Line Balance</h3>
-                            <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.9rem', lineHeight: 1.5 }}>
-                                Map cycle times against Takt Time. Identify constraints, balance work elements, and optimize efficiency.
-                            </p>
-                            <div style={{ color: 'var(--accent-primary)', fontWeight: 'bold', fontSize: '0.85rem', marginTop: 'auto', paddingTop: '1rem' }}>LAUNCH TOOL →</div>
+                            <button className="shadow-btn" onClick={() => handleNavigate('line-balance')} style={{ flex: '1 1 250px', padding: '1.5rem', textAlign: 'left', alignItems: 'flex-start' }}>
+                                <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>⚖️</div>
+                                <h3 style={{ color: 'var(--lean-white)', margin: '0 0 0.5rem 0', fontSize: '1.25rem', fontFamily: 'var(--font-headings)', textTransform: 'uppercase' }}>Line Balance</h3>
+                                <p style={{ color: 'var(--steel-gray)', margin: 0, fontSize: '0.85rem', fontWeight: 500, lineHeight: 1.5, textTransform: 'none' }}>
+                                    Map cycle times against Takt Time. Identify constraints and balance work blocks.
+                                </p>
+                            </button>
                         </div>
+                        <div className="caster-wheel caster-wheel-left"></div>
+                        <div className="caster-wheel caster-wheel-right"></div>
                     </div>
                 </div>
             )}
             {currentView === 'improve' && (
-                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: 'clamp(1rem, 2vw, 2rem)' }}>
-                    <div style={{ textAlign: 'center', marginBottom: 'clamp(1rem, 2vw, 2rem)', flexShrink: 0 }}>
-                        <h2 style={{ color: '#e2e8f0', fontSize: 'clamp(1.5rem, 3vw, 2rem)', marginBottom: '0.25rem', fontFamily: "'Orbitron', sans-serif", fontWeight: 700 }}>IMPROVE</h2>
-                        <p style={{ color: 'var(--text-muted)', margin: 0 }}>Action-oriented countermeasure tracking and experiment tools.</p>
-                    </div>
-                    
-                    <div style={{ flex: 1, display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 'clamp(1rem, 2vw, 2rem)', minHeight: 0, overflow: 'hidden' }}>
-                        <div 
-                            onClick={() => handleNavigate('improvement-card')}
-                            className="module-card hover-glow"
-                            style={{ 
-                                flex: '1 1 250px',
-                                maxWidth: '500px',
-                                background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%)', 
-                                padding: 'clamp(0.5rem, 2vh, 2rem)', 
-                                borderRadius: '12px', 
-                                border: '1px solid rgba(244, 63, 94, 0.3)', 
-                                cursor: 'pointer',
-                                textAlign: 'left',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: 'clamp(0.25rem, 1.5vh, 1rem)',
-                                overflow: 'hidden'
-                            }}
-                        >
-                            <div style={{ fontSize: '2.5rem' }}>⚡</div>
-                            <h3 style={{ color: '#f43f5e', margin: 0, fontSize: '1.25rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Improvement Card</h3>
-                            <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.9rem', lineHeight: 1.5 }}>
-                                Receive diagnosis handoffs, track countermeasures, measure expected vs actual results, and close the loop.
-                            </p>
-                            <div style={{ color: '#f43f5e', fontWeight: 'bold', fontSize: '0.85rem', marginTop: 'auto', paddingTop: '1rem' }}>LAUNCH TOOL →</div>
+                <div className="or-grid-wrapper" style={{ flex: 1, overflowY: 'auto', padding: '1rem' }}>
+                    <div className="gemba-panel zone-marker zone-marker-tl" style={{ maxWidth: '900px', margin: '0 auto', width: '100%' }}>
+                        <div className="panel-title">IMPROVE <span style={{ color: 'var(--zone-yellow)', marginLeft: '0.5rem' }}>STATION</span></div>
+                        <div className="panel-subtitle">ACTION-ORIENTED COUNTERMEASURE TRACKING</div>
+                        
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+                            <button className="shadow-btn" onClick={() => handleNavigate('improvement-card')} style={{ flex: '1 1 250px', padding: '1.5rem', textAlign: 'left', alignItems: 'flex-start' }}>
+                                <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>⚡</div>
+                                <h3 style={{ color: 'var(--lean-white)', margin: '0 0 0.5rem 0', fontSize: '1.25rem', fontFamily: 'var(--font-headings)', textTransform: 'uppercase' }}>Improvement Card</h3>
+                                <p style={{ color: 'var(--steel-gray)', margin: 0, fontSize: '0.85rem', fontWeight: 500, lineHeight: 1.5, textTransform: 'none' }}>
+                                    Track countermeasures, measure expected vs actual results, and close the loop.
+                                </p>
+                            </button>
                         </div>
+                        <div className="caster-wheel caster-wheel-left"></div>
+                        <div className="caster-wheel caster-wheel-right"></div>
                     </div>
                 </div>
             )}
