@@ -76,7 +76,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
                 transform: 'translateY(-5vh)' // shift slightly up from dead center
             }}>
                 
-                {/* THE AUTHENTIC LOGO */}
+                {/* THE AUTHENTIC LOGO CROP */}
                 <div style={{
                     transition: 'all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
                     opacity: (stage === 'logo-in' || stage === 'text' || stage === 'enter' || stage === 'fade-out') ? 1 : 0,
@@ -85,15 +85,20 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    marginBottom: '2rem' // space before text
+                    marginBottom: '1rem',
+                    width: 'clamp(280px, 90vw, 600px)',
+                    height: 'clamp(120px, 25vh, 220px)', // Window bounding box
+                    overflow: 'hidden', // Crop vertical excess
+                    position: 'relative'
                 }}>
                     <img 
                         src={brandLogo} 
                         alt="GEMBA OS Tool Cart Logo" 
                         style={{ 
-                            width: 'clamp(250px, 90vw, 550px)',
-                            maxHeight: '55vh',
-                            objectFit: 'contain',
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover', // Fill the horizontal window bounds
+                            objectPosition: 'center center',
                             mixBlendMode: 'multiply',
                             filter: 'brightness(1.1) contrast(1.3)'
                         }} 

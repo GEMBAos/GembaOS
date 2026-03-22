@@ -201,19 +201,20 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                 {view === 'main' && (
                     <>
                         {/* 1. Left Lateral Toolbar */}
-                        <div style={{
-                            width: '120px',
+                        <div className="lateral-sidebar" style={{
+                            width: 'clamp(60px, 12vw, 100px)',
                             backgroundColor: '#0a0a0a',
                             borderRight: '1px solid #333',
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
-                            padding: '2rem 0',
-                            gap: '1.5rem',
+                            padding: 'clamp(1rem, 2vh, 2rem) 0',
+                            gap: 'clamp(0.8rem, 2vh, 1.5rem)',
                             overflowY: 'auto',
                             boxShadow: '4px 0 15px rgba(0,0,0,0.8)',
                             flexShrink: 0,
-                            zIndex: 20
+                            zIndex: 20,
+                            transition: 'width 0.3s ease'
                         }}>
                             {[
                                 { id: 'motion', name: 'MOTION', icon: '🏃‍♂️', action: () => onNavigate('motion-v2') },
@@ -233,36 +234,52 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                                         display: 'flex',
                                         flexDirection: 'column',
                                         alignItems: 'center',
-                                        gap: '0.6rem',
+                                        gap: '0.4rem',
                                         cursor: 'pointer',
-                                        transition: 'transform 0.2s',
+                                        transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
                                         width: '100%'
                                     }}
-                                    onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-                                    onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.transform = 'scale(1.25)';
+                                        const label = e.currentTarget.querySelector('.tool-label') as HTMLElement;
+                                        if(label) {
+                                            label.style.opacity = '1';
+                                            label.style.color = '#ffc20e';
+                                        }
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.transform = 'scale(1)';
+                                        const label = e.currentTarget.querySelector('.tool-label') as HTMLElement;
+                                        if(label) {
+                                            label.style.opacity = '0.7';
+                                            label.style.color = '#aaa';
+                                        }
+                                    }}
                                     title={tool.name}
                                 >
                                     <div style={{
-                                        width: '64px',
-                                        height: '64px',
+                                        width: 'clamp(40px, 8vw, 56px)',
+                                        height: 'clamp(40px, 8vw, 56px)',
                                         borderRadius: '50%',
                                         background: 'linear-gradient(145deg, #2a2a2a, #111111)',
                                         boxShadow: '4px 4px 8px #050505, -4px -4px 8px #2b2b2b',
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
-                                        fontSize: '1.9rem',
+                                        fontSize: 'clamp(1.1rem, 2.5vw, 1.6rem)',
                                         border: '1px solid #333'
                                     }}>
                                         <span style={{ filter: 'drop-shadow(2px 4px 6px rgba(0,0,0,0.5))' }}>{tool.icon}</span>
                                     </div>
-                                    <span style={{
+                                    <span className="tool-label" style={{
                                         color: '#aaa',
-                                        fontSize: '0.65rem',
+                                        fontSize: 'clamp(0.45rem, 1vw, 0.6rem)',
                                         fontWeight: 800,
                                         fontFamily: "'Orbitron', sans-serif",
                                         textAlign: 'center',
-                                        letterSpacing: '1px'
+                                        letterSpacing: '0.5px',
+                                        opacity: 0.7,
+                                        transition: 'all 0.2s'
                                     }}>
                                         {tool.name}
                                     </span>
