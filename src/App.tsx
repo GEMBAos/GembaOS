@@ -23,6 +23,9 @@ const ImprovementCard = React.lazy(() => import('./components/tools/ImprovementC
 const ValueScanner = React.lazy(() => import('./components/tools/ValueScanner'));
 const TimeStudy = React.lazy(() => import('./components/tools/TimeStudy'));
 const KaizenSessionHub = React.lazy(() => import('./components/tools/kaizen/KaizenSessionHub'));
+const ActionItems = React.lazy(() => import('./components/tools/ActionItems'));
+const LeanAcademy = React.lazy(() => import('./components/tools/LeanAcademy'));
+const VideoHub = React.lazy(() => import('./components/tools/VideoHub'));
 
 import { userService } from './services/userService';
 import { storageService } from './services/storageService';
@@ -38,7 +41,7 @@ function App() {
   const getInitialView = () => {
     const rawHash = window.location.hash.replace('#/', '');
     const hashPath = rawHash.split('?')[0];
-    if (['portal', 'observe', 'diagnose', 'improve', 'motion-v2', 'time-study', 'process-check', 'improvement-card', 'value-scanner', 'line-balance', 'kaizen-hub'].includes(hashPath)) {
+    if (['portal', 'observe', 'diagnose', 'improve', 'motion-v2', 'time-study', 'process-check', 'improvement-card', 'value-scanner', 'line-balance', 'kaizen-hub', 'action-items', 'lean-academy', 'video-hub'].includes(hashPath)) {
         return hashPath as any;
     }
 
@@ -58,7 +61,7 @@ function App() {
     return 'portal';
   };
 
-  const [currentView, setCurrentView] = useState<'splash' | 'portal' | 'observe' | 'diagnose' | 'improve' | 'dashboard' | 'promo' | 'gemba' | 'goal-gap' | 'motion-mapping' | 'motion-v2' | 'time-study' | 'process-check' | 'improvement-card' | 'value-scanner' | 'line-balance' | 'kaizen-hub'>(
+  const [currentView, setCurrentView] = useState<'splash' | 'portal' | 'observe' | 'diagnose' | 'improve' | 'dashboard' | 'promo' | 'gemba' | 'goal-gap' | 'motion-mapping' | 'motion-v2' | 'time-study' | 'process-check' | 'improvement-card' | 'value-scanner' | 'line-balance' | 'kaizen-hub' | 'action-items' | 'lean-academy' | 'video-hub'>(
     getInitialView()
   );
   
@@ -188,8 +191,8 @@ function App() {
             </div>
             
             <div style={{ 
-                width: '240px', 
-                height: '48px',
+                width: 'clamp(140px, 45vw, 240px)', 
+                height: 'clamp(36px, 6vh, 48px)',
                 backgroundImage: `url(${brandLogo})`,
                 backgroundSize: '100% auto',
                 backgroundPosition: 'center center',
@@ -323,6 +326,9 @@ function App() {
 
             {currentView === 'gemba' && <GembaWalkGuide onClose={() => handleNavigate('portal')} />}
             {currentView === 'goal-gap' && <GoalGapMonitor onClose={() => handleNavigate('portal')} />}
+            {currentView === 'action-items' && <ActionItems />}
+            {currentView === 'lean-academy' && <LeanAcademy />}
+            {currentView === 'video-hub' && <VideoHub onClose={() => handleNavigate('portal')} />}
             {currentView === 'motion-v2' && <MotionMappingV2 onClose={() => handleNavigate('portal')} />}
             {currentView === 'time-study' && <TimeStudy onClose={() => handleNavigate('portal')} />}
             {currentView === 'process-check' && <ProcessCheck onClose={() => handleNavigate('portal')} />}

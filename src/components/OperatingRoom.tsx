@@ -221,9 +221,9 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                                 { id: 'time', name: 'TIME', icon: '⏱️', action: () => onNavigate('time-study') },
                                 { id: 'waste', name: 'WASTE', icon: '🗑️', action: () => onNavigate('process-check') },
                                 { id: '5s', name: '5S SCAN', icon: '🔳', action: () => onNavigate('value-scanner') },
-                                { id: 'lsubmit', name: 'SUBMIT', icon: '📋', action: () => console.log('Lippert Submit') },
-                                { id: 'lvideos', name: 'VIDEOS', icon: '🎬', action: () => console.log('Lippert Videos') },
-                                { id: 'learning', name: 'LEARN', icon: '👁️', action: () => {} },
+                                { id: 'lsubmit', name: 'SUBMIT', icon: '📋', action: () => onNavigate('action-items') },
+                                { id: 'lvideos', name: 'VIDEOS', icon: '🎬', action: () => onNavigate('video-hub') },
+                                { id: 'learning', name: 'LEARN', icon: '🎓', action: () => onNavigate('lean-academy') },
                             ].map(tool => (
                                 <button 
                                     key={tool.id} 
