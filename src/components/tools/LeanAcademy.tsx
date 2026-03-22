@@ -5,6 +5,8 @@
  */
 
 import { useState, useEffect } from 'react';
+import { supabase } from '../../lib/supabase';
+import { userService } from '../../services/userService';
 
 // Hardcoded Curriculum for MVP with intense, visual lessons
 export interface LeanLesson {
@@ -116,6 +118,7 @@ export default function LeanAcademy() {
 
     // Structure: submissions[moduleId][taskId] = Array of { photoUrl, description }
     const [submissions, setSubmissions] = useState<Record<string, Record<string, { photoUrl?: string, description: string }[]>>>({});
+    const [awardNotification, setAwardNotification] = useState<{points: number, visible: boolean}>({ points: 0, visible: false });
 
     useEffect(() => {
         const savedProgress = localStorage.getItem('kaizen_academy_progress');
@@ -129,12 +132,29 @@ export default function LeanAcademy() {
         }
     }, []);
 
-    const completeModule = (moduleId: string) => {
+    const completeModule = async (moduleId: string) => {
+        const mod = LEAN_ACADEMY_MODULES.find(m => m.id === moduleId);
+        if (!mod) return;
+
         const newCompleted = [...completedModules, moduleId];
         setCompletedModules(newCompleted);
         localStorage.setItem('kaizen_academy_progress', JSON.stringify(newCompleted));
-        // In a real app, here is where we would trigger the point award / gamification system
-        alert(`Module Completed! You earned HUGE Points!`);
+        
+        // Award XP
+        try {
+            const { data } = await supabase.auth.getSession();
+            if (data.session?.user?.id) {
+                await userService.addXP(data.session.user.id, mod.rewardPoints);
+            }
+        } catch (e) {
+            console.error('Error awarding XP:', e);
+        }
+
+        setAwardNotification({ points: mod.rewardPoints, visible: true });
+        
+        setTimeout(() => {
+            setAwardNotification({ points: mod.rewardPoints, visible: false });
+        }, 5000);
     };
 
     const handleSubmissionChange = (moduleId: string, taskId: string, index: number, field: 'photoUrl' | 'description', value: string) => {
@@ -206,16 +226,16 @@ export default function LeanAcademy() {
 
     return (
         <div style={{ maxWidth: '1200px', margin: '0 auto', paddingBottom: '4rem' }}>
-            <header style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem' }}>
+            <header style={{ marginBottom: '3rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1.5rem' }}>
                 <div>
-                    <h2 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: 'var(--accent-primary)', fontWeight: 800 }}>
+                    <h2 style={{ fontSize: 'clamp(3rem, 5vw, 4rem)', marginBottom: '0.5rem', color: 'var(--accent-primary)', fontFamily: 'var(--font-headings)' }}>
                         Lean Leader Academy
                     </h2>
-                    <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem' }}>Intense, visual learning modules to forge true Lean Leaders.</p>
+                    <p style={{ color: 'var(--steel-gray)', fontSize: '1.3rem', margin: 0 }}>Intense, visual learning modules to forge true Lean Leaders.</p>
                 </div>
 
-                <div style={{ background: 'var(--bg-panel)', padding: '1rem', borderRadius: '0.5rem', border: '1px solid var(--border-color)', minWidth: '250px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontSize: '1rem', fontWeight: 'bold' }}>
+                <div style={{ background: 'var(--bg-panel)', padding: '1.5rem', borderRadius: '0.5rem', border: '1px solid var(--border-color)', minWidth: '300px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.75rem', fontSize: '1.2rem', fontWeight: 'bold' }}>
                         <span>Overall Progress</span>
                         <span style={{ color: 'var(--accent-primary)' }}>{progressPercentage}%</span>
                     </div>
@@ -225,10 +245,10 @@ export default function LeanAcademy() {
                 </div>
             </header>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 1fr) 2fr', gap: '2.5rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'minmax(350px, 1fr) 2fr', gap: '3rem' }}>
                 {/* Module List Sidebar */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.2rem', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Curriculum Roadmap</h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                    <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.5rem', textTransform: 'uppercase', color: 'var(--text-muted)', fontFamily: 'var(--font-headings)' }}>Curriculum Roadmap</h3>
                     {LEAN_ACADEMY_MODULES.map((mod, index) => {
                         const isCompleted = completedModules.includes(mod.id);
                         const isSelected = selectedModule === mod.id;
@@ -252,8 +272,8 @@ export default function LeanAcademy() {
                             >
                                 <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                                     <div style={{
-                                        width: '40px',
-                                        height: '40px',
+                                        width: '50px',
+                                        height: '50px',
                                         borderRadius: '50%',
                                         background: isCompleted ? 'var(--accent-success)' : 'var(--bg-dark)',
                                         color: isCompleted ? 'white' : 'var(--text-muted)',
@@ -261,14 +281,14 @@ export default function LeanAcademy() {
                                         justifyContent: 'center',
                                         alignItems: 'center',
                                         fontWeight: 'bold',
-                                        fontSize: '1.2rem',
+                                        fontSize: '1.5rem',
                                         flexShrink: 0
                                     }}>
                                         {isCompleted ? '✓' : index + 1}
                                     </div>
                                     <div style={{ flex: 1 }}>
-                                        <div style={{ fontWeight: 'bold', color: 'var(--text-main)', fontSize: '1.1rem', marginBottom: '0.25rem' }}>{mod.title}</div>
-                                        <div style={{ fontSize: '0.8rem', color: 'var(--accent-primary)', fontWeight: 'bold' }}>⭐ {mod.rewardPoints} XP</div>
+                                        <div style={{ fontWeight: 'bold', color: 'var(--lean-white)', fontSize: '1.4rem', marginBottom: '0.4rem', lineHeight: '1.3' }}>{mod.title}</div>
+                                        <div style={{ fontSize: '1.1rem', color: 'var(--zone-yellow)', fontWeight: 'bold' }}>⭐ {mod.rewardPoints} XP</div>
                                     </div>
                                 </div>
                             </div>
@@ -286,8 +306,8 @@ export default function LeanAcademy() {
                         return (
                             <>
                                 <div style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '2rem', marginBottom: '2rem' }}>
-                                    <h2 style={{ fontSize: '2rem', margin: '0 0 1rem 0', color: 'var(--accent-primary)' }}>{mod.title}</h2>
-                                    <p style={{ color: 'var(--text-muted)', margin: 0, fontSize: '1.1rem', lineHeight: '1.6' }}>{mod.description}</p>
+                                    <h2 style={{ fontSize: '2.5rem', margin: '0 0 1rem 0', color: 'var(--accent-primary)', fontFamily: 'var(--font-headings)' }}>{mod.title}</h2>
+                                    <p style={{ color: 'var(--steel-gray)', margin: 0, fontSize: '1.25rem', lineHeight: '1.7' }}>{mod.description}</p>
                                 </div>
 
                                 <div style={{ flex: 1 }}>
@@ -295,12 +315,12 @@ export default function LeanAcademy() {
                                         {mod.lessons.map(lesson => (
                                             <div key={lesson.id} style={{
                                                 background: 'var(--bg-dark)',
-                                                padding: '1.5rem',
+                                                padding: '2rem',
                                                 borderRadius: '0.5rem',
-                                                borderLeft: '4px solid var(--text-muted)'
+                                                borderLeft: '6px solid var(--zone-yellow)'
                                             }}>
-                                                <h4 style={{ margin: '0 0 0.75rem 0', color: 'var(--text-main)', fontSize: '1.2rem' }}>{lesson.title}</h4>
-                                                <p style={{ margin: 0, color: 'var(--text-muted)', lineHeight: '1.7', fontSize: '1rem' }}>{lesson.content}</p>
+                                                <h4 style={{ margin: '0 0 1rem 0', color: 'var(--lean-white)', fontSize: '1.6rem', fontFamily: 'var(--font-headings)' }}>{lesson.title}</h4>
+                                                <p style={{ margin: 0, color: '#e2e8f0', lineHeight: '1.8', fontSize: '1.2rem' }}>{lesson.content}</p>
                                             </div>
                                         ))}
                                     </div>
@@ -313,10 +333,10 @@ export default function LeanAcademy() {
                                         borderRadius: '0.75rem',
                                         boxShadow: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.05)'
                                     }}>
-                                        <h3 style={{ margin: '0 0 1rem 0', color: 'var(--accent-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.5rem' }}>
+                                        <h3 style={{ margin: '0 0 1.5rem 0', color: 'var(--accent-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.8rem', fontFamily: 'var(--font-headings)' }}>
                                             📋 Actionable Homework Requirements
                                         </h3>
-                                        <p style={{ margin: '0 0 2rem 0', color: 'var(--text-main)', fontSize: '1.05rem', lineHeight: '1.6' }}>{mod.homeworkDescription}</p>
+                                        <p style={{ margin: '0 0 2rem 0', color: '#e2e8f0', fontSize: '1.2rem', lineHeight: '1.7' }}>{mod.homeworkDescription}</p>
 
                                         {mod.homeworkTasks.map(task => {
                                             const subs = submissions[mod.id]?.[task.id] || [];
@@ -328,8 +348,8 @@ export default function LeanAcademy() {
 
                                             return (
                                                 <div key={task.id} style={{ marginBottom: '2.5rem', padding: '1.5rem', background: 'var(--bg-panel)', borderRadius: '0.5rem', border: '1px solid var(--border-color)' }}>
-                                                    <h4 style={{ margin: '0 0 0.5rem 0', color: 'var(--text-main)', fontSize: '1.1rem' }}>{task.prompt}</h4>
-                                                    <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                                    <h4 style={{ margin: '0 0 0.75rem 0', color: 'var(--lean-white)', fontSize: '1.3rem' }}>{task.prompt}</h4>
+                                                    <div style={{ fontSize: '1rem', color: 'var(--zone-yellow)', marginBottom: '1.5rem', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 'bold' }}>
                                                         Requires: {task.minSubmissions} Submissions
                                                     </div>
 
@@ -460,14 +480,29 @@ export default function LeanAcademy() {
                             </>
                         );
                     })() : (
-                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1rem', justifyContent: 'center', alignItems: 'center', color: 'var(--text-muted)' }}>
-                            <div style={{ fontSize: '4rem' }}>🎓</div>
-                            <h3 style={{ margin: 0 }}>Select a Module</h3>
-                            <p style={{ margin: 0, textAlign: 'center', maxWidth: '400px' }}>Choose a module from the left to dive into intense visual learning and field assignments.</p>
+                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1.5rem', justifyContent: 'center', alignItems: 'center', color: 'var(--text-muted)' }}>
+                            <div style={{ fontSize: '6rem' }}>🎓</div>
+                            <h3 style={{ margin: 0, fontSize: '2rem', fontFamily: 'var(--font-headings)' }}>Select a Module</h3>
+                            <p style={{ margin: 0, textAlign: 'center', maxWidth: '500px', fontSize: '1.2rem', lineHeight: '1.6' }}>Choose a module from the left to dive into intense visual learning and field assignments.</p>
                         </div>
                     )}
                 </div>
             </div>
+
+            {/* XP Gamification Overlay */}
+            {awardNotification.visible && (
+                <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(5, 5, 5, 0.95)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', animation: 'fadeIn 0.2s ease-out' }}>
+                    <div style={{ background: 'var(--bg-panel)', padding: 'clamp(2rem, 5vh, 4rem)', borderRadius: '1rem', border: '2px solid var(--zone-yellow)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem', boxShadow: '0 0 50px rgba(255, 194, 14, 0.4)', textAlign: 'center', minWidth: '300px' }}>
+                        <div style={{ fontSize: '6rem', lineHeight: 1, textShadow: '0 0 20px rgba(255, 194, 14, 0.8)' }}>⭐</div>
+                        <h2 style={{ margin: 0, fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', color: 'var(--lean-white)', fontFamily: 'var(--font-headings)' }}>MODULE MASTERED</h2>
+                        <div style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', color: 'var(--zone-yellow)', fontWeight: 800 }}>+{awardNotification.points} XP</div>
+                        <p style={{ color: 'var(--text-muted)', margin: 0, fontSize: '1.1rem' }}>Your Lean Leader profile has been updated!</p>
+                        <button onClick={() => setAwardNotification({points: 0, visible: false})} className="shadow-btn" style={{ marginTop: '1rem', padding: '1rem 3rem', borderRadius: '6px', border: '1px solid var(--border-light)', background: 'transparent', color: 'var(--lean-white)', cursor: 'pointer', fontWeight: 800, letterSpacing: '1px', transition: 'all 0.2s' }}>
+                            CONTINUE
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
