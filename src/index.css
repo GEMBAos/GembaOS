@@ -3,8 +3,8 @@
   --gemba-black: #111111;
   --lean-white: #ffffff;
   --zone-yellow: #ffc20e;
-  --steel-gray: #6b6b8b;
-  --shadow-gray: #2a2aab;
+  --steel-gray: #6b7280; /* Neutral grey, formerly #6b6b8b */
+  --shadow-gray: #374151; /* Neutral dark grey, formerly #2a2aab */
   
   --bg-dark: #eaecf0; /* Light concrete floor */
   --bg-panel: var(--gemba-black);
@@ -18,7 +18,7 @@
   --accent-hover: #e6af00; 
 
   --accent-secondary: var(--steel-gray); 
-  --accent-secondary-hover: #4e4e68; 
+  --accent-secondary-hover: #4b5563; 
 
   --accent-success: #10b981; 
   --accent-danger: #ef4444; 
@@ -32,6 +32,12 @@
   --tape-yellow: var(--zone-yellow);
   --tape-red: #ef4444;
   --tape-blue: #3b82f6;
+
+  /* FIXED OS SHELL VARS */
+  --os-header-height: 72px;
+  --os-nav-rail-width: 100px;
+  --os-context-panel-width: 360px;
+  --os-bottom-dock-height: 80px;
 
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-headings: 'Orbitron', 'Inter', system-ui, -apple-system, sans-serif;
@@ -57,6 +63,8 @@ body,
 body {
   font-family: var(--font-family);
   background-color: var(--bg-dark);
+  /* Subtle, matte plaster/concrete micro-texture */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
   color: var(--text-main);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -104,65 +112,128 @@ h3 {
   100% { transform: translateX(-100%); }
 }
 
-/* --- APP SHELL LAYOUT --- */
-.app-container {
-  display: flex;
-  flex-direction: row;
+/* --- OS SHELL FIXED ARCHITECTURE --- */
+.os-shell {
+  display: grid;
   height: 100dvh;
   width: 100vw;
   background-color: var(--bg-dark);
   overflow: hidden;
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-}
-
-/* Force hardware tools to escape any parent hiding or relative bounds */
-.hardware-module-overlay {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  width: 100vw !important;
-  height: 100dvh !important;
-  z-index: 99999 !important;
-  margin: 0 !important;
-}
-
-.app-sidebar {
-  display: flex;
-  flex-direction: column;
-  width: clamp(240px, 20vw, 280px);
-  height: 100%;
-  background-color: rgba(10, 11, 14, 0.95);
-  border-right: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 1.5rem 1rem;
-  z-index: 1000;
-  backdrop-filter: blur(10px);
-  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
-}
-
-.app-main-workspace {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-  background: var(--bg-dark);
-}
-
-/* Central Workspace Content Area */
-.main-content {
-  flex: 1;
-  overflow: hidden; /* STRICT NO-SCROLL POLICY */
-  padding: clamp(1rem, 3vw, 2.5rem);
-  /* Removed heavy bottom padding to keep everything on screen */
   
-  /* RESPONSIVE CONTRACT LOCKDOWN: Ultra-Wide Max Enforcement */
-  width: 100%;
-  max-width: 1920px;
-  margin: 0 auto;
+  /* Safe area defaults */
+  padding-top: env(safe-area-inset-top);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+
+  /* Desktop Grid Default (3 Zones) */
+  grid-template-rows: var(--os-header-height) 1fr;
+  grid-template-columns: var(--os-nav-rail-width) 1fr var(--os-context-panel-width);
+  grid-template-areas:
+    "os-nav os-header os-header"
+    "os-nav os-workspace os-context";
+}
+
+.os-shell.context-closed {
+  grid-template-columns: var(--os-nav-rail-width) 1fr;
+  grid-template-areas:
+    "os-nav os-header"
+    "os-nav os-workspace";
+}
+
+/* 1. Header Zone */
+.os-header {
+  grid-area: os-header;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  background: var(--gemba-black);
+  border-bottom: 2px solid rgba(0,0,0,0.8);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  z-index: 50;
+  color: var(--lean-white);
+}
+
+/* 2. Navigation Zone */
+.os-nav-rail {
+  grid-area: os-nav;
+  display: flex;
+  flex-direction: column;
+  background: var(--gemba-black);
+  border-right: 2px solid rgba(0,0,0,0.8);
+  padding: 1.5rem 0;
+  z-index: 40;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* 3. Primary Workspace Zone */
+.os-workspace {
+  grid-area: os-workspace;
+  background: var(--bg-dark);
+  /* CRITICAL: ONLY internal scroll allowed, never windows scroll */
+  overflow: hidden; 
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1rem, 2vw, 2rem);
+}
+
+/* 4. Context Panel Zone (Desktop) */
+.os-context-panel {
+  grid-area: os-context;
+  background: #1a1a1a;
+  border-left: 2px solid rgba(0,0,0,0.8);
+  box-shadow: -4px 0 12px rgba(0,0,0,0.3);
+  overflow-y: auto;
+  z-index: 40;
+  color: var(--lean-white);
+  padding: 1.5rem;
+}
+
+/* Bottom Action Layer (Floating Desktop) */
+.os-action-layer {
+  position: absolute;
+  bottom: clamp(1rem, 3vw, 2rem);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1rem;
+  z-index: 100;
+}
+
+/* =========================================
+   MOBILE / TABLET OVERRIDES (Phone 3-Layer)
+   ========================================= */
+@media (max-width: 1024px) {
+  .os-shell {
+    /* Tablet/Phone Grid Default */
+    grid-template-rows: var(--os-header-height) 1fr calc(var(--os-bottom-dock-height) + env(safe-area-inset-bottom));
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "os-header"
+      "os-workspace"
+      "os-nav-dock";
+  }
+  
+  .os-shell.context-closed {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "os-header"
+      "os-workspace"
+      "os-nav-dock";
+  }
+
+  .os-nav-rail {
+    display: none; /* Hide left rail on mobile */
+  }
+
+  .os-context-panel {
+    /* Converts context panel to a slide-up bottom sheet on mobile */
+    display: none; /* Logic will handle showing this via fixed absolute overlay */
+  }
 }
 
 /* Desktop Only Navigation Adjustments */
@@ -252,12 +323,10 @@ h3 {
   display: none;
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  height: calc(env(safe-area-inset-bottom) + 70px);
-  background: linear-gradient(180deg, rgba(15, 23, 42, 0.8) 0%, rgba(0,0,0,0.95) 100%);
-  border-top: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  height: calc(env(safe-area-inset-bottom) + 80px);
+  background: var(--gemba-black);
+  border-top: 2px solid #2a2a2a;
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.4);
   z-index: 1000;
   padding-bottom: env(safe-area-inset-bottom);
 }
@@ -275,33 +344,39 @@ h3 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: var(--text-muted);
+  color: var(--steel-gray);
   text-decoration: none;
   flex: 1;
   height: 100%;
-  gap: 0.35rem;
+  gap: 0.25rem;
   font-size: 0.65rem;
-  font-weight: 700;
+  font-weight: 800;
+  font-family: var(--font-sans);
   text-transform: uppercase;
   transition: all 0.2s;
   cursor: pointer;
   border: none;
   background: transparent;
   padding-top: 0.5rem;
+  letter-spacing: 1px;
 }
 
 .dock-item:hover {
-  color: #fff;
+  color: var(--lean-white);
 }
 
 .dock-item.active {
-  color: var(--accent-primary);
+  color: var(--zone-yellow);
 }
 
 .dock-item-icon {
   font-size: 1.5rem;
   margin-bottom: 2px;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+  transition: transform 0.2s;
+}
+
+.dock-item:active .dock-item-icon {
+  transform: scale(0.9);
 }
 
 /* UI Elements */
@@ -1399,13 +1474,14 @@ textarea::placeholder {
 
 /* Main workstation panels */
 .gemba-panel {
-  background-color: var(--gemba-black);
+  background: linear-gradient(180deg, #1e1e1e 0%, #111111 100%);
   color: var(--lean-white);
-  border-radius: 8px;
+  border-radius: 24px;
   position: relative;
-  padding: clamp(1rem, 4vw, 2.5rem);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.6), 0 12px 24px rgba(0,0,0,0.3);
   border: 1px solid #000;
+  border-top: 1px solid rgba(255,255,255,0.06);
   display: flex;
   flex-direction: column;
 }
@@ -1439,80 +1515,94 @@ textarea::placeholder {
 
 /* Shadowboard Buttons */
 .shadow-btn {
-  background-color: var(--gemba-black);
+  background: linear-gradient(180deg, #222222 0%, #151515 100%);
   color: var(--lean-white);
-  border: 2px solid var(--border-light);
-  border-radius: 4px;
-  padding: clamp(0.5rem, 2vw, 1rem);
+  border: 1px solid #000;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: clamp(0.75rem, 2vw, 1.25rem);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-family: var(--font-headings);
   font-weight: 800;
-  font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+  font-size: clamp(0.75rem, 1.5vw, 0.9rem);
   text-transform: uppercase;
   letter-spacing: 1px;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: inset 0 0 0 transparent;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.4);
 }
 
 .shadow-btn:hover {
-  border-color: var(--zone-yellow);
-  color: var(--zone-yellow);
+  background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+  border-top-color: rgba(255,255,255,0.15);
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.5);
+}
+
+.shadow-btn:active {
+  transform: translateY(2px);
+  box-shadow: inset 0 4px 8px rgba(0,0,0,0.8);
+  background: #111111;
+  border-top-color: rgba(255,255,255,0.02);
 }
 
 .shadow-btn-icon {
-  font-size: 2.5rem;
-  margin-bottom: 0.75rem;
+  font-size: 2.25rem;
+  margin-bottom: 0.5rem;
   transition: all 0.2s;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
 }
 
 /* Specialized Solid Accent Button */
 .shadow-btn-accent {
-  background-color: var(--zone-yellow);
+  background: linear-gradient(180deg, #ffe066 0%, var(--zone-yellow) 100%);
   color: var(--gemba-black);
-  border-color: var(--zone-yellow);
+  border: 1px solid #c29300;
+  border-top: 1px solid #fff3aa;
 }
 .shadow-btn-accent:hover {
-  background-color: #ffda47;
+  background: linear-gradient(180deg, #fff3aa 0%, #ffe066 100%);
   color: var(--gemba-black);
-  border-color: #ffda47;
+}
+.shadow-btn-accent:active {
+  background: var(--zone-yellow);
+  box-shadow: inset 0 4px 8px rgba(194, 147, 0, 0.8);
+  border-top-color: #c29300;
 }
 
 /* Panel Typography */
 .panel-title {
   font-family: var(--font-headings);
   font-weight: 900;
-  font-size: clamp(2rem, 5vw, 3rem);
-  letter-spacing: 1px;
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  letter-spacing: -0.5px;
   text-transform: uppercase;
   color: var(--lean-white);
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  line-height: 1;
+  line-height: 1.1;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Recessed/Physical lettering feel */
 }
 
 .panel-title-accent {
-  background-color: var(--zone-yellow);
-  color: var(--gemba-black);
-  padding: 0 0.5rem;
-  border-radius: 4px;
+  background-color: transparent;
+  color: var(--zone-yellow);
+  padding: 0;
 }
 
 .panel-subtitle {
   font-family: var(--font-sans);
-  font-weight: 800;
-  font-size: 0.85rem;
-  color: var(--zone-yellow);
-  letter-spacing: 2px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--steel-gray);
+  letter-spacing: 3px;
   text-transform: uppercase;
   margin-bottom: 2rem;
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
 }
 
 .panel-rule {

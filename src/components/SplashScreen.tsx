@@ -1,215 +1,205 @@
 import { useState, useEffect } from 'react';
-import gembaosLogo from '../assets/branding/gembaos-logo.png';
+import brandLogo from '../assets/branding/splash-crash-cart.jpg';
 
 interface SplashScreenProps {
     onComplete: () => void;
 }
 
-type SplashStage = 'init' | 'logo' | 'text' | 'enter' | 'done';
-
 export default function SplashScreen({ onComplete }: SplashScreenProps) {
-    const [stage, setStage] = useState<SplashStage>('init');
+    const [stage, setStage] = useState<'init' | 'logo-in' | 'text' | 'enter' | 'fade-out' | 'done'>('init');
     const [bootStage, setBootStage] = useState<number>(0);
 
     useEffect(() => {
-        // Boot Stage 1 (Initial Kernel Load)
-        const boot1Timer = setTimeout(() => setBootStage(1), 100);
-
-        // Stage 1: Logo fades in (Duration ~1.5s)
-        setStage('logo');
+        // Stage 1: Logo Drops In
+        const timer1 = setTimeout(() => {
+            setStage('logo-in');
+            setBootStage(1); 
+        }, 100);
         
-        // Boot Stage 2 (Observational Engine)
-        const boot2Timer = setTimeout(() => setBootStage(2), 1000);
-
-        // Stage 2: Reveal System Text (Duration ~1.5s)
+        // Stage 2: Logo settles, fade in system text
         const textTimer = setTimeout(() => {
             setStage('text');
-        }, 1500);
+            setBootStage(2); 
+        }, 1200);
 
-        // Boot Stage 3 (Improvement Framework)
-        const boot3Timer = setTimeout(() => setBootStage(3), 2000);
+        // More boot stages
+        const boot3Timer = setTimeout(() => setBootStage(3), 1800);
 
         // Stage 3: Reveal Enter Button
         const enterTimer = setTimeout(() => {
             setStage('enter');
-            setBootStage(4); // Boot Stage 4 (System Ready)
-        }, 3000);
+            setBootStage(4); 
+        }, 2200);
 
         return () => {
-            clearTimeout(boot1Timer);
-            clearTimeout(boot2Timer);
-            clearTimeout(boot3Timer);
+            clearTimeout(timer1);
             clearTimeout(textTimer);
+            clearTimeout(boot3Timer);
             clearTimeout(enterTimer);
         };
-    }, [onComplete]);
+    }, []);
 
     const handleEnter = () => {
-        setStage('done');
-        // Wait for fade out transition before notifying parent
-        setTimeout(onComplete, 600);
+        setStage('fade-out');
+        setTimeout(() => {
+            setStage('done');
+            onComplete();
+        }, 600);
     };
 
-    if (stage === 'init') return null;
+    if (stage === 'init' || stage === 'done') return null;
 
     return (
         <div style={{
             position: 'fixed',
             inset: 0,
-            backgroundColor: '#000000',
+            backgroundColor: '#ffffff', // Pure white
+            zIndex: 99999,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            zIndex: 9999,
-            transition: 'opacity 0.6s ease-in-out',
-            opacity: stage === 'done' ? 0 : 1,
-            overflow: 'hidden'
+            opacity: stage === 'fade-out' ? 0 : 1,
+            transition: 'opacity 0.6s ease-out',
+            overflow: 'hidden' 
         }}>
-            {/* Pure Black Background */}
-            <div style={{
-                position: 'absolute',
-                inset: 0,
-                backgroundColor: '#000000',
-                zIndex: -1,
-                pointerEvents: 'none'
-            }} />
-
+            
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
                 textAlign: 'center',
-                gap: '3rem',
-                padding: '2rem',
                 width: '100%',
-                maxWidth: '900px'
+                maxWidth: '900px',
+                padding: '2rem',
+                transform: 'translateY(-5vh)' // shift slightly up from dead center
             }}>
-                {/* Stage 1: Main Brand Logo / Title */}
+                
+                {/* THE AUTHENTIC LOGO */}
                 <div style={{
-                    transition: 'all 2.5s cubic-bezier(0.2, 0.8, 0.2, 1)',
-                    opacity: (stage === 'logo' || stage === 'text' || stage === 'enter') ? 1 : 0,
-                    transform: stage === 'logo' ? 'scale(0.92)' : 'scale(1)',
+                    transition: 'all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                    opacity: (stage === 'logo-in' || stage === 'text' || stage === 'enter' || stage === 'fade-out') ? 1 : 0,
+                    transform: (stage === 'logo-in' || stage === 'text' || stage === 'enter' || stage === 'fade-out') ? 'scale(1) translateY(0)' : 'scale(0.8) translateY(-40px)',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    width: '100%'
+                    justifyContent: 'center',
+                    marginBottom: '2rem' // space before text
                 }}>
                     <img 
-                        src={gembaosLogo} 
-                        alt="GEMBA OS" 
-                        style={{
-                            maxWidth: '750px',
-                            width: '90%',
-                            height: 'auto',
-                            filter: 'drop-shadow(0 10px 40px rgba(0, 0, 0, 0.9))'
+                        src={brandLogo} 
+                        alt="GEMBA OS Tool Cart Logo" 
+                        style={{ 
+                            width: 'clamp(250px, 90vw, 550px)',
+                            maxHeight: '55vh',
+                            objectFit: 'contain',
+                            mixBlendMode: 'multiply',
+                            filter: 'brightness(1.1) contrast(1.3)'
                         }} 
                     />
                 </div>
 
-                {/* Stage 2: Full System Title Expansion */}
+                {/* Typography Block */}
                 <div style={{
-                    transition: 'all 1.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                    transitionDelay: '0.2s',
-                    opacity: (stage === 'text' || stage === 'enter') ? 1 : 0,
-                    transform: (stage === 'text' || stage === 'enter') ? 'translateY(0)' : 'translateY(20px)',
+                    transition: 'all 1s cubic-bezier(0.4, 0, 0.2, 1)',
+                    opacity: (stage === 'text' || stage === 'enter' || stage === 'fade-out') ? 1 : 0,
+                    transform: (stage === 'text' || stage === 'enter' || stage === 'fade-out') ? 'translateY(0)' : 'translateY(20px)',
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '0.5rem',
-                    position: 'relative'
+                    position: 'relative',
+                    width: '100%'
                 }}>
                     <h1 style={{
                         margin: 0,
                         fontSize: 'clamp(1.2rem, 3.5vw, 2.2rem)',
-                        color: '#f8fafc',
+                        color: '#111111', 
                         fontFamily: "'Orbitron', sans-serif",
-                        fontWeight: 700,
-                        letterSpacing: '5px',
-                        textShadow: '0 4px 30px rgba(0,0,0,0.9)'
+                        fontWeight: 900,
+                        letterSpacing: '5px'
                     }}>
                         GEMBA OPERATING SYSTEM
                     </h1>
                     <div style={{
                         height: '1px',
-                        background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
+                        background: 'linear-gradient(90deg, transparent, rgba(0,0,0,0.15), transparent)', 
                         margin: '0.5rem 0',
                         width: '100%',
                     }} />
                     <p style={{
                         margin: 0,
                         fontSize: 'clamp(0.7rem, 1.5vw, 1rem)',
-                        color: 'rgba(255,255,255,0.5)',
+                        color: 'rgba(0, 0, 0, 0.6)', 
                         textTransform: 'uppercase',
                         letterSpacing: '4px',
-                        fontWeight: 500,
+                        fontWeight: 700,
                         fontFamily: "'Orbitron', sans-serif"
                     }}>
                         Continuous Improvement Platform
                     </p>
                 </div>
 
-                {/* Stage 3: Entry Gateway */}
+                {/* Entry Gateway (Button) */}
                 <div style={{
-                    transition: 'all 1.5s ease',
-                    transitionDelay: '0.3s',
+                    transition: 'all 1s ease',
+                    transitionDelay: '0.1s', // slightly staggered after text
                     opacity: stage === 'enter' ? 1 : 0,
                     transform: stage === 'enter' ? 'translateY(0)' : 'translateY(15px)',
-                    marginTop: '2rem',
-                    height: '70px', // reserve strict space
+                    marginTop: '2.5rem',
+                    height: '70px', 
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center'
                 }}>
                     <div 
-                        className="cinematic-button-wrapper"
                         style={{
                             position: 'relative',
                             display: 'inline-flex',
-                            padding: '1px',
-                            background: 'linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%)',
-                            borderRadius: '4px',
+                            padding: '3px', 
+                            background: '#111', 
+                            borderRadius: '6px',
                             cursor: stage === 'enter' ? 'pointer' : 'default',
                             pointerEvents: stage === 'enter' ? 'auto' : 'none',
                         }}
                         onClick={handleEnter}
                     >
                         <div style={{
-                            padding: '1rem 3.5rem',
-                            background: 'rgba(10, 11, 14, 0.95)',
-                            borderRadius: '3px',
-                            backdropFilter: 'blur(10px)',
-                            boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.05)',
+                            padding: '1.25rem 4rem',
+                            background: '#ffc20e', 
+                            borderRadius: '4px',
+                            boxShadow: '0 4px 15px rgba(255, 194, 14, 0.2)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                             transition: 'all 0.3s ease',
                         }}
                         onMouseEnter={(e) => {
-                             e.currentTarget.style.background = 'rgba(20, 22, 28, 0.95)';
-                             e.currentTarget.style.boxShadow = 'inset 0 1px 10px rgba(255,255,255,0.1), 0 0 20px rgba(255,255,255,0.05)';
+                             e.currentTarget.style.background = '#ffcf3d'; 
+                             e.currentTarget.style.boxShadow = '0 6px 20px rgba(255, 194, 14, 0.5)';
+                             e.currentTarget.style.transform = 'translateY(-2px) scale(1.02)';
                         }}
                         onMouseLeave={(e) => {
-                             e.currentTarget.style.background = 'rgba(10, 11, 14, 0.95)';
-                             e.currentTarget.style.boxShadow = 'inset 0 1px 1px rgba(255,255,255,0.05)';
+                             e.currentTarget.style.background = '#ffc20e';
+                             e.currentTarget.style.boxShadow = '0 4px 15px rgba(255, 194, 14, 0.2)';
+                             e.currentTarget.style.transform = 'translateY(0) scale(1)';
                         }}
                         >
                             <span style={{
-                                fontSize: 'clamp(0.8rem, 2vw, 1rem)',
-                                fontWeight: '600',
+                                fontSize: 'clamp(0.9rem, 2vw, 1.1rem)',
+                                fontWeight: '900',
                                 fontFamily: "'Orbitron', sans-serif",
                                 textTransform: 'uppercase',
                                 letterSpacing: '4px',
-                                color: '#e2e8f0',
-                                textShadow: '0 2px 10px rgba(0,0,0,0.8)'
+                                color: '#111111', 
                             }}>
-                                ENTER THE OPERATING ROOM
+                                GO TO THE GEMBA
                             </span>
                         </div>
                     </div>
                 </div>
 
-                {/* Subtle System Boot Text Overlay */}
+                {/* Boot Log Output */}
                 <div style={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -221,22 +211,23 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
                     textTransform: 'uppercase',
                     letterSpacing: '1px',
                     pointerEvents: 'none',
-                    marginTop: '1rem',
+                    marginTop: '3rem', 
                     zIndex: 10
                 }}>
-                    <div style={{ color: '#94a3b8', transition: 'opacity 0.4s ease', opacity: bootStage >= 1 ? 0.6 : 0 }}>
+                    <div style={{ color: '#64748b', transition: 'opacity 0.4s ease', opacity: bootStage >= 1 ? 0.8 : 0 }}>
                         Initializing GembaOS kernel...
                     </div>
-                    <div style={{ color: '#94a3b8', transition: 'opacity 0.4s ease', opacity: bootStage >= 2 ? 0.6 : 0 }}>
+                    <div style={{ color: '#64748b', transition: 'opacity 0.4s ease', opacity: bootStage >= 2 ? 0.8 : 0 }}>
                         Loading Observation Engine...
                     </div>
-                    <div style={{ color: '#94a3b8', transition: 'opacity 0.4s ease', opacity: bootStage >= 3 ? 0.6 : 0 }}>
+                    <div style={{ color: '#64748b', transition: 'opacity 0.4s ease', opacity: bootStage >= 3 ? 0.8 : 0 }}>
                         Mounting Improvement Framework...
                     </div>
-                    <div style={{ color: '#10b981', transition: 'opacity 0.4s ease', opacity: bootStage >= 4 ? 0.8 : 0, fontWeight: 'bold', paddingTop: '0.5rem' }}>
+                    <div style={{ color: '#10b981', transition: 'opacity 0.4s ease', opacity: bootStage >= 4 ? 1 : 0, fontWeight: 'bold', paddingTop: '0.5rem' }}>
                         System Ready
                     </div>
                 </div>
+
             </div>
         </div>
     );

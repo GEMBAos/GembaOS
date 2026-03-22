@@ -17,6 +17,7 @@ import { JFI_PERSONAL_2 } from './jfiIdeas_Personal2';
 import { JFI_MANUFACTURING_EXTENDED } from './jfiIdeas_Manufacturing';
 import { JFI_MASS_EXPANSION } from './jfiIdeas_MassExpansion';
 import { JFI_HOME_LEAN } from './jfiIdeas_HomeLean';
+import { JFI_LOGISTICS } from './jfiIdeas_Logistics';
 
 const ORIGINAL_JFI_IDEAS: JFIIdea[] = [
     // QUICK WINS
@@ -79,7 +80,8 @@ export const JFI_IDEAS: JFIIdea[] = [
     ...JFI_PERSONAL_2,
     ...JFI_MANUFACTURING_EXTENDED,
     ...JFI_MASS_EXPANSION,
-    ...JFI_HOME_LEAN
+    ...JFI_HOME_LEAN,
+    ...JFI_LOGISTICS
 ];
 
 export function getRandomJFI(impactLevel?: JFIImpactLevel | 'Random'): JFIIdea {

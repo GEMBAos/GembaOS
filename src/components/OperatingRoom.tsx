@@ -9,7 +9,6 @@ interface OperatingRoomProps {
 export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
     type ViewState = 'main' | 'create' | 'join';
     const [view, setView] = useState<ViewState>('main');
-    const [showJFI, setShowJFI] = useState(false);
 
     if (view === 'create') {
         return (
@@ -190,132 +189,137 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                         gap: 0.5rem;
                     }
                 }
+                @keyframes marquee {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(-100%); }
+                }
             `}} />
 
-            {/* Main Content: Single Pane of Glass Layout */}
-            <div className="or-grid-wrapper gemba-floor" style={{ padding: '1rem', overflowY: 'auto' }}>
+            {/* Main Content: Left Toolbar & Center Void */}
+            <div className="gemba-floor" style={{ padding: 0, overflow: 'hidden', display: 'flex', flexDirection: 'row', alignItems: 'stretch', justifyContent: 'flex-start', height: '100%', width: '100%', flex: 1 }}>
                 
                 {view === 'main' && (
-                    <div className="floor-zone-box" style={{ width: '100%', maxWidth: '900px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '3rem', paddingBottom: '6rem' }}>
-                        
-                        {/* PANEL 1: IMPROVEMENT IDEA GENERATOR */}
-                        <div className="gemba-panel zone-marker zone-marker-tl">
-                            <div className="panel-title">
-                                IMPROVEMENT IDEAS
-                                <span className="panel-title-accent" style={{ fontSize: '0.5em', marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>GENERATE</span>
-                            </div>
-                            <div className="panel-subtitle">LOCATION / MACHINE & ISSUE DESCRIPTION</div>
-                            
-                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
-                                <div style={{ flex: '1 1 250px' }}>
-                                    <input type="text" className="gemba-input" placeholder="Type or Scan Location Code" />
-                                </div>
-                                <div style={{ flex: '2 1 300px' }}>
-                                    <input type="text" className="gemba-input" placeholder="Describe Waste or Issue..." />
-                                </div>
-                            </div>
-                            
-                            <button className="shadow-btn shadow-btn-accent" onClick={() => setShowJFI(true)} style={{ width: '100%', flexDirection: 'row', gap: '1rem', padding: '1.25rem' }}>
-                                <span className="shadow-btn-icon" style={{ margin: 0 }}>🎲</span> RANDOM SUGGESTION
-                            </button>
-                            <div className="caster-wheel caster-wheel-left"></div>
-                            <div className="caster-wheel caster-wheel-right"></div>
+                    <>
+                        {/* 1. Left Lateral Toolbar */}
+                        <div style={{
+                            width: '120px',
+                            backgroundColor: '#0a0a0a',
+                            borderRight: '1px solid #333',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            padding: '2rem 0',
+                            gap: '1.5rem',
+                            overflowY: 'auto',
+                            boxShadow: '4px 0 15px rgba(0,0,0,0.8)',
+                            flexShrink: 0,
+                            zIndex: 20
+                        }}>
+                            {[
+                                { id: 'motion', name: 'MOTION', icon: '🏃‍♂️', action: () => onNavigate('motion-v2') },
+                                { id: 'time', name: 'TIME', icon: '⏱️', action: () => onNavigate('time-study') },
+                                { id: 'waste', name: 'WASTE', icon: '🗑️', action: () => onNavigate('process-check') },
+                                { id: '5s', name: '5S SCAN', icon: '🔳', action: () => onNavigate('value-scanner') },
+                                { id: 'lsubmit', name: 'SUBMIT', icon: '📋', action: () => console.log('Lippert Submit') },
+                                { id: 'lvideos', name: 'VIDEOS', icon: '🎬', action: () => console.log('Lippert Videos') },
+                                { id: 'learning', name: 'LEARN', icon: '👁️', action: () => {} },
+                            ].map(tool => (
+                                <button 
+                                    key={tool.id} 
+                                    onClick={tool.action}
+                                    style={{
+                                        background: 'transparent',
+                                        border: 'none',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        gap: '0.6rem',
+                                        cursor: 'pointer',
+                                        transition: 'transform 0.2s',
+                                        width: '100%'
+                                    }}
+                                    onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+                                    onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                                    title={tool.name}
+                                >
+                                    <div style={{
+                                        width: '64px',
+                                        height: '64px',
+                                        borderRadius: '50%',
+                                        background: 'linear-gradient(145deg, #2a2a2a, #111111)',
+                                        boxShadow: '4px 4px 8px #050505, -4px -4px 8px #2b2b2b',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        fontSize: '1.9rem',
+                                        border: '1px solid #333'
+                                    }}>
+                                        <span style={{ filter: 'drop-shadow(2px 4px 6px rgba(0,0,0,0.5))' }}>{tool.icon}</span>
+                                    </div>
+                                    <span style={{
+                                        color: '#aaa',
+                                        fontSize: '0.65rem',
+                                        fontWeight: 800,
+                                        fontFamily: "'Orbitron', sans-serif",
+                                        textAlign: 'center',
+                                        letterSpacing: '1px'
+                                    }}>
+                                        {tool.name}
+                                    </span>
+                                </button>
+                            ))}
                         </div>
 
-                        {/* PANEL 2: KAIZEN */}
-                        <div className="gemba-panel zone-marker zone-marker-br">
-                            <div className="panel-title">KAIZEN <span style={{ color: 'var(--zone-yellow)', marginLeft: '0.5rem' }}>BOARD</span></div>
-                            <div className="panel-subtitle">ANALYZE PROCESSES AND ELIMINATE WASTE</div>
+                        {/* 2. Main Content Void */}
+                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
                             
-                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-                                <button className="shadow-btn" onClick={() => onNavigate('motion-v2')} style={{ flex: '1 1 140px' }}>
-                                    <span className="shadow-btn-icon">👣</span> MOTION MAP
-                                </button>
-                                <button className="shadow-btn" onClick={() => onNavigate('process-check')} style={{ flex: '1 1 140px' }}>
-                                    <span className="shadow-btn-icon">🗑️</span> WASTE
-                                </button>
-                                <button className="shadow-btn" onClick={() => setShowJFI(true)} style={{ flex: '1 1 140px' }}>
-                                    <span className="shadow-btn-icon">💡</span> IDEAS
-                                </button>
-                                <div className="shadow-btn" style={{ flex: '1 1 140px', opacity: 0.5, cursor: 'not-allowed' }}>
-                                    <span className="shadow-btn-icon">📋</span> A3 REPORT
+                            {/* Impact Marquee */}
+                            <div style={{
+                                width: '100%',
+                                backgroundColor: '#111111',
+                                borderBottom: '2px solid #333',
+                                padding: '1.25rem', 
+                                overflow: 'hidden',
+                                whiteSpace: 'nowrap',
+                                position: 'relative',
+                                display: 'flex',
+                                alignItems: 'center',
+                                boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
+                                zIndex: 10
+                            }}>
+                                <div style={{ 
+                                    color: '#ffc20e', 
+                                    fontWeight: 900, 
+                                    fontSize: '1.4rem', 
+                                    paddingRight: '1.5rem', 
+                                    borderRight: '2px solid #333', 
+                                    zIndex: 2, 
+                                    background: '#111111', 
+                                    flexShrink: 0,
+                                    fontFamily: "'Orbitron', sans-serif"
+                                }}>IMPACT HUB</div>
+                                <div className="marquee-content" style={{ display: 'inline-block', animation: 'marquee 20s linear infinite', paddingLeft: '100%', fontSize: '1.2rem' }}>
+                                    <span style={{ color: '#fff', opacity: 0.9, marginRight: '6rem' }}>"Reduced cycle time by 15% on Line A" — John D.</span>
+                                    <span style={{ color: '#fff', opacity: 0.9, marginRight: '6rem' }}>"Eliminated 2 hours of daily walking waste" — Sarah M.</span>
+                                    <span style={{ color: '#fff', opacity: 0.9, marginRight: '6rem' }}>"Standardized new training protocol" — Mike T.</span>
+                                    <span style={{ color: '#fff', opacity: 0.9, marginRight: '6rem' }}>"Created visual signals for part replenishment" — Alex K.</span>
                                 </div>
                             </div>
-                            <div className="panel-rule"></div>
-                            <div style={{ textAlign: 'center', fontFamily: 'var(--font-headings)', fontWeight: 900, fontSize: '0.9rem', color: 'var(--steel-gray)', letterSpacing: '4px' }}>STANDARDIZE. IMPROVE. REPEAT.</div>
-                            <div className="caster-wheel caster-wheel-left"></div>
-                            <div className="caster-wheel caster-wheel-right"></div>
-                        </div>
 
-                        {/* PANEL 3: TOOL BAG */}
-                        <div className="gemba-panel zone-marker zone-marker-tl">
-                            <div className="panel-title">TOOL BAG</div>
-                            <div className="panel-subtitle">CORE WORKSPACE UTILITIES</div>
-                            
-                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-                                <button className="shadow-btn" onClick={() => onNavigate('time-study')} style={{ flex: '1 1 140px' }}>
-                                    <span className="shadow-btn-icon">⏱️</span> STOPWATCH
-                                </button>
-                                <button className="shadow-btn" onClick={() => onNavigate('value-scanner')} style={{ flex: '1 1 140px' }}>
-                                    <span className="shadow-btn-icon">🔳</span> 5S SCAN
-                                </button>
-                                <div className="shadow-btn" style={{ flex: '1 1 140px', opacity: 0.5, cursor: 'not-allowed' }}>
-                                    <span className="shadow-btn-icon">🧾</span> AUDIT
-                                </div>
-                                <div className="shadow-btn" style={{ flex: '1 1 140px', opacity: 0.5, cursor: 'not-allowed' }}>
-                                    <span className="shadow-btn-icon">📄</span> STANDARD WORK
+                            {/* Center Canvas (Idea Generator) */}
+                            <div style={{ flex: 1, padding: '2rem clamp(1rem, 5vw, 4rem)', display: 'flex', flexDirection: 'column', alignItems: 'center', overflowY: 'auto' }}>
+                                <div style={{ width: '100%', maxWidth: '1000px', marginTop: '1rem' }}>
+                                    {/* Inline JFIIdeaGenerator */}
+                                    <JFIIdeaGenerator 
+                                        onIdeaGenerated={() => {}}
+                                        profile={null}
+                                    />
                                 </div>
                             </div>
-                            <div className="caster-wheel caster-wheel-left"></div>
-                            <div className="caster-wheel caster-wheel-right"></div>
                         </div>
-
-                        {/* PANEL 4: LEARNING TO SEE */}
-                        <div className="gemba-panel zone-marker zone-marker-br">
-                            <div className="panel-title">LEARNING TO SEE</div>
-                            <div className="panel-subtitle">TRAINING AND BEST PRACTICES</div>
-                            
-                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-                                <button className="shadow-btn" style={{ flex: '1 1 140px' }}>
-                                    <span className="shadow-btn-icon" style={{ color: 'var(--zone-yellow)' }}>👷</span> SAFETY
-                                </button>
-                                <button className="shadow-btn" style={{ flex: '1 1 140px' }}>
-                                    <span className="shadow-btn-icon">🔧</span> LEAN TOOLS
-                                </button>
-                                <a href="https://padlet.com" target="_blank" rel="noreferrer" className="shadow-btn" style={{ flex: '1 1 140px', textDecoration: 'none' }}>
-                                    <span className="shadow-btn-icon">▶️</span> VIDEOS
-                                </a>
-                                <a href="https://form.jotform.com/233406028319149" target="_blank" rel="noreferrer" className="shadow-btn shadow-btn-accent" style={{ flex: '1 1 140px', textDecoration: 'none' }}>
-                                    <span className="shadow-btn-icon" style={{ margin: 0 }}>📝</span> JFI FORM
-                                </a>
-                            </div>
-                            <div className="panel-rule"></div>
-                            <div style={{ textAlign: 'center', fontFamily: 'var(--font-headings)', fontWeight: 900, fontSize: '0.9rem', color: 'var(--steel-gray)', letterSpacing: '4px' }}>DESIGNED TO MOVE BETTER.</div>
-                            <div className="caster-wheel caster-wheel-left"></div>
-                            <div className="caster-wheel caster-wheel-right"></div>
-                        </div>
-
-                    </div>
+                    </>
                 )}
             </div>
-
-            {showJFI && (
-                 <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.95)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem', overflowY: 'auto', backdropFilter: 'blur(10px)' }}>
-                     <div style={{ width: '100%', maxWidth: '800px', position: 'relative' }}>
-                         <button 
-                             onClick={() => setShowJFI(false)}
-                             style={{ position: 'absolute', top: '-40px', right: 0, background: 'none', border: 'none', color: '#ffffff', fontSize: '2rem', cursor: 'pointer', zIndex: 10001 }}
-                         >
-                             ×
-                         </button>
-                         <JFIIdeaGenerator 
-                            onIdeaGenerated={() => {}}
-                            profile={null}
-                            localScore={parseInt(localStorage.getItem('kaizen_user_score') || '0', 10)}
-                        />
-                     </div>
-                 </div>
-             )}
         </div>
     );
 }

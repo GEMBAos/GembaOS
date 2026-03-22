@@ -3,7 +3,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import { ImprovementEngine } from '../../../services/ImprovementEngine';
 import type { MotionSessionV2 } from '../../../types/motion_v2';
 import { useMotionRealtime } from '../../../hooks/useMotionRealtime';
-import SpatialViewer from '../ar/SpatialViewer';
+// import SpatialViewer from '../ar/SpatialViewer';
 
 interface Props {
     sessionId: string;
@@ -361,7 +361,8 @@ export default function MotionHostActive({ sessionId, onBack }: Props) {
                 <div style={{ flex: 1, position: 'relative', overflow: 'hidden', background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: 'inset 20px 0 20px -20px rgba(0,0,0,0.8)' }}>
                     {is3DMode ? (
                         <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-                            <SpatialViewer session={session} participants={participants} />
+                            {/* <SpatialViewer session={session} participants={participants} /> */}
+                            <div style={{ color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>3D Spatial Viewer (Parked)</div>
                         </div>
                     ) : (
                         <div style={{ position: 'relative', width: '100%', height: '100%' }}>
