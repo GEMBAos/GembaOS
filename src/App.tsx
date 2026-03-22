@@ -185,7 +185,7 @@ function App() {
       <div className={`os-shell ${true ? 'context-closed' : ''}`}>
         
         {/* 1. HEADER ZONE (Massive Fixed Global Logo) */}
-        <header className="os-header" style={{ height: 'auto', padding: '1rem 2rem', justifyContent: 'space-between', borderBottom: '2px solid #222' }}>
+        <header className="os-header" style={{ height: 'auto', padding: '1.5rem 2rem 1rem 2rem', justifyContent: 'space-between', borderBottom: '2px solid #222' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', cursor: 'pointer', flex: 1 }} onClick={() => handleNavigate('portal')}>
                 {/* Optional minor navigation nodes can go here */}
             </div>
@@ -200,7 +200,6 @@ function App() {
                     backgroundSize: 'contain',
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center center',
-                    transform: 'translateY(12px)',
                     filter: 'drop-shadow(0 0 20px rgba(255,255,255,0.15)) drop-shadow(0 0 4px rgba(255,255,255,0.5))'
                 }} 
             />
