@@ -33,7 +33,7 @@ import { ImprovementEngine } from './services/ImprovementEngine';
 import type { UserProfile } from './services/userService';
 import type { User } from '@supabase/supabase-js';
 import StreakRankingBoard from './components/tools/StreakRankingBoard';
-import brandLogo from './assets/branding/splash-crash-cart.jpg';
+import brandLogo from './assets/branding/brand-cart-transparent.png';
 
 import RankBenefitsModal from './components/tools/RankBenefitsModal';
 import UserProfileModal from './components/auth/UserProfileModal';
@@ -200,7 +200,7 @@ function App() {
                     backgroundSize: 'contain',
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center center',
-                    filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.8))'
+                    filter: 'drop-shadow(0 0 20px rgba(255,255,255,0.15)) drop-shadow(0 0 4px rgba(255,255,255,0.5))'
                 }} 
             />
 

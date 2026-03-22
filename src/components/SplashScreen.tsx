@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import brandLogo from '../assets/branding/splash-crash-cart.jpg';
+import brandLogo from '../assets/branding/brand-cart-transparent.png';
 
 interface SplashScreenProps {
     onComplete: () => void;
