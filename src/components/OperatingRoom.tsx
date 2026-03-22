@@ -273,39 +273,6 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                         {/* 2. Main Content Void */}
                         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
                             
-                            {/* Impact Marquee */}
-                            <div style={{
-                                width: '100%',
-                                backgroundColor: '#111111',
-                                borderBottom: '2px solid #333',
-                                padding: '1.25rem', 
-                                overflow: 'hidden',
-                                whiteSpace: 'nowrap',
-                                position: 'relative',
-                                display: 'flex',
-                                alignItems: 'center',
-                                boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
-                                zIndex: 10
-                            }}>
-                                <div style={{ 
-                                    color: '#ffc20e', 
-                                    fontWeight: 900, 
-                                    fontSize: '1.4rem', 
-                                    paddingRight: '1.5rem', 
-                                    borderRight: '2px solid #333', 
-                                    zIndex: 2, 
-                                    background: '#111111', 
-                                    flexShrink: 0,
-                                    fontFamily: "'Orbitron', sans-serif"
-                                }}>IMPACT HUB</div>
-                                <div className="marquee-content" style={{ display: 'inline-block', animation: 'marquee 20s linear infinite', paddingLeft: '100%', fontSize: '1.2rem' }}>
-                                    <span style={{ color: '#fff', opacity: 0.9, marginRight: '6rem' }}>"Reduced cycle time by 15% on Line A" — John D.</span>
-                                    <span style={{ color: '#fff', opacity: 0.9, marginRight: '6rem' }}>"Eliminated 2 hours of daily walking waste" — Sarah M.</span>
-                                    <span style={{ color: '#fff', opacity: 0.9, marginRight: '6rem' }}>"Standardized new training protocol" — Mike T.</span>
-                                    <span style={{ color: '#fff', opacity: 0.9, marginRight: '6rem' }}>"Created visual signals for part replenishment" — Alex K.</span>
-                                </div>
-                            </div>
-
                             {/* Center Canvas (Idea Generator) */}
                             <div style={{ flex: 1, padding: '2rem clamp(1rem, 5vw, 4rem)', display: 'flex', flexDirection: 'column', alignItems: 'center', overflowY: 'auto' }}>
                                 <div style={{ width: '100%', maxWidth: '1000px', marginTop: '1rem' }}>
