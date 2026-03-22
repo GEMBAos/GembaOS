@@ -200,6 +200,7 @@ function App() {
                     backgroundSize: 'contain',
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center center',
+                    transform: 'translateY(12px)',
                     filter: 'drop-shadow(0 0 20px rgba(255,255,255,0.15)) drop-shadow(0 0 4px rgba(255,255,255,0.5))'
                 }} 
             />
