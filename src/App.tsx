@@ -7,7 +7,7 @@ import AuthOverlay from './components/auth/AuthOverlay';
 import ResponsiveSimulator from './components/ResponsiveSimulator';
 import PromoLanding from './components/PromoLanding';
 import { supabase } from './lib/supabase';
-import iconLogo from './assets/branding/gembaos-icon.png';
+
 
 // Lazy load modular hubs to drastically reduce initial bundle size
 const Dashboard = React.lazy(() => import('./components/Dashboard'));
@@ -33,6 +33,7 @@ import { ImprovementEngine } from './services/ImprovementEngine';
 import type { UserProfile } from './services/userService';
 import type { User } from '@supabase/supabase-js';
 import StreakRankingBoard from './components/tools/StreakRankingBoard';
+import brandLogo from './assets/branding/splash-crash-cart.jpg';
 
 import RankBenefitsModal from './components/tools/RankBenefitsModal';
 import UserProfileModal from './components/auth/UserProfileModal';
@@ -183,14 +184,27 @@ function App() {
 
       <div className={`os-shell ${true ? 'context-closed' : ''}`}>
         
-        {/* 1. HEADER ZONE */}
-        <header className="os-header">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', cursor: 'pointer' }} onClick={() => handleNavigate('portal')}>
-                <img src={iconLogo} alt="GembaOS" style={{ height: '32px' }} />
-                <span style={{ fontFamily: '"Orbitron", sans-serif', fontWeight: 900, letterSpacing: '2px', fontSize: '1.2rem', color: 'var(--lean-white)' }} className="hide-on-mobile">GEMBA OS</span>
+        {/* 1. HEADER ZONE (Massive Fixed Global Logo) */}
+        <header className="os-header" style={{ height: 'auto', padding: '1rem 2rem', justifyContent: 'space-between', borderBottom: '2px solid #222' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', cursor: 'pointer', flex: 1 }} onClick={() => handleNavigate('portal')}>
+                {/* Optional minor navigation nodes can go here */}
             </div>
+            
+            <div 
+                onClick={() => handleNavigate('portal')}
+                style={{ 
+                    cursor: 'pointer',
+                    width: 'clamp(280px, 50vw, 600px)', 
+                    height: 'clamp(60px, 12vh, 140px)',
+                    backgroundImage: `url(${brandLogo})`,
+                    backgroundSize: 'contain',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center center',
+                    filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.8))'
+                }} 
+            />
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flex: 1, justifyContent: 'flex-end' }}>
                 {user ? (
                     <div onClick={() => setShowProfileModal(true)} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', padding: '0.25rem 0.5rem', borderRadius: '30px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)', transition: 'background 0.2s' }} onMouseOver={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'} onMouseOut={e => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}>
                         <div style={{ textAlign: 'right' }} className="hide-on-mobile">

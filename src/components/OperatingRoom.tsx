@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import brandLogo from '../assets/branding/splash-crash-cart.jpg';
 import JFIIdeaGenerator from './tools/JFIIdeaGenerator';
 import KaizenSessionCreator from './tools/kaizen/KaizenSessionCreator';
 
@@ -290,26 +289,6 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
 
                         {/* 2. Main Content Void */}
                         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
-                            
-                            {/* NEW: Massive Fixed Dashboard Header Banner */}
-                            <div style={{ 
-                                width: '100%', 
-                                display: 'flex', 
-                                justifyContent: 'center', 
-                                padding: '2rem 2rem 0 2rem',
-                                flexShrink: 0
-                            }}>
-                                <div style={{ 
-                                    width: '100%', 
-                                    maxWidth: '600px', 
-                                    height: 'clamp(80px, 15vh, 150px)',
-                                    backgroundImage: `url(${brandLogo})`,
-                                    backgroundSize: 'contain',
-                                    backgroundRepeat: 'no-repeat',
-                                    backgroundPosition: 'center center',
-                                    filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.5))'
-                                }} />
-                            </div>
 
                             {/* Center Canvas (Idea Generator) */}
                             <div style={{ flex: 1, padding: '2rem clamp(1rem, 5vw, 4rem)', display: 'flex', flexDirection: 'column', alignItems: 'center', overflowY: 'auto' }}>
