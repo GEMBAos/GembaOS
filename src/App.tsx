@@ -33,7 +33,7 @@ import { ImprovementEngine } from './services/ImprovementEngine';
 import type { UserProfile } from './services/userService';
 import type { User } from '@supabase/supabase-js';
 import StreakRankingBoard from './components/tools/StreakRankingBoard';
-import brandLogo from './assets/branding/splash-crash-cart.jpg';
+
 import RankBenefitsModal from './components/tools/RankBenefitsModal';
 import UserProfileModal from './components/auth/UserProfileModal';
 
@@ -189,17 +189,6 @@ function App() {
                 <img src={iconLogo} alt="GembaOS" style={{ height: '32px' }} />
                 <span style={{ fontFamily: '"Orbitron", sans-serif', fontWeight: 900, letterSpacing: '2px', fontSize: '1.2rem', color: 'var(--lean-white)' }} className="hide-on-mobile">GEMBA OS</span>
             </div>
-            
-            <div style={{ 
-                width: 'clamp(140px, 45vw, 240px)', 
-                height: 'clamp(36px, 6vh, 48px)',
-                backgroundImage: `url(${brandLogo})`,
-                backgroundSize: '100% auto',
-                backgroundPosition: 'center center',
-                borderRadius: '4px', 
-                boxShadow: '0 2px 8px rgba(0,0,0,0.5)',
-                filter: 'contrast(1.1)'
-            }} />
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
                 {user ? (

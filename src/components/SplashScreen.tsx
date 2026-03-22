@@ -97,7 +97,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
                         style={{ 
                             width: '100%',
                             height: '100%',
-                            objectFit: 'cover', // Fill the horizontal window bounds
+                            objectFit: 'contain', // Fill without clipping the corners
                             objectPosition: 'center center',
                             mixBlendMode: 'multiply',
                             filter: 'brightness(1.1) contrast(1.3)'

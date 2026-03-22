@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import brandLogo from '../assets/branding/splash-crash-cart.jpg';
 import JFIIdeaGenerator from './tools/JFIIdeaGenerator';
 import KaizenSessionCreator from './tools/kaizen/KaizenSessionCreator';
 
@@ -290,6 +291,26 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                         {/* 2. Main Content Void */}
                         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
                             
+                            {/* NEW: Massive Fixed Dashboard Header Banner */}
+                            <div style={{ 
+                                width: '100%', 
+                                display: 'flex', 
+                                justifyContent: 'center', 
+                                padding: '2rem 2rem 0 2rem',
+                                flexShrink: 0
+                            }}>
+                                <div style={{ 
+                                    width: '100%', 
+                                    maxWidth: '600px', 
+                                    height: 'clamp(80px, 15vh, 150px)',
+                                    backgroundImage: `url(${brandLogo})`,
+                                    backgroundSize: 'contain',
+                                    backgroundRepeat: 'no-repeat',
+                                    backgroundPosition: 'center center',
+                                    filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.5))'
+                                }} />
+                            </div>
+
                             {/* Center Canvas (Idea Generator) */}
                             <div style={{ flex: 1, padding: '2rem clamp(1rem, 5vw, 4rem)', display: 'flex', flexDirection: 'column', alignItems: 'center', overflowY: 'auto' }}>
                                 <div style={{ width: '100%', maxWidth: '1000px', marginTop: '1rem' }}>
@@ -298,6 +319,33 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                                         onIdeaGenerated={() => {}}
                                         profile={null}
                                     />
+                                    
+                                    {/* Orphaned Module Recovery: Advanced Systems Widget */}
+                                    <div style={{ marginTop: '3rem', width: '100%', borderTop: '1px solid #333', paddingTop: '2rem' }}>
+                                        <h3 style={{ color: 'var(--text-muted)', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', textAlign: 'center' }}>ADVANCED SYSTEMS</h3>
+                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+                                            <button className="shadow-btn-accent" onClick={() => setView('create')} style={{ padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', background: 'linear-gradient(145deg, #1f1f1f, #0a0a0a)', border: '1px solid #333', borderRadius: '8px', cursor: 'pointer', transition: 'transform 0.2s', boxShadow: '0 4px 6px rgba(0,0,0,0.3)' }} onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'} onMouseLeave={e => e.currentTarget.style.transform = 'none'}>
+                                                <span style={{ fontSize: '2.5rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>⚡</span>
+                                                <span style={{ color: '#fff', fontWeight: 800, fontSize: '0.9rem', fontFamily: 'var(--font-headings)' }}>KAIZEN HUB</span>
+                                                <span style={{ color: '#888', fontSize: '0.7rem', textAlign: 'center' }}>Master Continuous Improvement Dashboard</span>
+                                            </button>
+                                            <button className="shadow-btn-accent" onClick={() => onNavigate('gemba')} style={{ padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', background: 'linear-gradient(145deg, #1f1f1f, #0a0a0a)', border: '1px solid #333', borderRadius: '8px', cursor: 'pointer', transition: 'transform 0.2s', boxShadow: '0 4px 6px rgba(0,0,0,0.3)' }} onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'} onMouseLeave={e => e.currentTarget.style.transform = 'none'}>
+                                                <span style={{ fontSize: '2.5rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>🧭</span>
+                                                <span style={{ color: '#fff', fontWeight: 800, fontSize: '0.9rem', fontFamily: 'var(--font-headings)' }}>GEMBA WALK</span>
+                                                <span style={{ color: '#888', fontSize: '0.7rem', textAlign: 'center' }}>Structured Floor Walk Builder</span>
+                                            </button>
+                                            <button className="shadow-btn-accent" onClick={() => onNavigate('line-balance')} style={{ padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', background: 'linear-gradient(145deg, #1f1f1f, #0a0a0a)', border: '1px solid #333', borderRadius: '8px', cursor: 'pointer', transition: 'transform 0.2s', boxShadow: '0 4px 6px rgba(0,0,0,0.3)' }} onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'} onMouseLeave={e => e.currentTarget.style.transform = 'none'}>
+                                                <span style={{ fontSize: '2.5rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>⚖️</span>
+                                                <span style={{ color: '#fff', fontWeight: 800, fontSize: '0.9rem', fontFamily: 'var(--font-headings)' }}>LINE BALANCE</span>
+                                                <span style={{ color: '#888', fontSize: '0.7rem', textAlign: 'center' }}>Cycle Time Analysis Engine</span>
+                                            </button>
+                                            <button className="shadow-btn-accent" onClick={() => onNavigate('goal-gap')} style={{ padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', background: 'linear-gradient(145deg, #1f1f1f, #0a0a0a)', border: '1px solid #333', borderRadius: '8px', cursor: 'pointer', transition: 'transform 0.2s', boxShadow: '0 4px 6px rgba(0,0,0,0.3)' }} onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'} onMouseLeave={e => e.currentTarget.style.transform = 'none'}>
+                                                <span style={{ fontSize: '2.5rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>📈</span>
+                                                <span style={{ color: '#fff', fontWeight: 800, fontSize: '0.9rem', fontFamily: 'var(--font-headings)' }}>GOAL GAP</span>
+                                                <span style={{ color: '#888', fontSize: '0.7rem', textAlign: 'center' }}>KPI Tracking Matrix</span>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
