@@ -71,7 +71,7 @@ export default function LeanLifestyleTicker() {
                     </span>
                 </div>
                 
-                <span style={{ color: 'var(--text-main)', fontSize: '0.95rem', fontStyle: 'italic', lineHeight: 1.4 }}>
+                <span style={{ color: 'var(--lean-white)', fontSize: '0.95rem', fontStyle: 'italic', lineHeight: 1.4 }}>
                     "{activeQuote.text}"
                 </span>
                 
