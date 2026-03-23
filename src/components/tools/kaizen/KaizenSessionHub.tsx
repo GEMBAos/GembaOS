@@ -66,7 +66,7 @@ export default function KaizenSessionHub({ onNavigate }: KaizenSessionHubProps) 
                 </div>
             </div>
 
-            <div style={{ flex: 1, padding: '2rem', display: 'flex', gap: '3rem', maxWidth: '1400px', margin: '0 auto', width: '100%', overflowY: 'auto' }}>
+            <div style={{ flex: 1, padding: '0', display: 'flex', gap: '3rem', maxWidth: '1400px', margin: '0 auto', width: '100%', overflow: 'hidden' }}>
                 
                 {/* Left Column: Context & Invites */}
                 <div style={{ display: 'flex', flexDirection: 'column', width: '380px', gap: '2rem' }}>

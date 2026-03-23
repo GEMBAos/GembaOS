@@ -13,7 +13,7 @@ export default function VideoHub({ onClose }: { onClose: () => void }) {
 
     return (
         <HardwareConsoleLayout toolId="VID-01 LIBRARY" toolName="TRAINING VIDEOS" onClose={onClose}>
-            <div style={{ padding: '2rem', height: '100%', overflowY: 'auto', position: 'relative' }}>
+            <div style={{ padding: '0', height: '100%', overflow: 'hidden', position: 'relative', display: 'flex', flexDirection: 'column' }}>
                 <header style={{ marginBottom: '2rem' }}>
                     <h2 style={{ fontSize: '2rem', margin: '0 0 0.5rem 0', fontFamily: 'var(--font-headings)', color: 'var(--lean-white)' }}>
                         OPERATIONAL TRAINING HUB

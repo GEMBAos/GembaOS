@@ -92,7 +92,7 @@ export default function ImprovementCard({ onClose }: { onClose: () => void }) {
             toolName="IMPROVEMENT CARD" 
             onClose={onClose}
         >
-            <div style={{ padding: '2rem', height: '100%', display: 'flex', flexDirection: 'column', gap: '2rem', maxWidth: '900px', margin: '0 auto', overflowY: 'auto' }}>
+            <div style={{ padding: '0', height: '100%', display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '900px', margin: '0 auto', overflow: 'hidden' }}>
                 
                 {/* Step 0: Intake / Handoff */}
                 {step === 0 && (
