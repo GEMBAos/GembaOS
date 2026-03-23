@@ -81,7 +81,7 @@ export default function KaizenSessionCreator({ onBack, onSessionCreated }: Kaize
                 <div style={{ width: '80px' }} /> {/* Spacer to balance header */}
             </div>
 
-            <div style={{ flex: 1, padding: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', overflowY: 'auto' }}>
+            <div style={{ flex: 1, padding: '0', display: 'flex', flexDirection: 'column', alignItems: 'center', overflow: 'hidden' }}>
                 <div style={{ width: '100%', maxWidth: '500px', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                     
                     <div style={{ background: 'var(--bg-panel)', padding: '2rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', boxShadow: '0 8px 32px rgba(0,0,0,0.2)' }}>

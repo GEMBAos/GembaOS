@@ -216,7 +216,7 @@ export default function GembaWalkGuide({ onClose }: GembaWalkGuideProps) {
     };
 
     return (
-        <div style={{ padding: '2rem', height: '100%', overflowY: 'auto', background: 'var(--bg-panel)' }}>
+        <div style={{ padding: '0', height: '100%', overflow: 'hidden', background: 'var(--bg-panel)', display: 'flex', flexDirection: 'column' }}>
             <div style={{ maxWidth: '800px', margin: '0 auto' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>

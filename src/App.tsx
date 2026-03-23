@@ -248,8 +248,8 @@ function App() {
             
             {/* Core Modules Framework */}
             {currentView === 'observe' && (
-                <div style={{ flex: 1, overflowY: 'auto', padding: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <div className="gemba-panel zone-marker zone-marker-tl" style={{ maxWidth: '900px', width: '100%', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                <div style={{ flex: 1, overflow: 'hidden', height: '100%', padding: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <div className="gemba-panel zone-marker zone-marker-tl" style={{ maxWidth: '900px', width: '100%', maxHeight: '100%', display: 'flex', flexDirection: 'column', gap: '1.5rem', overflow: 'hidden' }}>
                         <div>
                             <div className="panel-title">OBSERVE <span style={{ color: 'var(--zone-yellow)', marginLeft: '0.5rem' }}>STATION</span></div>
                             <div className="panel-subtitle">PROCESS STUDY AND MOTION MAPPING</div>
@@ -277,8 +277,8 @@ function App() {
             )}
             
             {currentView === 'diagnose' && (
-                <div style={{ flex: 1, overflowY: 'auto', padding: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <div className="gemba-panel zone-marker zone-marker-br" style={{ maxWidth: '900px', width: '100%', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                <div style={{ flex: 1, overflow: 'hidden', height: '100%', padding: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <div className="gemba-panel zone-marker zone-marker-br" style={{ maxWidth: '900px', width: '100%', maxHeight: '100%', display: 'flex', flexDirection: 'column', gap: '1.5rem', overflow: 'hidden' }}>
                         <div>
                             <div className="panel-title">DIAGNOSE <span style={{ color: 'var(--zone-yellow)', marginLeft: '0.5rem' }}>STATION</span></div>
                             <div className="panel-subtitle">WASTE IDENTIFICATION AND ROOT CAUSE ANALYSIS</div>
@@ -306,8 +306,8 @@ function App() {
             )}
             
             {currentView === 'improve' && (
-                <div style={{ flex: 1, overflowY: 'auto', padding: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <div className="gemba-panel zone-marker zone-marker-tl" style={{ maxWidth: '900px', width: '100%', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                <div style={{ flex: 1, overflow: 'hidden', height: '100%', padding: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <div className="gemba-panel zone-marker zone-marker-tl" style={{ maxWidth: '900px', width: '100%', maxHeight: '100%', display: 'flex', flexDirection: 'column', gap: '1.5rem', overflow: 'hidden' }}>
                         <div>
                             <div className="panel-title">IMPROVE <span style={{ color: 'var(--zone-yellow)', marginLeft: '0.5rem' }}>STATION</span></div>
                             <div className="panel-subtitle">ACTION-ORIENTED COUNTERMEASURE Tracking</div>

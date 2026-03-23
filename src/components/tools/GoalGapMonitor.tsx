@@ -112,11 +112,11 @@ export default function GoalGapMonitor({ onClose }: { onClose: () => void }) {
             toolName="GOAL GAP MONITOR" 
             onClose={onClose}
         >
-            {/* SCROLLABLE INTERIOR CONTENT (The Control Panel internals) */}
+            {/* FIXED INTERIOR CONTENT (No Scroll) */}
             <div style={{
                 flex: 1,
-                overflowY: 'auto',
-                padding: '0', // Removed padding as HardwareConsoleLayout handles it
+                overflow: 'hidden',
+                padding: '0',
                 display: 'flex',
                 flexDirection: 'column',
                 position: 'relative',

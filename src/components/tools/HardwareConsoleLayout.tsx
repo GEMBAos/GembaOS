@@ -51,16 +51,17 @@ export default function HardwareConsoleLayout({ toolId, toolName, onClose, child
                 </button>
             </div>
 
-            {/* Scrollable interior */}
+            {/* Fixed interior (No scrolling - one page tab rule) */}
             <div style={{
                 flex: 1,
-                overflowY: 'auto',
-                WebkitOverflowScrolling: 'touch',
+                overflow: 'hidden',
                 padding: 'clamp(1rem, 3vw, 2rem)',
                 position: 'relative',
-                zIndex: 1
+                zIndex: 1,
+                display: 'flex',
+                flexDirection: 'column'
             }}>
-                <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1rem', paddingBottom: '4rem' }}>
+                <div style={{ maxWidth: '1400px', width: '100%', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1, minHeight: 0 }}>
                     {children}
                 </div>
             </div>
