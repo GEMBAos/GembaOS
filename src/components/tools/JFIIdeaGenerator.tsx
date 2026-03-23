@@ -215,6 +215,16 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile, onRequireAu
                         style={{ display: 'none' }} 
                     />
                 </label>
+                <a
+                    href="https://padlet.com/placeholder"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="shadow-btn"
+                    style={{ flex: 1, minWidth: '200px', padding: '1.5rem', flexDirection: 'row', gap: '1rem', textDecoration: 'none', background: 'linear-gradient(145deg, #111111, #0a0a0a)', border: '1px dashed var(--steel-gray)' }}
+                >
+                    <span className="shadow-btn-icon" style={{ margin: 0, filter: 'grayscale(1)' }}>📝</span>
+                    <span style={{ color: 'var(--steel-gray)', fontWeight: 800, fontFamily: 'var(--font-headings)' }}>SUBMIT VIA JOTFORM</span>
+                </a>
             </div>
 
             {/* Loading State */}

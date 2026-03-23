@@ -44,7 +44,7 @@ export default function GoalGapMonitor({ onClose }: { onClose: () => void }) {
     const performanceGap = isHigherBetter ? rawGap : -rawGap; 
     
     // Determine Color Code
-    let gapColor = '#64748b'; // default neutral
+    let gapColor = 'var(--text-muted)'; // default neutral
     if (goal > 0 || actual > 0) {
         if (performanceGap >= 0) {
             gapColor = '#10b981'; // Green (Met or Exceeded)
@@ -140,25 +140,25 @@ export default function GoalGapMonitor({ onClose }: { onClose: () => void }) {
                             textAlign: 'center', 
                             boxShadow: 'inset 0 10px 30px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.6)' 
                         }}>
-                            <div style={{ fontSize: 'clamp(0.6rem, 1.5vw, 0.8rem)', color: '#64748b', textTransform: 'uppercase', letterSpacing: '4px', marginBottom: '2rem', fontFamily: "'Orbitron', sans-serif", fontWeight: 800 }}>
+                            <div style={{ fontSize: 'clamp(0.6rem, 1.5vw, 0.8rem)', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '4px', marginBottom: '2rem', fontFamily: "'Orbitron', sans-serif", fontWeight: 800 }}>
                                 Performance Telemetry
                             </div>
                             
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', padding: '0 clamp(0.5rem, 2vw, 2rem)' }}>
                                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'rgba(0,0,0,0.5)', padding: 'clamp(0.5rem, 1.5vw, 1rem) clamp(1rem, 3vw, 2rem)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.02)', boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.8)' }}>
-                                    <span style={{ fontSize: '0.75rem', color: '#cbd5e1', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '2px' }}>Target</span>
-                                    <span style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: '900', fontFamily: "'Orbitron', sans-serif", color: '#94a3b8', textShadow: '0 0 10px rgba(255,255,255,0.1)' }}>{goal}</span>
+                                    <span style={{ fontSize: '0.75rem', color: 'var(--text-main)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '2px' }}>Target</span>
+                                    <span style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: '900', fontFamily: "'Orbitron', sans-serif", color: 'var(--text-muted)', textShadow: '0 0 10px rgba(255,255,255,0.1)' }}>{goal}</span>
                                 </div>
                                 
                                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'rgba(0,0,0,0.5)', padding: 'clamp(0.5rem, 1.5vw, 1rem) clamp(1rem, 3vw, 2rem)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.02)', boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.8)' }}>
-                                    <span style={{ fontSize: '0.75rem', color: '#cbd5e1', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '2px' }}>Actual</span>
-                                    <span style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: '900', fontFamily: "'Orbitron', sans-serif", color: '#f8fafc', textShadow: '0 0 20px rgba(255,255,255,0.4)' }}>{actual}</span>
+                                    <span style={{ fontSize: '0.75rem', color: 'var(--text-main)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '2px' }}>Actual</span>
+                                    <span style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: '900', fontFamily: "'Orbitron', sans-serif", color: 'var(--text-main)', textShadow: '0 0 20px rgba(255,255,255,0.4)' }}>{actual}</span>
                                 </div>
                             </div>
 
                             {/* DIGITAL PERFORMANCE GAUGE */}
                             <div style={{ marginBottom: 'clamp(1rem, 3vw, 2rem)', padding: '0 clamp(0.5rem, 1.5vw, 1rem)', background: 'rgba(0,0,0,0.3)', borderRadius: '12px', paddingBottom: 'clamp(1rem, 2vw, 1.5rem)', paddingTop: 'clamp(0.75rem, 1.5vw, 1rem)', border: '1px solid rgba(255,255,255,0.02)' }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem', color: '#64748b', marginBottom: '0.75rem', fontFamily: "'Orbitron', sans-serif", textTransform: 'uppercase', fontWeight: 800 }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem', color: 'var(--text-muted)', marginBottom: '0.75rem', fontFamily: "'Orbitron', sans-serif", textTransform: 'uppercase', fontWeight: 800 }}>
                                     <span>0%</span>
                                     <span style={{ color: gapColor, fontWeight: '900', letterSpacing: '2px', textShadow: `0 0 10px ${gapColor}80` }}>{percentToGoal}% to Target</span>
                                     <span>100%</span>
@@ -195,7 +195,7 @@ export default function GoalGapMonitor({ onClose }: { onClose: () => void }) {
                                 alignItems: 'center',
                                 boxShadow: `inset 0 5px 20px rgba(0,0,0,0.9), inset 0 0 40px ${gapColor}20`
                             }}>
-                                <span style={{ fontSize: '0.75rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '4px', fontWeight: '900', marginBottom: '0.5rem' }}>Calculated Variance</span>
+                                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '4px', fontWeight: '900', marginBottom: '0.5rem' }}>Calculated Variance</span>
                                 <span style={{ fontSize: 'clamp(3.5rem, 8vw, 5rem)', fontWeight: '900', color: gapColor, fontFamily: "'Orbitron', sans-serif", lineHeight: 1, filter: `drop-shadow(0 0 25px ${gapColor}90)`, letterSpacing: '-2px' }}>
                                     {formatGapText()}
                                 </span>
@@ -204,21 +204,21 @@ export default function GoalGapMonitor({ onClose }: { onClose: () => void }) {
                         </div>
 
                         {/* CORE INPUTS PANEL */}
-                        <div className="card" style={{ background: 'rgba(15, 23, 42, 0.6)', padding: 'clamp(1rem, 2vw, 1.5rem)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '12px' }}>
-                            <div style={{ fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 'clamp(0.75rem, 2vw, 1.25rem)', fontWeight: 'bold' }}>Process Context</div>
+                        <div className="card" style={{ background: 'var(--bg-panel)', padding: 'clamp(1rem, 2vw, 1.5rem)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '12px' }}>
+                            <div style={{ fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 'clamp(0.75rem, 2vw, 1.25rem)', fontWeight: 'bold' }}>Process Context</div>
                             
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 'clamp(0.5rem, 1.5vw, 1rem)', marginBottom: 'clamp(0.75rem, 1.5vw, 1rem)' }}>
                                 <div>
-                                    <label style={{ display: 'block', fontSize: '0.75rem', color: '#94a3b8', marginBottom: '0.25rem' }}>Area / Process</label>
-                                    <input type="text" value={areaName} onChange={(e) => setAreaName(e.target.value)} className="input-field-light" style={{ background: 'rgba(0,0,0,0.3)!important', color:'white!important', border: '1px solid rgba(255,255,255,0.1)!important' }} />
+                                    <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>Area / Process</label>
+                                    <input type="text" value={areaName} onChange={(e) => setAreaName(e.target.value)} className="input-field-light" style={{ background: 'var(--bg-dark)!important', color:'white!important', border: '1px solid rgba(255,255,255,0.1)!important' }} />
                                 </div>
                                 <div>
-                                    <label style={{ display: 'block', fontSize: '0.75rem', color: '#94a3b8', marginBottom: '0.25rem' }}>Owner</label>
-                                    <input type="text" value={owner} onChange={(e) => setOwner(e.target.value)} className="input-field-light" style={{ background: 'rgba(0,0,0,0.3)!important', color:'white!important', border: '1px solid rgba(255,255,255,0.1)!important' }} />
+                                    <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>Owner</label>
+                                    <input type="text" value={owner} onChange={(e) => setOwner(e.target.value)} className="input-field-light" style={{ background: 'var(--bg-dark)!important', color:'white!important', border: '1px solid rgba(255,255,255,0.1)!important' }} />
                                 </div>
                                 <div>
-                                    <label style={{ display: 'block', fontSize: '0.75rem', color: '#94a3b8', marginBottom: '0.25rem' }}>Metric Type</label>
-                                    <select value={metricType} onChange={(e) => setMetricType(e.target.value)} className="input-field-light" style={{ background: 'rgba(0,0,0,0.3)!important', color:'white!important', border: '1px solid rgba(255,255,255,0.1)!important' }}>
+                                    <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>Metric Type</label>
+                                    <select value={metricType} onChange={(e) => setMetricType(e.target.value)} className="input-field-light" style={{ background: 'var(--bg-dark)!important', color:'white!important', border: '1px solid rgba(255,255,255,0.1)!important' }}>
                                         <option value="Units/Hour">Units/Hour</option>
                                         <option value="Total Output">Total Output</option>
                                         <option value="Defects">Defects</option>
@@ -227,8 +227,8 @@ export default function GoalGapMonitor({ onClose }: { onClose: () => void }) {
                                     </select>
                                 </div>
                                 <div>
-                                    <label style={{ display: 'block', fontSize: '0.75rem', color: '#94a3b8', marginBottom: '0.25rem' }}>Date</label>
-                                    <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="input-field-light" style={{ background: 'rgba(0,0,0,0.3)!important', color:'white!important', border: '1px solid rgba(255,255,255,0.1)!important' }} />
+                                    <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>Date</label>
+                                    <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="input-field-light" style={{ background: 'var(--bg-dark)!important', color:'white!important', border: '1px solid rgba(255,255,255,0.1)!important' }} />
                                 </div>
                             </div>
 
@@ -237,11 +237,11 @@ export default function GoalGapMonitor({ onClose }: { onClose: () => void }) {
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 'clamp(0.5rem, 1.5vw, 1rem)' }}>
                                 <div>
                                     <label style={{ display: 'block', fontSize: 'clamp(0.7rem, 1.2vw, 0.8rem)', color: '#e2e8f0', marginBottom: '0.5rem', fontWeight: 'bold' }}>Target Goal</label>
-                                    <input type="number" value={goal} onChange={(e) => setGoal(Number(e.target.value))} className="input-field-light" style={{ background: 'rgba(0,0,0,0.5)!important', color:'white!important', border: '1px solid #475569!important', fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)', padding: 'clamp(0.5rem, 1.2vw, 0.75rem)' }} />
+                                    <input type="number" value={goal} onChange={(e) => setGoal(Number(e.target.value))} className="input-field-light" style={{ background: 'var(--bg-dark)!important', color:'white!important', border: '1px solid var(--border-color)!important', fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)', padding: 'clamp(0.5rem, 1.2vw, 0.75rem)' }} />
                                 </div>
                                 <div>
-                                    <label style={{ display: 'block', fontSize: 'clamp(0.7rem, 1.2vw, 0.8rem)', color: '#38bdf8', marginBottom: '0.5rem', fontWeight: 'bold' }}>Actual</label>
-                                    <input type="number" value={actual} onChange={(e) => setActual(Number(e.target.value))} className="input-field-light" style={{ background: 'rgba(0,0,0,0.5)!important', color:'#38bdf8!important', border: '1px solid #0284c7!important', fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)', padding: 'clamp(0.5rem, 1.2vw, 0.75rem)' }} />
+                                    <label style={{ display: 'block', fontSize: 'clamp(0.7rem, 1.2vw, 0.8rem)', color: 'var(--zone-yellow)', marginBottom: '0.5rem', fontWeight: 'bold' }}>Actual</label>
+                                    <input type="number" value={actual} onChange={(e) => setActual(Number(e.target.value))} className="input-field-light" style={{ background: 'var(--bg-dark)!important', color:'var(--zone-yellow)!important', border: '1px solid var(--zone-yellow)!important', fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)', padding: 'clamp(0.5rem, 1.2vw, 0.75rem)' }} />
                                 </div>
                             </div>
 
@@ -260,14 +260,14 @@ export default function GoalGapMonitor({ onClose }: { onClose: () => void }) {
                     <div style={{ flex: '2 1 min(100%, 400px)', display: 'flex', flexDirection: 'column', gap: 'clamp(1rem, 2vw, 1.5rem)' }}>
                         
                         {/* TREND TRACKING */}
-                        <div className="card" style={{ background: 'rgba(15, 23, 42, 0.6)', padding: 'clamp(1rem, 2vw, 1.5rem)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '12px' }}>
-                            <div style={{ fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 'clamp(0.75rem, 1.5vw, 1rem)', fontWeight: 'bold', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div className="card" style={{ background: 'var(--bg-panel)', padding: 'clamp(1rem, 2vw, 1.5rem)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '12px' }}>
+                            <div style={{ fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 'clamp(0.75rem, 1.5vw, 1rem)', fontWeight: 'bold', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <span>Historical Trend</span>
-                                <span style={{ fontSize: '0.7rem', color: '#64748b' }}>Last 10 Entries</span>
+                                <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Last 10 Entries</span>
                             </div>
                             
                             {history.length === 0 ? (
-                                <div style={{ padding: '2rem', textAlign: 'center', color: '#64748b', background: 'rgba(0,0,0,0.2)', borderRadius: '8px' }}>
+                                <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-muted)', background: 'rgba(0,0,0,0.2)', borderRadius: '8px' }}>
                                     No historical snapshots available. Log current performance to build trend.
                                 </div>
                             ) : (
@@ -292,7 +292,7 @@ export default function GoalGapMonitor({ onClose }: { onClose: () => void }) {
                                                         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 50%)' }} />
                                                     </div>
                                                 </div>
-                                                <div style={{ fontSize: '0.6rem', color: '#64748b', marginTop: '0.25rem' }}>{entry.date.split('/')[0]}/{entry.date.split('/')[1]}</div>
+                                                <div style={{ fontSize: '0.6rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>{entry.date.split('/')[0]}/{entry.date.split('/')[1]}</div>
                                             </div>
                                         )
                                     })}
@@ -301,8 +301,8 @@ export default function GoalGapMonitor({ onClose }: { onClose: () => void }) {
                         </div>
 
                         {/* COUNTERMEASURES SECTION */}
-                        <div className="card" style={{ background: 'rgba(15, 23, 42, 0.6)', padding: 'clamp(1rem, 2vw, 1.5rem)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '12px', flex: 1 }}>
-                            <div style={{ fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 'clamp(0.75rem, 2vw, 1.25rem)', fontWeight: 'bold', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div className="card" style={{ background: 'var(--bg-panel)', padding: 'clamp(1rem, 2vw, 1.5rem)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '12px', flex: 1 }}>
+                            <div style={{ fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 'clamp(0.75rem, 2vw, 1.25rem)', fontWeight: 'bold', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <span>Active Countermeasures</span>
                                 <span style={{ fontSize: '0.7rem', padding: '0.2rem 0.6rem', background: 'rgba(255,255,255,0.1)', borderRadius: '12px' }}>{countermeasures.filter(c => c.status !== 'Completed').length} Open</span>
                             </div>
@@ -345,7 +345,7 @@ export default function GoalGapMonitor({ onClose }: { onClose: () => void }) {
                             {/* CM List */}
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                                 {countermeasures.length === 0 ? (
-                                    <div style={{ textAlign: 'center', color: '#64748b', fontStyle: 'italic', fontSize: '0.9rem', padding: '1rem 0' }}>
+                                    <div style={{ textAlign: 'center', color: 'var(--text-muted)', fontStyle: 'italic', fontSize: '0.9rem', padding: '1rem 0' }}>
                                         No active countermeasures logged for this gap.
                                     </div>
                                 ) : (
@@ -356,7 +356,7 @@ export default function GoalGapMonitor({ onClose }: { onClose: () => void }) {
                                                 style={{ 
                                                     width: '24px', height: '24px', borderRadius: '4px', 
                                                     background: cm.status === 'Completed' ? '#10b981' : cm.status === 'In Progress' ? '#eab308' : 'transparent',
-                                                    border: `2px solid ${cm.status === 'Completed' ? '#10b981' : cm.status === 'In Progress' ? '#eab308' : '#94a3b8'}`,
+                                                    border: `2px solid ${cm.status === 'Completed' ? '#10b981' : cm.status === 'In Progress' ? '#eab308' : 'var(--text-muted)'}`,
                                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                                                     color: 'white', fontSize: '12px', cursor: 'pointer', flexShrink: 0, marginTop: '2px'
                                                 }}
@@ -366,22 +366,22 @@ export default function GoalGapMonitor({ onClose }: { onClose: () => void }) {
                                             </button>
                                             
                                             <div style={{ flex: 1 }}>
-                                                <div style={{ fontSize: '0.95rem', color: '#f8fafc', fontWeight: '500', marginBottom: '0.4rem', textDecoration: cm.status === 'Completed' ? 'line-through' : 'none' }}>
+                                                <div style={{ fontSize: '0.95rem', color: 'var(--text-main)', fontWeight: '500', marginBottom: '0.4rem', textDecoration: cm.status === 'Completed' ? 'line-through' : 'none' }}>
                                                     {cm.description}
                                                 </div>
-                                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', fontSize: '0.75rem', color: '#94a3b8' }}>
+                                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                                                     <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                                                        <span style={{color: '#64748b'}}>👤</span> {cm.owner}
+                                                        <span style={{color: 'var(--text-muted)'}}>👤</span> {cm.owner}
                                                     </span>
                                                     <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                                                        <span style={{color: '#64748b'}}>⚡</span> {cm.impactEstimate || 'TBD'}
+                                                        <span style={{color: 'var(--text-muted)'}}>⚡</span> {cm.impactEstimate || 'TBD'}
                                                     </span>
                                                 </div>
                                             </div>
                                             
                                             <button 
                                                 onClick={() => deleteCM(cm.id)}
-                                                style={{ background: 'none', border: 'none', color: '#64748b', cursor: 'pointer', fontSize: '1.2rem', padding: '0.2rem' }}
+                                                style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '1.2rem', padding: '0.2rem' }}
                                                 title="Delete Countermeasure"
                                             >
                                                 ×

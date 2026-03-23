@@ -96,9 +96,9 @@ export default function ImprovementCard({ onClose }: { onClose: () => void }) {
                 
                 {/* Step 0: Intake / Handoff */}
                 {step === 0 && (
-                    <div className="card" style={{ background: 'rgba(15, 23, 42, 0.8)', padding: 'clamp(1rem, 3vw, 2rem)', borderRadius: '12px', border: '1px solid rgba(16, 185, 129, 0.3)' }}>
-                        <h2 style={{ color: '#10b981', marginBottom: '1.5rem', fontFamily: "'Orbitron', sans-serif", fontSize: 'clamp(1rem, 3vw, 1.25rem)', letterSpacing: '1px' }}>DIAGNOSIS HANDOFF</h2>
-                        <p style={{ color: '#94a3b8', marginBottom: '2rem' }}>Select a completed Process Check to attach an improvement countermeasure.</p>
+                    <div className="card" style={{ background: 'var(--bg-panel)', padding: 'clamp(1rem, 3vw, 2rem)', borderRadius: '12px', border: '1px solid var(--zone-yellow)' }}>
+                        <h2 style={{ color: 'var(--zone-yellow)', marginBottom: '1.5rem', fontFamily: "'Orbitron', sans-serif", fontSize: 'clamp(1rem, 3vw, 1.25rem)', letterSpacing: '1px' }}>DIAGNOSIS HANDOFF</h2>
+                        <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Select a completed Process Check to attach an improvement countermeasure.</p>
                         
                         {diagnoses.length === 0 ? (
                             <div style={{ padding: '2rem', background: 'rgba(0,0,0,0.3)', borderRadius: '8px', textAlign: 'center', color: '#64748b', border: '1px dashed rgba(255,255,255,0.1)' }}>
@@ -112,8 +112,8 @@ export default function ImprovementCard({ onClose }: { onClose: () => void }) {
                                         onClick={() => setSelectedDiagnosisId(d.id)}
                                         style={{ 
                                             padding: '1.25rem', 
-                                            background: selectedDiagnosisId === d.id ? 'rgba(16, 185, 129, 0.15)' : 'rgba(0,0,0,0.4)', 
-                                            border: `1px solid ${selectedDiagnosisId === d.id ? '#10b981' : 'rgba(255,255,255,0.1)'}`, 
+                                            background: selectedDiagnosisId === d.id ? 'rgba(255,194,14,0.15)' : 'rgba(0,0,0,0.4)', 
+                                            border: `1px solid ${selectedDiagnosisId === d.id ? 'var(--zone-yellow)' : 'rgba(255,255,255,0.1)'}`, 
                                             borderRadius: '8px', 
                                             cursor: 'pointer',
                                             display: 'flex',
@@ -125,14 +125,13 @@ export default function ImprovementCard({ onClose }: { onClose: () => void }) {
                                         <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem' }}>
                                             <div>
                                                 <div style={{ color: '#f1f5f9', fontWeight: 'bold', fontSize: '1.1rem' }}>{d.processName}</div>
-                                                <div style={{ color: '#64748b', fontSize: '0.85rem' }}>Surgeon: {d.operatorId}</div>
+                                                <div style={{ color: '#64748b', fontSize: '0.85rem' }}>Operator: {d.operatorId}</div>
                                             </div>
-                                            <div style={{ background: 'rgba(0,0,0,0.5)', padding: '0.5rem 1rem', borderRadius: '20px', color: '#ffffff', fontSize: '0.85rem', fontWeight: 'bold', border: '1px solid rgba(245, 158, 11, 0.2)' }}>
+                                            <div style={{ background: 'rgba(0,0,0,0.5)', padding: '0.5rem 1rem', borderRadius: '20px', color: '#ffffff', fontSize: '0.85rem', fontWeight: 'bold', border: '1px solid var(--zone-yellow)' }}>
                                                 {d.wasteTypes[0] || 'Unknown Cause'}
                                             </div>
                                         </div>
                                         
-                                        {/* Parse findings safely (from ProcessCheck format) */}
                                         <div style={{ color: '#94a3b8', fontSize: '0.85rem', background: 'rgba(0,0,0,0.2)', padding: '0.5rem', borderRadius: '4px', borderLeft: '2px solid #475569' }}>
                                             {d.findings.includes('Notes: ') ? d.findings.split('Notes: ')[1] : 'No additional notes provided.'}
                                         </div>
@@ -145,8 +144,8 @@ export default function ImprovementCard({ onClose }: { onClose: () => void }) {
                                     style={{ 
                                         marginTop: '1.5rem', 
                                         padding: '1rem', 
-                                        background: '#10b981', 
-                                        color: '#0f172a', 
+                                        background: 'var(--zone-yellow)', 
+                                        color: '#000', 
                                         border: 'none', 
                                         borderRadius: '8px', 
                                         fontWeight: 'bold', 
@@ -166,7 +165,7 @@ export default function ImprovementCard({ onClose }: { onClose: () => void }) {
                 {step === 1 && selectedDiagnosis && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                         {/* Summary Panel */}
-                        <div style={{ background: 'rgba(15, 23, 42, 0.9)', padding: '1rem 1.5rem', borderRadius: '8px', borderLeft: '4px solid #ffffff', display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
+                        <div style={{ background: 'var(--bg-panel)', padding: '1rem 1.5rem', borderRadius: '8px', borderLeft: '4px solid #ffffff', display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
                             <div>
                                 <div style={{ color: '#64748b', fontSize: '0.75rem', textTransform: 'uppercase', marginBottom: '0.25rem' }}>Diagnosed Root Cause</div>
                                 <div style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '1.1rem' }}>{selectedDiagnosis.wasteTypes[0] || 'Unknown'} for {selectedDiagnosis.processName}</div>
@@ -175,17 +174,17 @@ export default function ImprovementCard({ onClose }: { onClose: () => void }) {
                         </div>
 
                         {/* Definition Form */}
-                        <div className="card" style={{ background: 'rgba(15, 23, 42, 0.8)', padding: 'clamp(1rem, 3vw, 2rem)', borderRadius: '12px', border: '1px solid rgba(56, 189, 248, 0.3)' }}>
-                            <h2 style={{ color: '#38bdf8', marginBottom: '1.5rem', fontFamily: "'Orbitron', sans-serif", fontSize: 'clamp(1rem, 3vw, 1.1rem)', letterSpacing: '1px' }}>IMPROVEMENT COUNTERMEASURE</h2>
+                        <div className="card" style={{ background: 'var(--bg-panel)', padding: 'clamp(1rem, 3vw, 2rem)', borderRadius: '12px', border: '1px solid var(--zone-yellow)' }}>
+                            <h2 style={{ color: 'var(--zone-yellow)', marginBottom: '1.5rem', fontFamily: "'Orbitron', sans-serif", fontSize: 'clamp(1rem, 3vw, 1.1rem)', letterSpacing: '1px' }}>IMPROVEMENT COUNTERMEASURE</h2>
                             
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
                                 <div>
                                     <label style={{ display: 'block', color: '#cbd5e1', fontSize: '0.85rem', marginBottom: '0.5rem' }}>Improvement Title</label>
-                                    <input type="text" value={title} onChange={e => setTitle(e.target.value)} placeholder="e.g. Relocate Drill Setup" style={{ width: '100%', padding: '0.75rem', background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', borderRadius: '4px' }} />
+                                    <input type="text" value={title} onChange={e => setTitle(e.target.value)} placeholder="e.g. Relocate Setup" style={{ width: '100%', padding: '0.75rem', background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', borderRadius: '4px' }} />
                                 </div>
                                 <div>
                                     <label style={{ display: 'block', color: '#cbd5e1', fontSize: '0.85rem', marginBottom: '0.5rem' }}>Owner</label>
-                                    <input type="text" value={owner} onChange={e => setOwner(e.target.value)} placeholder="Surgeon/Lead" style={{ width: '100%', padding: '0.75rem', background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', borderRadius: '4px' }} />
+                                    <input type="text" value={owner} onChange={e => setOwner(e.target.value)} placeholder="Lead/Operator" style={{ width: '100%', padding: '0.75rem', background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', borderRadius: '4px' }} />
                                 </div>
                                 <div>
                                     <label style={{ display: 'block', color: '#cbd5e1', fontSize: '0.85rem', marginBottom: '0.5rem' }}>Status</label>
@@ -206,7 +205,7 @@ export default function ImprovementCard({ onClose }: { onClose: () => void }) {
 
                         {/* Before / After */}
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
-                            <div className="card" style={{ background: 'rgba(15, 23, 42, 0.8)', padding: 'clamp(1rem, 2vw, 1.5rem)', borderRadius: '12px', border: '1px solid rgba(239, 68, 68, 0.3)' }}>
+                            <div className="card" style={{ background: 'var(--bg-panel)', padding: 'clamp(1rem, 2vw, 1.5rem)', borderRadius: '12px', border: '1px solid rgba(239, 68, 68, 0.3)' }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                                     <h3 style={{ color: '#ef4444', margin: 0, fontSize: '1rem', textTransform: 'uppercase' }}>Before Operation</h3>
                                     <label style={{ cursor: 'pointer', background: 'rgba(239, 68, 68, 0.2)', color: '#fca5a5', padding: '0.4rem 0.8rem', borderRadius: '4px', fontSize: '0.8rem', fontWeight: 'bold' }}>
@@ -238,7 +237,7 @@ export default function ImprovementCard({ onClose }: { onClose: () => void }) {
                                 <textarea value={beforeCondition} onChange={e => setBeforeCondition(e.target.value)} placeholder="Describe the current problematic state (Optional if photo provided)..." style={{ width: '100%', minHeight: '80px', padding: '0.75rem', background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', borderRadius: '4px', resize: 'vertical', fontFamily: 'inherit' }} />
                             </div>
 
-                            <div className="card" style={{ background: 'rgba(15, 23, 42, 0.8)', padding: 'clamp(1rem, 2vw, 1.5rem)', borderRadius: '12px', border: '1px solid rgba(16, 185, 129, 0.3)' }}>
+                            <div className="card" style={{ background: 'var(--bg-panel)', padding: 'clamp(1rem, 2vw, 1.5rem)', borderRadius: '12px', border: '1px solid rgba(16, 185, 129, 0.3)' }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                                     <h3 style={{ color: '#10b981', margin: 0, fontSize: '1rem', textTransform: 'uppercase' }}>After Operation</h3>
                                     <label style={{ cursor: 'pointer', background: 'rgba(16, 185, 129, 0.2)', color: '#6ee7b7', padding: '0.4rem 0.8rem', borderRadius: '4px', fontSize: '0.8rem', fontWeight: 'bold' }}>
@@ -275,7 +274,7 @@ export default function ImprovementCard({ onClose }: { onClose: () => void }) {
                             <button 
                                 onClick={() => setStep(2)}
                                 disabled={!title || !owner || !countermeasure || (!beforeCondition && !beforeImageUrl) || (!afterCondition && !afterImageUrl)}
-                                style={{ padding: '0.75rem 2rem', background: '#38bdf8', color: '#0f172a', border: 'none', borderRadius: '8px', fontWeight: 'bold', cursor: (!title || !owner || !countermeasure || (!beforeCondition && !beforeImageUrl) || (!afterCondition && !afterImageUrl)) ? 'not-allowed' : 'pointer', opacity: (!title || !owner || !countermeasure || (!beforeCondition && !beforeImageUrl) || (!afterCondition && !afterImageUrl)) ? 0.5 : 1 }}
+                                style={{ padding: '0.75rem 2rem', background: 'var(--lean-white)', color: '#000', border: 'none', borderRadius: '8px', fontWeight: 'bold', cursor: (!title || !owner || !countermeasure || (!beforeCondition && !beforeImageUrl) || (!afterCondition && !afterImageUrl)) ? 'not-allowed' : 'pointer', opacity: (!title || !owner || !countermeasure || (!beforeCondition && !beforeImageUrl) || (!afterCondition && !afterImageUrl)) ? 0.5 : 1 }}
                             >
                                 CONTINUE TO METRICS →
                             </button>
@@ -287,21 +286,21 @@ export default function ImprovementCard({ onClose }: { onClose: () => void }) {
                 {step === 2 && selectedDiagnosis && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                         
-                        <div className="card" style={{ background: 'rgba(15, 23, 42, 0.8)', padding: 'clamp(1rem, 3vw, 2rem)', borderRadius: '12px', border: '1px solid rgba(167, 139, 250, 0.3)' }}>
-                            <h2 style={{ color: '#a78bfa', marginBottom: '1.5rem', fontFamily: "'Orbitron', sans-serif", fontSize: 'clamp(1rem, 3vw, 1.1rem)', letterSpacing: '1px' }}>MEASURED RESULTS</h2>
+                        <div className="card" style={{ background: 'var(--bg-panel)', padding: 'clamp(1rem, 3vw, 2rem)', borderRadius: '12px', border: '1px solid var(--zone-yellow)' }}>
+                            <h2 style={{ color: 'var(--zone-yellow)', marginBottom: '1.5rem', fontFamily: "'Orbitron', sans-serif", fontSize: 'clamp(1rem, 3vw, 1.1rem)', letterSpacing: '1px' }}>MEASURED RESULTS</h2>
                             
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
                                 {/* Field Exits Panel */}
                                 <div style={{ background: 'rgba(0,0,0,0.3)', padding: '1.5rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                                    <h3 style={{ color: '#e2e8f0', margin: '0 0 1rem 0', fontSize: '0.95rem' }}>Surgeon Field Exits</h3>
+                                    <h3 style={{ color: '#e2e8f0', margin: '0 0 1rem 0', fontSize: '0.95rem' }}>Operator Field Exits</h3>
                                     <div style={{ display: 'flex', gap: '1rem' }}>
                                         <div style={{ flex: 1 }}>
                                             <label style={{ display: 'block', color: '#94a3b8', fontSize: '0.75rem', marginBottom: '0.25rem', textTransform: 'uppercase' }}>Expected Target</label>
                                             <input type="number" value={expectedFieldExits} onChange={e => setExpectedFieldExits(parseInt(e.target.value) || 0)} style={{ width: '100%', padding: '0.5rem', background: 'rgba(0,0,0,0.5)', border: '1px dashed #64748b', color: 'white', borderRadius: '4px', fontSize: '1.25rem', textAlign: 'center' }} />
                                         </div>
                                         <div style={{ flex: 1 }}>
-                                            <label style={{ display: 'block', color: '#10b981', fontSize: '0.75rem', marginBottom: '0.25rem', textTransform: 'uppercase', fontWeight: 'bold' }}>Actual Measured</label>
-                                            <input type="number" placeholder="-" value={measuredFieldExits} onChange={e => setMeasuredFieldExits(e.target.value)} style={{ width: '100%', padding: '0.5rem', background: 'rgba(16, 185, 129, 0.1)', border: '1px solid #10b981', color: '#10b981', borderRadius: '4px', fontSize: '1.25rem', textAlign: 'center', fontWeight: 'bold' }} />
+                                            <label style={{ display: 'block', color: 'var(--zone-yellow)', fontSize: '0.75rem', marginBottom: '0.25rem', textTransform: 'uppercase', fontWeight: 'bold' }}>Actual Measured</label>
+                                            <input type="number" placeholder="-" value={measuredFieldExits} onChange={e => setMeasuredFieldExits(e.target.value)} style={{ width: '100%', padding: '0.5rem', background: 'rgba(255,194,14,0.1)', border: '1px solid var(--zone-yellow)', color: 'var(--zone-yellow)', borderRadius: '4px', fontSize: '1.25rem', textAlign: 'center', fontWeight: 'bold' }} />
                                         </div>
                                     </div>
                                 </div>
@@ -315,8 +314,8 @@ export default function ImprovementCard({ onClose }: { onClose: () => void }) {
                                             <input type="number" value={expectedDistance} onChange={e => setExpectedDistance(parseFloat(e.target.value) || 0)} style={{ width: '100%', padding: '0.5rem', background: 'rgba(0,0,0,0.5)', border: '1px dashed #64748b', color: 'white', borderRadius: '4px', fontSize: '1.25rem', textAlign: 'center' }} />
                                         </div>
                                         <div style={{ flex: 1 }}>
-                                            <label style={{ display: 'block', color: '#10b981', fontSize: '0.75rem', marginBottom: '0.25rem', textTransform: 'uppercase', fontWeight: 'bold' }}>Actual Measured</label>
-                                            <input type="number" placeholder="-" value={measuredDistance} onChange={e => setMeasuredDistance(e.target.value)} style={{ width: '100%', padding: '0.5rem', background: 'rgba(16, 185, 129, 0.1)', border: '1px solid #10b981', color: '#10b981', borderRadius: '4px', fontSize: '1.25rem', textAlign: 'center', fontWeight: 'bold' }} />
+                                            <label style={{ display: 'block', color: 'var(--zone-yellow)', fontSize: '0.75rem', marginBottom: '0.25rem', textTransform: 'uppercase', fontWeight: 'bold' }}>Actual Measured</label>
+                                            <input type="number" placeholder="-" value={measuredDistance} onChange={e => setMeasuredDistance(e.target.value)} style={{ width: '100%', padding: '0.5rem', background: 'rgba(255,194,14,0.1)', border: '1px solid var(--zone-yellow)', color: 'var(--zone-yellow)', borderRadius: '4px', fontSize: '1.25rem', textAlign: 'center', fontWeight: 'bold' }} />
                                         </div>
                                     </div>
                                 </div>
@@ -324,8 +323,8 @@ export default function ImprovementCard({ onClose }: { onClose: () => void }) {
                         </div>
 
                         {/* Next Action */}
-                        <div className="card" style={{ background: 'rgba(15, 23, 42, 0.8)', padding: 'clamp(1rem, 3vw, 2rem)', borderRadius: '12px', border: '1px solid rgba(244, 63, 94, 0.3)' }}>
-                            <h2 style={{ color: '#f43f5e', marginBottom: '1.5rem', fontFamily: "'Orbitron', sans-serif", fontSize: 'clamp(1rem, 3vw, 1.1rem)', letterSpacing: '1px' }}>NEXT OPERATION</h2>
+                        <div className="card" style={{ background: 'var(--bg-panel)', padding: 'clamp(1rem, 3vw, 2rem)', borderRadius: '12px', border: '1px solid var(--accent-warning)' }}>
+                            <h2 style={{ color: 'var(--accent-warning)', marginBottom: '1.5rem', fontFamily: "'Orbitron', sans-serif", fontSize: 'clamp(1rem, 3vw, 1.1rem)', letterSpacing: '1px' }}>NEXT OPERATION</h2>
                             
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '0.75rem', marginBottom: '2rem' }}>
                                 {['Standardize Change', 'Test Again', 'Escalate', 'Reopen Diagnosis'].map(action => (
@@ -334,9 +333,9 @@ export default function ImprovementCard({ onClose }: { onClose: () => void }) {
                                         onClick={() => setNextAction(action as any)}
                                         style={{
                                             padding: '1rem',
-                                            background: nextAction === action ? 'rgba(244, 63, 94, 0.2)' : 'rgba(0,0,0,0.4)',
-                                            border: `1px solid ${nextAction === action ? '#f43f5e' : 'rgba(255,255,255,0.1)'}`,
-                                            color: nextAction === action ? '#fda4af' : '#cbd5e1',
+                                            background: nextAction === action ? 'rgba(239, 68, 68, 0.2)' : 'rgba(0,0,0,0.4)',
+                                            border: `1px solid ${nextAction === action ? 'var(--accent-warning)' : 'rgba(255,255,255,0.1)'}`,
+                                            color: nextAction === action ? 'var(--accent-warning)' : '#cbd5e1',
                                             borderRadius: '8px',
                                             cursor: 'pointer',
                                             textAlign: 'center',
@@ -355,7 +354,7 @@ export default function ImprovementCard({ onClose }: { onClose: () => void }) {
                                 <button 
                                     onClick={handleSaveImprovement}
                                     disabled={!nextAction}
-                                    style={{ flex: '2 1 200px', padding: '1rem', background: '#f43f5e', color: '#fff', border: 'none', borderRadius: '8px', fontWeight: 'bold', fontSize: '1rem', cursor: !nextAction ? 'not-allowed' : 'pointer', letterSpacing: '1px', opacity: !nextAction ? 0.5 : 1 }}
+                                    style={{ flex: '2 1 200px', padding: '1rem', background: 'var(--accent-warning)', color: '#fff', border: 'none', borderRadius: '8px', fontWeight: 'bold', fontSize: '1rem', cursor: !nextAction ? 'not-allowed' : 'pointer', letterSpacing: '1px', opacity: !nextAction ? 0.5 : 1 }}
                                 >
                                     SAVE & COMPLETE LOOP
                                 </button>

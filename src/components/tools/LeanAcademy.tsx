@@ -448,9 +448,11 @@ export default function LeanAcademy() {
                                                     padding: '1.25rem',
                                                     fontSize: '1.2rem',
                                                     fontWeight: 'bold',
-                                                    background: metReqs ? 'var(--accent-primary)' : 'var(--bg-panel)',
+                                                    background: metReqs ? 'var(--accent-primary)' : 'var(--bg-dark)',
+                                                    color: metReqs ? '#000' : 'var(--text-main)',
+                                                    border: metReqs ? 'none' : '2px dashed var(--border-light)',
                                                     cursor: metReqs ? 'pointer' : 'not-allowed',
-                                                    opacity: metReqs ? 1 : 0.5,
+                                                    opacity: metReqs ? 1 : 0.7,
                                                     boxShadow: metReqs ? '0 4px 14px 0 rgba(249, 115, 22, 0.39)' : 'none',
                                                     transition: 'all 0.3s'
                                                 }}

@@ -200,92 +200,6 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                 
                 {view === 'main' && (
                     <>
-                        {/* 1. Left Lateral Toolbar */}
-                        <div className="lateral-sidebar" style={{
-                            width: 'clamp(60px, 12vw, 100px)',
-                            backgroundColor: '#0a0a0a',
-                            borderRight: '1px solid #333',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            padding: 'clamp(1rem, 2vh, 2rem) 0',
-                            gap: 'clamp(0.8rem, 2vh, 1.5rem)',
-                            overflowY: 'auto',
-                            boxShadow: '4px 0 15px rgba(0,0,0,0.8)',
-                            flexShrink: 0,
-                            zIndex: 20,
-                            transition: 'width 0.3s ease'
-                        }}>
-                            {[
-                                { id: 'motion', name: 'MOTION', icon: '🏃‍♂️', action: () => onNavigate('motion-v2') },
-                                { id: 'time', name: 'TIME', icon: '⏱️', action: () => onNavigate('time-study') },
-                                { id: 'waste', name: 'WASTE', icon: '🗑️', action: () => onNavigate('process-check') },
-                                { id: '5s', name: '5S SCAN', icon: '🔳', action: () => onNavigate('value-scanner') },
-                                { id: 'lsubmit', name: 'SUBMIT', icon: '📋', action: () => onNavigate('action-items') },
-                                { id: 'lvideos', name: 'VIDEOS', icon: '🎬', action: () => onNavigate('video-hub') },
-                                { id: 'learning', name: 'LEARN', icon: '🎓', action: () => onNavigate('lean-academy') },
-                            ].map(tool => (
-                                <button 
-                                    key={tool.id} 
-                                    onClick={tool.action}
-                                    style={{
-                                        background: 'transparent',
-                                        border: 'none',
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        alignItems: 'center',
-                                        gap: '0.4rem',
-                                        cursor: 'pointer',
-                                        transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                                        width: '100%'
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget.style.transform = 'scale(1.25)';
-                                        const label = e.currentTarget.querySelector('.tool-label') as HTMLElement;
-                                        if(label) {
-                                            label.style.opacity = '1';
-                                            label.style.color = '#ffc20e';
-                                        }
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.style.transform = 'scale(1)';
-                                        const label = e.currentTarget.querySelector('.tool-label') as HTMLElement;
-                                        if(label) {
-                                            label.style.opacity = '0.7';
-                                            label.style.color = '#aaa';
-                                        }
-                                    }}
-                                    title={tool.name}
-                                >
-                                    <div style={{
-                                        width: 'clamp(40px, 8vw, 56px)',
-                                        height: 'clamp(40px, 8vw, 56px)',
-                                        borderRadius: '50%',
-                                        background: 'linear-gradient(145deg, #2a2a2a, #111111)',
-                                        boxShadow: '4px 4px 8px #050505, -4px -4px 8px #2b2b2b',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        fontSize: 'clamp(1.1rem, 2.5vw, 1.6rem)',
-                                        border: '1px solid #333'
-                                    }}>
-                                        <span style={{ filter: 'drop-shadow(2px 4px 6px rgba(0,0,0,0.5))' }}>{tool.icon}</span>
-                                    </div>
-                                    <span className="tool-label" style={{
-                                        color: '#aaa',
-                                        fontSize: 'clamp(0.45rem, 1vw, 0.6rem)',
-                                        fontWeight: 800,
-                                        fontFamily: "'Orbitron', sans-serif",
-                                        textAlign: 'center',
-                                        letterSpacing: '0.5px',
-                                        opacity: 0.7,
-                                        transition: 'all 0.2s'
-                                    }}>
-                                        {tool.name}
-                                    </span>
-                                </button>
-                            ))}
-                        </div>
 
                         {/* 2. Main Content Void */}
                         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
@@ -299,32 +213,7 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                                         profile={null}
                                     />
                                     
-                                    {/* Orphaned Module Recovery: Advanced Systems Widget */}
-                                    <div style={{ marginTop: '3rem', width: '100%', borderTop: '1px solid #333', paddingTop: '2rem' }}>
-                                        <h3 style={{ color: 'var(--text-muted)', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', textAlign: 'center' }}>ADVANCED SYSTEMS</h3>
-                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
-                                            <button className="shadow-btn-accent" onClick={() => setView('create')} style={{ padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', background: 'linear-gradient(145deg, #1f1f1f, #0a0a0a)', border: '1px solid #333', borderRadius: '8px', cursor: 'pointer', transition: 'transform 0.2s', boxShadow: '0 4px 6px rgba(0,0,0,0.3)' }} onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'} onMouseLeave={e => e.currentTarget.style.transform = 'none'}>
-                                                <span style={{ fontSize: '2.5rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>⚡</span>
-                                                <span style={{ color: '#fff', fontWeight: 800, fontSize: '0.9rem', fontFamily: 'var(--font-headings)' }}>KAIZEN HUB</span>
-                                                <span style={{ color: '#888', fontSize: '0.7rem', textAlign: 'center' }}>Master Continuous Improvement Dashboard</span>
-                                            </button>
-                                            <button className="shadow-btn-accent" onClick={() => onNavigate('gemba')} style={{ padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', background: 'linear-gradient(145deg, #1f1f1f, #0a0a0a)', border: '1px solid #333', borderRadius: '8px', cursor: 'pointer', transition: 'transform 0.2s', boxShadow: '0 4px 6px rgba(0,0,0,0.3)' }} onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'} onMouseLeave={e => e.currentTarget.style.transform = 'none'}>
-                                                <span style={{ fontSize: '2.5rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>🧭</span>
-                                                <span style={{ color: '#fff', fontWeight: 800, fontSize: '0.9rem', fontFamily: 'var(--font-headings)' }}>GEMBA WALK</span>
-                                                <span style={{ color: '#888', fontSize: '0.7rem', textAlign: 'center' }}>Structured Floor Walk Builder</span>
-                                            </button>
-                                            <button className="shadow-btn-accent" onClick={() => onNavigate('line-balance')} style={{ padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', background: 'linear-gradient(145deg, #1f1f1f, #0a0a0a)', border: '1px solid #333', borderRadius: '8px', cursor: 'pointer', transition: 'transform 0.2s', boxShadow: '0 4px 6px rgba(0,0,0,0.3)' }} onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'} onMouseLeave={e => e.currentTarget.style.transform = 'none'}>
-                                                <span style={{ fontSize: '2.5rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>⚖️</span>
-                                                <span style={{ color: '#fff', fontWeight: 800, fontSize: '0.9rem', fontFamily: 'var(--font-headings)' }}>LINE BALANCE</span>
-                                                <span style={{ color: '#888', fontSize: '0.7rem', textAlign: 'center' }}>Cycle Time Analysis Engine</span>
-                                            </button>
-                                            <button className="shadow-btn-accent" onClick={() => onNavigate('goal-gap')} style={{ padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', background: 'linear-gradient(145deg, #1f1f1f, #0a0a0a)', border: '1px solid #333', borderRadius: '8px', cursor: 'pointer', transition: 'transform 0.2s', boxShadow: '0 4px 6px rgba(0,0,0,0.3)' }} onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'} onMouseLeave={e => e.currentTarget.style.transform = 'none'}>
-                                                <span style={{ fontSize: '2.5rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>📈</span>
-                                                <span style={{ color: '#fff', fontWeight: 800, fontSize: '0.9rem', fontFamily: 'var(--font-headings)' }}>GOAL GAP</span>
-                                                <span style={{ color: '#888', fontSize: '0.7rem', textAlign: 'center' }}>KPI Tracking Matrix</span>
-                                            </button>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>

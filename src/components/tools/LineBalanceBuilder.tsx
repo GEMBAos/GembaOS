@@ -215,13 +215,13 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
         >
             {/* Database Import Modal Overaly */}
             {importingStationId && (
-                <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(15, 23, 42, 0.95)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
-                    <div className="card" style={{ width: '100%', maxWidth: '600px', padding: '2rem', borderRadius: '12px', border: '1px solid #38bdf8' }}>
+                <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(10, 10, 10, 0.95)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
+                    <div className="card" style={{ width: '100%', maxWidth: '600px', padding: '2rem', borderRadius: '12px', border: '1px solid var(--zone-yellow)' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                            <h2 style={{ margin: 0, color: '#38bdf8', fontFamily: "'Orbitron', sans-serif" }}>IMPORT FROM DATABASE</h2>
-                            <button onClick={() => setImportingStationId(null)} style={{ background: 'transparent', border: 'none', color: '#94a3b8', fontSize: '1.5rem', cursor: 'pointer' }}>×</button>
+                            <h2 style={{ margin: 0, color: 'var(--zone-yellow)', fontFamily: "'Orbitron', sans-serif" }}>IMPORT FROM DATABASE</h2>
+                            <button onClick={() => setImportingStationId(null)} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', fontSize: '1.5rem', cursor: 'pointer' }}>×</button>
                         </div>
-                        <p style={{ color: '#cbd5e1', marginBottom: '1.5rem' }}>Select an exported Time Study from the Global Engine to populate this station's cycle times.</p>
+                        <p style={{ color: 'var(--text-main)', marginBottom: '1.5rem' }}>Select an exported Time Study from the Global Engine to populate this station's cycle times.</p>
                         
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxHeight: '400px', overflowY: 'auto' }}>
                             {availableTimeStudies.map(study => (
@@ -232,9 +232,9 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
                                 >
                                     <div>
                                         <div style={{ color: 'white', fontWeight: 'bold' }}>{study.sessionName}</div>
-                                        <div style={{ color: '#94a3b8', fontSize: '0.85rem' }}>{study.laps?.length || 0} cycles recorded</div>
+                                        <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>{study.laps?.length || 0} cycles recorded</div>
                                     </div>
-                                    <div style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', padding: '0.5rem 1rem', borderRadius: '4px', fontWeight: 'bold' }}>
+                                    <div style={{ background: 'rgba(255, 194, 14, 0.15)', color: 'var(--zone-yellow)', padding: '0.5rem 1rem', borderRadius: '4px', fontWeight: 'bold' }}>
                                         {study.averageCycleTimeSeconds?.toFixed(1)}s Avg
                                     </div>
                                 </div>
@@ -250,7 +250,7 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
                     <div className="card" style={{ width: '100%', maxWidth: '400px', padding: '3rem 2rem', textAlign: 'center', borderRadius: '24px', position: 'relative', overflow: 'hidden', border: `1px solid ${pacerElapsed > taktTime ? 'var(--accent-danger)' : 'var(--accent-primary)'}` }}>
                         
                         {/* Progress Background */}
-                        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: `${Math.min(100, (pacerElapsed / (taktTime || 60)) * 100)}%`, background: pacerElapsed > taktTime ? 'rgba(239, 68, 68, 0.2)' : 'rgba(56, 189, 248, 0.1)', transition: 'height 1s linear', zIndex: 0 }}></div>
+                        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: `${Math.min(100, (pacerElapsed / (taktTime || 60)) * 100)}%`, background: pacerElapsed > taktTime ? 'rgba(239, 68, 68, 0.2)' : 'rgba(255, 194, 14, 0.1)', transition: 'height 1s linear', zIndex: 0 }}></div>
 
                         <button onClick={() => { setActivePacerId(null); setPacerRunning(false); setPacerElapsed(0); }} style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'transparent', border: 'none', color: 'var(--text-muted)', fontSize: '2rem', cursor: 'pointer', zIndex: 10 }}>×</button>
 
@@ -289,92 +289,92 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2%', width: '100%' }}>
                 {/* Control Panel / Metrics */}
                 <div style={{ flex: '1 1 min(100%, 300px)', display: 'flex', flexDirection: 'column', gap: 'clamp(1rem, 2vw, 1.5rem)' }}>
-                    <div className="card" style={{ background: 'rgba(15, 23, 42, 0.7)', padding: 'clamp(1rem, 2vw, 1.5rem)', border: '1px solid rgba(148, 163, 184, 0.2)', borderRadius: '12px' }}>
-                        <h3 style={{ textTransform: 'uppercase', fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)', color: '#94a3b8', letterSpacing: '1px', marginBottom: 'clamp(0.75rem, 1.5vw, 1rem)' }}>Global Settings</h3>
+                    <div className="card" style={{ background: 'var(--bg-panel)', padding: 'clamp(1rem, 2vw, 1.5rem)', border: '1px solid var(--border-color)', borderRadius: '12px' }}>
+                        <h3 style={{ textTransform: 'uppercase', fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)', color: 'var(--text-muted)', letterSpacing: '1px', marginBottom: 'clamp(0.75rem, 1.5vw, 1rem)' }}>Global Settings</h3>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                             <div>
-                                <label style={{ display: 'block', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)', color: '#cbd5e1', marginBottom: '0.25rem' }}>Target Output (Units/Hr)</label>
+                                <label style={{ display: 'block', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)', color: 'var(--text-main)', marginBottom: '0.25rem' }}>Target Output (Units/Hr)</label>
                                 <input 
                                     type="number" 
                                     value={targetUPH} 
                                     onChange={(e) => setTargetUPH(Number(e.target.value))}
-                                    style={{ width: '100%', padding: '0.75rem', background: 'rgba(0,0,0,0.5)', border: '1px solid #475569', color: 'white', borderRadius: '4px', fontSize: '1rem' }}
+                                    style={{ width: '100%', padding: '0.75rem', background: 'rgba(0,0,0,0.5)', border: '1px solid var(--border-color)', color: 'white', borderRadius: '4px', fontSize: '1rem' }}
                                 />
                             </div>
                             <div>
-                                <label style={{ display: 'block', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)', color: '#cbd5e1', marginBottom: '0.25rem' }}>Labor Rate ($/Hr)</label>
+                                <label style={{ display: 'block', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)', color: 'var(--text-main)', marginBottom: '0.25rem' }}>Labor Rate ($/Hr)</label>
                                 <input 
                                     type="number" 
                                     value={laborRate} 
                                     onChange={(e) => setLaborRate(Number(e.target.value))}
-                                    style={{ width: '100%', padding: '0.75rem', background: 'rgba(0,0,0,0.5)', border: '1px solid #475569', color: 'white', borderRadius: '4px', fontSize: '1rem' }}
+                                    style={{ width: '100%', padding: '0.75rem', background: 'rgba(0,0,0,0.5)', border: '1px solid var(--border-color)', color: 'white', borderRadius: '4px', fontSize: '1rem' }}
                                 />
                             </div>
                         </div>
                     </div>
 
                     {/* Section 1: Measured Production Metrics (Against Takt) */}
-                    <div className="card" style={{ background: 'rgba(15, 23, 42, 0.7)', padding: 'clamp(1rem, 2vw, 1.5rem)', border: '1px solid rgba(148, 163, 184, 0.2)', borderRadius: '12px' }}>
-                        <h3 style={{ textTransform: 'uppercase', fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)', color: '#94a3b8', letterSpacing: '1px', marginBottom: 'clamp(0.75rem, 1.5vw, 1rem)' }}>Production vs Takt</h3>
+                    <div className="card" style={{ background: 'var(--bg-panel)', padding: 'clamp(1rem, 2vw, 1.5rem)', border: '1px solid var(--border-color)', borderRadius: '12px' }}>
+                        <h3 style={{ textTransform: 'uppercase', fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)', color: 'var(--text-muted)', letterSpacing: '1px', marginBottom: 'clamp(0.75rem, 1.5vw, 1rem)' }}>Production vs Takt</h3>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <span style={{ color: '#cbd5e1', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)' }}>Takt Time:</span>
-                                <span style={{ fontWeight: 'bold', color: '#38bdf8', fontSize: 'clamp(1rem, 1.5vw, 1.1rem)' }}>{taktTime.toFixed(1)}s</span>
+                                <span style={{ color: 'var(--text-main)', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)' }}>Takt Time:</span>
+                                <span style={{ fontWeight: 'bold', color: 'var(--zone-yellow)', fontSize: 'clamp(1rem, 1.5vw, 1.1rem)' }}>{taktTime.toFixed(1)}s</span>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <span style={{ color: '#cbd5e1', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)' }}>Bottleneck Station:</span>
+                                <span style={{ color: 'var(--text-main)', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)' }}>Bottleneck Station:</span>
                                 <span style={{ fontWeight: 'bold', color: '#f87171', fontSize: 'clamp(1rem, 1.5vw, 1.1rem)' }}>{bottleneckStation}</span>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <span style={{ color: '#cbd5e1', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)' }}>Max Cycle Time:</span>
+                                <span style={{ color: 'var(--text-main)', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)' }}>Max Cycle Time:</span>
                                 <span style={{ fontWeight: 'bold', color: '#f87171', fontSize: 'clamp(1rem, 1.5vw, 1.1rem)' }}>{bottleneckTime.toFixed(1)}s</span>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '0.5rem' }}>
-                                <span style={{ color: '#cbd5e1', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)' }}>Line Capacity:</span>
+                                <span style={{ color: 'var(--text-main)', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)' }}>Line Capacity:</span>
                                 <span style={{ fontWeight: 'bold', color: '#4ade80', fontSize: 'clamp(1rem, 1.5vw, 1.1rem)' }}>{Math.floor(lineCapacityUPH)} UPH</span>
                             </div>
                         </div>
                     </div>
 
                     {/* Section 2: Labor & Work Content Metrics */}
-                    <div className="card" style={{ background: 'rgba(15, 23, 42, 0.7)', padding: 'clamp(1rem, 2vw, 1.5rem)', border: '1px solid rgba(148, 163, 184, 0.2)', borderRadius: '12px' }}>
-                        <h3 style={{ textTransform: 'uppercase', fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)', color: '#94a3b8', letterSpacing: '1px', marginBottom: 'clamp(0.75rem, 1.5vw, 1rem)' }}>Line Design & Labor</h3>
+                    <div className="card" style={{ background: 'var(--bg-panel)', padding: 'clamp(1rem, 2vw, 1.5rem)', border: '1px solid var(--border-color)', borderRadius: '12px' }}>
+                        <h3 style={{ textTransform: 'uppercase', fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)', color: 'var(--text-muted)', letterSpacing: '1px', marginBottom: 'clamp(0.75rem, 1.5vw, 1rem)' }}>Line Design & Labor</h3>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <span style={{ color: '#cbd5e1', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)' }}>Total Labor Content:</span>
+                                <span style={{ color: 'var(--text-main)', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)' }}>Total Labor Content:</span>
                                 <span style={{ fontWeight: 'bold' }}>{totalLaborContent.toFixed(1)}s</span>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <span style={{ color: '#cbd5e1', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)' }}>Total Operators:</span>
+                                <span style={{ color: 'var(--text-main)', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)' }}>Total Operators:</span>
                                 <span style={{ fontWeight: 'bold' }}>{totalOperators}</span>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <span style={{ color: '#cbd5e1', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)' }}>Min Operators:</span>
+                                <span style={{ color: 'var(--text-main)', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)' }}>Min Operators:</span>
                                 <span style={{ fontWeight: 'bold', color: '#fcd34d' }}>{minTheoreticalOperators.toFixed(2)}</span>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <span style={{ color: '#cbd5e1', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)' }}>Balance Eff:</span>
+                                <span style={{ color: 'var(--text-main)', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)' }}>Balance Eff:</span>
                                 <span style={{ fontWeight: 'bold', color: balanceEfficiency >= 85 ? '#4ade80' : '#ffffff' }}>{balanceEfficiency.toFixed(1)}%</span>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '0.5rem' }}>
-                                <span style={{ color: '#cbd5e1', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)' }}>UPM:</span>
+                                <span style={{ color: 'var(--text-main)', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)' }}>UPM:</span>
                                 <span style={{ fontWeight: 'bold' }}>{upm.toFixed(2)}</span>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <span style={{ color: '#cbd5e1', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)' }}>Labor / Unit:</span>
-                                <span style={{ fontWeight: 'bold', color: '#cbd5e1' }}>${laborCostPerUnit.toFixed(2)}</span>
+                                <span style={{ color: 'var(--text-main)', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)' }}>Labor / Unit:</span>
+                                <span style={{ fontWeight: 'bold', color: 'var(--text-main)' }}>${laborCostPerUnit.toFixed(2)}</span>
                             </div>
                         </div>
                     </div>
-                    <div className="card" style={{ background: 'rgba(15, 23, 42, 0.7)', padding: 'clamp(1rem, 2vw, 1.5rem)', border: '1px solid rgba(148, 163, 184, 0.2)', borderRadius: '12px' }}>
-                        <h3 style={{ textTransform: 'uppercase', fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)', color: '#94a3b8', letterSpacing: '1px', marginBottom: 'clamp(0.75rem, 1.5vw, 1rem)' }}>Analysis & Next Steps</h3>
-                        <div style={{ fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)', lineHeight: '1.5', color: '#cbd5e1' }}>
+                    <div className="card" style={{ background: 'var(--bg-panel)', padding: 'clamp(1rem, 2vw, 1.5rem)', border: '1px solid var(--border-color)', borderRadius: '12px' }}>
+                        <h3 style={{ textTransform: 'uppercase', fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)', color: 'var(--text-muted)', letterSpacing: '1px', marginBottom: 'clamp(0.75rem, 1.5vw, 1rem)' }}>Analysis & Next Steps</h3>
+                        <div style={{ fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)', lineHeight: '1.5', color: 'var(--text-main)' }}>
                             {bottleneckTime > taktTime ? (
                                 <div>
                                     <strong style={{ color: '#ef4444', display: 'block', marginBottom: '0.5rem' }}>🚨 Demand Not Met</strong>
                                     The bottleneck is <strong>{bottleneckStation}</strong> ({bottleneckTime.toFixed(1)}s). 
                                     It needs to be reduced by at least <strong>{(bottleneckTime - taktTime).toFixed(1)}s</strong> to meet Takt ({taktTime.toFixed(1)}s).
-                                    <ul style={{ paddingLeft: '1rem', marginTop: '0.5rem', color: '#94a3b8' }}>
+                                    <ul style={{ paddingLeft: '1rem', marginTop: '0.5rem', color: 'var(--text-muted)' }}>
                                         <li>Observe {bottleneckStation} for motion waste.</li>
                                         <li>Can tasks be shifted to a faster station?</li>
                                     </ul>
@@ -383,7 +383,7 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
                                 <div>
                                     <strong style={{ color: '#22c55e', display: 'block', marginBottom: '0.5rem' }}>✅ Demand Met</strong>
                                     Line capacity ({Math.floor(lineCapacityUPH)} UPH) exceeds target ({targetUPH} UPH).
-                                    <ul style={{ paddingLeft: '1rem', marginTop: '0.5rem', color: '#94a3b8' }}>
+                                    <ul style={{ paddingLeft: '1rem', marginTop: '0.5rem', color: 'var(--text-muted)' }}>
                                         <li>Focus on standardizing the work to reduce cycle time variation.</li>
                                         <li>Look for 2-second improvements to make the work easier.</li>
                                     </ul>
@@ -399,11 +399,11 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
                 <div style={{ flex: '3 1 min(100%, 600px)', display: 'flex', flexDirection: 'column', gap: 'clamp(1rem, 2vw, 1.5rem)' }}>
                     
                     {/* Yamazumi Chart */}
-                    <div className="card" style={{ background: 'rgba(15, 23, 42, 0.7)', padding: 'clamp(1rem, 2vw, 2rem)', border: '1px solid rgba(148, 163, 184, 0.2)', position: 'relative', height: 'clamp(300px, 40vh, 450px)', borderRadius: '12px', display: 'flex', alignItems: 'flex-end', gap: '1rem', overflowX: 'auto', overflowY: 'hidden' }}>
+                    <div className="card" style={{ background: 'var(--bg-panel)', padding: 'clamp(1rem, 2vw, 2rem)', border: '1px solid var(--border-color)', position: 'relative', height: 'clamp(300px, 40vh, 450px)', borderRadius: '12px', display: 'flex', alignItems: 'flex-end', gap: '1rem', overflowX: 'auto', overflowY: 'hidden' }}>
                         
                         {/* Takt Time Line */}
-                        <div style={{ position: 'absolute', bottom: `calc(${(taktTime / maxChartValue) * 100}% + 2rem)`, left: '2rem', right: '2rem', height: '2px', background: '#38bdf8', zIndex: 10 }}>
-                            <span style={{ position: 'absolute', right: 0, top: '-20px', color: '#38bdf8', fontSize: '0.8rem', fontWeight: 'bold' }}>Takt: {taktTime.toFixed(1)}s</span>
+                        <div style={{ position: 'absolute', bottom: `calc(${(taktTime / maxChartValue) * 100}% + 2rem)`, left: '2rem', right: '2rem', height: '2px', background: 'var(--zone-yellow)', zIndex: 10 }}>
+                            <span style={{ position: 'absolute', right: 0, top: '-20px', color: 'var(--zone-yellow)', fontSize: '0.8rem', fontWeight: 'bold' }}>Takt: {taktTime.toFixed(1)}s</span>
                         </div>
 
                         {stations.map((station) => {
@@ -419,7 +419,7 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
                                     
                                     {/* Measured Cycle Time Bar */}
                                     <div style={{ position: 'relative', width: '80%', height: `${heightPct}%`, display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
-                                        <div style={{ position: 'absolute', top: '-25px', color: '#cbd5e1', fontSize: '0.85rem', fontWeight: 'bold' }}>{cycleTime.toFixed(1)}s</div>
+                                        <div style={{ position: 'absolute', top: '-25px', color: 'var(--text-main)', fontSize: '0.85rem', fontWeight: 'bold' }}>{cycleTime.toFixed(1)}s</div>
                                         <div style={{ 
                                             position: 'absolute',
                                             bottom: 0,
@@ -445,7 +445,7 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
                                             pointerEvents: 'none'
                                         }}></div>
                                     </div>
-                                    <div style={{ marginTop: '0.5rem', fontSize: '0.75rem', color: '#94a3b8', textAlign: 'center', wordBreak: 'break-word', height: '2rem' }}>
+                                    <div style={{ marginTop: '0.5rem', fontSize: '0.75rem', color: 'var(--text-muted)', textAlign: 'center', wordBreak: 'break-word', height: '2rem' }}>
                                         {station.stationName}
                                     </div>
                                 </div>
@@ -454,10 +454,10 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
                     </div>
 
                     {/* Editor List */}
-                    <div className="card" style={{ background: 'rgba(15, 23, 42, 0.7)', padding: 'clamp(1rem, 2vw, 1.5rem)', border: '1px solid rgba(148, 163, 184, 0.2)', borderRadius: '12px' }}>
+                    <div className="card" style={{ background: 'var(--bg-panel)', padding: 'clamp(1rem, 2vw, 1.5rem)', border: '1px solid var(--border-color)', borderRadius: '12px' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
-                            <h3 style={{ textTransform: 'uppercase', fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)', color: '#94a3b8', letterSpacing: '1px', margin: 0 }}>Station Data</h3>
-                            <button onClick={addStation} style={{ background: '#3b82f6', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 'bold' }}>+ Add Station</button>
+                            <h3 style={{ textTransform: 'uppercase', fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)', color: 'var(--text-muted)', letterSpacing: '1px', margin: 0 }}>Station Data</h3>
+                            <button onClick={addStation} style={{ background: 'var(--zone-yellow)', color: '#000', border: 'none', padding: '0.5rem 1rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 'bold' }}>+ Add Station</button>
                         </div>
                         
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -478,9 +478,9 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
                                             style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', padding: '0.5rem', width: '100%', borderRadius: '4px', fontSize: 'clamp(0.9rem, 1.5vw, 1rem)', fontWeight: 'bold' }}
                                         />
                                         <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem', fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)' }}>
-                                            <div style={{ color: '#cbd5e1' }}>Cycle <strong style={{color: 'white', display: 'block', fontSize: 'clamp(1rem, 1.5vw, 1.1rem)'}}>{cycleTime.toFixed(1)}s</strong></div>
-                                            <div style={{ color: '#94a3b8' }}>Work <strong style={{color: '#cbd5e1', display: 'block', fontSize: 'clamp(1rem, 1.5vw, 1.1rem)'}}>{workContent.toFixed(1)}s</strong></div>
-                                            <div style={{ color: '#94a3b8' }}>Var <strong style={{color: statusColor, display: 'block', fontSize: 'clamp(1rem, 1.5vw, 1.1rem)'}}>{variance > 0 ? '+' : ''}{variance.toFixed(1)}s</strong></div>
+                                            <div style={{ color: 'var(--text-main)' }}>Cycle <strong style={{color: 'white', display: 'block', fontSize: 'clamp(1rem, 1.5vw, 1.1rem)'}}>{cycleTime.toFixed(1)}s</strong></div>
+                                            <div style={{ color: 'var(--text-muted)' }}>Work <strong style={{color: 'var(--text-main)', display: 'block', fontSize: 'clamp(1rem, 1.5vw, 1.1rem)'}}>{workContent.toFixed(1)}s</strong></div>
+                                            <div style={{ color: 'var(--text-muted)' }}>Var <strong style={{color: statusColor, display: 'block', fontSize: 'clamp(1rem, 1.5vw, 1.1rem)'}}>{variance > 0 ? '+' : ''}{variance.toFixed(1)}s</strong></div>
                                         </div>
                                         <div style={{ color: statusColor, fontSize: '0.75rem', fontWeight: 'bold', marginTop: '0.25rem', letterSpacing: '1px' }}>
                                             {variance > 0 ? 'OVER TAKT' : Math.abs(variance) < 2 ? 'NEAR TAKT' : 'UNDER TAKT'}
@@ -491,7 +491,7 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
                                         
                                         {/* Work Elements Area */}
                                         <div style={{ background: 'rgba(0,0,0,0.2)', padding: '0.75rem', borderRadius: '4px' }}>
-                                            <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: '#94a3b8', marginBottom: '0.5rem' }}>Design Work Elements</div>
+                                            <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>Design Work Elements</div>
                                             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.5rem' }}>
                                                 {station.workContent.map((t, i) => (
                                                     <span key={`wc-${i}`} style={{ background: 'rgba(248, 113, 113, 0.1)', color: '#fca5a5', padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.85rem', border: '1px solid rgba(248, 113, 113, 0.3)' }}>{t}s</span>
@@ -502,7 +502,7 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
                                                     type="number" 
                                                     placeholder="Step Time"
                                                     id={`wc-input-${station.id}`}
-                                                    style={{ width: '100px', background: 'rgba(0,0,0,0.5)', border: '1px solid #475569', color: 'white', borderRadius: '4px', padding: '0.4rem', fontSize: '0.9rem' }}
+                                                    style={{ width: '100px', background: 'rgba(0,0,0,0.5)', border: '1px solid var(--border-color)', color: 'white', borderRadius: '4px', padding: '0.4rem', fontSize: '0.9rem' }}
                                                     onKeyDown={(e) => {
                                                         if (e.key === 'Enter') {
                                                             const val = Number(e.currentTarget.value);
@@ -520,14 +520,14 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
                                         {/* Observed Cycle Times Area */}
                                         <div style={{ background: 'rgba(0,0,0,0.2)', padding: '0.75rem', borderRadius: '8px' }}>
                                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                                                <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: '#94a3b8' }}>Observed Cycle Times</div>
-                                                <button onClick={() => importFromTimeStudy(station.id)} style={{ background: 'transparent', border: '1px solid #38bdf8', color: '#38bdf8', padding: '0.2rem 0.5rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.7rem' }}>
+                                                <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Observed Cycle Times</div>
+                                                <button onClick={() => importFromTimeStudy(station.id)} style={{ background: 'transparent', border: '1px solid var(--zone-yellow)', color: 'var(--zone-yellow)', padding: '0.2rem 0.5rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.7rem' }}>
                                                     Import Time Study
                                                 </button>
                                             </div>
                                             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.5rem' }}>
                                                 {station.recordedTimes.map((t, i) => (
-                                                    <span key={`rt-${i}`} style={{ background: 'rgba(56, 189, 248, 0.1)', color: '#38bdf8', padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.85rem', border: '1px solid rgba(56, 189, 248, 0.3)' }}>{t}s</span>
+                                                    <span key={`rt-${i}`} style={{ background: 'rgba(255, 194, 14, 0.1)', color: 'var(--zone-yellow)', padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.85rem', border: '1px solid rgba(255, 194, 14, 0.3)' }}>{t}s</span>
                                                 ))}
                                             </div>
                                             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
@@ -535,7 +535,7 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
                                                     type="number" 
                                                     placeholder="Sample Time"
                                                     id={`time-input-${station.id}`}
-                                                    style={{ width: '120px', background: 'rgba(0,0,0,0.5)', border: '1px solid #475569', color: 'white', borderRadius: '4px', padding: '0.4rem', fontSize: '0.9rem' }}
+                                                    style={{ width: '120px', background: 'rgba(0,0,0,0.5)', border: '1px solid var(--border-color)', color: 'white', borderRadius: '4px', padding: '0.4rem', fontSize: '0.9rem' }}
                                                     onKeyDown={(e) => {
                                                         if (e.key === 'Enter') {
                                                             const val = Number(e.currentTarget.value);
@@ -546,7 +546,7 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
                                                 <button onClick={() => {
                                                     const input = document.getElementById(`time-input-${station.id}`) as HTMLInputElement;
                                                     if (input && Number(input.value) > 0) { addCycleTimeSample(station.id, Number(input.value)); input.value = ''; }
-                                                }} style={{ background: 'rgba(56, 189, 248, 0.2)', color: '#38bdf8', border: '1px solid #38bdf8', padding: '0.4rem 0.8rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem' }}>+ Sample</button>
+                                                }} style={{ background: 'rgba(255, 194, 14, 0.2)', color: 'var(--zone-yellow)', border: '1px solid var(--zone-yellow)', padding: '0.4rem 0.8rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem' }}>+ Sample</button>
                                             </div>
                                             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.5rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '0.5rem' }}>
                                                 <button onClick={() => { setActivePacerId(station.id); setPacerElapsed(0); setPacerRunning(false); }} style={{ background: 'var(--accent-primary)', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', width: '100%', justifyContent: 'center' }}>

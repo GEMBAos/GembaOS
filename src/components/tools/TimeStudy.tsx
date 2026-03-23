@@ -8,6 +8,7 @@ interface TimeStudyProps {
     project?: KaizenProject;
     onUpdateProject?: (p: KaizenProject) => void;
     onClose?: () => void;
+    onNavigate?: (tool: string) => void;
 }
 
 interface LapData {
@@ -16,7 +17,7 @@ interface LapData {
     timeMs: number;
 }
 
-export default function TimeStudy({ project, onUpdateProject, onClose }: TimeStudyProps) {
+export default function TimeStudy({ project, onUpdateProject, onClose, onNavigate }: TimeStudyProps) {
     // Stopwatch State
     const [isRunning, setIsRunning] = useState(false);
     const [elapsedTime, setElapsedTime] = useState(0);
@@ -138,14 +139,14 @@ export default function TimeStudy({ project, onUpdateProject, onClose }: TimeStu
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(250px, 30vw, 300px), 1fr))', gap: 'clamp(1rem, 2vw, 2rem)' }}>
 
                     {/* Takt Time Calculator */}
-                    <div className="card" style={{ padding: 'clamp(1rem, 3vw, 2rem)', border: '1px solid rgba(148, 163, 184, 0.2)', background: 'rgba(15, 23, 42, 0.7)', borderRadius: '12px' }}>
-                        <h3 style={{ marginTop: 0, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#94a3b8', fontSize: 'clamp(0.85rem, 1.5vw, 1rem)', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                            <span style={{ color: '#38bdf8' }}>📊</span> Target Settings
+                    <div className="card" style={{ padding: 'clamp(1rem, 3vw, 2rem)', border: '1px solid var(--border-color)', background: 'var(--bg-panel)', borderRadius: '12px' }}>
+                        <h3 style={{ marginTop: 0, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-muted)', fontSize: 'clamp(0.85rem, 1.5vw, 1rem)', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                            <span style={{ color: 'var(--zone-yellow)' }}>📊</span> Target Settings
                         </h3>
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1.5rem' }}>
                             <div>
-                                <label className="input-label" style={{ fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)', color: '#cbd5e1' }}>Available Production Time (Hours)</label>
+                                <label className="input-label" style={{ fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)', color: 'var(--text-main)' }}>Available Production Time (Hours)</label>
                                 <input
                                     type="number"
                                     className="input-field"
@@ -157,11 +158,11 @@ export default function TimeStudy({ project, onUpdateProject, onClose }: TimeStu
                                     onBlur={() => saveTimeStudyData(laps, availableHours, demand)}
                                     min="0.1"
                                     step="0.5"
-                                    style={{ background: 'rgba(0,0,0,0.5)', border: '1px solid #475569', color: 'white' }}
+                                    style={{ background: 'var(--bg-dark)', border: '1px solid var(--border-color)', color: 'var(--text-main)' }}
                                 />
                             </div>
                             <div>
-                                <label className="input-label" style={{ fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)', color: '#cbd5e1' }}>Customer Demand (Units per shift)</label>
+                                <label className="input-label" style={{ fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)', color: 'var(--text-main)' }}>Customer Demand (Units per shift)</label>
                                 <input
                                     type="number"
                                     className="input-field"
@@ -172,41 +173,41 @@ export default function TimeStudy({ project, onUpdateProject, onClose }: TimeStu
                                     }}
                                     onBlur={() => saveTimeStudyData(laps, availableHours, demand)}
                                     min="1"
-                                    style={{ background: 'rgba(0,0,0,0.5)', border: '1px solid #475569', color: 'white' }}
+                                    style={{ background: 'var(--bg-dark)', border: '1px solid var(--border-color)', color: 'var(--text-main)' }}
                                 />
                             </div>
                         </div>
 
                         <div style={{
-                            background: 'rgba(0,0,0,0.2)',
+                            background: 'var(--bg-dark)',
                             padding: 'clamp(1rem, 2vw, 1.5rem)',
                             borderRadius: '0.5rem',
                             textAlign: 'center',
-                            border: '1px dashed #38bdf8'
+                            border: '1px dashed var(--zone-yellow)'
                         }}>
-                            <div style={{ fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Calculated Takt Time</div>
-                            <div style={{ fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight: 900, color: 'white', display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: '0.5rem' }}>
-                                {taktTimeSeconds.toFixed(1)} <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)', color: '#94a3b8', fontWeight: 'normal' }}>sec / unit</span>
+                            <div style={{ fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Calculated Takt Time</div>
+                            <div style={{ fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight: 900, color: 'var(--text-main)', display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: '0.5rem' }}>
+                                {taktTimeSeconds.toFixed(1)} <span style={{ fontSize: 'clamp(0.8rem, 1.5vw, 1rem)', color: 'var(--text-muted)', fontWeight: 'normal' }}>sec / unit</span>
                             </div>
-                            <p style={{ margin: '0.5rem 0 0 0', fontSize: 'clamp(0.75rem, 1.5vw, 0.8rem)', color: '#94a3b8' }}>Produce one unit every {taktTimeSeconds.toFixed(1)} seconds to meet demand.</p>
+                            <p style={{ margin: '0.5rem 0 0 0', fontSize: 'clamp(0.75rem, 1.5vw, 0.8rem)', color: 'var(--text-muted)' }}>Produce one unit every {taktTimeSeconds.toFixed(1)} seconds to meet demand.</p>
                         </div>
                     </div>
 
                     {/* Digital Stopwatch */}
-                    <div className="card" style={{ padding: 'clamp(1rem, 3vw, 2rem)', border: '1px solid rgba(148, 163, 184, 0.2)', background: 'rgba(15, 23, 42, 0.7)', borderRadius: '12px', display: 'flex', flexDirection: 'column' }}>
-                        <h3 style={{ marginTop: 0, marginBottom: '1.5rem', color: '#94a3b8', fontSize: 'clamp(0.85rem, 1.5vw, 1rem)', textTransform: 'uppercase', letterSpacing: '1px' }}>Live Observation</h3>
+                    <div className="card" style={{ padding: 'clamp(1rem, 3vw, 2rem)', border: '1px solid var(--border-color)', background: 'var(--bg-panel)', borderRadius: '12px', display: 'flex', flexDirection: 'column' }}>
+                        <h3 style={{ marginTop: 0, marginBottom: '1.5rem', color: 'var(--text-muted)', fontSize: 'clamp(0.85rem, 1.5vw, 1rem)', textTransform: 'uppercase', letterSpacing: '1px' }}>Live Observation</h3>
 
                         <div style={{
-                            background: 'rgba(0,0,0,0.4)',
+                            background: 'var(--bg-dark)',
                             borderRadius: '1rem',
                             padding: 'clamp(1rem, 3vw, 2rem)',
                             textAlign: 'center',
                             marginBottom: 'clamp(1rem, 2vw, 1.5rem)',
-                            border: `2px solid ${isRunning ? '#ef4444' : 'rgba(148, 163, 184, 0.2)'}`,
+                            border: `2px solid ${isRunning ? '#ef4444' : 'var(--border-color)'}`,
                             boxShadow: isRunning ? '0 0 20px rgba(239, 68, 68, 0.2)' : 'none',
                             transition: 'all 0.3s'
                         }}>
-                            <div style={{ fontFamily: '"Orbitron", monospace', fontSize: 'clamp(2.5rem, 6vw, 4rem)', fontWeight: 'bold', color: 'white', letterSpacing: '2px', textShadow: isRunning ? '0 0 10px rgba(239,68,68,0.5)' : 'none' }}>
+                            <div style={{ fontFamily: '"Orbitron", monospace', fontSize: 'clamp(2.5rem, 6vw, 4rem)', fontWeight: 'bold', color: 'var(--zone-yellow)', letterSpacing: '2px', textShadow: isRunning ? '0 0 10px rgba(239,68,68,0.5)' : 'none' }}>
                                 {formatTime(elapsedTime)}
                             </div>
                         </div>
@@ -245,27 +246,27 @@ export default function TimeStudy({ project, onUpdateProject, onClose }: TimeStu
                                 placeholder="Note for next cycle (e.g., 'Operator A')"
                                 value={currentLapDesc}
                                 onChange={e => setCurrentLapDesc(e.target.value)}
-                                style={{ flex: 1, minWidth: '150px', background: 'rgba(0,0,0,0.5)', border: '1px solid #475569', color: 'white', padding: '0.5rem' }}
+                                style={{ flex: 1, minWidth: '150px', background: 'var(--bg-dark)', border: '1px solid var(--border-color)', color: 'var(--text-main)', padding: '0.5rem' }}
                             />
-                            <button className="btn" style={{ background: 'transparent', border: '1px solid #475569', minWidth: '100px', fontSize: '0.85rem' }} onClick={handleReset}>Reset All</button>
+                            <button className="btn" style={{ background: 'transparent', border: '1px solid var(--border-color)', minWidth: '100px', fontSize: '0.85rem' }} onClick={handleReset}>Reset All</button>
                         </div>
                     </div>
                 </div>
 
                 {/* Analysis Results */}
                 {laps.length > 0 && (
-                    <div className="card" style={{ padding: 'clamp(1rem, 3vw, 2rem)', border: isBottleneck ? '1px solid rgba(239, 68, 68, 0.5)' : '1px solid rgba(16, 185, 129, 0.5)', background: 'rgba(15, 23, 42, 0.7)', borderRadius: '12px' }}>
+                    <div className="card" style={{ padding: 'clamp(1rem, 3vw, 2rem)', border: isBottleneck ? '1px solid rgba(239, 68, 68, 0.5)' : '1px solid rgba(16, 185, 129, 0.5)', background: 'var(--bg-panel)', borderRadius: '12px' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
-                            <h3 style={{ margin: 0, color: '#94a3b8', fontSize: 'clamp(0.85rem, 1.5vw, 1rem)', textTransform: 'uppercase', letterSpacing: '1px' }}>Observation Log ({laps.length} cycles)</h3>
+                            <h3 style={{ margin: 0, color: 'var(--text-muted)', fontSize: 'clamp(0.85rem, 1.5vw, 1rem)', textTransform: 'uppercase', letterSpacing: '1px' }}>Observation Log ({laps.length} cycles)</h3>
 
                             <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(1rem, 3vw, 1.5rem)' }}>
                                 <div style={{ textAlign: 'right' }}>
-                                    <div style={{ fontSize: 'clamp(0.65rem, 1.5vw, 0.75rem)', color: '#94a3b8', textTransform: 'uppercase' }}>Avg Cycle Time</div>
-                                    <div style={{ fontSize: 'clamp(1.1rem, 2.5vw, 1.5rem)', fontWeight: 'bold', color: 'white' }}>{averageCycleTimeSeconds.toFixed(1)}s</div>
+                                    <div style={{ fontSize: 'clamp(0.65rem, 1.5vw, 0.75rem)', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Avg Cycle Time</div>
+                                    <div style={{ fontSize: 'clamp(1.1rem, 2.5vw, 1.5rem)', fontWeight: 'bold', color: 'var(--text-main)' }}>{averageCycleTimeSeconds.toFixed(1)}s</div>
                                 </div>
-                                <div style={{ width: '1px', height: '30px', background: 'rgba(255,255,255,0.1)' }}></div>
+                                <div style={{ width: '1px', height: '30px', background: 'var(--border-color)' }}></div>
                                 <div style={{ textAlign: 'left' }}>
-                                    <div style={{ fontSize: 'clamp(0.65rem, 1.5vw, 0.75rem)', color: '#94a3b8', textTransform: 'uppercase' }}>Status</div>
+                                    <div style={{ fontSize: 'clamp(0.65rem, 1.5vw, 0.75rem)', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Status</div>
                                     <div style={{ fontSize: 'clamp(0.9rem, 2vw, 1.1rem)', fontWeight: 'bold', color: isBottleneck ? '#ef4444' : '#10b981' }}>
                                         {isBottleneck ? '⚠️ Bottleneck Detected' : '✅ Meeting Takt Time'}
                                     </div>
@@ -275,14 +276,30 @@ export default function TimeStudy({ project, onUpdateProject, onClose }: TimeStu
 
                         {isBottleneck && (
                             <div style={{ background: 'rgba(239, 68, 68, 0.1)', padding: 'clamp(0.75rem, 2vw, 1rem)', borderRadius: '0.5rem', borderLeft: '4px solid #ef4444', marginBottom: '1.5rem', fontSize: 'clamp(0.85rem, 1.5vw, 0.9rem)', color: '#fca5a5' }}>
-                                <strong>Warning:</strong> The current process takes {(averageCycleTimeSeconds - taktTimeSeconds).toFixed(1)} seconds longer than the required Takt Time. You will not meet customer demand unless this cycle time is reduced.
+                                <div style={{ marginBottom: '1rem' }}>
+                                    <strong>Warning:</strong> The current process takes {(averageCycleTimeSeconds - taktTimeSeconds).toFixed(1)} seconds longer than the required Takt Time. You will not meet customer demand unless this cycle time is reduced.
+                                </div>
+                                <div style={{ background: 'var(--bg-dark)', border: '1px dashed var(--zone-yellow)', padding: '1rem', borderRadius: '4px', textAlign: 'center' }}>
+                                    <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>🏃‍♂️</div>
+                                    <h4 style={{ color: 'var(--zone-yellow)', margin: '0 0 0.5rem 0' }}>Detect Motion Waste</h4>
+                                    <p style={{ margin: '0 0 1rem 0', color: 'var(--text-main)', fontSize: '0.85rem' }}>Excessive cycle time is often caused by physical layout inefficiencies. Trace the operator's path to identify transportation and motion waste.</p>
+                                    <button
+                                        onClick={() => {
+                                            if (onClose) onClose();
+                                            if (onNavigate) setTimeout(() => onNavigate('motion-v2'), 100);
+                                        }}
+                                        style={{ padding: '0.75rem 1.5rem', background: 'var(--zone-yellow)', color: '#0f172a', border: 'none', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer', fontSize: '0.9rem', width: '100%', maxWidth: '300px' }}
+                                    >
+                                        START MOTION MAPPING FLOW
+                                    </button>
+                                </div>
                             </div>
                         )}
 
                         <div style={{ overflowX: 'auto' }}>
                             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '500px' }}>
                                 <thead>
-                                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', color: '#94a3b8', fontSize: '0.85rem' }}>
+                                    <tr style={{ borderBottom: '1px solid var(--border-color)', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
                                         <th style={{ padding: '0.75rem 0' }}>#</th>
                                         <th style={{ padding: '0.75rem 0' }}>Description</th>
                                         <th style={{ padding: '0.75rem 0', textAlign: 'right' }}>Cycle Time</th>
@@ -294,10 +311,10 @@ export default function TimeStudy({ project, onUpdateProject, onClose }: TimeStu
                                         const lapSec = lap.timeMs / 1000;
                                         const diff = lapSec - taktTimeSeconds;
                                         return (
-                                            <tr key={lap.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                                                <td style={{ padding: '1rem 0', color: '#94a3b8', fontSize: 'clamp(0.85rem, 1.5vw, 1rem)' }}>{index + 1}</td>
-                                                <td style={{ padding: '1rem 0', fontWeight: 'bold', fontSize: 'clamp(0.85rem, 1.5vw, 1rem)', color: 'white' }}>{lap.description}</td>
-                                                <td style={{ padding: '1rem 0', textAlign: 'right', fontFamily: '"Orbitron", monospace', fontSize: 'clamp(0.9rem, 2vw, 1.1rem)', color: 'white' }}>{formatTime(lap.timeMs)}</td>
+                                            <tr key={lap.id} style={{ borderBottom: '1px solid var(--border-color)' }}>
+                                                <td style={{ padding: '1rem 0', color: 'var(--text-muted)', fontSize: 'clamp(0.85rem, 1.5vw, 1rem)' }}>{index + 1}</td>
+                                                <td style={{ padding: '1rem 0', fontWeight: 'bold', fontSize: 'clamp(0.85rem, 1.5vw, 1rem)', color: 'var(--text-main)' }}>{lap.description}</td>
+                                                <td style={{ padding: '1rem 0', textAlign: 'right', fontFamily: '"Orbitron", monospace', fontSize: 'clamp(0.9rem, 2vw, 1.1rem)', color: 'var(--zone-yellow)' }}>{formatTime(lap.timeMs)}</td>
                                                 <td style={{ padding: '1rem 0', textAlign: 'right', color: diff > 0 ? '#fca5a5' : '#4ade80', fontWeight: 'bold', fontSize: 'clamp(0.85rem, 1.5vw, 1rem)' }}>
                                                     {diff > 0 ? '+' : ''}{diff.toFixed(1)}s
                                                 </td>
@@ -312,7 +329,7 @@ export default function TimeStudy({ project, onUpdateProject, onClose }: TimeStu
                             <button 
                                 onClick={handleExportSession}
                                 style={{ 
-                                    background: '#38bdf8', 
+                                    background: 'var(--zone-yellow)', 
                                     color: '#0f172a', 
                                     border: 'none', 
                                     padding: '1rem 2rem', 
@@ -320,7 +337,7 @@ export default function TimeStudy({ project, onUpdateProject, onClose }: TimeStu
                                     fontWeight: 'bold', 
                                     fontSize: '1rem', 
                                     cursor: 'pointer',
-                                    boxShadow: '0 4px 15px rgba(56, 189, 248, 0.3)'
+                                    boxShadow: '0 4px 15px rgba(255, 194, 14, 0.2)'
                                 }}
                             >
                                 💾 EXPORT TO YAMAZUMI BUILDER
