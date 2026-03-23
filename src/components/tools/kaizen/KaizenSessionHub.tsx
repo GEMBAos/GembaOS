@@ -9,6 +9,7 @@ interface KaizenSessionHubProps {
 
 export default function KaizenSessionHub({ onNavigate }: KaizenSessionHubProps) {
     const [session, setSession] = useState<MotionSessionV2 | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
     const [copySuccess, setCopySuccess] = useState(false);
     
     useEffect(() => {
@@ -16,12 +17,25 @@ export default function KaizenSessionHub({ onNavigate }: KaizenSessionHubProps) 
             const searchParams = new URLSearchParams(window.location.search);
             const hashParams = new URLSearchParams(window.location.hash.split('?')[1] || "");
             const sid = searchParams.get('session') || hashParams.get('session');
+            let foundSession: MotionSessionV2 | undefined;
+            
             if (sid) {
                 const s = ImprovementEngine.getItem<MotionSessionV2>(sid);
                 if (s && s.type === 'MotionSessionV2') {
-                    setSession(s);
+                    foundSession = s;
+                }
+            } else {
+                // If no ID in URL, grab the most recently created session
+                const sessions = ImprovementEngine.getItemsByType<MotionSessionV2>('MotionSessionV2');
+                if (sessions.length > 0) {
+                    foundSession = sessions.sort((a,b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0];
                 }
             }
+            
+            if (foundSession) {
+                setSession(foundSession);
+            }
+            setIsLoading(false);
         };
         
         loadSession();
@@ -29,10 +43,26 @@ export default function KaizenSessionHub({ onNavigate }: KaizenSessionHubProps) 
         return () => window.removeEventListener('improvement_data_updated', loadSession);
     }, []);
 
-    if (!session) {
+    if (isLoading) {
         return (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', color: 'var(--text-muted)' }}>
                 LOADING SESSION CONTEXT...
+            </div>
+        );
+    }
+
+    if (!session) {
+        return (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', justifyContent: 'center', alignItems: 'center', height: '100%', color: 'var(--text-main)', background: 'var(--bg-dark)' }}>
+                <div style={{ fontSize: '3rem' }}>📁</div>
+                <h2 style={{ fontFamily: 'var(--font-headings)' }}>NO ACTIVE SESSION</h2>
+                <p style={{ color: 'var(--text-muted)' }}>Please initiate a session from the Motion Mapping dashboard.</p>
+                <button 
+                    onClick={() => { window.location.hash = '/motion-v2'; onNavigate('motion-v2'); }}
+                    className="btn-primary" 
+                    style={{ marginTop: '1rem', padding: '0.75rem 2rem' }}>
+                    Go to Motion Mapping
+                </button>
             </div>
         );
     }
