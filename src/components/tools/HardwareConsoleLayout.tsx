@@ -4,7 +4,9 @@
  * Moved to: legacy_ui
  */
 
-import React from 'react';
+import React, { useState } from 'react';
+import ToolGuideOverlay from './ToolGuideOverlay';
+import { TOOL_INSTRUCTIONS } from '../../data/toolInstructions';
 
 interface HardwareConsoleLayoutProps {
     toolId: string;
@@ -14,6 +16,20 @@ interface HardwareConsoleLayoutProps {
 }
 
 export default function HardwareConsoleLayout({ toolId, toolName, onClose, children }: HardwareConsoleLayoutProps) {
+    const instruction = TOOL_INSTRUCTIONS[toolName];
+    
+    // Auto-show the guide if this is the first time the user has opened this specific tool
+    const [showGuide, setShowGuide] = useState(() => {
+        if (!instruction) return false;
+        const hasSeen = localStorage.getItem(`gemba_seen_guide_${toolId}`);
+        return !hasSeen;
+    });
+
+    const handleAcknowledgeGuide = () => {
+        localStorage.setItem(`gemba_seen_guide_${toolId}`, 'true');
+        setShowGuide(false);
+    };
+
     return (
         <div className="gemba-floor" style={{
             display: 'flex',
@@ -27,7 +43,7 @@ export default function HardwareConsoleLayout({ toolId, toolName, onClose, child
                 background: 'var(--gemba-black)',
                 color: 'var(--lean-white)',
                 borderBottom: '2px solid #000',
-                padding: '1rem 2rem',
+                padding: 'clamp(0.5rem, 2vh, 1rem) clamp(1rem, 3vw, 2rem)',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
@@ -38,16 +54,39 @@ export default function HardwareConsoleLayout({ toolId, toolName, onClose, child
                     <div style={{ height: '24px', width: '24px', borderTop: '4px solid var(--zone-yellow)', borderLeft: '4px solid var(--zone-yellow)' }}></div>
                     <div>
                         <div style={{ fontSize: '0.65rem', color: 'var(--zone-yellow)', fontFamily: 'var(--font-headings)', letterSpacing: '2px', fontWeight: 800 }}>MODULE {toolId}</div>
-                        <h2 style={{ margin: 0, fontSize: '1.25rem', fontFamily: 'var(--font-headings)', textTransform: 'uppercase', letterSpacing: '1px' }}>{toolName}</h2>
+                        <h2 style={{ margin: 0, fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', fontFamily: 'var(--font-headings)', textTransform: 'uppercase', letterSpacing: '1px', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            {toolName}
+                            {instruction && (
+                                <button 
+                                    onClick={() => setShowGuide(true)}
+                                    title={`View Instructions for ${toolName}`}
+                                    style={{
+                                        background: 'rgba(255,194,14,0.1)',
+                                        border: '1px solid rgba(255,194,14,0.3)',
+                                        color: 'var(--zone-yellow)',
+                                        width: '24px', height: '24px',
+                                        borderRadius: '50%',
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        fontSize: '0.8rem', cursor: 'pointer',
+                                        transition: 'all 0.2s',
+                                        marginLeft: '0.5rem'
+                                    }}
+                                    onMouseOver={(e) => { e.currentTarget.style.background = 'var(--zone-yellow)'; e.currentTarget.style.color = '#000'; }}
+                                    onMouseOut={(e) => { e.currentTarget.style.background = 'rgba(255,194,14,0.1)'; e.currentTarget.style.color = 'var(--zone-yellow)'; }}
+                                >
+                                    ℹ
+                                </button>
+                            )}
+                        </h2>
                     </div>
                 </div>
 
                 <button 
                     onClick={onClose}
                     className="shadow-btn"
-                    style={{ padding: '0.5rem 1rem', borderColor: 'transparent', flexDirection: 'row', gap: '0.5rem', background: 'transparent' }}
+                    style={{ padding: '0.5rem clamp(0.5rem, 2vw, 1rem)', borderColor: 'transparent', flexDirection: 'row', gap: '0.5rem', background: 'transparent' }}
                 >
-                    <span style={{ color: 'var(--zone-yellow)', fontSize: '1.2rem' }}>⏏</span> EJECT 
+                    <span style={{ color: 'var(--zone-yellow)', fontSize: '1.2rem' }}>⏏</span> <span className="hide-on-mobile">EJECT</span> 
                 </button>
             </div>
 
@@ -65,6 +104,10 @@ export default function HardwareConsoleLayout({ toolId, toolName, onClose, child
                     {children}
                 </div>
             </div>
+
+            {showGuide && instruction && (
+                <ToolGuideOverlay instruction={instruction} onClose={handleAcknowledgeGuide} />
+            )}
         </div>
     );
 }

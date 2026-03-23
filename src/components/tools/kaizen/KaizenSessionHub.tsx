@@ -66,10 +66,10 @@ export default function KaizenSessionHub({ onNavigate }: KaizenSessionHubProps) 
                 </div>
             </div>
 
-            <div style={{ flex: 1, padding: '0', display: 'flex', gap: '3rem', maxWidth: '1400px', margin: '0 auto', width: '100%', overflow: 'hidden' }}>
+            <div style={{ flex: 1, padding: 'clamp(1rem, 2vw, 2rem)', display: 'flex', gap: 'clamp(1.5rem, 3vw, 3rem)', maxWidth: '1400px', margin: '0 auto', width: '100%', overflowY: 'auto', flexWrap: 'wrap' }}>
                 
                 {/* Left Column: Context & Invites */}
-                <div style={{ display: 'flex', flexDirection: 'column', width: '380px', gap: '2rem' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', flex: '1 1 min(100%, 380px)', gap: '2rem' }}>
                     
                     {/* QR Code Panel */}
                     <div className="glass-panel" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'var(--bg-panel)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
