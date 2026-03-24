@@ -129,41 +129,37 @@ export default function GoalGapMonitor({ onClose }: { onClose: () => void }) {
                         
                         {/* PRIMARY DASHBOARD CARD */}
                         <div className="card" style={{ 
-                            background: 'radial-gradient(circle at 50% 0%, #0a0b0e 0%, #050608 100%)', 
+                            background: 'linear-gradient(145deg, #ffffff, #f8f9fa)', 
                             padding: 'clamp(1rem, 3vw, 2rem)', 
-                            border: '2px solid rgba(255,255,255,0.02)', 
-                            borderTop: '2px solid rgba(0,0,0,0.8)',
-                            borderLeft: '2px solid rgba(0,0,0,0.5)',
-                            borderRight: '2px solid rgba(255,255,255,0.05)',
-                            borderBottom: '2px solid rgba(255,255,255,0.1)',
+                            border: '1px solid var(--border-color)', 
                             borderRadius: '12px', 
                             textAlign: 'center', 
-                            boxShadow: 'inset 0 10px 30px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.6)' 
+                            boxShadow: '0 4px 20px rgba(0,0,0,0.03)' 
                         }}>
                             <div style={{ fontSize: 'clamp(0.6rem, 1.5vw, 0.8rem)', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '4px', marginBottom: '2rem', fontFamily: "'Orbitron', sans-serif", fontWeight: 800 }}>
                                 Performance Telemetry
                             </div>
                             
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', padding: '0 clamp(0.5rem, 2vw, 2rem)' }}>
-                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'rgba(0,0,0,0.5)', padding: 'clamp(0.5rem, 1.5vw, 1rem) clamp(1rem, 3vw, 2rem)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.02)', boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.8)' }}>
-                                    <span style={{ fontSize: '0.75rem', color: 'var(--text-main)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '2px' }}>Target</span>
-                                    <span style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: '900', fontFamily: "'Orbitron', sans-serif", color: 'var(--text-muted)', textShadow: '0 0 10px rgba(255,255,255,0.1)' }}>{goal}</span>
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'var(--bg-panel)', padding: 'clamp(0.5rem, 1.5vw, 1rem) clamp(1rem, 3vw, 2rem)', borderRadius: '8px', border: '1px solid var(--border-color)', boxShadow: '0 2px 10px rgba(0,0,0,0.02)' }}>
+                                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '2px' }}>Target</span>
+                                    <span style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: '900', fontFamily: "'Orbitron', sans-serif", color: 'var(--gemba-black)' }}>{goal}</span>
                                 </div>
                                 
-                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'rgba(0,0,0,0.5)', padding: 'clamp(0.5rem, 1.5vw, 1rem) clamp(1rem, 3vw, 2rem)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.02)', boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.8)' }}>
-                                    <span style={{ fontSize: '0.75rem', color: 'var(--text-main)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '2px' }}>Actual</span>
-                                    <span style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: '900', fontFamily: "'Orbitron', sans-serif", color: 'var(--text-main)', textShadow: '0 0 20px rgba(255,255,255,0.4)' }}>{actual}</span>
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'var(--bg-panel)', padding: 'clamp(0.5rem, 1.5vw, 1rem) clamp(1rem, 3vw, 2rem)', borderRadius: '8px', border: '1px solid var(--border-color)', boxShadow: '0 2px 10px rgba(0,0,0,0.02)' }}>
+                                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '2px' }}>Actual</span>
+                                    <span style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: '900', fontFamily: "'Orbitron', sans-serif", color: 'var(--gemba-black)' }}>{actual}</span>
                                 </div>
                             </div>
 
                             {/* DIGITAL PERFORMANCE GAUGE */}
-                            <div style={{ marginBottom: 'clamp(1rem, 3vw, 2rem)', padding: '0 clamp(0.5rem, 1.5vw, 1rem)', background: 'rgba(0,0,0,0.3)', borderRadius: '12px', paddingBottom: 'clamp(1rem, 2vw, 1.5rem)', paddingTop: 'clamp(0.75rem, 1.5vw, 1rem)', border: '1px solid rgba(255,255,255,0.02)' }}>
+                            <div style={{ marginBottom: 'clamp(1rem, 3vw, 2rem)', padding: '0 clamp(0.5rem, 1.5vw, 1rem)', background: 'var(--bg-panel-hover)', borderRadius: '12px', paddingBottom: 'clamp(1rem, 2vw, 1.5rem)', paddingTop: 'clamp(0.75rem, 1.5vw, 1rem)', border: '1px solid var(--border-color)' }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem', color: 'var(--text-muted)', marginBottom: '0.75rem', fontFamily: "'Orbitron', sans-serif", textTransform: 'uppercase', fontWeight: 800 }}>
                                     <span>0%</span>
-                                    <span style={{ color: gapColor, fontWeight: '900', letterSpacing: '2px', textShadow: `0 0 10px ${gapColor}80` }}>{percentToGoal}% to Target</span>
+                                    <span style={{ color: gapColor, fontWeight: '900', letterSpacing: '2px' }}>{percentToGoal}% to Target</span>
                                     <span>100%</span>
                                 </div>
-                                <div style={{ width: '100%', height: '12px', background: 'rgba(0,0,0,0.8)', borderRadius: '6px', overflow: 'hidden', position: 'relative', border: '1px solid rgba(255,255,255,0.05)', boxShadow: 'inset 0 2px 5px rgba(0,0,0,0.9)' }}>
+                                <div style={{ width: '100%', height: '12px', background: 'var(--border-color)', borderRadius: '6px', overflow: 'hidden', position: 'relative', boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.05)' }}>
                                     <div style={{ 
                                         position: 'absolute', 
                                         left: 0, 
@@ -184,22 +180,20 @@ export default function GoalGapMonitor({ onClose }: { onClose: () => void }) {
 
                             {/* DIGITAL VFD VARIANCE OUTPUT */}
                             <div style={{ 
-                                background: '#050608', 
+                                background: '#ffffff', 
                                 border: `2px solid ${gapColor}40`, 
-                                borderTopColor: `${gapColor}20`,
-                                borderLeftColor: `${gapColor}20`,
                                 borderRadius: '8px', 
                                 padding: 'clamp(1.5rem, 3vw, 2rem)',
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
-                                boxShadow: `inset 0 5px 20px rgba(0,0,0,0.9), inset 0 0 40px ${gapColor}20`
+                                boxShadow: `0 4px 15px rgba(0,0,0,0.05)`
                             }}>
                                 <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '4px', fontWeight: '900', marginBottom: '0.5rem' }}>Calculated Variance</span>
-                                <span style={{ fontSize: 'clamp(3.5rem, 8vw, 5rem)', fontWeight: '900', color: gapColor, fontFamily: "'Orbitron', sans-serif", lineHeight: 1, filter: `drop-shadow(0 0 25px ${gapColor}90)`, letterSpacing: '-2px' }}>
+                                <span style={{ fontSize: 'clamp(3.5rem, 8vw, 5rem)', fontWeight: '900', color: gapColor, fontFamily: "'Orbitron', sans-serif", lineHeight: 1, letterSpacing: '-2px' }}>
                                     {formatGapText()}
                                 </span>
-                                <span style={{ fontSize: '0.85rem', color: gapColor, opacity: 0.7, marginTop: '0.5rem', letterSpacing: '2px', textTransform: 'uppercase' }}>{metricType}</span>
+                                <span style={{ fontSize: '0.85rem', color: gapColor, opacity: 0.9, marginTop: '0.5rem', letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 700 }}>{metricType}</span>
                             </div>
                         </div>
 
@@ -236,12 +230,12 @@ export default function GoalGapMonitor({ onClose }: { onClose: () => void }) {
 
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 'clamp(0.5rem, 1.5vw, 1rem)' }}>
                                 <div>
-                                    <label style={{ display: 'block', fontSize: 'clamp(0.7rem, 1.2vw, 0.8rem)', color: '#e2e8f0', marginBottom: '0.5rem', fontWeight: 'bold' }}>Target Goal</label>
-                                    <input type="number" value={goal} onChange={(e) => setGoal(Number(e.target.value))} className="input-field-light" style={{ background: 'var(--bg-dark)!important', color:'white!important', border: '1px solid var(--border-color)!important', fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)', padding: 'clamp(0.5rem, 1.2vw, 0.75rem)' }} />
+                                    <label style={{ display: 'block', fontSize: 'clamp(0.7rem, 1.2vw, 0.8rem)', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: 'bold' }}>Target Goal</label>
+                                    <input type="number" value={goal} onChange={(e) => setGoal(Number(e.target.value))} className="input-field-light" style={{ background: '#ffffff!important', color:'var(--gemba-black)!important', border: '1px solid var(--border-color)!important', fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)', padding: 'clamp(0.5rem, 1.2vw, 0.75rem)' }} />
                                 </div>
                                 <div>
-                                    <label style={{ display: 'block', fontSize: 'clamp(0.7rem, 1.2vw, 0.8rem)', color: 'var(--zone-yellow)', marginBottom: '0.5rem', fontWeight: 'bold' }}>Actual</label>
-                                    <input type="number" value={actual} onChange={(e) => setActual(Number(e.target.value))} className="input-field-light" style={{ background: 'var(--bg-dark)!important', color:'var(--zone-yellow)!important', border: '1px solid var(--zone-yellow)!important', fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)', padding: 'clamp(0.5rem, 1.2vw, 0.75rem)' }} />
+                                    <label style={{ display: 'block', fontSize: 'clamp(0.7rem, 1.2vw, 0.8rem)', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: 'bold' }}>Actual</label>
+                                    <input type="number" value={actual} onChange={(e) => setActual(Number(e.target.value))} className="input-field-light" style={{ background: '#ffffff!important', color:'var(--gemba-black)!important', border: '1px solid var(--zone-yellow)!important', fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)', padding: 'clamp(0.5rem, 1.2vw, 0.75rem)' }} />
                                 </div>
                             </div>
 

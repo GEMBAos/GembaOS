@@ -160,11 +160,11 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile, onNavigate 
                         fontSize: '0.95rem', 
                         padding: '0.8rem 1rem 0.8rem 3rem', 
                         margin: 0, 
-                        background: '#0a0a0a', 
-                        border: '1px solid var(--border-light)', 
-                        color: 'white', 
+                        background: 'var(--lean-white)', 
+                        border: '1px solid var(--border-color)', 
+                        color: 'var(--gemba-black)', 
                         borderRadius: '30px',
-                        boxShadow: 'inset 0 4px 6px rgba(0,0,0,0.6)'
+                        boxShadow: 'inset 0 4px 6px rgba(0,0,0,0.05)'
                     }}
                 />
             </div>
@@ -181,13 +181,13 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile, onNavigate 
                         gap: '0.5rem', 
                         opacity: cooldownTime > 0 ? 0.5 : 1, 
                         cursor: cooldownTime > 0 ? 'not-allowed' : 'pointer', 
-                        background: 'linear-gradient(145deg, #1f1f1f, #0a0a0a)', 
+                        background: 'linear-gradient(145deg, #ffffff, #f3f4f6)', 
                         border: '1px solid var(--border-color)', 
-                        color: 'var(--text-main)', 
+                        color: 'var(--gemba-black)', 
                         borderRadius: '20px', 
                         fontWeight: '800', 
                         fontSize: '0.7rem',
-                        boxShadow: '0 4px 10px rgba(0,0,0,0.4)',
+                        boxShadow: '0 4px 10px rgba(0,0,0,0.05)',
                         letterSpacing: '0.5px'
                     }}
                     title={cooldownTime > 0 ? `COOLDOWN: ${cooldownTime}m` : 'Generate Random Idea'}
@@ -300,7 +300,7 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile, onNavigate 
 
             {/* Loading State Overlay */}
             {isAnalyzing && (
-                <div style={{ width: '100%', marginTop: '1rem', padding: '2rem', textAlign: 'center', background: '#0a0a0a', border: '1px dashed var(--zone-yellow)', borderRadius: '12px', boxShadow: '0 20px 40px rgba(0,0,0,0.8)' }}>
+                <div style={{ width: '100%', marginTop: '1rem', padding: '2rem', textAlign: 'center', background: 'var(--lean-white)', border: '1px dashed var(--zone-yellow)', borderRadius: '12px', boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }}>
                     {capturedPhotoUrl && (
                         <div style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>
                             <img src={capturedPhotoUrl} alt="Analyzing Target" style={{ width: '120px', height: '120px', objectFit: 'cover', filter: 'grayscale(100%) contrast(120%)', border: '2px solid var(--zone-yellow)', borderRadius: '8px' }} />
@@ -318,10 +318,10 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile, onNavigate 
                     width: '100%',
                     marginTop: '1rem',
                     padding: '2rem',
-                    background: '#040404',
+                    background: 'var(--lean-white)',
                     border: '1px solid var(--zone-yellow)',
                     borderRadius: '12px',
-                    boxShadow: '0 20px 40px rgba(0,0,0,0.8)',
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '1.5rem',
@@ -332,10 +332,10 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile, onNavigate 
                             <img src={capturedPhotoUrl} alt="Captured Friction" style={{ width: '140px', height: '140px', objectFit: 'cover', border: '2px solid var(--border-light)', borderRadius: '8px' }} />
                         )}
                         <div style={{ flex: 1, minWidth: '200px' }}>
-                            <h4 style={{ margin: '0 0 0.5rem 0', color: 'var(--lean-white)', fontSize: '1.75rem', fontWeight: '900', fontFamily: 'var(--font-headings)', lineHeight: 1.1 }}>
+                            <h4 style={{ margin: '0 0 0.5rem 0', color: 'var(--gemba-black)', fontSize: '1.75rem', fontWeight: '900', fontFamily: 'var(--font-headings)', lineHeight: 1.1 }}>
                                 {currentIdea.title}
                             </h4>
-                            <p style={{ margin: '0 0 1rem 0', color: '#b0b0b0', fontSize: '1rem', lineHeight: 1.6 }}>
+                            <p style={{ margin: '0 0 1rem 0', color: 'var(--text-muted)', fontSize: '1rem', lineHeight: 1.6 }}>
                                 {currentIdea.description}
                             </p>
                         </div>

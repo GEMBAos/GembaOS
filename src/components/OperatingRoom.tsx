@@ -60,7 +60,7 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
         <button className="shadow-btn-accent tool-card" onClick={() => onNavigate(action)} style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '1rem', background: 'var(--bg-panel)', border: '1px solid var(--border-light)', borderRadius: '12px', cursor: 'pointer', transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)', textAlign: 'left', minHeight: '160px' }}>
             <span style={{ fontSize: '2.5rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>{icon}</span>
             <div>
-                <div style={{ color: 'var(--lean-white)', fontWeight: 900, fontSize: '1.25rem', fontFamily: 'var(--font-headings)', marginBottom: '0.25rem' }}>{name}</div>
+                <div style={{ color: 'var(--text-main)', fontWeight: 900, fontSize: '1.25rem', fontFamily: 'var(--font-headings)', marginBottom: '0.25rem' }}>{name}</div>
                 <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', lineHeight: 1.4 }}>{desc}</div>
             </div>
         </button>
@@ -142,7 +142,7 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                             <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
                                 <div style={{ fontSize: '5rem', lineHeight: 1 }}>🎓</div>
                                 <div style={{ flex: 1, minWidth: '300px' }}>
-                                    <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: 'var(--font-headings)', color: 'var(--lean-white)', margin: '0 0 1rem 0', textTransform: 'uppercase' }}>Learning & Education</h2>
+                                    <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: 'var(--font-headings)', color: 'var(--gemba-black)', margin: '0 0 1rem 0', textTransform: 'uppercase' }}>Learning & Education</h2>
                                     <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
                                         Continuous improvement begins with "training the eye to see." This hub contains interactive simulations, quizzes, safety best practices, and win-sharing from the floor to build your lean muscles.
                                     </p>
@@ -166,19 +166,19 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                             <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
                                 <div style={{ fontSize: '5rem', lineHeight: 1 }}>🗑️</div>
                                 <div style={{ flex: 1, minWidth: '300px' }}>
-                                    <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: 'var(--font-headings)', color: 'var(--lean-white)', margin: '0 0 1rem 0', textTransform: 'uppercase' }}>Waste Identification</h2>
+                                    <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: 'var(--font-headings)', color: 'var(--gemba-black)', margin: '0 0 1rem 0', textTransform: 'uppercase' }}>Waste Identification</h2>
                                     <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: '0 0 1rem 0' }}>
                                         Utilize these diagnostic tools to stand in the circle and root out <strong>DOWNTIME</strong> in your processes:
                                     </p>
-                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.5rem', background: 'var(--bg-dark)', padding: '1.5rem', borderRadius: '8px' }}>
-                                        <div style={{ color: 'var(--lean-white)' }}><strong style={{color: 'var(--zone-yellow)'}}>D</strong>efects</div>
-                                        <div style={{ color: 'var(--lean-white)' }}><strong style={{color: 'var(--zone-yellow)'}}>O</strong>verproduction</div>
-                                        <div style={{ color: 'var(--lean-white)' }}><strong style={{color: 'var(--zone-yellow)'}}>W</strong>aiting</div>
-                                        <div style={{ color: 'var(--lean-white)' }}><strong style={{color: 'var(--zone-yellow)'}}>N</strong>on-utilized Talent</div>
-                                        <div style={{ color: 'var(--lean-white)' }}><strong style={{color: 'var(--zone-yellow)'}}>T</strong>ransportation</div>
-                                        <div style={{ color: 'var(--lean-white)' }}><strong style={{color: 'var(--zone-yellow)'}}>I</strong>nventory</div>
-                                        <div style={{ color: 'var(--lean-white)' }}><strong style={{color: 'var(--zone-yellow)'}}>M</strong>otion</div>
-                                        <div style={{ color: 'var(--lean-white)' }}><strong style={{color: 'var(--zone-yellow)'}}>E</strong>xtra-Processing</div>
+                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.5rem', background: 'var(--bg-dark)', padding: '1.5rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>D</strong>efects</div>
+                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>O</strong>verproduction</div>
+                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>W</strong>aiting</div>
+                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>N</strong>on-utilized Talent</div>
+                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>T</strong>ransportation</div>
+                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>I</strong>nventory</div>
+                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>M</strong>otion</div>
+                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>E</strong>xtra-Processing</div>
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +201,7 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                             <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
                                 <div style={{ fontSize: '5rem', lineHeight: 1 }}>⚙️</div>
                                 <div style={{ flex: 1, minWidth: '300px' }}>
-                                    <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: 'var(--font-headings)', color: 'var(--lean-white)', margin: '0 0 1rem 0', textTransform: 'uppercase' }}>Execution & Focus</h2>
+                                    <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: 'var(--font-headings)', color: 'var(--gemba-black)', margin: '0 0 1rem 0', textTransform: 'uppercase' }}>Execution & Focus</h2>
                                     <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
                                         Data is useless without action. Use this hub to balance workloads, track global facility KPIs, and drive identified action items to completion.
                                     </p>

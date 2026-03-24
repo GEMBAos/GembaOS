@@ -82,7 +82,7 @@ export default function ValueScanner({ onClose }: { onClose: () => void }) {
                     </div>
                     
                     {/* The Mapping Canvas */}
-                    <div style={{ flex: 1, padding: '2rem', overflowX: 'auto', overflowY: 'hidden', display: 'flex', alignItems: 'center', background: 'var(--gemba-black)' }}>
+                    <div style={{ flex: 1, padding: '2rem', overflowX: 'auto', overflowY: 'hidden', display: 'flex', alignItems: 'center', background: 'var(--bg-panel-hover)' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0', minWidth: 'min-content', paddingBottom: '2rem' }}>
                             {blocks.map((block, index) => (
                                 <div key={block.id} style={{ display: 'flex', alignItems: 'center' }}>
@@ -115,7 +115,7 @@ export default function ValueScanner({ onClose }: { onClose: () => void }) {
                                                 type="text" 
                                                 value={block.name}
                                                 onChange={e => updateBlock(block.id, 'name', e.target.value)}
-                                                style={{ width: '100%', background: 'transparent', border: 'none', borderBottom: '1px dashed var(--steel-gray)', color: 'var(--lean-white)', fontSize: '1.1rem', fontWeight: 'bold', textAlign: 'center', paddingBottom: '0.5rem', marginBottom: '1rem', outline: 'none' }}
+                                                style={{ width: '100%', background: 'transparent', border: 'none', borderBottom: '1px dashed var(--steel-gray)', color: 'var(--text-main)', fontSize: '1.1rem', fontWeight: 'bold', textAlign: 'center', paddingBottom: '0.5rem', marginBottom: '1rem', outline: 'none' }}
                                                 placeholder="Step Name"
                                             />
                                         </div>

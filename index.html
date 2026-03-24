@@ -16,32 +16,32 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet">
   <title>GembaOS</title>
-  
+
   <!-- Version: 3 (Material Enhancement) -->
   <meta name="app-version" content="3.0">
-  
+
 </head>
 
 <body>
   <div id="root"></div>
-    <script>
-      // AGGRESSIVE PWA CACHE BUSTER - FORCED RELOAD
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function(registrations) {
-          for(let registration of registrations) {
-            // Unregister all old service workers to force the new Netlify payload to load
-            registration.unregister();
-          }
-        });
-      }
-      // Force refresh once per session if ?v=1 is not present
-      if (!window.location.search.includes('v=2')) {
-        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?v=2' + window.location.hash;
-        window.history.replaceState({path: newUrl}, '', newUrl);
-        window.location.reload();
-      }
-    </script>
-    <script type="module" src="/src/main.tsx"></script>
+  <script>
+    // AGGRESSIVE PWA CACHE BUSTER - FORCED RELOAD
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function (registrations) {
+        for (let registration of registrations) {
+          // Unregister all old service workers to force the new Netlify payload to load
+          registration.unregister();
+        }
+      });
+    }
+    // Force refresh once per session if ?v=1 is not present
+    if (!window.location.search.includes('v=2')) {
+      const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?v=2' + window.location.hash;
+      window.history.replaceState({ path: newUrl }, '', newUrl);
+      window.location.reload();
+    }
+  </script>
+  <script type="module" src="/src/main.tsx"></script>
 </body>
 
 </html>

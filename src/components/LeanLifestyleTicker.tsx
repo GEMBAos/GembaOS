@@ -50,11 +50,11 @@ export default function LeanLifestyleTicker() {
             gap: '0.5rem'
         }}>
             <div style={{
-                background: 'var(--bg-panel)',
+                background: '#ffffff',
                 border: '1px solid var(--border-color)',
-                borderRadius: '8px',
-                padding: '1rem',
-                boxShadow: '0 10px 30px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05) inset',
+                borderRadius: '12px',
+                padding: '1.25rem',
+                boxShadow: '0 10px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.02) inset',
                 width: 'clamp(280px, 90vw, 400px)',
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? 'translateX(0)' : 'translateX(20px)',
@@ -66,12 +66,12 @@ export default function LeanLifestyleTicker() {
             }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <span style={{ color: 'var(--zone-yellow)', fontSize: '1.2rem', animation: 'pulse 2s infinite' }}>💡</span>
-                    <span style={{ fontWeight: 800, color: '#e2e8f0', fontFamily: 'var(--font-headings)', letterSpacing: '1px', fontSize: '0.8rem', textTransform: 'uppercase' }}>
+                    <span style={{ fontWeight: 800, color: 'var(--steel-gray)', fontFamily: 'var(--font-headings)', letterSpacing: '1px', fontSize: '0.8rem', textTransform: 'uppercase' }}>
                         Lean Life Hack
                     </span>
                 </div>
                 
-                <span style={{ color: 'var(--lean-white)', fontSize: '0.95rem', fontStyle: 'italic', lineHeight: 1.4 }}>
+                <span style={{ color: 'var(--gemba-black)', fontSize: '0.95rem', fontStyle: 'italic', lineHeight: 1.5, fontWeight: 500 }}>
                     "{activeQuote.text}"
                 </span>
                 
