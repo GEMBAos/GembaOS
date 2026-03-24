@@ -259,7 +259,7 @@ function App() {
         </div>
 
         {/* PERSISTENT FLAT IDEA ENGINE LOGGING BAR */}
-        <div style={{ gridArea: 'os-idea', position: 'relative', zIndex: 45 }}>
+        <div style={{ gridArea: 'os-idea', position: 'relative', zIndex: 45, background: 'var(--lean-white)', borderBottom: '1px solid var(--border-color)', padding: '0.75rem', boxShadow: '0 4px 20px rgba(0,0,0,0.02)' }}>
             <JFIIdeaGenerator 
                 onIdeaGenerated={() => {}} 
                 profile={profile} 
@@ -268,9 +268,7 @@ function App() {
         </div>
 
         {/* 2. NAVIGATION SYSTEM (PERSISTENT LEFT RAIL) */}
-        <nav className="os-nav-rail" style={{
-            display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1.5rem 0', gap: '0.5rem', overflowY: 'auto', background: '#111', borderRight: '2px solid #222', boxShadow: '5px 0 15px rgba(0,0,0,0.5)', zIndex: 100
-        }}>
+        <nav className="os-nav-rail">
             <button onClick={() => handleNavigate('portal')} style={{ background: 'transparent', border: 'none', color: currentView === 'portal' ? 'var(--zone-yellow)' : 'var(--steel-gray)', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0.5rem', cursor: 'pointer', transition: 'all 0.2s', marginBottom: '1rem' }} title="Portal">
                 <div style={{ fontSize: '1.75rem', filter: currentView === 'portal' ? 'drop-shadow(0 0 10px rgba(255,255,255,0.8))' : 'none' }}>🔘</div>
             </button>

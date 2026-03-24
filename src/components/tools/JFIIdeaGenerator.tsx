@@ -139,77 +139,77 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile, onNavigate 
             display: 'flex', 
             flexDirection: 'column', 
             alignItems: 'center', 
-            gap: '1.25rem', 
+            gap: '0.5rem', 
             width: '100%', 
             maxWidth: '600px', 
             margin: '0 auto', 
-            padding: '1rem',
+            padding: '0.25rem',
             background: 'transparent'
         }}>
             
             {/* Core Idea Input - Narrower and longer */}
-            <div style={{ width: '100%', position: 'relative', filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.5))' }}>
-                <div style={{ position: 'absolute', left: '1.25rem', top: '50%', transform: 'translateY(-50%)', opacity: 0.7, fontSize: '1.2rem' }}>🕵️‍♂️</div>
+            <div style={{ width: '100%', position: 'relative', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' }}>
+                <div style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', opacity: 0.7, fontSize: '0.9rem' }}>🕵️‍♂️</div>
                 <input 
                     type="text" 
-                    placeholder="Type what you observed, or what outcome you want..."
+                    placeholder="Type observation or outcome..."
                     value={bugDescription}
                     onChange={(e) => setBugDescription(e.target.value)}
                     style={{ 
                         width: '100%', 
-                        fontSize: '0.95rem', 
-                        padding: '0.8rem 1rem 0.8rem 3rem', 
+                        fontSize: '0.85rem', 
+                        padding: '0.5rem 1rem 0.5rem 2.25rem', 
                         margin: 0, 
                         background: 'var(--lean-white)', 
                         border: '1px solid var(--border-color)', 
                         color: 'var(--gemba-black)', 
-                        borderRadius: '30px',
-                        boxShadow: 'inset 0 4px 6px rgba(0,0,0,0.05)'
+                        borderRadius: '20px',
+                        boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)'
                     }}
                 />
             </div>
 
             {/* AI Action Buttons - Centered */}
-            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
                 <button
                     onClick={handleGenerateRandom}
                     disabled={cooldownTime > 0}
                     style={{ 
-                        padding: '0.6rem 1.25rem', 
+                        padding: '0.35rem 0.75rem', 
                         display: 'flex', 
                         alignItems: 'center', 
-                        gap: '0.5rem', 
+                        gap: '0.35rem', 
                         opacity: cooldownTime > 0 ? 0.5 : 1, 
                         cursor: cooldownTime > 0 ? 'not-allowed' : 'pointer', 
                         background: 'linear-gradient(145deg, #ffffff, #f3f4f6)', 
                         border: '1px solid var(--border-color)', 
                         color: 'var(--gemba-black)', 
-                        borderRadius: '20px', 
+                        borderRadius: '16px', 
                         fontWeight: '800', 
-                        fontSize: '0.7rem',
-                        boxShadow: '0 4px 10px rgba(0,0,0,0.05)',
-                        letterSpacing: '0.5px'
+                        fontSize: '0.6rem',
+                        boxShadow: '0 2px 5px rgba(0,0,0,0.05)',
+                        letterSpacing: '0.25px'
                     }}
                     title={cooldownTime > 0 ? `COOLDOWN: ${cooldownTime}m` : 'Generate Random Idea'}
                 >
-                    <span style={{ fontSize: '1rem' }}>🎲</span>
-                    <span>GENERATE RANDOM IDEA</span>
+                    <span style={{ fontSize: '0.8rem' }}>🎲</span>
+                    <span>IDEA</span>
                 </button>
                 <label
                     style={{ 
-                        padding: '0.6rem 1.5rem', 
+                        padding: '0.35rem 1rem', 
                         display: 'flex', 
                         alignItems: 'center', 
-                        gap: '0.5rem', 
+                        gap: '0.35rem', 
                         cursor: isAnalyzing ? 'not-allowed' : 'pointer', 
                         opacity: isAnalyzing ? 0.7 : 1, 
                         background: 'linear-gradient(145deg, var(--zone-yellow), #d4a000)', 
                         border: '1px solid #b8860b', 
                         color: '#000', 
-                        borderRadius: '20px', 
+                        borderRadius: '16px', 
                         fontWeight: '900', 
-                        fontSize: '0.75rem',
-                        boxShadow: '0 4px 10px rgba(0,0,0,0.4), inset 0 2px 0 rgba(255,255,255,0.4)'
+                        fontSize: '0.65rem',
+                        boxShadow: '0 2px 5px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4)'
                     }}
                     title="Scans environment"
                 >
@@ -217,7 +217,7 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile, onNavigate 
                          <span>SCANNING...</span>
                     ) : (
                         <>
-                            <span style={{ fontSize: '1.1rem' }}>📷</span> 
+                            <span style={{ fontSize: '0.85rem' }}>📷</span> 
                             <span>PHOTO</span>
                         </>
                     )}
@@ -233,68 +233,67 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile, onNavigate 
             </div>
 
         {/* Explicit Form & Video Links - Separate Line */}
-            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <div style={{ display: 'flex', gap: '0.4rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
                 <button
                     onClick={() => onNavigate && onNavigate('gemba-challenge')}
                     style={{ 
-                        padding: '0.4rem 1rem', 
+                        padding: '0.2rem 0.5rem', 
                         cursor: 'pointer',
                         background: 'rgba(255,194,14,0.1)', 
                         border: '1px solid var(--zone-yellow)', 
                         color: 'var(--zone-yellow)', 
-                        borderRadius: '20px', 
-                        fontSize: '0.65rem', 
+                        borderRadius: '12px', 
+                        fontSize: '0.55rem', 
                         fontWeight: 900,
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '0.4rem',
-                        textTransform: 'uppercase',
-                        boxShadow: '0 2px 8px rgba(255,194,14,0.2)'
+                        gap: '0.25rem',
+                        textTransform: 'uppercase'
                     }}
                 >
-                    <span style={{ fontSize: '1rem' }}>🎯</span> PRACTICAL QUIZZES
+                    <span style={{ fontSize: '0.7rem' }}>🎯</span> QUIZZES
                 </button>
                 <a
                     href="https://form.jotform.com/240536481745157"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ 
-                        padding: '0.4rem 1rem', 
+                        padding: '0.2rem 0.5rem', 
                         textDecoration: 'none', 
                         background: 'transparent', 
                         border: '1px dashed var(--steel-gray)', 
                         color: 'var(--steel-gray)', 
-                        borderRadius: '20px', 
-                        fontSize: '0.65rem', 
+                        borderRadius: '12px', 
+                        fontSize: '0.55rem', 
                         fontWeight: 800,
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '0.4rem',
+                        gap: '0.25rem',
                         textTransform: 'uppercase'
                     }}
                 >
-                    <span style={{ fontSize: '0.8rem', filter: 'grayscale(1)' }}>📝</span> JFI Just Fix It Submissions for Lippert
+                    <span style={{ fontSize: '0.65rem', filter: 'grayscale(1)' }}>📝</span> SUBMISSIONS
                 </a>
                 <a
                     href="https://padlet.com/"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ 
-                        padding: '0.4rem 1rem', 
+                        padding: '0.2rem 0.5rem', 
                         textDecoration: 'none', 
                         background: 'transparent', 
                         border: '1px dashed #3b82f6', 
                         color: '#3b82f6', 
-                        borderRadius: '20px', 
-                        fontSize: '0.65rem', 
+                        borderRadius: '12px', 
+                        fontSize: '0.55rem', 
                         fontWeight: 800,
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '0.4rem',
+                        gap: '0.25rem',
                         textTransform: 'uppercase'
                     }}
                 >
-                    <span style={{ fontSize: '0.8rem' }}>📺</span> Their Videos from Lippert
+                    <span style={{ fontSize: '0.65rem' }}>📺</span> VIDEOS
                 </a>
             </div>
 
