@@ -203,7 +203,7 @@ function App() {
         />
       )}
 
-      <div className={`os-shell ${true ? 'context-closed' : ''}`}>
+      <div className="os-shell">
         
         {/* 1. HEADER ZONE (Massive Fixed Global Logo) */}
         <header className="os-header" style={{ height: 'auto', padding: '1rem 2rem', justifyContent: 'space-between', background: '#111', borderBottom: '2px solid rgba(255,194,14,0.3)', boxShadow: '0 4px 20px rgba(0,0,0,0.5)' }}>
@@ -254,7 +254,7 @@ function App() {
         </header>
 
         {/* PERSISTENT LEAN LIFE HACKS TICKER */}
-        <div style={{ gridArea: 'os-ticker' }}>
+        <div style={{ pointerEvents: 'none', position: 'absolute', inset: 0, zIndex: 9999 }}>
             <LeanLifestyleTicker />
         </div>
 
