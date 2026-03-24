@@ -140,7 +140,7 @@ export default function MotionHostDashboardV2({ onCreateNew, onOpenSession }: Pr
                     <p style={{ color: 'var(--text-muted)' }}>{tab === 'active' ? 'Create a layout-calibrated session to begin mapping.' : 'No closed sessions available.'}</p>
                 </div>
             ) : (
-                <div className="grid grid-cols-2">
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: '1.5rem' }}>
                     {displaySessions.map(s => (
                         <div 
                             key={s.id} 

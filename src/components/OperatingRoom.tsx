@@ -213,8 +213,32 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                                         profile={null}
                                     />
                                     
-
-                                </div>
+                                    {/* Orphaned Module Recovery: Advanced Systems Widget */}
+                                    <div style={{ marginTop: '3rem', width: '100%', borderTop: '1px solid var(--border-color)', paddingTop: '2rem', paddingBottom: '4rem' }}>
+                                        <h3 style={{ color: 'var(--text-muted)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', textAlign: 'center', fontFamily: 'var(--font-headings)' }}>ADVANCED SYSTEMS</h3>
+                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
+                                            <button className="shadow-btn-accent" onClick={() => onNavigate('kaizen-hub')} style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', background: 'var(--bg-panel)', border: '1px solid var(--border-light)', borderRadius: '12px', cursor: 'pointer', transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)', boxShadow: '0 4px 6px rgba(0,0,0,0.3)' }} onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = 'var(--zone-yellow)'; e.currentTarget.style.boxShadow = '0 10px 20px rgba(0,0,0,0.6)'; }} onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.borderColor = 'var(--border-light)'; e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.3)'; }}>
+                                                <span style={{ fontSize: '2.5rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>⚡</span>
+                                                <span style={{ color: 'var(--lean-white)', fontWeight: 800, fontSize: '1rem', fontFamily: 'var(--font-headings)' }}>KAIZEN HUB</span>
+                                                <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem', textAlign: 'center', lineHeight: 1.4 }}>Master Continuous Improvement Dashboard</span>
+                                            </button>
+                                            <button className="shadow-btn-accent" onClick={() => onNavigate('gemba')} style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', background: 'var(--bg-panel)', border: '1px solid var(--border-light)', borderRadius: '12px', cursor: 'pointer', transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)', boxShadow: '0 4px 6px rgba(0,0,0,0.3)' }} onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = 'var(--zone-yellow)'; e.currentTarget.style.boxShadow = '0 10px 20px rgba(0,0,0,0.6)'; }} onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.borderColor = 'var(--border-light)'; e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.3)'; }}>
+                                                <span style={{ fontSize: '2.5rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>🧭</span>
+                                                <span style={{ color: 'var(--lean-white)', fontWeight: 800, fontSize: '1rem', fontFamily: 'var(--font-headings)' }}>GEMBA WALK</span>
+                                                <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem', textAlign: 'center', lineHeight: 1.4 }}>Structured Floor Walk Builder</span>
+                                            </button>
+                                            <button className="shadow-btn-accent" onClick={() => onNavigate('line-balance')} style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', background: 'var(--bg-panel)', border: '1px solid var(--border-light)', borderRadius: '12px', cursor: 'pointer', transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)', boxShadow: '0 4px 6px rgba(0,0,0,0.3)' }} onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = 'var(--zone-yellow)'; e.currentTarget.style.boxShadow = '0 10px 20px rgba(0,0,0,0.6)'; }} onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.borderColor = 'var(--border-light)'; e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.3)'; }}>
+                                                <span style={{ fontSize: '2.5rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>⚖️</span>
+                                                <span style={{ color: 'var(--lean-white)', fontWeight: 800, fontSize: '1rem', fontFamily: 'var(--font-headings)' }}>LINE BALANCE</span>
+                                                <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem', textAlign: 'center', lineHeight: 1.4 }}>Cycle Time Analysis Engine</span>
+                                            </button>
+                                            <button className="shadow-btn-accent" onClick={() => onNavigate('goal-gap')} style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', background: 'var(--bg-panel)', border: '1px solid var(--border-light)', borderRadius: '12px', cursor: 'pointer', transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)', boxShadow: '0 4px 6px rgba(0,0,0,0.3)' }} onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = 'var(--zone-yellow)'; e.currentTarget.style.boxShadow = '0 10px 20px rgba(0,0,0,0.6)'; }} onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.borderColor = 'var(--border-light)'; e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.3)'; }}>
+                                                <span style={{ fontSize: '2.5rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>📈</span>
+                                                <span style={{ color: 'var(--lean-white)', fontWeight: 800, fontSize: '1rem', fontFamily: 'var(--font-headings)' }}>GOAL GAP</span>
+                                                <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem', textAlign: 'center', lineHeight: 1.4 }}>KPI Tracking Matrix</span>
+                                            </button>
+                                        </div>
+                                    </div>                                </div>
                             </div>
                         </div>
                     </>
