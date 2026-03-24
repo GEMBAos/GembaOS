@@ -316,9 +316,10 @@ function App() {
                                 src={tool.imgSrc} 
                                 alt={tool.name} 
                                 style={{
-                                    width: '120%', height: '120%', objectFit: 'contain', 
-                                    filter: currentView === tool.action ? 'drop-shadow(0 0 10px rgba(255,194,14,0.7)) brightness(1.2)' : 'grayscale(0.6) brightness(0.7)',
-                                    transform: currentView === tool.action ? 'scale(1.15)' : 'scale(1)',
+                                    width: '75%', height: '75%', objectFit: 'contain', 
+                                    filter: currentView === tool.action ? 'drop-shadow(0 8px 15px rgba(0,0,0,0.15)) brightness(1.05)' : 'drop-shadow(0 2px 4px rgba(0,0,0,0.08))',
+                                    opacity: currentView === tool.action ? 1 : 0.65,
+                                    transform: currentView === tool.action ? 'scale(1.15) translateY(-3px)' : 'scale(1)',
                                     transition: 'all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
                                 }} 
                             />
@@ -335,7 +336,7 @@ function App() {
                         marginTop: '0.25rem',
                         textAlign: 'center',
                         letterSpacing: '1px',
-                        color: currentView === tool.action ? 'var(--lean-white)' : 'var(--steel-gray)',
+                        color: currentView === tool.action ? 'var(--gemba-black)' : 'var(--steel-gray)',
                         fontFamily: 'var(--font-headings)'
                     }}>
                         {tool.name}
