@@ -57,6 +57,12 @@ export const userService = {
             .update(updates)
             .eq('id', userId);
 
+        if (!error) {
+            if (typeof window !== 'undefined') {
+                window.dispatchEvent(new Event('profileUpdated'));
+            }
+        }
+
         if (error) {
             console.error('Error updating profile:', error);
             // Fallback for missing columns (e.g. linkedin_url, contact_info before migration)
@@ -79,7 +85,10 @@ export const userService = {
                         .update(coreUpdates)
                         .eq('id', userId);
                         
-                     if (!fallbackError) return true;
+                         if (!fallbackError) {
+                             if (typeof window !== 'undefined') window.dispatchEvent(new Event('profileUpdated'));
+                             return true;
+                         }
                 }
             }
             return false;

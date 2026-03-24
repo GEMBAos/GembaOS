@@ -40,6 +40,16 @@ import brandLogo from './assets/branding/brand-cart-transparent.png';
 
 import RankBenefitsModal from './components/tools/RankBenefitsModal';
 import UserProfileModal from './components/auth/UserProfileModal';
+import DynamicBadge from './components/ui/DynamicBadge';
+
+import notionIcon from './assets/icons/notion.png';
+import timeIcon from './assets/icons/time.png';
+import wasteIcon from './assets/icons/waste.png';
+import scanIcon from './assets/icons/scan.png';
+import improvIcon from './assets/icons/improv.png';
+import goalsIcon from './assets/icons/goals.png';
+import learnIcon from './assets/icons/learn.png';
+import videosIcon from './assets/icons/videos.png';
 
 function App() {
   const getInitialView = () => {
@@ -100,6 +110,7 @@ function App() {
   const [showStreakBoard, setShowStreakBoard] = useState(false);
   const [showRankModal, setShowRankModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
+  const [guestXp, setGuestXp] = useState(parseInt(localStorage.getItem('gembaos_guest_tokens') || '0', 10));
 
   // PWA Install Prompt
 
@@ -156,6 +167,18 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const handleProfileUpdate = () => {
+        if (user) {
+            fetchProfile(user.id);
+        } else {
+            setGuestXp(parseInt(localStorage.getItem('gembaos_guest_tokens') || '0', 10));
+        }
+    };
+    window.addEventListener('profileUpdated', handleProfileUpdate);
+    return () => window.removeEventListener('profileUpdated', handleProfileUpdate);
+  }, [user]);
+
+  useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const hashParams = new URLSearchParams(window.location.hash.split('?')[1] || '');
     
@@ -205,13 +228,27 @@ function App() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flex: 1, justifyContent: 'flex-end' }}>
                 {user ? (
                     <div onClick={() => setShowProfileModal(true)} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', padding: '0.25rem 0.5rem', borderRadius: '30px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)', transition: 'background 0.2s' }} onMouseOver={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'} onMouseOut={e => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}>
-                        <div style={{ textAlign: 'right' }} className="hide-on-mobile">
+                        <div style={{ textAlign: 'right', paddingRight: '0.5rem' }} className="hide-on-mobile">
                             <div style={{ fontSize: '0.8rem', fontWeight: 'bold', color: '#e2e8f0', fontFamily: 'var(--font-headings)' }}>{profile?.username || user.email?.split('@')[0]}</div>
                         </div>
-                        <img src={profile?.avatar_url || `https://ui-avatars.com/api/?name=${profile?.username || user.email}&background=random`} alt="Avatar" style={{ width: '32px', height: '32px', borderRadius: '50%', border: '2px solid var(--zone-yellow)' }} />
+                        <DynamicBadge 
+                            xp={profile?.xp || 0} 
+                            avatarUrl={profile?.avatar_url || undefined} 
+                            username={profile?.username || user.email || 'User'} 
+                            size={36} 
+                        />
                     </div>
                 ) : (
-                    <button className="shadow-btn-accent" onClick={() => {}} style={{ padding: '0.5rem 1.25rem', borderRadius: '6px', fontSize: '0.85rem', fontWeight: 800, cursor: 'pointer', border: 'none', background: '#333', color: '#888' }}>LOCAL</button>
+                    <div onClick={() => {}} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', padding: '0.25rem 0.5rem', borderRadius: '30px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)', transition: 'background 0.2s' }} onMouseOver={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'} onMouseOut={e => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}>
+                        <div style={{ textAlign: 'right', paddingRight: '0.5rem' }} className="hide-on-mobile">
+                            <div style={{ fontSize: '0.8rem', fontWeight: 'bold', color: '#888', fontFamily: 'var(--font-headings)' }}>LOCAL GUEST</div>
+                        </div>
+                        <DynamicBadge 
+                            xp={guestXp} 
+                            username="Guest" 
+                            size={36} 
+                        />
+                    </div>
                 )}
             </div>
         </header>
@@ -226,56 +263,80 @@ function App() {
             <JFIIdeaGenerator 
                 onIdeaGenerated={() => {}} 
                 profile={profile} 
-                onRequireAuth={() => setShowProfileModal(true)}
+                onNavigate={(r) => handleNavigate(r as any)}
             />
         </div>
 
-        {/* 2. NAVIGATION SYSTEM (DESKTOP RAIL) */}
-        <nav className="os-nav-rail hide-on-mobile" style={{
-            display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1rem 0', gap: '0.2rem', overflowY: 'auto', background: 'var(--bg-dark)', borderRight: '1px solid #111'
+        {/* 2. NAVIGATION SYSTEM (PERSISTENT LEFT RAIL) */}
+        <nav className="os-nav-rail" style={{
+            display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1.5rem 0', gap: '0.5rem', overflowY: 'auto', background: '#111', borderRight: '2px solid #222', boxShadow: '5px 0 15px rgba(0,0,0,0.5)', zIndex: 100
         }}>
-            <button onClick={() => handleNavigate('portal')} style={{ background: 'transparent', border: 'none', color: currentView === 'portal' ? 'var(--zone-yellow)' : 'var(--steel-gray)', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0.5rem', cursor: 'pointer', transition: 'all 0.2s' }} title="Portal">
-                <div style={{ fontSize: '1.75rem' }}>🔘</div>
+            <button onClick={() => handleNavigate('portal')} style={{ background: 'transparent', border: 'none', color: currentView === 'portal' ? 'var(--zone-yellow)' : 'var(--steel-gray)', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0.5rem', cursor: 'pointer', transition: 'all 0.2s', marginBottom: '1rem' }} title="Portal">
+                <div style={{ fontSize: '1.75rem', filter: currentView === 'portal' ? 'drop-shadow(0 0 10px rgba(255,255,255,0.8))' : 'none' }}>🔘</div>
             </button>
-            <div style={{ width: '50%', height: '1px', background: '#333', margin: '0.5rem 0' }} />
+            <div style={{ width: '60%', height: '2px', background: '#333', margin: '0.5rem 0', boxShadow: '0 1px 0 rgba(255,255,255,0.1)' }} />
             
             {[
-                { id: 'motion', name: 'MOTION', icon: '🏃‍♂️', action: 'motion-v2' },
-                { id: 'time', name: 'TIME', icon: '⏱️', action: 'time-study' },
-                { id: 'waste', name: 'WASTE', icon: '🗑️', action: 'process-check' },
-                { id: '5s', name: '5S SCAN', icon: '🔳', action: 'value-scanner' },
-                { id: 'improve', name: 'IMPROVE', icon: '⚡', action: 'improvement-card' },
-                { id: 'action-items', name: 'TASKS', icon: '📋', action: 'action-items' },
-                { id: 'hub', name: 'HUB', icon: '⚡', action: 'kaizen-hub' },
-                { id: 'balance', name: 'BALANCE', icon: '⚖️', action: 'line-balance' },
-                { id: 'goal', name: 'GOALS', icon: '📈', action: 'goal-gap' },
-                { id: 'video-hub', name: 'VIDEOS', icon: '📺', action: 'video-hub' },
-                { id: 'learning', name: 'LEARN', icon: '🎓', action: 'lean-academy' },
-                { id: 'challenge', name: 'QUIZ', icon: '🎯', action: 'gemba-challenge' }
+                { id: 'forms', name: 'FORMS', icon: '📝', action: 'action-items', imgSrc: notionIcon },
+                { id: 'time', name: 'TIME', icon: '⏱️', action: 'time-study', imgSrc: timeIcon },
+                { id: 'waste', name: 'WASTE', icon: '🗑️', action: 'process-check', imgSrc: wasteIcon },
+                { id: 'scan', name: 'SCAN', icon: '🔳', action: 'value-scanner', imgSrc: scanIcon },
+                { id: 'improv', name: 'IMPROVE', icon: '⚡', action: 'improvement-card', imgSrc: improvIcon },
+                { id: 'goals', name: 'GOALS', icon: '🎯', action: 'goal-gap', imgSrc: goalsIcon },
+                { id: 'videos', name: 'VIDEOS', icon: '📺', action: 'video-hub', imgSrc: videosIcon },
+                { id: 'learn', name: 'LEARN', icon: '🧠', action: 'lean-academy', imgSrc: learnIcon }
             ].map(tool => (
                 <button 
                     key={tool.id} 
                     onClick={() => handleNavigate(tool.action as any)}
-                    style={{ background: 'transparent', border: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.15rem', cursor: 'pointer', padding: '0.5rem 0.25rem' }}
+                    style={{ 
+                        background: 'transparent', 
+                        border: 'none', 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        alignItems: 'center', 
+                        gap: '0.4rem', 
+                        cursor: 'pointer', 
+                        padding: '0.75rem 0.25rem',
+                        position: 'relative',
+                        width: '100%',
+                        borderLeft: currentView === tool.action ? '4px solid var(--zone-yellow)' : '4px solid transparent',
+                        backgroundColor: currentView === tool.action ? 'rgba(255,194,14,0.05)' : 'transparent',
+                        transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
+                    }}
                     title={tool.name}
                 >
                     <div style={{
-                        width: '38px', height: '38px', borderRadius: '50%',
-                        background: currentView === tool.action ? 'linear-gradient(145deg, #3a3a3a, #1a1a1a)' : 'transparent',
+                        width: '54px', height: '54px', borderRadius: '12px',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        fontSize: '1.25rem', border: currentView === tool.action ? '1px solid var(--zone-yellow)' : '1px solid transparent',
-                        color: currentView === tool.action ? 'var(--zone-yellow)' : 'inherit',
-                        filter: currentView === tool.action ? 'drop-shadow(0 0 8px rgba(255,194,14,0.3))' : 'none'
+                        position: 'relative'
                     }}>
-                        <span>{tool.icon}</span>
+                        {tool.imgSrc ? (
+                            <img 
+                                src={tool.imgSrc} 
+                                alt={tool.name} 
+                                style={{
+                                    width: '120%', height: '120%', objectFit: 'contain', 
+                                    filter: currentView === tool.action ? 'drop-shadow(0 0 10px rgba(255,194,14,0.7)) brightness(1.2)' : 'grayscale(0.6) brightness(0.7)',
+                                    transform: currentView === tool.action ? 'scale(1.15)' : 'scale(1)',
+                                    transition: 'all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+                                }} 
+                            />
+                        ) : (
+                            <span style={{ 
+                                transform: currentView === tool.action ? 'scale(1.15)' : 'scale(1)', 
+                                transition: 'transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+                            }}>{tool.icon}</span>
+                        )}
                     </div>
                     <span style={{ 
-                        fontSize: '0.6rem', 
-                        fontWeight: 800, 
+                        fontSize: '0.65rem', 
+                        fontWeight: 900, 
                         marginTop: '0.25rem',
                         textAlign: 'center',
-                        letterSpacing: '0.5px',
-                        color: currentView === tool.action ? 'var(--zone-yellow)' : 'var(--steel-gray)' 
+                        letterSpacing: '1px',
+                        color: currentView === tool.action ? 'var(--lean-white)' : 'var(--steel-gray)',
+                        fontFamily: 'var(--font-headings)'
                     }}>
                         {tool.name}
                     </span>
@@ -325,20 +386,7 @@ function App() {
         {/* 4. CONTEXT PANEL (Desktop Right / Mobile Bottom Sheet) */}
         {/* Intentionally left collapsed in this iteration to prioritize workspace max width */}
 
-        {/* 5. NAVIGATION SYSTEM (MOBILE DOCK) */}
-        <nav className="os-nav-dock hide-on-desktop app-bottom-dock" style={{ gridArea: 'os-nav-dock', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', overflowX: 'auto', gap: '0.5rem', padding: '0.5rem', background: '#0a0a0a', borderTop: '2px solid #222' }}>
-            {[
-                { id: 'portal', name: 'PORTAL', icon: '🔘' },
-                { id: 'motion-v2', name: 'MOTION', icon: '🏃‍♂️' },
-                { id: 'time-study', name: 'TIME', icon: '⏱️' },
-                { id: 'process-check', name: 'WASTE', icon: '🗑️' }
-            ].map(tool => (
-                <button key={tool.id} onClick={() => handleNavigate(tool.id as any)} className={`dock-item ${currentView === tool.id ? 'active' : ''}`} style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0.5rem', background: 'transparent', border: 'none', color: currentView === tool.id ? 'var(--zone-yellow)' : 'var(--steel-gray)' }}>
-                    <div style={{ fontSize: '1.5rem' }}>{tool.icon}</div>
-                    <span style={{ fontSize: '0.6rem', fontWeight: 800 }}>{tool.name}</span>
-                </button>
-            ))}
-        </nav>
+        {/* DELETED BOTTOM DOCK - User rule strictly enforces persistent left rail */}
 
       </div>
 
@@ -348,10 +396,16 @@ function App() {
 
       <style dangerouslySetInnerHTML={{__html: `
         @media (max-width: 1024px) {
-            .hide-on-mobile { display: none !important; }
+            /* We NO LONGER hide the left rail. We scale it safely down instead of flattening it to the bottom. */
+            .os-nav-rail {
+                width: 70px !important;
+                padding-top: 0.5rem !important;
+            }
+            .os-nav-rail span { font-size: 0.5rem !important; }
+            .os-nav-rail div { width: 44px !important; height: 44px !important; }
         }
         @media (min-width: 1025px) {
-            .hide-on-desktop { display: none !important; }
+            
         }
       `}} />
     </ResponsiveSimulator>

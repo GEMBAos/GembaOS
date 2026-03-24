@@ -5,9 +5,10 @@ interface OperatingRoomProps {
     onNavigate: (view: any) => void;
 }
 
+type BucketType = 'main' | 'learning' | 'waste' | 'system';
+
 export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
-    type ViewState = 'main' | 'create' | 'join';
-    const [view, setView] = useState<ViewState>('main');
+    const [view, setView] = useState<BucketType | 'create' | 'join'>('main');
 
     if (view === 'create') {
         return (
@@ -21,223 +22,204 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
         );
     }
 
+    const renderBucketCard = (title: string, subtitle: string, icon: string, bgClass: string, onClick: () => void) => (
+        <div 
+            className={`bucket-card ${bgClass}`}
+            onClick={onClick}
+            style={{
+                flex: '1 1 300px',
+                minHeight: '280px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-end',
+                padding: '2rem',
+                borderRadius: '16px',
+                position: 'relative',
+                overflow: 'hidden',
+                cursor: 'pointer',
+                transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
+                border: '1px solid var(--border-color)',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
+            }}
+        >
+            <div className="bucket-bg-icon">{icon}</div>
+            <div style={{ position: 'relative', zIndex: 10 }}>
+                <h2 style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', color: 'white', margin: '0 0 0.5rem 0', fontFamily: 'var(--font-headings)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px' }}>{title}</h2>
+                <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.1rem', margin: 0, fontWeight: 500, lineHeight: 1.5 }}>{subtitle}</p>
+            </div>
+            
+            <div style={{ position: 'absolute', top: '2rem', right: '2rem', zIndex: 10 }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(4px)', border: '1px solid rgba(255,255,255,0.2)' }}>
+                    <span style={{ color: 'white', fontSize: '1.2rem' }}>➔</span>
+                </div>
+            </div>
+        </div>
+    );
+
+    const renderToolBtn = (action: string, icon: string, name: string, desc: string) => (
+        <button className="shadow-btn-accent tool-card" onClick={() => onNavigate(action)} style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '1rem', background: 'var(--bg-panel)', border: '1px solid var(--border-light)', borderRadius: '12px', cursor: 'pointer', transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)', textAlign: 'left', minHeight: '160px' }}>
+            <span style={{ fontSize: '2.5rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>{icon}</span>
+            <div>
+                <div style={{ color: 'var(--lean-white)', fontWeight: 900, fontSize: '1.25rem', fontFamily: 'var(--font-headings)', marginBottom: '0.25rem' }}>{name}</div>
+                <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', lineHeight: 1.4 }}>{desc}</div>
+            </div>
+        </button>
+    );
+
     return (
         <div className="or-master-container" style={{
             display: 'flex',
             flexDirection: 'column',
             height: '100%',
-            fontFamily: 'var(--font-family)',
+            fontFamily: 'var(--font-sans)',
             color: 'var(--text-main)',
             background: 'var(--bg-dark)'
         }}>
-
             <style dangerouslySetInnerHTML={{__html: `
-                .or-master-container {
-                    /* Container locks */
-                    overflow: hidden;
-                }
-                .or-grid-wrapper {
-                    flex: 1;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    padding: clamp(0.5rem, 1vw, 2.5rem);
-                    gap: clamp(0.5rem, 2vh, 4rem);
-                    overflow: hidden;
-                    min-height: 0;
-                }
-                .or-grid-inner {
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: wrap;
-                    width: 100%;
-                    height: 100%;
-                    justify-content: center;
-                    align-items: center;
-                    gap: clamp(0.5rem, 3vw, 2rem);
-                    min-height: 0;
-                    overflow: hidden;
-                }
-                .or-left-pane {
-                    flex: 1 1 250px;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    max-width: 600px;
-                    height: auto;
-                    max-height: 100%;
-                    min-height: 0;
-                    overflow: hidden;
-                }
-                .or-right-pane {
-                    flex: 1 1 250px;
-                    max-width: 400px;
-                    display: flex;
-                    flex-direction: column;
+                .or-master-container { overflow-y: auto; overflow-x: hidden; }
+                .bucket-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.7); border-color: var(--zone-yellow); }
+                .bucket-card:hover .bucket-bg-icon { transform: scale(1.1) rotate(5deg); opacity: 0.15; }
+                .bucket-bg-icon { position: absolute; font-size: 15rem; top: -2rem; right: -2rem; opacity: 0.05; transition: all 0.5s ease; pointer-events: none; filter: grayscale(1); }
+                
+                .bg-learning { background: linear-gradient(135deg, #1e3a8a, #0f172a); }
+                .bg-waste { background: linear-gradient(135deg, #b91c1c, #450a0a); }
+                .bg-system { background: linear-gradient(135deg, #047857, #064e3b); }
+                
+                .tool-card:hover { transform: translateY(-4px); border-color: var(--zone-yellow); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
+                
+                .bucket-header {
+                    padding: clamp(2rem, 5vw, 4rem);
                     background: var(--bg-panel);
-                    border-radius: 4px;
-                    border: 1px solid #000;
-                    padding: clamp(0.5rem, 3vh, 2rem);
-                    box-shadow: inset 0 8px 16px rgba(0,0,0,0.5);
-                    min-height: 0;
+                    border-radius: 16px;
+                    border: 1px solid var(--border-light);
+                    margin-bottom: 2rem;
+                    position: relative;
                     overflow: hidden;
                 }
-                
-                .or-title {
-                    color: var(--text-main);
-                    font-size: clamp(1rem, 4vh, 2.5rem);
-                    margin-bottom: 0.25rem;
-                    text-align: center;
-                    font-weight: 800;
-                    font-family: var(--font-headings);
-                }
-                .or-subtitle {
-                    color: var(--text-muted);
-                    font-size: clamp(0.75rem, 2vh, 1rem);
-                    margin-bottom: clamp(0.5rem, 3vh, 3rem);
-                    text-align: center;
-                    font-weight: 400;
-                }
-                
-                .or-btn-primary {
-                    width: 100%;
-                    padding: clamp(0.5rem, 2vh, 1.5rem) clamp(1rem, 2vw, 2rem);
-                    font-size: clamp(1rem, 3vh, 1.75rem);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 1rem;
-                    border-radius: 4px;
-                    border: 2px solid #000;
-                }
-                .or-btn-secondary {
-                    width: 100%;
-                    padding: clamp(0.5rem, 2vh, 1.5rem) clamp(1rem, 2vw, 2rem);
-                    font-size: clamp(0.85rem, 2.5vh, 1.25rem);
-                    border-radius: 4px;
-                    background: var(--bg-panel);
-                    color: var(--text-main);
-                    border: 2px solid var(--border-light);
-                    cursor: pointer;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 1rem;
-                    font-weight: 700;
-                    font-family: var(--font-headings);
-                    text-transform: uppercase;
-                    letter-spacing: 2px;
-                    transition: all 0.15s ease-in-out;
-                }
-                .or-btn-secondary:hover {
-                    background: var(--bg-panel-hover);
-                    border-color: var(--tape-yellow);
-                }
-                
-                .or-jfi-title {
-                    font-size: clamp(0.6rem, 1.5vh, 0.85rem);
-                    color: var(--text-muted);
-                    text-transform: uppercase;
-                    letter-spacing: 3px;
-                    font-weight: 700;
-                    text-align: center;
-                    margin-bottom: clamp(0.5rem, 2vh, 2.5rem);
-                }
-                
-                .or-jfi-btn {
-                    padding: clamp(0.5rem, 1.5vh, 1.25rem);
-                    background: var(--bg-dark);
-                    border: 2px dashed var(--border-light);
-                    color: var(--text-main);
-                    border-radius: 4px;
-                    cursor: pointer;
-                    text-decoration: none;
-                    transition: all 0.2s;
-                    font-weight: 600;
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-start;
-                    gap: 1rem;
-                    font-size: clamp(0.75rem, 2vh, 1rem);
-                }
-                .or-jfi-btn:hover {
-                    background: var(--bg-panel-hover);
-                    border-color: var(--accent-primary);
-                }
-                .or-jfi-icon {
-                    font-size: clamp(1rem, 3vh, 1.5rem);
-                }
-
-                @media (max-height: 500px) and (orientation: landscape) {
-                    /* Extreme squash rules for landscape mobile */
-                    .or-grid-inner {
-                        flex-wrap: nowrap;
-                    }
-                    .or-left-pane {
-                        flex: 2;
-                    }
-                    .or-right-pane {
-                        flex: 1;
-                        padding: 0.5rem;
-                        gap: 0.25rem;
-                    }
-                    .or-jfi-btn {
-                        padding: 0.5rem;
-                        gap: 0.5rem;
-                    }
-                }
-                @keyframes marquee {
-                    0% { transform: translateX(0); }
-                    100% { transform: translateX(-100%); }
+                .bucket-header::before {
+                    content: '';
+                    position: absolute;
+                    top: 0; left: 0; right: 0;
+                    height: 4px;
+                    background: var(--zone-yellow);
                 }
             `}} />
 
-            {/* Main Content: Left Toolbar & Center Void */}
-            <div className="gemba-floor" style={{ padding: 0, overflow: 'hidden', display: 'flex', flexDirection: 'row', alignItems: 'stretch', justifyContent: 'flex-start', height: '100%', width: '100%', flex: 1 }}>
+            <div style={{ padding: 'clamp(1rem, 3vw, 2rem)', maxWidth: '1400px', margin: '0 auto', width: '100%' }}>
                 
+                {/* BACK BUTTON (If not main) */}
+                {view !== 'main' && (
+                    <button 
+                        onClick={() => setView('main')}
+                        style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', fontSize: '1rem', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0 0 1.5rem 0', transition: 'color 0.2s' }}
+                        onMouseEnter={e => e.currentTarget.style.color = 'var(--zone-yellow)'}
+                        onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}
+                    >
+                        <span>←</span> BACK TO ALL HUBS
+                    </button>
+                )}
+
+                {/* MAIN BUCKET SELECTION VIEW */}
                 {view === 'main' && (
                     <>
-
-                        {/* 2. Main Content Void */}
-                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
-
-                            {/* Center Canvas (Idea Generator) */}
-                            <div style={{ flex: 1, padding: '2rem clamp(1rem, 5vw, 4rem)', display: 'flex', flexDirection: 'column', alignItems: 'center', overflowY: 'auto' }}>
-                                <div style={{ width: '100%', maxWidth: '1000px', marginTop: '1rem' }}>
-                                    
-                                    {/* Orphaned Module Recovery: Advanced Systems Widget */}
-                                    <div style={{ marginTop: '3rem', width: '100%', borderTop: '1px solid var(--border-color)', paddingTop: '2rem', paddingBottom: '4rem' }}>
-                                        <h3 style={{ color: 'var(--text-muted)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', textAlign: 'center', fontFamily: 'var(--font-headings)' }}>ADVANCED SYSTEMS</h3>
-                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
-                                            <button className="shadow-btn-accent" onClick={() => onNavigate('kaizen-hub')} style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', background: 'var(--bg-panel)', border: '1px solid var(--border-light)', borderRadius: '12px', cursor: 'pointer', transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)', boxShadow: '0 4px 6px rgba(0,0,0,0.3)' }} onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = 'var(--zone-yellow)'; e.currentTarget.style.boxShadow = '0 10px 20px rgba(0,0,0,0.6)'; }} onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.borderColor = 'var(--border-light)'; e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.3)'; }}>
-                                                <span style={{ fontSize: '2.5rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>⚡</span>
-                                                <span style={{ color: 'var(--lean-white)', fontWeight: 800, fontSize: '1rem', fontFamily: 'var(--font-headings)' }}>KAIZEN HUB</span>
-                                                <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem', textAlign: 'center', lineHeight: 1.4 }}>Master Continuous Improvement Dashboard</span>
-                                            </button>
-                                            <button className="shadow-btn-accent" onClick={() => onNavigate('gemba')} style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', background: 'var(--bg-panel)', border: '1px solid var(--border-light)', borderRadius: '12px', cursor: 'pointer', transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)', boxShadow: '0 4px 6px rgba(0,0,0,0.3)' }} onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = 'var(--zone-yellow)'; e.currentTarget.style.boxShadow = '0 10px 20px rgba(0,0,0,0.6)'; }} onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.borderColor = 'var(--border-light)'; e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.3)'; }}>
-                                                <span style={{ fontSize: '2.5rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>🧭</span>
-                                                <span style={{ color: 'var(--lean-white)', fontWeight: 800, fontSize: '1rem', fontFamily: 'var(--font-headings)' }}>GEMBA WALK</span>
-                                                <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem', textAlign: 'center', lineHeight: 1.4 }}>Structured Floor Walk Builder</span>
-                                            </button>
-                                            <button className="shadow-btn-accent" onClick={() => onNavigate('line-balance')} style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', background: 'var(--bg-panel)', border: '1px solid var(--border-light)', borderRadius: '12px', cursor: 'pointer', transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)', boxShadow: '0 4px 6px rgba(0,0,0,0.3)' }} onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = 'var(--zone-yellow)'; e.currentTarget.style.boxShadow = '0 10px 20px rgba(0,0,0,0.6)'; }} onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.borderColor = 'var(--border-light)'; e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.3)'; }}>
-                                                <span style={{ fontSize: '2.5rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>⚖️</span>
-                                                <span style={{ color: 'var(--lean-white)', fontWeight: 800, fontSize: '1rem', fontFamily: 'var(--font-headings)' }}>LINE BALANCE</span>
-                                                <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem', textAlign: 'center', lineHeight: 1.4 }}>Cycle Time Analysis Engine</span>
-                                            </button>
-                                            <button className="shadow-btn-accent" onClick={() => onNavigate('goal-gap')} style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', background: 'var(--bg-panel)', border: '1px solid var(--border-light)', borderRadius: '12px', cursor: 'pointer', transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)', boxShadow: '0 4px 6px rgba(0,0,0,0.3)' }} onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = 'var(--zone-yellow)'; e.currentTarget.style.boxShadow = '0 10px 20px rgba(0,0,0,0.6)'; }} onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.borderColor = 'var(--border-light)'; e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.3)'; }}>
-                                                <span style={{ fontSize: '2.5rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>📈</span>
-                                                <span style={{ color: 'var(--lean-white)', fontWeight: 800, fontSize: '1rem', fontFamily: 'var(--font-headings)' }}>GOAL GAP</span>
-                                                <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem', textAlign: 'center', lineHeight: 1.4 }}>KPI Tracking Matrix</span>
-                                            </button>
-                                        </div>
-                                    </div>                                </div>
-                            </div>
+                        <div style={{ marginBottom: '3rem' }}>
+                            <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: 'var(--font-headings)', fontWeight: 900, color: 'var(--gemba-black)', margin: '0 0 0.5rem 0' }}>OPERATING ROOM</h1>
+                            <p style={{ fontSize: '1.2rem', color: 'var(--steel-gray)', margin: 0 }}>Select your operational focus area to begin.</p>
+                        </div>
+                        
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem' }}>
+                            {renderBucketCard('Learning & Education', 'Quizzes, Simulations, Win Sharing & Best Practices', '🎓', 'bg-learning', () => setView('learning'))}
+                            {renderBucketCard('Waste Identification', 'DOWNTIME Analysis, Motion Mapping & 5S Tools', '🗑️', 'bg-waste', () => setView('waste'))}
+                            {renderBucketCard('Execution & Focus', 'Improvement Logs, Line Balance & KPIs', '📈', 'bg-system', () => setView('system'))}
                         </div>
                     </>
                 )}
+
+                {/* 1. LEARNING & EDUCATION BUCKET */}
+                {view === 'learning' && (
+                    <div className="animate-fade-in">
+                        <div className="bucket-header">
+                            <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+                                <div style={{ fontSize: '5rem', lineHeight: 1 }}>🎓</div>
+                                <div style={{ flex: 1, minWidth: '300px' }}>
+                                    <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: 'var(--font-headings)', color: 'var(--lean-white)', margin: '0 0 1rem 0', textTransform: 'uppercase' }}>Learning & Education</h2>
+                                    <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
+                                        Continuous improvement begins with "training the eye to see." This hub contains interactive simulations, quizzes, safety best practices, and win-sharing from the floor to build your lean muscles.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+                            {renderToolBtn('gemba-challenge', '🎯', 'Gemba Challenge', 'Test your ability to spot the 8 Wastes in real-world factory scenarios.')}
+                            {renderToolBtn('lean-academy', '📚', 'Lean Academy', 'Interactive curriculum simulations and experiential homework.')}
+                            {renderToolBtn('video-hub', '📺', 'Video Hub', 'Curated library of Lippert best practices, safety talks, and training.')}
+                            {renderToolBtn('kaizen-hub', '🏆', 'Kaizen Hub', 'Win Sharing: Browse successfully executed global improvements.')}
+                        </div>
+                    </div>
+                )}
+
+                {/* 2. WASTE IDENTIFICATION BUCKET */}
+                {view === 'waste' && (
+                    <div className="animate-fade-in">
+                        <div className="bucket-header">
+                            <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+                                <div style={{ fontSize: '5rem', lineHeight: 1 }}>🗑️</div>
+                                <div style={{ flex: 1, minWidth: '300px' }}>
+                                    <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: 'var(--font-headings)', color: 'var(--lean-white)', margin: '0 0 1rem 0', textTransform: 'uppercase' }}>Waste Identification</h2>
+                                    <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: '0 0 1rem 0' }}>
+                                        Utilize these diagnostic tools to stand in the circle and root out <strong>DOWNTIME</strong> in your processes:
+                                    </p>
+                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.5rem', background: 'var(--bg-dark)', padding: '1.5rem', borderRadius: '8px' }}>
+                                        <div style={{ color: 'var(--lean-white)' }}><strong style={{color: 'var(--zone-yellow)'}}>D</strong>efects</div>
+                                        <div style={{ color: 'var(--lean-white)' }}><strong style={{color: 'var(--zone-yellow)'}}>O</strong>verproduction</div>
+                                        <div style={{ color: 'var(--lean-white)' }}><strong style={{color: 'var(--zone-yellow)'}}>W</strong>aiting</div>
+                                        <div style={{ color: 'var(--lean-white)' }}><strong style={{color: 'var(--zone-yellow)'}}>N</strong>on-utilized Talent</div>
+                                        <div style={{ color: 'var(--lean-white)' }}><strong style={{color: 'var(--zone-yellow)'}}>T</strong>ransportation</div>
+                                        <div style={{ color: 'var(--lean-white)' }}><strong style={{color: 'var(--zone-yellow)'}}>I</strong>nventory</div>
+                                        <div style={{ color: 'var(--lean-white)' }}><strong style={{color: 'var(--zone-yellow)'}}>M</strong>otion</div>
+                                        <div style={{ color: 'var(--lean-white)' }}><strong style={{color: 'var(--zone-yellow)'}}>E</strong>xtra-Processing</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+                            {renderToolBtn('motion-v2', '🏃‍♂️', 'Motion Mapper', 'Track spaghetti diagrams of operator movement in real-time.')}
+                            {renderToolBtn('process-check', '📋', 'Process Check', 'Structured evaluation of current standardization versus actual execution.')}
+                            {renderToolBtn('value-scanner', '🔳', '5S Scanner', 'Conduct rapid 5S audits of any workstation layout.')}
+                            {renderToolBtn('time-study', '⏱️', 'Time Study', 'Measure precise cycle times and identify VA vs NVA proportions.')}
+                            {renderToolBtn('gemba', '🧭', 'Gemba Walk', 'Guided floor walk framework to engage operators and spot friction.')}
+                        </div>
+                    </div>
+                )}
+
+                {/* 3. SYSTEM EXECUTION BUCKET */}
+                {view === 'system' && (
+                    <div className="animate-fade-in">
+                        <div className="bucket-header">
+                            <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+                                <div style={{ fontSize: '5rem', lineHeight: 1 }}>⚙️</div>
+                                <div style={{ flex: 1, minWidth: '300px' }}>
+                                    <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: 'var(--font-headings)', color: 'var(--lean-white)', margin: '0 0 1rem 0', textTransform: 'uppercase' }}>Execution & Focus</h2>
+                                    <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
+                                        Data is useless without action. Use this hub to balance workloads, track global facility KPIs, and drive identified action items to completion.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+                            {renderToolBtn('improvement-card', '⚡', 'Improvement Action', 'Log, track, and assign formal countermeasures (Just Fix It).')}
+                            {renderToolBtn('line-balance', '⚖️', 'Line Balance', 'Yamazumi chart builder to eliminate bottleneck operations.')}
+                            {renderToolBtn('goal-gap', '📈', 'Goal Gap Monitor', 'Facility-wide SQDC metric tracking and gap analysis algorithms.')}
+                            {renderToolBtn('action-items', '☑️', 'Master Task List', 'Your personal queue of assigned countermeasures.')}
+                        </div>
+                    </div>
+                )}
+
             </div>
+            <style dangerouslySetInnerHTML={{__html: `@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } } .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }`}} />
         </div>
     );
 }

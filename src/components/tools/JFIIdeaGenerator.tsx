@@ -1,29 +1,26 @@
 import { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
-import { type JFIIdea, JFI_IDEAS } from '../../data/jfiIdeas';
+import { type JFIIdea } from '../../data/jfiIdeas';
 import { userService } from '../../services/userService';
 import { storageService } from '../../services/storageService';
 import { jfiService } from '../../services/jfiService';
 import { ImprovementEngine } from '../../services/ImprovementEngine';
 import type { Idea } from '../../types/improvement';
+import type { UserProfile } from '../../services/userService';
 import { IdeaEngineService } from '../../services/IdeaEngineService';
 
 interface JFIIdeaGeneratorProps {
     onIdeaGenerated: (idea: JFIIdea) => void;
-    profile?: any;
-    onRequireAuth?: () => void;
+    profile?: UserProfile | null;
+    onNavigate?: (route: string) => void;
 }
 
-export default function JFIIdeaGenerator({ onIdeaGenerated, profile, onRequireAuth }: JFIIdeaGeneratorProps) {
+export default function JFIIdeaGenerator({ onIdeaGenerated, profile, onNavigate }: JFIIdeaGeneratorProps) {
     const [currentIdea, setCurrentIdea] = useState<JFIIdea | null>(null);
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [bugDescription, setBugDescription] = useState('');
     const [capturedPhotoUrl, setCapturedPhotoUrl] = useState<string | null>(null);
     
-    // Idea Carousel State
-    const [carouselIndex, setCarouselIndex] = useState(0);
-    const carouselItems = JFI_IDEAS.slice(0, 10); // Take first 10 for carousel
-
     // Cooldown State
     const [cooldownTime, setCooldownTime] = useState(0);
 
@@ -45,16 +42,6 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile, onRequireAu
             }
         }
     }, []);
-
-    // Rotate Carousel
-    useEffect(() => {
-        if (!currentIdea && !isAnalyzing) {
-            const int = setInterval(() => {
-                setCarouselIndex(prev => (prev + 1) % carouselItems.length);
-            }, 6000);
-            return () => clearInterval(int);
-        }
-    }, [currentIdea, isAnalyzing, carouselItems.length]);
 
     const checkAndConsumeCooldown = (): boolean => {
         if (cooldownTime > 0) return false;
@@ -148,64 +135,90 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile, onRequireAu
     };
 
     return (
-        <div className="gemba-panel" style={{ 
-            padding: '0.5rem 1.5rem', 
-            width: '100%',
-            position: 'relative',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '1.5rem',
-            borderBottom: '1px solid var(--border-color)',
-            borderTop: 'none',
-            borderLeft: 'none',
-            borderRight: 'none',
-            borderRadius: '0',
-            zIndex: 100
+        <div style={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            alignItems: 'center', 
+            gap: '1.25rem', 
+            width: '100%', 
+            maxWidth: '600px', 
+            margin: '0 auto', 
+            padding: '1rem',
+            background: 'transparent'
         }}>
-            {/* Header */}
-            <div style={{ display: 'flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
-                <div className="panel-title" style={{ fontSize: '1rem', margin: 0 }}>
-                    <span style={{ marginRight: '0.5rem' }}>⚙️</span> 
-                    IDEA <span style={{ color: 'var(--zone-yellow)' }}>ENGINE</span>
-                </div>
-            </div>
-
-            {/* Core Idea Input */}
-            <div style={{ flex: 1, position: 'relative' }}>
-                <div style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', opacity: 0.5 }}>🕵️‍♂️</div>
+            
+            {/* Core Idea Input - Narrower and longer */}
+            <div style={{ width: '100%', position: 'relative', filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.5))' }}>
+                <div style={{ position: 'absolute', left: '1.25rem', top: '50%', transform: 'translateY(-50%)', opacity: 0.7, fontSize: '1.2rem' }}>🕵️‍♂️</div>
                 <input 
                     type="text" 
-                    className="gemba-input"
                     placeholder="Type what you observed, or what outcome you want..."
                     value={bugDescription}
                     onChange={(e) => setBugDescription(e.target.value)}
-                    style={{ width: '100%', fontSize: '0.9rem', padding: '0.6rem 1rem 0.6rem 2.5rem', margin: 0 }}
+                    style={{ 
+                        width: '100%', 
+                        fontSize: '0.95rem', 
+                        padding: '0.8rem 1rem 0.8rem 3rem', 
+                        margin: 0, 
+                        background: '#0a0a0a', 
+                        border: '1px solid var(--border-light)', 
+                        color: 'white', 
+                        borderRadius: '30px',
+                        boxShadow: 'inset 0 4px 6px rgba(0,0,0,0.6)'
+                    }}
                 />
             </div>
 
-            {/* Action Buttons */}
-            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+            {/* AI Action Buttons - Centered */}
+            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
                 <button
                     onClick={handleGenerateRandom}
                     disabled={cooldownTime > 0}
-                    className="shadow-btn"
-                    style={{ padding: '0.5rem 1rem', flexDirection: 'row', gap: '0.5rem', opacity: cooldownTime > 0 ? 0.5 : 1, cursor: cooldownTime > 0 ? 'not-allowed' : 'pointer' }}
-                    title={cooldownTime > 0 ? `COOLDOWN: ${cooldownTime}m` : 'RANDOM IDEA'}
+                    style={{ 
+                        padding: '0.6rem 1.25rem', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: '0.5rem', 
+                        opacity: cooldownTime > 0 ? 0.5 : 1, 
+                        cursor: cooldownTime > 0 ? 'not-allowed' : 'pointer', 
+                        background: 'linear-gradient(145deg, #1f1f1f, #0a0a0a)', 
+                        border: '1px solid var(--border-color)', 
+                        color: 'var(--text-main)', 
+                        borderRadius: '20px', 
+                        fontWeight: '800', 
+                        fontSize: '0.7rem',
+                        boxShadow: '0 4px 10px rgba(0,0,0,0.4)',
+                        letterSpacing: '0.5px'
+                    }}
+                    title={cooldownTime > 0 ? `COOLDOWN: ${cooldownTime}m` : 'Generate Random Idea'}
                 >
-                    <span className="shadow-btn-icon" style={{ margin: 0, fontSize: '1rem' }}>🎲</span>
-                    <span className="hide-on-mobile" style={{ fontSize: '0.75rem', fontWeight: 800 }}>MOCK</span>
+                    <span style={{ fontSize: '1rem' }}>🎲</span>
+                    <span>GENERATE RANDOM IDEA</span>
                 </button>
                 <label
-                    className="shadow-btn shadow-btn-accent"
-                    style={{ padding: '0.5rem 1rem', flexDirection: 'row', gap: '0.5rem', cursor: isAnalyzing ? 'not-allowed' : 'pointer', opacity: isAnalyzing ? 0.7 : 1 }}
-                    title="PHOTO SCAN"
+                    style={{ 
+                        padding: '0.6rem 1.5rem', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: '0.5rem', 
+                        cursor: isAnalyzing ? 'not-allowed' : 'pointer', 
+                        opacity: isAnalyzing ? 0.7 : 1, 
+                        background: 'linear-gradient(145deg, var(--zone-yellow), #d4a000)', 
+                        border: '1px solid #b8860b', 
+                        color: '#000', 
+                        borderRadius: '20px', 
+                        fontWeight: '900', 
+                        fontSize: '0.75rem',
+                        boxShadow: '0 4px 10px rgba(0,0,0,0.4), inset 0 2px 0 rgba(255,255,255,0.4)'
+                    }}
+                    title="Scans environment"
                 >
                     {isAnalyzing ? (
-                         <span style={{ color: '#000', fontWeight: 900, fontFamily: 'var(--font-headings)', letterSpacing: '1px', fontSize: '0.75rem' }}>SCAN...</span>
+                         <span>SCANNING...</span>
                     ) : (
                         <>
-                            <span className="shadow-btn-icon" style={{ margin: 0, fontSize: '1rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>📷</span> 
-                            <span className="hide-on-mobile" style={{ fontSize: '0.75rem', fontWeight: 900, color: '#000' }}>PHOTO</span>
+                            <span style={{ fontSize: '1.1rem' }}>📷</span> 
+                            <span>PHOTO</span>
                         </>
                     )}
                     <input 
@@ -217,131 +230,130 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile, onRequireAu
                         style={{ display: 'none' }} 
                     />
                 </label>
-                <a
-                    href="https://padlet.com/placeholder"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="shadow-btn"
-                    style={{ padding: '0.5rem 1rem', flexDirection: 'row', gap: '0.5rem', textDecoration: 'none', background: 'linear-gradient(145deg, #111111, #0a0a0a)', border: '1px dashed var(--steel-gray)' }}
-                    title="SUBMIT VIA JOTFORM"
-                >
-                    <span className="shadow-btn-icon" style={{ margin: 0, fontSize: '1rem', filter: 'grayscale(1)' }}>📝</span>
-                    <span className="hide-on-mobile" style={{ color: 'var(--steel-gray)', fontWeight: 800, fontSize: '0.75rem' }}>FORM</span>
-                </a>
-                {!profile && onRequireAuth && (
-                    <button onClick={onRequireAuth} className="shadow-btn" style={{ padding: '0.5rem', fontSize: '0.75rem', borderColor: 'var(--accent-danger)', color: 'var(--accent-danger)', marginLeft: '0.5rem' }} title="Log In">👤</button>
-                )}
             </div>
 
-            {/* Loading State Absolute Overlay */}
+        {/* Explicit Form & Video Links - Separate Line */}
+            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
+                <button
+                    onClick={() => onNavigate && onNavigate('gemba-challenge')}
+                    style={{ 
+                        padding: '0.4rem 1rem', 
+                        cursor: 'pointer',
+                        background: 'rgba(255,194,14,0.1)', 
+                        border: '1px solid var(--zone-yellow)', 
+                        color: 'var(--zone-yellow)', 
+                        borderRadius: '20px', 
+                        fontSize: '0.65rem', 
+                        fontWeight: 900,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.4rem',
+                        textTransform: 'uppercase',
+                        boxShadow: '0 2px 8px rgba(255,194,14,0.2)'
+                    }}
+                >
+                    <span style={{ fontSize: '1rem' }}>🎯</span> PRACTICAL QUIZZES
+                </button>
+                <a
+                    href="https://form.jotform.com/240536481745157"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ 
+                        padding: '0.4rem 1rem', 
+                        textDecoration: 'none', 
+                        background: 'transparent', 
+                        border: '1px dashed var(--steel-gray)', 
+                        color: 'var(--steel-gray)', 
+                        borderRadius: '20px', 
+                        fontSize: '0.65rem', 
+                        fontWeight: 800,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.4rem',
+                        textTransform: 'uppercase'
+                    }}
+                >
+                    <span style={{ fontSize: '0.8rem', filter: 'grayscale(1)' }}>📝</span> JFI Just Fix It Submissions for Lippert
+                </a>
+                <a
+                    href="https://padlet.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ 
+                        padding: '0.4rem 1rem', 
+                        textDecoration: 'none', 
+                        background: 'transparent', 
+                        border: '1px dashed #3b82f6', 
+                        color: '#3b82f6', 
+                        borderRadius: '20px', 
+                        fontSize: '0.65rem', 
+                        fontWeight: 800,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.4rem',
+                        textTransform: 'uppercase'
+                    }}
+                >
+                    <span style={{ fontSize: '0.8rem' }}>📺</span> Their Videos from Lippert
+                </a>
+            </div>
+
+            {/* Loading State Overlay */}
             {isAnalyzing && (
-                <div style={{ position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)', width: 'clamp(300px, 90vw, 800px)', zIndex: 50, padding: '3rem 2rem', textAlign: 'center', background: '#000', border: '2px dashed var(--zone-yellow)', borderTop: 'none', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', boxShadow: '0 20px 40px rgba(0,0,0,0.8)' }}>
+                <div style={{ width: '100%', marginTop: '1rem', padding: '2rem', textAlign: 'center', background: '#0a0a0a', border: '1px dashed var(--zone-yellow)', borderRadius: '12px', boxShadow: '0 20px 40px rgba(0,0,0,0.8)' }}>
                     {capturedPhotoUrl && (
                         <div style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>
-                            <img src={capturedPhotoUrl} alt="Analyzing Target" style={{ width: '120px', height: '120px', objectFit: 'cover', filter: 'grayscale(100%) contrast(120%)', border: '2px solid var(--zone-yellow)', boxShadow: '0 10px 20px rgba(0,0,0,0.5)' }} />
+                            <img src={capturedPhotoUrl} alt="Analyzing Target" style={{ width: '120px', height: '120px', objectFit: 'cover', filter: 'grayscale(100%) contrast(120%)', border: '2px solid var(--zone-yellow)', borderRadius: '8px' }} />
                         </div>
                     )}
                     <div className="spinner" style={{ width: '32px', height: '32px', border: '4px solid rgba(255,194,14,0.2)', borderTop: '4px solid var(--zone-yellow)', borderRadius: '50%', margin: '0 auto 1.5rem', animation: 'spin 1s linear infinite' }}></div>
-                    <p style={{ margin: 0, fontSize: '1.25rem', fontWeight: '900', fontFamily: 'var(--font-headings)', color: 'var(--zone-yellow)', letterSpacing: '1.5px' }}>AI SCANNING WORKPLACE...</p>
-                    <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.85rem', color: 'var(--steel-gray)', fontWeight: 'bold' }}>EXTRACTING WASTE METRICS</p>
+                    <p style={{ margin: 0, fontSize: '1rem', fontWeight: '900', fontFamily: 'var(--font-headings)', color: 'var(--zone-yellow)' }}>AI SCANNING WORKPLACE...</p>
                     <style dangerouslySetInnerHTML={{__html: `@keyframes spin { 100% { transform: rotate(360deg); } }`}} />
                 </div>
             )}
 
-            {/* Result State Absolute Dropdown */}
+            {/* Result State Block */}
             {currentIdea && !isAnalyzing && (
                 <div style={{
-                    position: 'absolute',
-                    top: '100%',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    width: 'clamp(300px, 90vw, 800px)',
-                    zIndex: 50,
-                    padding: 'max(2rem, 4vw)',
+                    width: '100%',
+                    marginTop: '1rem',
+                    padding: '2rem',
                     background: '#040404',
-                    border: '2px solid var(--zone-yellow)',
-                    borderTop: 'none',
-                    borderBottomLeftRadius: '12px',
-                    borderBottomRightRadius: '12px',
+                    border: '1px solid var(--zone-yellow)',
+                    borderRadius: '12px',
                     boxShadow: '0 20px 40px rgba(0,0,0,0.8)',
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '2rem',
-                    animation: 'slideUpFade 0.5s ease forwards'
+                    gap: '1.5rem',
+                    animation: 'slideDownFade 0.4s ease forwards'
                 }}>
-                    <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
                         {capturedPhotoUrl && (
-                            <img src={capturedPhotoUrl} alt="Captured Friction" style={{ width: '140px', height: '140px', objectFit: 'cover', border: '2px solid var(--border-light)' }} />
+                            <img src={capturedPhotoUrl} alt="Captured Friction" style={{ width: '140px', height: '140px', objectFit: 'cover', border: '2px solid var(--border-light)', borderRadius: '8px' }} />
                         )}
-                        <div style={{ flex: 1, minWidth: '250px' }}>
-                            <span style={{ display: 'inline-block', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '3px', color: 'var(--zone-yellow)', marginBottom: '1rem', fontWeight: '900', fontFamily: 'var(--font-headings)' }}>
-                                // {currentIdea.category}
-                            </span>
-                            <h4 style={{ margin: '0 0 1rem 0', color: 'var(--lean-white)', fontSize: '2.25rem', fontWeight: '900', fontFamily: 'var(--font-headings)', lineHeight: 1.1, textTransform: 'uppercase', letterSpacing: '-0.5px' }}>
+                        <div style={{ flex: 1, minWidth: '200px' }}>
+                            <h4 style={{ margin: '0 0 0.5rem 0', color: 'var(--lean-white)', fontSize: '1.75rem', fontWeight: '900', fontFamily: 'var(--font-headings)', lineHeight: 1.1 }}>
                                 {currentIdea.title}
                             </h4>
-                            <p style={{ margin: '0 0 1rem 0', color: '#b0b0b0', fontSize: '1.1rem', lineHeight: 1.6, fontWeight: '500' }}>
+                            <p style={{ margin: '0 0 1rem 0', color: '#b0b0b0', fontSize: '1rem', lineHeight: 1.6 }}>
                                 {currentIdea.description}
                             </p>
                         </div>
                     </div>
 
-                    <div style={{ background: 'var(--bg-dark)', padding: '1.5rem', borderLeft: '6px solid var(--zone-yellow)', display: 'flex', alignItems: 'flex-start', gap: '1.25rem' }}>
-                        <span style={{ fontSize: '1.75rem', color: '#000' }}>📉</span>
+                    <div style={{ background: 'var(--bg-dark)', padding: '1rem 1.5rem', borderLeft: '4px solid var(--zone-yellow)', display: 'flex', alignItems: 'center', gap: '1rem', borderRadius: '4px' }}>
+                        <span style={{ fontSize: '1.5rem', color: '#000' }}>📉</span>
                         <div>
-                            <div style={{ fontSize: '0.8rem', color: 'var(--text-main)', textTransform: 'uppercase', fontWeight: '900', fontFamily: 'var(--font-headings)', letterSpacing: '2px', marginBottom: '0.5rem' }}>EXPECTED IMPACT</div>
-                            <div style={{ fontSize: '1.15rem', color: 'var(--text-main)', fontWeight: '600', lineHeight: 1.5 }}>{currentIdea.impact}</div>
+                            <div style={{ fontSize: '0.7rem', color: 'var(--gemba-black)', fontWeight: '900', letterSpacing: '1px' }}>EXPECTED IMPACT</div>
+                            <div style={{ fontSize: '1rem', color: 'var(--gemba-black)', fontWeight: '700' }}>{currentIdea.impact}</div>
                         </div>
-                    </div>
-                </div>
-            )}
-
-            {/* Empty State / Idea Carousel */}
-            {!isAnalyzing && (
-                <div style={{ marginTop: '1rem', borderTop: '2px dashed var(--border-light)', paddingTop: '2rem' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '1.5rem' }}>
-                        <h3 style={{ margin: 0, color: 'var(--steel-gray)', fontSize: '0.85rem', fontWeight: '900', fontFamily: 'var(--font-headings)', letterSpacing: '2px' }}>
-                            INSPIRATION ARCHIVE
-                        </h3>
-                        <span style={{ color: 'var(--zone-yellow)', fontSize: '0.75rem', fontWeight: '900', fontFamily: 'var(--font-headings)' }}>
-                            {(carouselIndex % carouselItems.length) + 1} / {carouselItems.length}
-                        </span>
-                    </div>
-
-                    <div style={{ position: 'relative', height: '180px', overflow: 'hidden' }}>
-                        {carouselItems.map((item, idx) => {
-                            const isActive = idx === carouselIndex;
-                            return (
-                                <div 
-                                    key={item.id}
-                                    style={{
-                                        position: 'absolute',
-                                        top: 0, left: 0, width: '100%',
-                                        padding: '1.5rem',
-                                        background: '#040404',
-                                        border: '1px solid var(--border-light)',
-                                        opacity: isActive ? 1 : 0,
-                                        transform: isActive ? 'translateY(0)' : 'translateY(20px)',
-                                        transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
-                                        pointerEvents: isActive ? 'auto' : 'none',
-                                        zIndex: isActive ? 10 : 1
-                                    }}
-                                >
-                                    <div style={{ fontSize: '0.65rem', color: 'var(--zone-yellow)', textTransform: 'uppercase', fontWeight: '900', fontFamily: 'var(--font-headings)', letterSpacing: '1px', marginBottom: '0.5rem' }}>{item.category}</div>
-                                    <div style={{ fontSize: '1.25rem', color: 'var(--lean-white)', fontWeight: '900', fontFamily: 'var(--font-headings)', marginBottom: '0.5rem' }}>{item.title}</div>
-                                    <p style={{ fontSize: '0.85rem', color: 'var(--steel-gray)', margin: 0, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                                        {item.description}
-                                    </p>
-                                </div>
-                            );
-                        })}
                     </div>
                 </div>
             )}
             
             <style dangerouslySetInnerHTML={{__html: `
-                @keyframes slideUpFade {
-                    from { opacity: 0; transform: translateY(20px); }
+                @keyframes slideDownFade {
+                    from { opacity: 0; transform: translateY(-10px); }
                     to { opacity: 1; transform: translateY(0); }
                 }
             `}} />

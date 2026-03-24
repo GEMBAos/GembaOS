@@ -112,6 +112,9 @@ export default function GembaChallengeQuiz({ onClose }: { onClose: () => void })
                         // Guest mode
                         const currentTokens = parseInt(localStorage.getItem('gembaos_guest_tokens') || '0', 10);
                         localStorage.setItem('gembaos_guest_tokens', (currentTokens + xpEarned).toString());
+                        if (typeof window !== 'undefined') {
+                            window.dispatchEvent(new Event('profileUpdated'));
+                        }
                     }
                     setXpAwarded(true);
                 } catch (e) {
@@ -149,7 +152,7 @@ export default function GembaChallengeQuiz({ onClose }: { onClose: () => void })
                         {/* Scenario Card */}
                         <div className="card" style={{ background: 'var(--bg-panel)', padding: 'clamp(1.5rem, 3vw, 3rem)', borderRadius: '12px', border: '1px solid var(--border-color)', marginBottom: '2rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
                             <div style={{ fontSize: '3rem', marginBottom: '1rem', textAlign: 'center' }}>{question.icon}</div>
-                            <h3 style={{ fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)', color: 'var(--text-main)', lineHeight: 1.5, textAlign: 'center', margin: '0 0 2rem 0', fontWeight: 500 }}>
+                            <h3 style={{ fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)', color: 'var(--text-panel)', lineHeight: 1.5, textAlign: 'center', margin: '0 0 2rem 0', fontWeight: 500 }}>
                                 "{question.scenario}"
                             </h3>
 
@@ -163,7 +166,7 @@ export default function GembaChallengeQuiz({ onClose }: { onClose: () => void })
                                         borderRadius: '8px',
                                         border: '2px solid var(--border-light)',
                                         background: 'transparent',
-                                        color: 'var(--text-main)',
+                                        color: 'var(--text-panel)',
                                         cursor: selectedAnswer === null ? 'pointer' : 'default',
                                         transition: 'all 0.2s',
                                         textAlign: 'center'
@@ -221,7 +224,7 @@ export default function GembaChallengeQuiz({ onClose }: { onClose: () => void })
                                     <h4 style={{ margin: '0 0 0.5rem 0', color: isCorrect ? '#10b981' : '#ef4444', fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                         {isCorrect ? '✅ Spot On!' : '❌ Not Quite.'}
                                     </h4>
-                                    <p style={{ margin: 0, color: 'var(--text-main)', lineHeight: 1.5 }}>
+                                    <p style={{ margin: 0, color: 'var(--text-panel)', lineHeight: 1.5 }}>
                                         {question.explanation}
                                     </p>
                                     <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1.5rem' }}>
