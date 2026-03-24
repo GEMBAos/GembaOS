@@ -265,7 +265,7 @@ export default function MotionHostActive({ sessionId, onBack }: Props) {
     const joinUrl = `${window.location.origin}${window.location.pathname}#/motion-v2?session=${session.id}`;
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg-dark)', overflow: 'hidden' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'var(--bg-dark)', overflow: 'hidden' }}>
             {/* PRIORITY 7: HIGH VISIBILITY MULTI-USER STATUS */}
             <div style={{ 
                 background: 'var(--bg-panel)', 
@@ -296,7 +296,7 @@ export default function MotionHostActive({ sessionId, onBack }: Props) {
             <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
                 {/* Sidebar with Connect info */}
                 <div style={{ 
-                    width: '320px', 
+                    width: 'clamp(200px, 20vw, 260px)', 
                     background: 'var(--bg-panel)', 
                     borderRight: '1px solid var(--border-color)', 
                     display: 'flex', 
@@ -304,8 +304,8 @@ export default function MotionHostActive({ sessionId, onBack }: Props) {
                     overflowY: 'auto' 
                 }}>
                     <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                        <div style={{ padding: '1rem', background: '#fff', borderRadius: '8px', alignSelf: 'center' }}>
-                            <QRCodeSVG value={joinUrl} size={180} />
+                        <div style={{ padding: '0.75rem', background: '#fff', borderRadius: '8px', alignSelf: 'center' }}>
+                            <QRCodeSVG value={joinUrl} size={120} />
                         </div>
                         
                         <div style={{ textAlign: 'center' }}>
@@ -408,18 +408,23 @@ export default function MotionHostActive({ sessionId, onBack }: Props) {
                             <svg style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 10, opacity: showHeatmap ? 0.3 : 1, transition: 'opacity 0.5s ease' }}>
                                 {participants.map((p) => {
                                     if (p.pathCoordinates.length < 2) return null;
-                                    const points = p.pathCoordinates.map(coord => `${coord.x}%,${coord.y}%`).join(' ');
                                     return (
-                                        <polyline 
-                                            key={p.id}
-                                            points={points}
-                                            fill="none"
-                                            stroke={p.color}
-                                            strokeWidth="3"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            style={{ filter: 'drop-shadow(0px 2px 4px rgba(0,0,0,0.5))' }}
-                                        />
+                                        <g key={`lines-${p.id}`} style={{ filter: 'drop-shadow(0px 2px 4px rgba(0,0,0,0.5))' }}>
+                                            {p.pathCoordinates.map((coord, i) => {
+                                                if (i === 0) return null;
+                                                const prev = p.pathCoordinates[i - 1];
+                                                return (
+                                                    <line 
+                                                        key={`${p.id}-segment-${i}`}
+                                                        x1={`${prev.x}%`} y1={`${prev.y}%`}
+                                                        x2={`${coord.x}%`} y2={`${coord.y}%`}
+                                                        stroke={p.color}
+                                                        strokeWidth="3"
+                                                        strokeLinecap="round"
+                                                    />
+                                                );
+                                            })}
+                                        </g>
                                     );
                                 })}
                                 
@@ -427,7 +432,7 @@ export default function MotionHostActive({ sessionId, onBack }: Props) {
                                 {participants.flatMap(p => p.pathCoordinates.map((coord, i) => {
                                     if (coord.eventType === 'OBSERVATION' && coord.notes) {
                                         return (
-                                            <g key={`${p.id}-${i}`} transform={`translate(${coord.x}%, ${coord.y}%)`} style={{ filter: 'drop-shadow(0px 4px 6px rgba(0,0,0,0.8))' }}>
+                                            <g key={`${p.id}-${i}`} style={{ transform: `translate(${coord.x}%, ${coord.y}%)`, filter: 'drop-shadow(0px 4px 6px rgba(0,0,0,0.8))' }}>
                                                 <circle r="8" fill="#facc15" stroke="#fff" strokeWidth="2" />
                                                 <text y="4" fontSize="12" textAnchor="middle" fill="#000" fontWeight="bold">!</text>
                                                 <rect x="-60" y="-30" width="120" height="20" rx="4" fill="rgba(0,0,0,0.8)" />
