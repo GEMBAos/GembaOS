@@ -233,7 +233,7 @@ function App() {
                 { id: 'waste', name: 'WASTE', icon: '🗑️', action: 'process-check' },
                 { id: '5s', name: '5S SCAN', icon: '🔳', action: 'value-scanner' },
                 { id: 'improve', name: 'IMPROVE', icon: '⚡', action: 'improvement-card' },
-                { id: 'lsubmit', name: 'SUBMIT', icon: '📋', action: 'action-items' },
+                { id: 'action-items', name: 'TASKS', icon: '📋', action: 'action-items' },
                 { id: 'hub', name: 'HUB', icon: '⚡', action: 'kaizen-hub' },
                 { id: 'balance', name: 'BALANCE', icon: '⚖️', action: 'line-balance' },
                 { id: 'goal', name: 'GOALS', icon: '📈', action: 'goal-gap' },

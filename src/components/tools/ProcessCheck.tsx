@@ -135,7 +135,13 @@ export default function ProcessCheck({ onClose, onNavigate }: ProcessCheckProps)
         setRootCauseNotes('');
         setCapturedWastes([]);
         setOperatorFeedback('');
-        onClose(); // Auto-close module instead of alert pop-up
+        
+        // Handoff to Improvement Card
+        if (onNavigate) {
+            onNavigate('improvement-card');
+        } else {
+            onClose();
+        }
     };
 
     return (

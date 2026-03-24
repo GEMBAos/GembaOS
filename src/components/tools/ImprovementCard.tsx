@@ -31,11 +31,21 @@ export default function ImprovementCard({ onClose }: { onClose: () => void }) {
     const [nextAction, setNextAction] = useState<'Standardize Change' | 'Test Again' | 'Escalate' | 'Reopen Diagnosis' | ''>('');
 
     const refreshData = () => {
-        setDiagnoses(ImprovementEngine.getItemsByType<ProcessCheck>('ProcessCheck'));
+        const data = ImprovementEngine.getItemsByType<ProcessCheck>('ProcessCheck');
+        // Sort newest first
+        const sortedData = data.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        setDiagnoses(sortedData);
+        return sortedData;
     };
 
     useEffect(() => {
-        refreshData();
+        const initialData = refreshData();
+        // Auto-select the most recent diagnosis to save UX clicks if they just arrived from the Diagnosis tool
+        if (initialData.length > 0) {
+            setSelectedDiagnosisId(initialData[0].id);
+            setStep(1);
+        }
+
         const listener = () => refreshData();
         window.addEventListener('improvement_data_updated', listener);
         return () => window.removeEventListener('improvement_data_updated', listener);

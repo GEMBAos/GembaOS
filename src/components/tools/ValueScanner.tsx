@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import HardwareConsoleLayout from './HardwareConsoleLayout';
 
 type VsmBlock = {
@@ -9,12 +9,22 @@ type VsmBlock = {
 };
 
 export default function ValueScanner({ onClose }: { onClose: () => void }) {
-    const [blocks, setBlocks] = useState<VsmBlock[]>([
-        { id: '1', type: 'wait', name: 'Raw Material Inventory', time: 14400 }, // 10 days
-        { id: '2', type: 'process', name: 'Machining', time: 12 }, 
-        { id: '3', type: 'wait', name: 'WIP Queue', time: 2880 }, // 2 days
-        { id: '4', type: 'process', name: 'Final Assembly', time: 25 }, 
-    ]);
+    const [blocks, setBlocks] = useState<VsmBlock[]>(() => {
+        const saved = localStorage.getItem('gembaos_vsm_blocks');
+        if (saved) {
+            try { return JSON.parse(saved); } catch (e) {}
+        }
+        return [
+            { id: '1', type: 'wait', name: 'Raw Material Inventory', time: 14400 }, // 10 days
+            { id: '2', type: 'process', name: 'Machining', time: 12 }, 
+            { id: '3', type: 'wait', name: 'WIP Queue', time: 2880 }, // 2 days
+            { id: '4', type: 'process', name: 'Final Assembly', time: 25 }, 
+        ];
+    });
+
+    useEffect(() => {
+        localStorage.setItem('gembaos_vsm_blocks', JSON.stringify(blocks));
+    }, [blocks]);
 
     const formatTime = (mins: number) => {
         if (mins === 0) return '0 Mins';
