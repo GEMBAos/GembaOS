@@ -138,87 +138,110 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile, onNavigate 
         <div style={{ 
             display: 'flex', 
             flexDirection: 'column', 
-            alignItems: 'center', 
-            gap: '0.5rem', 
+            gap: '1.25rem', 
             width: '100%', 
             maxWidth: '600px', 
             margin: '0 auto', 
-            padding: '0.25rem',
-            background: 'transparent'
+            padding: '2rem',
+            background: '#18181b', // Deep industrial dark
+            borderRadius: '16px',
+            borderTop: '4px solid var(--zone-yellow)',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.5)'
         }}>
+            {/* Header */}
+            <h2 style={{ 
+                margin: 0, 
+                color: 'var(--zone-yellow)', 
+                fontSize: '1.5rem', 
+                fontFamily: 'var(--font-headings)', 
+                fontWeight: 900, 
+                textTransform: 'uppercase', 
+                letterSpacing: '2px',
+                textAlign: 'center',
+                filter: 'drop-shadow(0 2px 10px rgba(255,194,14,0.3))'
+            }}>
+                <span style={{ filter: 'grayscale(1)', color: '#fff' }}>⚙️</span> IDEA ENGINE
+            </h2>
             
-            {/* Core Idea Input - Narrower and longer */}
-            <div style={{ width: '100%', position: 'relative', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' }}>
-                <div style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', opacity: 0.7, fontSize: '0.9rem' }}>🕵️‍♂️</div>
+            <hr style={{ border: 'none', borderTop: '1px solid rgba(255,255,255,0.1)', margin: '0' }} />
+            
+            {/* Core Idea Input */}
+            <div style={{ width: '100%', position: 'relative' }}>
+                <span style={{ position: 'absolute', top: '-0.75rem', left: '0.5rem', fontSize: '0.5rem', color: 'var(--zone-yellow)', background: '#18181b', padding: '0 0.5rem', fontWeight: 900, letterSpacing: '1px' }}>
+                    🔍 PROBLEM DESCRIPTION / DESIRED RESULT (OPTIONAL)
+                </span>
                 <input 
                     type="text" 
-                    placeholder="Type observation or outcome..."
+                    placeholder="Type what you observed, or what outcome you want..."
                     value={bugDescription}
                     onChange={(e) => setBugDescription(e.target.value)}
                     style={{ 
                         width: '100%', 
-                        fontSize: '0.85rem', 
-                        padding: '0.5rem 1rem 0.5rem 2.25rem', 
+                        fontSize: '0.95rem', 
+                        padding: '1rem', 
                         margin: 0, 
-                        background: 'var(--lean-white)', 
-                        border: '1px solid var(--border-color)', 
-                        color: 'var(--gemba-black)', 
-                        borderRadius: '20px',
-                        boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)'
+                        background: '#ffffff', 
+                        border: '1px solid rgba(255,255,255,0.2)', 
+                        color: '#111', 
+                        borderRadius: '4px',
+                        fontWeight: 'bold'
                     }}
                 />
             </div>
 
-            {/* AI Action Buttons - Centered */}
-            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
+            {/* AI Action Buttons - Black and Yellow Grid Layout */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '0.75rem', alignItems: 'stretch' }}>
                 <button
                     onClick={handleGenerateRandom}
                     disabled={cooldownTime > 0}
                     style={{ 
-                        padding: '0.35rem 0.75rem', 
-                        display: 'flex', 
+                        padding: '1rem 0.5rem', 
+                        display: 'flex',
+                        flexDirection: 'column', 
                         alignItems: 'center', 
-                        gap: '0.35rem', 
+                        justifyContent: 'center',
+                        gap: '0.25rem', 
                         opacity: cooldownTime > 0 ? 0.5 : 1, 
                         cursor: cooldownTime > 0 ? 'not-allowed' : 'pointer', 
-                        background: 'linear-gradient(145deg, #ffffff, #f3f4f6)', 
-                        border: '1px solid var(--border-color)', 
-                        color: 'var(--gemba-black)', 
-                        borderRadius: '16px', 
-                        fontWeight: '800', 
-                        fontSize: '0.6rem',
-                        boxShadow: '0 2px 5px rgba(0,0,0,0.05)',
-                        letterSpacing: '0.25px'
+                        background: '#0a0a0a', 
+                        border: '1px solid rgba(255,255,255,0.05)', 
+                        color: '#fff', 
+                        borderRadius: '8px', 
+                        fontWeight: '900', 
+                        fontSize: '0.7rem',
+                        textTransform: 'uppercase',
+                        boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.02)'
                     }}
-                    title={cooldownTime > 0 ? `COOLDOWN: ${cooldownTime}m` : 'Generate Random Idea'}
                 >
-                    <span style={{ fontSize: '0.8rem' }}>🎲</span>
-                    <span>IDEA</span>
+                    <span style={{ fontSize: '1.2rem', filter: 'grayscale(1)' }}>🎲</span>
+                    <span style={{ textAlign: 'center' }}>RANDOM<br/>IDEA</span>
                 </button>
                 <label
                     style={{ 
-                        padding: '0.35rem 1rem', 
-                        display: 'flex', 
+                        padding: '1rem 0.5rem', 
+                        display: 'flex',
+                        flexDirection: 'column', 
                         alignItems: 'center', 
-                        gap: '0.35rem', 
+                        justifyContent: 'center',
+                        gap: '0.25rem', 
                         cursor: isAnalyzing ? 'not-allowed' : 'pointer', 
                         opacity: isAnalyzing ? 0.7 : 1, 
-                        background: 'linear-gradient(145deg, var(--zone-yellow), #d4a000)', 
-                        border: '1px solid #b8860b', 
+                        background: 'var(--zone-yellow)', 
+                        border: 'none', 
                         color: '#000', 
-                        borderRadius: '16px', 
+                        borderRadius: '8px', 
                         fontWeight: '900', 
-                        fontSize: '0.65rem',
-                        boxShadow: '0 2px 5px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4)'
+                        fontSize: '0.75rem',
+                        textTransform: 'uppercase',
+                        boxShadow: '0 4px 15px rgba(255,194,14,0.3), inset 0 2px 0 rgba(255,255,255,0.4)'
                     }}
-                    title="Scans environment"
                 >
                     {isAnalyzing ? (
                          <span>SCANNING...</span>
                     ) : (
                         <>
-                            <span style={{ fontSize: '0.85rem' }}>📷</span> 
-                            <span>PHOTO</span>
+                            <span style={{ fontSize: '1.5rem', color: '#000' }}>📷</span> 
+                            <span style={{ textAlign: 'center' }}>PHOTO<br/>SCAN</span>
                         </>
                     )}
                     <input 
@@ -232,70 +255,97 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile, onNavigate 
                 </label>
             </div>
 
-        {/* Explicit Form & Video Links - Separate Line */}
-            <div style={{ display: 'flex', gap: '0.4rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
-                <button
-                    onClick={() => onNavigate && onNavigate('gemba-challenge')}
-                    style={{ 
-                        padding: '0.2rem 0.5rem', 
-                        cursor: 'pointer',
-                        background: 'rgba(255,194,14,0.1)', 
-                        border: '1px solid var(--zone-yellow)', 
-                        color: 'var(--zone-yellow)', 
-                        borderRadius: '12px', 
-                        fontSize: '0.55rem', 
-                        fontWeight: 900,
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.25rem',
-                        textTransform: 'uppercase'
-                    }}
-                >
-                    <span style={{ fontSize: '0.7rem' }}>🎯</span> QUIZZES
-                </button>
+            <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)', gap: '0.75rem', marginTop: '-0.25rem' }}>
                 <a
                     href="https://form.jotform.com/240536481745157"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ 
-                        padding: '0.2rem 0.5rem', 
-                        textDecoration: 'none', 
-                        background: 'transparent', 
-                        border: '1px dashed var(--steel-gray)', 
-                        color: 'var(--steel-gray)', 
-                        borderRadius: '12px', 
-                        fontSize: '0.55rem', 
-                        fontWeight: 800,
+                        padding: '0.75rem 0.5rem', 
                         display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.25rem',
-                        textTransform: 'uppercase'
+                        flexDirection: 'column', 
+                        alignItems: 'center', 
+                        justifyContent: 'center',
+                        gap: '0.25rem', 
+                        textDecoration: 'none', 
+                        background: '#0a0a0a', 
+                        border: '1px solid rgba(255,255,255,0.05)', 
+                        color: '#fff', 
+                        borderRadius: '8px', 
+                        fontSize: '0.6rem', 
+                        fontWeight: 900,
+                        textTransform: 'uppercase',
+                        boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.02)'
                     }}
                 >
-                    <span style={{ fontSize: '0.65rem', filter: 'grayscale(1)' }}>📝</span> SUBMISSIONS
+                    <span style={{ fontSize: '1rem', filter: 'grayscale(1)' }}>📝</span>
+                    <span style={{ textAlign: 'center' }}>JOTFORM</span>
                 </a>
+                <button
+                    onClick={() => onNavigate && onNavigate('gemba-challenge')}
+                    style={{ 
+                        padding: '0.75rem 0.5rem', 
+                        cursor: 'pointer',
+                        display: 'flex',
+                        flexDirection: 'column', 
+                        alignItems: 'center', 
+                        justifyContent: 'center',
+                        gap: '0.25rem', 
+                        background: '#0a0a0a', 
+                        border: '1px solid rgba(255,194,14,0.3)', 
+                        color: 'var(--zone-yellow)', 
+                        borderRadius: '8px', 
+                        fontSize: '0.6rem', 
+                        fontWeight: 900,
+                        textTransform: 'uppercase',
+                        boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.02)'
+                    }}
+                >
+                    <span style={{ fontSize: '1rem' }}>🎯</span>
+                    <span style={{ textAlign: 'center' }}>QUIZZES</span>
+                </button>
                 <a
                     href="https://padlet.com/"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ 
-                        padding: '0.2rem 0.5rem', 
+                        padding: '0.75rem 0.5rem', 
+                        display: 'flex',
+                        flexDirection: 'column', 
+                        alignItems: 'center', 
+                        justifyContent: 'center',
+                        gap: '0.25rem', 
                         textDecoration: 'none', 
-                        background: 'transparent', 
+                        background: '#0a0a0a', 
                         border: '1px dashed #3b82f6', 
                         color: '#3b82f6', 
-                        borderRadius: '12px', 
-                        fontSize: '0.55rem', 
-                        fontWeight: 800,
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.25rem',
-                        textTransform: 'uppercase'
+                        borderRadius: '8px', 
+                        fontSize: '0.6rem', 
+                        fontWeight: 900,
+                        textTransform: 'uppercase',
+                        boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.02)'
                     }}
                 >
-                    <span style={{ fontSize: '0.65rem' }}>📺</span> VIDEOS
+                    <span style={{ fontSize: '1rem' }}>📺</span>
+                    <span style={{ textAlign: 'center' }}>VIDEOS</span>
                 </a>
             </div>
+            
+            <hr style={{ border: 'none', borderTop: '1px dashed rgba(255,194,14,0.3)', margin: '1rem 0 0 0' }} />
+            
+            {/* INSPIRATION ARCHIVE SECTION */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <h3 style={{ margin: 0, fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '1px' }}>INSPIRATION ARCHIVE</h3>
+                <span style={{ fontSize: '0.65rem', color: 'var(--zone-yellow)' }}>0/100</span>
+            </div>
+            
+            <div style={{ background: '#0a0a0a', border: '1px solid rgba(255,194,14,0.2)', borderLeft: '3px solid var(--zone-yellow)', borderRadius: '4px', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <div style={{ fontSize: '0.6rem', color: 'var(--zone-yellow)', fontWeight: 900, textTransform: 'uppercase' }}>⭐ HIGHEST ROI ORGANIZATION</div>
+                <div style={{ fontSize: '1.1rem', color: '#fff', fontWeight: 900 }}>Trash Chute / Drop</div>
+                <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)' }}>An established hardware addition that removes the non-value added time of tying bags and throwing them out...</div>
+            </div>
+
+
 
             {/* Loading State Overlay */}
             {isAnalyzing && (

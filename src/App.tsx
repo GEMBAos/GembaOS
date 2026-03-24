@@ -206,7 +206,7 @@ function App() {
       <div className={`os-shell ${true ? 'context-closed' : ''}`}>
         
         {/* 1. HEADER ZONE (Massive Fixed Global Logo) */}
-        <header className="os-header" style={{ height: 'auto', padding: '1.5rem 2rem 1rem 2rem', justifyContent: 'space-between', borderBottom: '2px solid #222' }}>
+        <header className="os-header" style={{ height: 'auto', padding: '1rem 2rem', justifyContent: 'space-between', background: '#111', borderBottom: '2px solid rgba(255,194,14,0.3)', boxShadow: '0 4px 20px rgba(0,0,0,0.5)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', cursor: 'pointer', flex: 1 }} onClick={() => handleNavigate('portal')}>
                 {/* Optional minor navigation nodes can go here */}
             </div>
@@ -215,13 +215,13 @@ function App() {
                 onClick={() => handleNavigate('portal')}
                 style={{ 
                     cursor: 'pointer',
-                    width: 'clamp(280px, 50vw, 600px)', 
-                    height: 'clamp(60px, 12vh, 140px)',
+                    width: 'clamp(280px, 50vw, 400px)', 
+                    height: 'clamp(60px, 12vh, 80px)',
                     backgroundImage: `url(${brandLogo})`,
                     backgroundSize: 'contain',
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center center',
-                    filter: 'drop-shadow(0 0 20px rgba(255,255,255,0.15)) drop-shadow(0 0 4px rgba(255,255,255,0.5))'
+                    filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.5))'
                 }} 
             />
 
@@ -259,7 +259,7 @@ function App() {
         </div>
 
         {/* PERSISTENT FLAT IDEA ENGINE LOGGING BAR */}
-        <div style={{ gridArea: 'os-idea', position: 'relative', zIndex: 45, background: 'var(--lean-white)', borderBottom: '1px solid var(--border-color)', padding: '0.75rem', boxShadow: '0 4px 20px rgba(0,0,0,0.02)' }}>
+        <div style={{ gridArea: 'os-idea', position: 'relative', zIndex: 45, background: 'transparent', padding: '2rem 1rem 0 1rem' }}>
             <JFIIdeaGenerator 
                 onIdeaGenerated={() => {}} 
                 profile={profile} 
