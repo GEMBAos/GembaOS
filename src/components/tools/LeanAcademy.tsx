@@ -245,9 +245,9 @@ export default function LeanAcademy() {
                 </div>
             </header>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'minmax(350px, 1fr) 2fr', gap: '3rem' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'clamp(1.5rem, 3vw, 3rem)' }}>
                 {/* Module List Sidebar */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                <div style={{ flex: '1 1 300px', display: 'flex', flexDirection: 'column', gap: 'clamp(1rem, 2vw, 1.5rem)' }}>
                     <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.5rem', textTransform: 'uppercase', color: 'var(--text-muted)', fontFamily: 'var(--font-headings)' }}>Curriculum Roadmap</h3>
                     {LEAN_ACADEMY_MODULES.map((mod, index) => {
                         const isCompleted = completedModules.includes(mod.id);
@@ -297,7 +297,7 @@ export default function LeanAcademy() {
                 </div>
 
                 {/* Module Content Viewer */}
-                <div className="card" style={{ minHeight: '600px', display: 'flex', flexDirection: 'column', padding: '2.5rem' }}>
+                <div className="card" style={{ flex: '2 1 min(100%, 600px)', minHeight: '600px', display: 'flex', flexDirection: 'column', padding: 'clamp(1.25rem, 3vw, 2.5rem)' }}>
                     {selectedModule ? (() => {
                         const mod = LEAN_ACADEMY_MODULES.find(m => m.id === selectedModule)!;
                         const isCompleted = completedModules.includes(mod.id);
@@ -315,7 +315,7 @@ export default function LeanAcademy() {
                                         {mod.lessons.map(lesson => (
                                             <div key={lesson.id} style={{
                                                 background: 'var(--bg-dark)',
-                                                padding: '2rem',
+                                                padding: 'clamp(1.25rem, 3vw, 2rem)',
                                                 borderRadius: '0.5rem',
                                                 borderLeft: '6px solid var(--zone-yellow)'
                                             }}>
@@ -358,17 +358,19 @@ export default function LeanAcademy() {
                                                             const sub = subs[idx] || { description: '' };
                                                             return (
                                                                 <div key={idx} style={{
-                                                                    display: 'grid',
-                                                                    gridTemplateColumns: '1fr 2fr',
-                                                                    gap: '1.5rem',
+                                                                    display: 'flex',
+                                                                    flexDirection: 'column',
+                                                                    gap: 'clamp(1rem, 2vw, 1.5rem)',
                                                                     background: 'var(--bg-dark)',
-                                                                    padding: '1rem',
+                                                                    padding: 'clamp(1rem, 2vw, 1.5rem)',
                                                                     borderRadius: '0.5rem',
                                                                     border: '1px dashed var(--border-color)'
                                                                 }}>
+                                                                    {/* Inputs Wrapper for Desktop Splitting */}
+                                                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem' }}>
                                                                     {/* Photo Column */}
                                                                     {task.requiresPhoto && (
-                                                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                                                        <div style={{ flex: '1 1 200px', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                                                                             <label style={{ fontSize: '0.85rem', fontWeight: 'bold' }}>Photo Evidence {idx + 1}</label>
                                                                             {!isCompleted && (
                                                                                 <input
@@ -390,7 +392,7 @@ export default function LeanAcademy() {
 
                                                                     {/* Description Column */}
                                                                     {task.requiresDescription && (
-                                                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                                                        <div style={{ flex: '2 1 300px', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                                                                             <label style={{ fontSize: '0.85rem', fontWeight: 'bold' }}>Description / JFI Proposal {idx + 1}</label>
                                                                             <textarea
                                                                                 value={sub.description}
@@ -412,6 +414,7 @@ export default function LeanAcademy() {
                                                                             />
                                                                         </div>
                                                                     )}
+                                                                    </div>
                                                                 </div>
                                                             );
                                                         })}

@@ -28,6 +28,7 @@ const ActionItems = React.lazy(() => import('./components/tools/ActionItems'));
 const LeanAcademy = React.lazy(() => import('./components/tools/LeanAcademy'));
 const VideoHub = React.lazy(() => import('./components/tools/VideoHub'));
 const GembaChallengeQuiz = React.lazy(() => import('./components/tools/GembaChallengeQuiz'));
+import JFIIdeaGenerator from './components/tools/JFIIdeaGenerator';
 
 import { userService } from './services/userService';
 import { storageService } from './services/storageService';
@@ -216,7 +217,18 @@ function App() {
         </header>
 
         {/* PERSISTENT LEAN LIFE HACKS TICKER */}
-        <LeanLifestyleTicker />
+        <div style={{ gridArea: 'os-ticker' }}>
+            <LeanLifestyleTicker />
+        </div>
+
+        {/* PERSISTENT FLAT IDEA ENGINE LOGGING BAR */}
+        <div style={{ gridArea: 'os-idea', position: 'relative', zIndex: 45 }}>
+            <JFIIdeaGenerator 
+                onIdeaGenerated={() => {}} 
+                profile={profile} 
+                onRequireAuth={() => setShowProfileModal(true)}
+            />
+        </div>
 
         {/* 2. NAVIGATION SYSTEM (DESKTOP RAIL) */}
         <nav className="os-nav-rail hide-on-mobile" style={{

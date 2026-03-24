@@ -128,10 +128,12 @@ h3 {
   padding-right: env(safe-area-inset-right);
 
   /* Desktop Grid Default (3 Zones) */
-  grid-template-rows: var(--os-header-height) 1fr;
+  grid-template-rows: var(--os-header-height) auto auto 1fr;
   grid-template-columns: var(--os-nav-rail-width) 1fr var(--os-context-panel-width);
   grid-template-areas:
     "os-nav os-header os-header"
+    "os-nav os-ticker os-context"
+    "os-nav os-idea os-context"
     "os-nav os-workspace os-context";
 }
 
@@ -139,6 +141,8 @@ h3 {
   grid-template-columns: var(--os-nav-rail-width) 1fr;
   grid-template-areas:
     "os-nav os-header"
+    "os-nav os-ticker"
+    "os-nav os-idea"
     "os-nav os-workspace";
 }
 
@@ -210,10 +214,12 @@ h3 {
 @media (max-width: 1024px) {
   .os-shell {
     /* Tablet/Phone Grid Default */
-    grid-template-rows: var(--os-header-height) 1fr calc(var(--os-bottom-dock-height) + env(safe-area-inset-bottom));
+    grid-template-rows: var(--os-header-height) auto auto 1fr calc(var(--os-bottom-dock-height) + env(safe-area-inset-bottom));
     grid-template-columns: 1fr;
     grid-template-areas:
       "os-header"
+      "os-ticker"
+      "os-idea"
       "os-workspace"
       "os-nav-dock";
   }
@@ -222,6 +228,8 @@ h3 {
     grid-template-columns: 1fr;
     grid-template-areas:
       "os-header"
+      "os-ticker"
+      "os-idea"
       "os-workspace"
       "os-nav-dock";
   }

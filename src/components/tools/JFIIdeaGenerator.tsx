@@ -149,61 +149,63 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile, onRequireAu
 
     return (
         <div className="gemba-panel" style={{ 
-            padding: 'max(1.5rem, 3vw)', 
+            padding: '0.5rem 1.5rem', 
             width: '100%',
             position: 'relative',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '1.5rem',
+            borderBottom: '1px solid var(--border-color)',
+            borderTop: 'none',
+            borderLeft: 'none',
+            borderRight: 'none',
+            borderRadius: '0',
+            zIndex: 100
         }}>
             {/* Header */}
-            <div style={{ marginBottom: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div>
-                    <div className="panel-title" style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)' }}>
-                        <span style={{ marginRight: '0.75rem' }}>⚙️</span> 
-                        IDEA <span style={{ color: 'var(--zone-yellow)' }}>ENGINE</span>
-                    </div>
+            <div style={{ display: 'flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
+                <div className="panel-title" style={{ fontSize: '1rem', margin: 0 }}>
+                    <span style={{ marginRight: '0.5rem' }}>⚙️</span> 
+                    IDEA <span style={{ color: 'var(--zone-yellow)' }}>ENGINE</span>
                 </div>
-                {!profile && onRequireAuth && (
-                    <button onClick={onRequireAuth} className="shadow-btn" style={{ padding: '0.5rem 1rem', fontSize: '0.75rem', borderColor: 'var(--accent-danger)', color: 'var(--accent-danger)' }}>LOG IN</button>
-                )}
             </div>
-            
-            <div className="panel-rule" style={{ margin: '0 0 2rem 0' }}></div>
 
             {/* Core Idea Input */}
-            <div style={{ marginBottom: '1.5rem' }}>
-                <label style={{ display: 'block', color: 'var(--steel-gray)', fontSize: '0.75rem', fontWeight: '900', fontFamily: 'var(--font-headings)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                    🕵️‍♂️ PROBLEM DESCRIPTION / DESIRED RESULT (OPTIONAL)
-                </label>
+            <div style={{ flex: 1, position: 'relative' }}>
+                <div style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', opacity: 0.5 }}>🕵️‍♂️</div>
                 <input 
                     type="text" 
                     className="gemba-input"
                     placeholder="Type what you observed, or what outcome you want..."
                     value={bugDescription}
                     onChange={(e) => setBugDescription(e.target.value)}
-                    style={{ width: '100%', fontSize: '1rem', padding: '1rem' }}
+                    style={{ width: '100%', fontSize: '0.9rem', padding: '0.6rem 1rem 0.6rem 2.5rem', margin: 0 }}
                 />
             </div>
 
             {/* Action Buttons */}
-            <div style={{ display: 'flex', gap: '1rem', marginBottom: '2.5rem', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                 <button
                     onClick={handleGenerateRandom}
                     disabled={cooldownTime > 0}
                     className="shadow-btn"
-                    style={{ flex: 1, minWidth: '200px', padding: '1.5rem', flexDirection: 'row', gap: '1rem', opacity: cooldownTime > 0 ? 0.5 : 1, cursor: cooldownTime > 0 ? 'not-allowed' : 'pointer' }}
+                    style={{ padding: '0.5rem 1rem', flexDirection: 'row', gap: '0.5rem', opacity: cooldownTime > 0 ? 0.5 : 1, cursor: cooldownTime > 0 ? 'not-allowed' : 'pointer' }}
+                    title={cooldownTime > 0 ? `COOLDOWN: ${cooldownTime}m` : 'RANDOM IDEA'}
                 >
-                    <span className="shadow-btn-icon" style={{ margin: 0 }}>🎲</span>
-                    {cooldownTime > 0 ? `COOLDOWN: ${cooldownTime}m` : 'RANDOM IDEA'}
+                    <span className="shadow-btn-icon" style={{ margin: 0, fontSize: '1rem' }}>🎲</span>
+                    <span className="hide-on-mobile" style={{ fontSize: '0.75rem', fontWeight: 800 }}>MOCK</span>
                 </button>
                 <label
                     className="shadow-btn shadow-btn-accent"
-                    style={{ flex: 1, minWidth: '200px', padding: '1.5rem', flexDirection: 'row', gap: '1rem', cursor: isAnalyzing ? 'not-allowed' : 'pointer', opacity: isAnalyzing ? 0.7 : 1 }}
+                    style={{ padding: '0.5rem 1rem', flexDirection: 'row', gap: '0.5rem', cursor: isAnalyzing ? 'not-allowed' : 'pointer', opacity: isAnalyzing ? 0.7 : 1 }}
+                    title="PHOTO SCAN"
                 >
                     {isAnalyzing ? (
-                         <span style={{ color: '#000', fontWeight: 900, fontFamily: 'var(--font-headings)', letterSpacing: '1px' }}>SCANNING...</span>
+                         <span style={{ color: '#000', fontWeight: 900, fontFamily: 'var(--font-headings)', letterSpacing: '1px', fontSize: '0.75rem' }}>SCAN...</span>
                     ) : (
                         <>
-                            <span className="shadow-btn-icon" style={{ margin: 0, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>📷</span> 
-                            <span style={{ fontWeight: 900, color: '#000' }}>PHOTO SCAN</span>
+                            <span className="shadow-btn-icon" style={{ margin: 0, fontSize: '1rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>📷</span> 
+                            <span className="hide-on-mobile" style={{ fontSize: '0.75rem', fontWeight: 900, color: '#000' }}>PHOTO</span>
                         </>
                     )}
                     <input 
@@ -220,16 +222,20 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile, onRequireAu
                     target="_blank"
                     rel="noopener noreferrer"
                     className="shadow-btn"
-                    style={{ flex: 1, minWidth: '200px', padding: '1.5rem', flexDirection: 'row', gap: '1rem', textDecoration: 'none', background: 'linear-gradient(145deg, #111111, #0a0a0a)', border: '1px dashed var(--steel-gray)' }}
+                    style={{ padding: '0.5rem 1rem', flexDirection: 'row', gap: '0.5rem', textDecoration: 'none', background: 'linear-gradient(145deg, #111111, #0a0a0a)', border: '1px dashed var(--steel-gray)' }}
+                    title="SUBMIT VIA JOTFORM"
                 >
-                    <span className="shadow-btn-icon" style={{ margin: 0, filter: 'grayscale(1)' }}>📝</span>
-                    <span style={{ color: 'var(--steel-gray)', fontWeight: 800, fontFamily: 'var(--font-headings)' }}>SUBMIT VIA JOTFORM</span>
+                    <span className="shadow-btn-icon" style={{ margin: 0, fontSize: '1rem', filter: 'grayscale(1)' }}>📝</span>
+                    <span className="hide-on-mobile" style={{ color: 'var(--steel-gray)', fontWeight: 800, fontSize: '0.75rem' }}>FORM</span>
                 </a>
+                {!profile && onRequireAuth && (
+                    <button onClick={onRequireAuth} className="shadow-btn" style={{ padding: '0.5rem', fontSize: '0.75rem', borderColor: 'var(--accent-danger)', color: 'var(--accent-danger)', marginLeft: '0.5rem' }} title="Log In">👤</button>
+                )}
             </div>
 
-            {/* Loading State */}
+            {/* Loading State Absolute Overlay */}
             {isAnalyzing && (
-                <div style={{ padding: '3rem 2rem', textAlign: 'center', background: '#000', border: '2px dashed var(--zone-yellow)' }}>
+                <div style={{ position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)', width: 'clamp(300px, 90vw, 800px)', zIndex: 50, padding: '3rem 2rem', textAlign: 'center', background: '#000', border: '2px dashed var(--zone-yellow)', borderTop: 'none', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', boxShadow: '0 20px 40px rgba(0,0,0,0.8)' }}>
                     {capturedPhotoUrl && (
                         <div style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>
                             <img src={capturedPhotoUrl} alt="Analyzing Target" style={{ width: '120px', height: '120px', objectFit: 'cover', filter: 'grayscale(100%) contrast(120%)', border: '2px solid var(--zone-yellow)', boxShadow: '0 10px 20px rgba(0,0,0,0.5)' }} />
@@ -242,17 +248,25 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile, onRequireAu
                 </div>
             )}
 
-            {/* Result State (Enlarged Typography per request) */}
+            {/* Result State Absolute Dropdown */}
             {currentIdea && !isAnalyzing && (
                 <div style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: 'clamp(300px, 90vw, 800px)',
+                    zIndex: 50,
                     padding: 'max(2rem, 4vw)',
                     background: '#040404',
                     border: '2px solid var(--zone-yellow)',
-                    position: 'relative',
+                    borderTop: 'none',
+                    borderBottomLeftRadius: '12px',
+                    borderBottomRightRadius: '12px',
+                    boxShadow: '0 20px 40px rgba(0,0,0,0.8)',
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '2rem',
-                    boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
                     animation: 'slideUpFade 0.5s ease forwards'
                 }}>
                     <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>

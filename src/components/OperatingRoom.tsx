@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import JFIIdeaGenerator from './tools/JFIIdeaGenerator';
 import KaizenSessionCreator from './tools/kaizen/KaizenSessionCreator';
 
 interface OperatingRoomProps {
@@ -207,11 +206,6 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                             {/* Center Canvas (Idea Generator) */}
                             <div style={{ flex: 1, padding: '2rem clamp(1rem, 5vw, 4rem)', display: 'flex', flexDirection: 'column', alignItems: 'center', overflowY: 'auto' }}>
                                 <div style={{ width: '100%', maxWidth: '1000px', marginTop: '1rem' }}>
-                                    {/* Inline JFIIdeaGenerator */}
-                                    <JFIIdeaGenerator 
-                                        onIdeaGenerated={() => {}}
-                                        profile={null}
-                                    />
                                     
                                     {/* Orphaned Module Recovery: Advanced Systems Widget */}
                                     <div style={{ marginTop: '3rem', width: '100%', borderTop: '1px solid var(--border-color)', paddingTop: '2rem', paddingBottom: '4rem' }}>
