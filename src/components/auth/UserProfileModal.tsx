@@ -12,9 +12,11 @@ interface UserProfileModalProps {
     profile: UserProfile;
     onClose: () => void;
     onUpdate: () => void; // Trigger an App.tsx refetch
+    isGuest?: boolean;
+    onOpenRanks?: () => void;
 }
 
-export default function UserProfileModal({ profile, onClose, onUpdate }: UserProfileModalProps) {
+export default function UserProfileModal({ profile, onClose, onUpdate, isGuest, onOpenRanks }: UserProfileModalProps) {
     const { i18n } = useTranslation();
     const [fullName, setFullName] = useState(profile.full_name || '');
     const [username, setUsername] = useState(profile.username || '');
@@ -209,6 +211,11 @@ export default function UserProfileModal({ profile, onClose, onUpdate }: UserPro
                                 </div>
                             );
                         })()}
+                        {onOpenRanks && (
+                            <button type="button" onClick={onOpenRanks} style={{ marginTop: '0.5rem', background: 'rgba(255,194,14,0.1)', color: 'var(--zone-yellow)', border: '1px solid var(--zone-yellow)', padding: '0.6rem', borderRadius: '0.5rem', cursor: 'pointer', fontWeight: 'bold', fontSize: '0.8rem', textTransform: 'uppercase', transition: 'all 0.2s' }} onMouseOver={e => e.currentTarget.style.background = 'rgba(255,194,14,0.2)'} onMouseOut={e => e.currentTarget.style.background = 'rgba(255,194,14,0.1)'}>
+                                View Rank Benefits & Unlocks ➔
+                            </button>
+                        )}
                     </div>
 
                     {/* App Badges Section */}
@@ -302,8 +309,8 @@ export default function UserProfileModal({ profile, onClose, onUpdate }: UserPro
                         <button type="button" className="btn btn-secondary" onClick={onClose} style={{ flex: 1 }}>
                             Cancel
                         </button>
-                        <button type="submit" className="btn btn-primary" style={{ flex: 1 }} disabled={loading}>
-                            {loading ? 'Saving...' : 'Save Profile'}
+                        <button type="submit" className="btn btn-primary" style={{ flex: 1 }} disabled={loading || isGuest}>
+                            {loading ? 'Saving...' : isGuest ? 'Sign In to Save Profile' : 'Save Profile'}
                         </button>
                     </div>
                 </form>

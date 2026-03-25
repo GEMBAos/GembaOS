@@ -5,7 +5,7 @@ interface OperatingRoomProps {
     onNavigate: (view: any) => void;
 }
 
-type BucketType = 'main' | 'learning' | 'waste' | 'system';
+type BucketType = 'main' | 'learning' | 'tools' | 'system';
 
 export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
     const [view, setView] = useState<BucketType | 'create' | 'join'>('main');
@@ -83,7 +83,7 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                 
                 .bg-learning { background: linear-gradient(135deg, #1e3a8a, #0f172a); }
                 .bg-waste { background: linear-gradient(135deg, #b91c1c, #450a0a); }
-                .bg-system { background: linear-gradient(135deg, #047857, #064e3b); }
+                .bg-idea { background: linear-gradient(135deg, #0f172a, #000000); }
                 
                 .tool-card:hover { transform: translateY(-4px); border-color: var(--zone-yellow); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
                 
@@ -128,9 +128,9 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                         </div>
                         
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem' }}>
-                            {renderBucketCard('Learning & Education', 'Quizzes, Simulations, Win Sharing & Best Practices', '🎓', 'bg-learning', () => setView('learning'))}
-                            {renderBucketCard('Waste Identification', 'DOWNTIME Analysis, Motion Mapping & 5S Tools', '🗑️', 'bg-waste', () => setView('waste'))}
-                            {renderBucketCard('Execution & Focus', 'Improvement Logs, Line Balance & KPIs', '📈', 'bg-system', () => setView('system'))}
+                            {renderBucketCard('Idea Generator', 'Fast AI Quick Wins & Photo Scans', '💡', 'bg-idea', () => onNavigate('idea-engine'))}
+                            {renderBucketCard('Lean Tools', 'Time Studies, Motion Mapper, & Dashboards', '🛠️', 'bg-waste', () => setView('tools'))}
+                            {renderBucketCard('Lean Academy', 'Quizzes, Simulations, & Video Library', '🎓', 'bg-learning', () => setView('learning'))}
                         </div>
                     </>
                 )}
@@ -141,7 +141,7 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                         <div className="bucket-header">
                             <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
                                 <div style={{ fontSize: '5rem', lineHeight: 1 }}>🎓</div>
-                                <div style={{ flex: 1, minWidth: '300px' }}>
+                                <div style={{ flex: 1, minWidth: '250px' }}>
                                     <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: 'var(--font-headings)', color: 'var(--gemba-black)', margin: '0 0 1rem 0', textTransform: 'uppercase' }}>Learning & Education</h2>
                                     <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
                                         Continuous improvement begins with "training the eye to see." This hub contains interactive simulations, quizzes, safety best practices, and win-sharing from the floor to build your lean muscles.
@@ -159,57 +159,27 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                     </div>
                 )}
 
-                {/* 2. WASTE IDENTIFICATION BUCKET */}
-                {view === 'waste' && (
+                {/* 2. LEAN TOOLS BUCKET */}
+                {view === 'tools' && (
                     <div className="animate-fade-in">
                         <div className="bucket-header">
                             <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
-                                <div style={{ fontSize: '5rem', lineHeight: 1 }}>🗑️</div>
-                                <div style={{ flex: 1, minWidth: '300px' }}>
-                                    <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: 'var(--font-headings)', color: 'var(--gemba-black)', margin: '0 0 1rem 0', textTransform: 'uppercase' }}>Waste Identification</h2>
+                                <div style={{ fontSize: '5rem', lineHeight: 1 }}>🛠️</div>
+                                <div style={{ flex: 1, minWidth: '250px' }}>
+                                    <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: 'var(--font-headings)', color: 'var(--gemba-black)', margin: '0 0 1rem 0', textTransform: 'uppercase' }}>Lean Tools</h2>
                                     <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: '0 0 1rem 0' }}>
-                                        Utilize these diagnostic tools to stand in the circle and root out <strong>DOWNTIME</strong> in your processes:
+                                        Utilize these diagnostic tools to root out DOWNTIME and execute countermeasures on the floor.
                                     </p>
-                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.5rem', background: 'var(--bg-dark)', padding: '1.5rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
-                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>D</strong>efects</div>
-                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>O</strong>verproduction</div>
-                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>W</strong>aiting</div>
-                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>N</strong>on-utilized Talent</div>
-                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>T</strong>ransportation</div>
-                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>I</strong>nventory</div>
-                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>M</strong>otion</div>
-                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>E</strong>xtra-Processing</div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                         
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
                             {renderToolBtn('motion-v2', '🏃‍♂️', 'Motion Mapper', 'Track spaghetti diagrams of operator movement in real-time.')}
-                            {renderToolBtn('process-check', '📋', 'Process Check', 'Structured evaluation of current standardization versus actual execution.')}
-                            {renderToolBtn('value-scanner', '🔳', '5S Scanner', 'Conduct rapid 5S audits of any workstation layout.')}
                             {renderToolBtn('time-study', '⏱️', 'Time Study', 'Measure precise cycle times and identify VA vs NVA proportions.')}
                             {renderToolBtn('gemba', '🧭', 'Gemba Walk', 'Guided floor walk framework to engage operators and spot friction.')}
-                        </div>
-                    </div>
-                )}
-
-                {/* 3. SYSTEM EXECUTION BUCKET */}
-                {view === 'system' && (
-                    <div className="animate-fade-in">
-                        <div className="bucket-header">
-                            <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
-                                <div style={{ fontSize: '5rem', lineHeight: 1 }}>⚙️</div>
-                                <div style={{ flex: 1, minWidth: '300px' }}>
-                                    <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: 'var(--font-headings)', color: 'var(--gemba-black)', margin: '0 0 1rem 0', textTransform: 'uppercase' }}>Execution & Focus</h2>
-                                    <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
-                                        Data is useless without action. Use this hub to balance workloads, track global facility KPIs, and drive identified action items to completion.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+                            {renderToolBtn('process-check', '📋', 'Process Check', 'Structured evaluation of current standardization versus actual execution.')}
+                            {renderToolBtn('value-scanner', '🔳', '5S Scanner', 'Conduct rapid 5S audits of any workstation layout.')}
                             {renderToolBtn('improvement-card', '⚡', 'Improvement Action', 'Log, track, and assign formal countermeasures (Just Fix It).')}
                             {renderToolBtn('line-balance', '⚖️', 'Line Balance', 'Yamazumi chart builder to eliminate bottleneck operations.')}
                             {renderToolBtn('goal-gap', '📈', 'Goal Gap Monitor', 'Facility-wide SQDC metric tracking and gap analysis algorithms.')}

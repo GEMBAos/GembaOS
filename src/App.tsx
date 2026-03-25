@@ -28,7 +28,7 @@ const ActionItems = React.lazy(() => import('./components/tools/ActionItems'));
 const LeanAcademy = React.lazy(() => import('./components/tools/LeanAcademy'));
 const VideoHub = React.lazy(() => import('./components/tools/VideoHub'));
 const GembaChallengeQuiz = React.lazy(() => import('./components/tools/GembaChallengeQuiz'));
-import JFIIdeaGenerator from './components/tools/JFIIdeaGenerator';
+const JFIIdeaGenerator = React.lazy(() => import('./components/tools/JFIIdeaGenerator'));
 
 import { userService } from './services/userService';
 import { storageService } from './services/storageService';
@@ -55,7 +55,7 @@ function App() {
   const getInitialView = () => {
     const rawHash = window.location.hash.replace('#/', '');
     const hashPath = rawHash.split('?')[0];
-    if (['portal', 'observe', 'diagnose', 'improve', 'motion-v2', 'time-study', 'process-check', 'improvement-card', 'value-scanner', 'line-balance', 'kaizen-hub', 'action-items', 'lean-academy', 'video-hub', 'gemba-challenge'].includes(hashPath)) {
+    if (['portal', 'observe', 'diagnose', 'improve', 'motion-v2', 'time-study', 'process-check', 'improvement-card', 'value-scanner', 'line-balance', 'kaizen-hub', 'action-items', 'lean-academy', 'video-hub', 'gemba-challenge', 'idea-engine'].includes(hashPath)) {
         return hashPath as any;
     }
 
@@ -75,7 +75,7 @@ function App() {
     return 'portal';
   };
 
-  const [currentView, setCurrentView] = useState<'splash' | 'portal' | 'observe' | 'diagnose' | 'improve' | 'dashboard' | 'promo' | 'gemba' | 'goal-gap' | 'motion-mapping' | 'motion-v2' | 'time-study' | 'process-check' | 'improvement-card' | 'value-scanner' | 'line-balance' | 'kaizen-hub' | 'action-items' | 'lean-academy' | 'video-hub' | 'gemba-challenge'>(
+  const [currentView, setCurrentView] = useState<'splash' | 'portal' | 'observe' | 'diagnose' | 'improve' | 'dashboard' | 'promo' | 'gemba' | 'goal-gap' | 'motion-mapping' | 'motion-v2' | 'time-study' | 'process-check' | 'improvement-card' | 'value-scanner' | 'line-balance' | 'kaizen-hub' | 'action-items' | 'lean-academy' | 'video-hub' | 'gemba-challenge' | 'idea-engine'>(
     getInitialView()
   );
   
@@ -92,7 +92,7 @@ function App() {
     const handleHashChange = () => {
         const rawHash = window.location.hash.replace('#/', '');
         const hashPath = rawHash.split('?')[0];
-        if (hashPath && hashPath !== currentView && ['portal', 'observe', 'diagnose', 'improve', 'motion-mapping', 'motion-v2', 'time-study', 'process-check', 'improvement-card', 'value-scanner', 'line-balance', 'kaizen-hub', 'gemba-challenge'].includes(hashPath)) {
+        if (hashPath && hashPath !== currentView && ['portal', 'observe', 'diagnose', 'improve', 'motion-mapping', 'motion-v2', 'time-study', 'process-check', 'improvement-card', 'value-scanner', 'line-balance', 'kaizen-hub', 'gemba-challenge', 'idea-engine'].includes(hashPath)) {
             setCurrentView(hashPath as any);
         }
     };
@@ -195,11 +195,13 @@ function App() {
   return (
     <ResponsiveSimulator>
       {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
-      {showProfileModal && profile && user && (
+      {showProfileModal && (
         <UserProfileModal
-          profile={profile}
+          profile={profile || { id: 'guest', username: 'Guest', xp: guestXp, full_name: '', avatar_url: '', linkedin_url: '', contact_info: '', created_at: '', badges: [] } as any}
+          isGuest={!user}
           onClose={() => setShowProfileModal(false)}
-          onUpdate={() => fetchProfile(user.id)}
+          onUpdate={() => user && fetchProfile(user.id)}
+          onOpenRanks={() => { setShowProfileModal(false); setShowRankModal(true); }}
         />
       )}
 
@@ -226,6 +228,9 @@ function App() {
             />
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flex: 1, justifyContent: 'flex-end' }}>
+                <button onClick={() => setShowStreakBoard(true)} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)', color: 'var(--zone-yellow)', fontSize: '1.2rem', cursor: 'pointer', padding: '0.25rem 0.75rem', borderRadius: '30px', display: 'flex', alignItems: 'center', gap: '0.5rem', transition: 'all 0.2s' }} title="Global Leaderboard" onMouseOver={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'} onMouseOut={e => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}>
+                    🏆 <span style={{ fontSize: '0.8rem', fontWeight: 'bold', fontFamily: 'var(--font-headings)', color: '#fff' }} className="hide-on-mobile">LEADERBOARD</span>
+                </button>
                 {user ? (
                     <div onClick={() => setShowProfileModal(true)} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', padding: '0.25rem 0.5rem', borderRadius: '30px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)', transition: 'background 0.2s' }} onMouseOver={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'} onMouseOut={e => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}>
                         <div style={{ textAlign: 'right', paddingRight: '0.5rem' }} className="hide-on-mobile">
@@ -239,7 +244,7 @@ function App() {
                         />
                     </div>
                 ) : (
-                    <div onClick={() => {}} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', padding: '0.25rem 0.5rem', borderRadius: '30px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)', transition: 'background 0.2s' }} onMouseOver={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'} onMouseOut={e => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}>
+                    <div onClick={() => setShowProfileModal(true)} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', padding: '0.25rem 0.5rem', borderRadius: '30px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)', transition: 'background 0.2s' }} onMouseOver={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'} onMouseOut={e => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}>
                         <div style={{ textAlign: 'right', paddingRight: '0.5rem' }} className="hide-on-mobile">
                             <div style={{ fontSize: '0.8rem', fontWeight: 'bold', color: '#888', fontFamily: 'var(--font-headings)' }}>LOCAL GUEST</div>
                         </div>
@@ -254,18 +259,7 @@ function App() {
         </header>
 
         {/* PERSISTENT LEAN LIFE HACKS TICKER */}
-        <div style={{ pointerEvents: 'none', position: 'absolute', inset: 0, zIndex: 9999 }}>
-            <LeanLifestyleTicker />
-        </div>
-
-        {/* PERSISTENT FLAT IDEA ENGINE LOGGING BAR */}
-        <div style={{ gridArea: 'os-idea', position: 'relative', zIndex: 45, background: 'transparent', padding: '2rem 1rem 0 1rem' }}>
-            <JFIIdeaGenerator 
-                onIdeaGenerated={() => {}} 
-                profile={profile} 
-                onNavigate={(r) => handleNavigate(r as any)}
-            />
-        </div>
+        <LeanLifestyleTicker />
 
         {/* 2. NAVIGATION SYSTEM (PERSISTENT LEFT RAIL) */}
         <nav className="os-nav-rail">
@@ -356,7 +350,7 @@ function App() {
             {currentView === 'portal' && <OperatingRoom onNavigate={handleNavigate} />}
             
             {/* Core Modules Framework */}
-
+            {currentView === 'idea-engine' && <div style={{width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}><JFIIdeaGenerator onIdeaGenerated={() => {}} profile={profile} onNavigate={(r) => handleNavigate(r as any)} /></div>}
             {currentView === 'gemba' && <GembaWalkGuide onClose={() => handleNavigate('portal')} />}
             {currentView === 'goal-gap' && <GoalGapMonitor onClose={() => handleNavigate('portal')} />}
             {currentView === 'action-items' && <ActionItems />}
@@ -397,11 +391,10 @@ function App() {
         @media (max-width: 1024px) {
             /* We NO LONGER hide the left rail. We scale it safely down instead of flattening it to the bottom. */
             .os-nav-rail {
-                width: 70px !important;
                 padding-top: 0.5rem !important;
             }
             .os-nav-rail span { font-size: 0.5rem !important; }
-            .os-nav-rail div { width: 44px !important; height: 44px !important; }
+            .os-nav-rail button > div { width: 44px !important; height: 44px !important; }
         }
         @media (min-width: 1025px) {
             
