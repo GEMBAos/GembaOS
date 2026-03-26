@@ -157,11 +157,12 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile, onNavigate 
                     onChange={(e) => setBugDescription(e.target.value)}
                     style={{ 
                         width: '100%', 
-                        fontSize: '0.95rem', 
+                        fontSize: '0.95rem',
+                        fontFamily: 'var(--font-sans)', 
                         padding: '0.8rem 1rem 0.8rem 3rem', 
                         margin: 0, 
-                        background: '#0a0a0a', 
-                        border: '1px solid var(--border-light)', 
+                        background: '#111', 
+                        border: '1px solid #333', 
                         color: 'white', 
                         borderRadius: '30px',
                         boxShadow: 'inset 0 4px 6px rgba(0,0,0,0.6)'
@@ -186,6 +187,7 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile, onNavigate 
                         color: 'var(--text-main)', 
                         borderRadius: '20px', 
                         fontWeight: '800', 
+                        fontFamily: 'var(--font-headings)',
                         fontSize: '0.7rem',
                         boxShadow: '0 4px 10px rgba(0,0,0,0.4)',
                         letterSpacing: '0.5px'
@@ -208,6 +210,7 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile, onNavigate 
                         color: '#000', 
                         borderRadius: '20px', 
                         fontWeight: '900', 
+                        fontFamily: 'var(--font-headings)',
                         fontSize: '0.75rem',
                         boxShadow: '0 4px 10px rgba(0,0,0,0.4), inset 0 2px 0 rgba(255,255,255,0.4)'
                     }}

@@ -1,0 +1,25 @@
+3bb4fd5 HEAD@{0}: commit: fix(mobile): Eliminate pointer-event ghost div and force strict box-sizing to resolve 140px view bleed
+650ddfa HEAD@{1}: commit: Fix blocking transparent overlay and hardcoded blur class on main shell
+ed9d57a HEAD@{2}: commit (amend): Restore high contrast vibe for header and JFI engine
+014f7f2 HEAD@{3}: commit (amend): Restore high contrast vibe for header and JFI engine
+e3e7938 HEAD@{4}: commit (amend): Restore high contrast vibe for header and JFI engine
+a6058e6 HEAD@{5}: commit: Restore high contrast vibe for header and JFI engine
+b453b2f HEAD@{6}: commit: Make JFI layout narrow and low-profile, restore white nav rail
+d41772e HEAD@{7}: commit: Restore and fix 3D icons UI
+991b560 HEAD@{8}: commit (amend): update left railing icons to clean svg
+768f934 HEAD@{9}: commit: update left railing icons to clean svg
+b7e234e HEAD@{10}: checkout: moving from bd61a63e62b30c6b75427684741674f4070dcf4d to main
+bd61a63 HEAD@{11}: checkout: moving from 3f886481875c6e23f2ec56719deeff895a557bd4 to bd61a63
+3f88648 HEAD@{12}: checkout: moving from a2eff4e6ec390839d5f28db48de3c6a84903eb95 to 3f88648
+a2eff4e HEAD@{13}: checkout: moving from main to a2eff4e
+b7e234e HEAD@{14}: checkout: moving from ff2e35f390696857d32122326dcbdf8c134f71f4 to main
+ff2e35f HEAD@{15}: checkout: moving from main to ff2e35f
+b7e234e HEAD@{16}: commit: feat: integrate 3D icons, dynamic badges and quiz layout
+a2eff4e HEAD@{17}: commit: fix(ui): flatten JFI idea generator, harden Lean Academy mobile scaling, fix OS shell grid layout
+e4f779e HEAD@{18}: commit: Fix Layout regressions & SVG Path renderer on Motion V2
+cfa8af2 HEAD@{19}: commit: UX Polish: Fix dead ends and data loss
+bd61a63 HEAD@{20}: commit: Restore complex feature logic into new UI shell
+a34b91b HEAD@{21}: commit: fix: hub loading empty state and ts errors
+9c7cae3 HEAD@{22}: commit: fix: ticker text color visibility
+fb1ede9 HEAD@{23}: commit: feat: implement Gemba Challenge and globally persistent Lean Lifestyle Ticker
+8fe8fed HEAD@{24}: commit: Feat: Add interactive Tool Guide Overlays with auto-trigger for first-time visitors

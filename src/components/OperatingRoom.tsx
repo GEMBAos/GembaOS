@@ -123,7 +123,7 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
                 {view === 'main' && (
                     <>
                         <div style={{ marginBottom: '3rem' }}>
-                            <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: 'var(--font-headings)', fontWeight: 900, color: 'var(--gemba-black)', margin: '0 0 0.5rem 0' }}>OPERATING ROOM</h1>
+                            <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: 'var(--font-headings)', fontWeight: 900, color: 'var(--gemba-black)', margin: '0 0 0.5rem 0' }}>DASHBOARD</h1>
                             <p style={{ fontSize: '1.2rem', color: 'var(--steel-gray)', margin: 0 }}>Select your operational focus area to begin.</p>
                         </div>
                         

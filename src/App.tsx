@@ -312,16 +312,16 @@ function App() {
                         position: 'relative'
                     }}>
                         {tool.imgSrc ? (
-                            <img 
-                                src={tool.imgSrc} 
-                                alt={tool.name} 
-                                style={{
-                                    width: '120%', height: '120%', objectFit: 'contain', 
-                                    filter: currentView === tool.action ? 'drop-shadow(0 0 10px rgba(255,194,14,0.7)) brightness(1.2)' : 'grayscale(0.6) brightness(0.7)',
-                                    transform: currentView === tool.action ? 'scale(1.15)' : 'scale(1)',
-                                    transition: 'all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
-                                }} 
-                            />
+                                <img 
+                                    src={tool.imgSrc} 
+                                    alt={tool.name} 
+                                    style={{
+                                        width: '120%', height: '120%', objectFit: 'contain', 
+                                        filter: currentView === tool.action ? 'sepia(1) hue-rotate(5deg) saturate(3) brightness(1.2) drop-shadow(0 0 10px rgba(255,194,14,0.7))' : 'sepia(1) hue-rotate(5deg) saturate(2) brightness(0.8)',
+                                        transform: currentView === tool.action ? 'scale(1.15)' : 'scale(1)',
+                                        transition: 'all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+                                    }} 
+                                />
                         ) : (
                             <span style={{ 
                                 transform: currentView === tool.action ? 'scale(1.15)' : 'scale(1)', 

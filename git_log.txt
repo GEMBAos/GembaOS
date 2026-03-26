@@ -1,153 +1,25 @@
-commit ec0b65c36c3068f46ac444c1c7ccdcb7e287412f
-Author: GembaOS Developer <developer@gembaos.com>
-Date:   Sat Mar 21 15:11:14 2026 -0400
-
-    UI refactor flat GEMBA OS branding
-
-M	.gitignore
-D	deploy.zip
-A	deploy/assets/Dashboard-CvMXDUWx.js
-A	deploy/assets/GembaWalkGuide-DkUWzv8I.js
-A	deploy/assets/GoalGapMonitor-PdGA2aWR.js
-A	deploy/assets/HardwareConsoleLayout-C89ZreMb.js
-A	deploy/assets/ImprovementCard-CBrHjoeH.js
-A	deploy/assets/KaizenSessionHub-CHTMBrxi.js
-A	deploy/assets/LineBalanceBuilder-NDN_mKKP.js
-A	deploy/assets/MotionMappingV2-MRtAkEoG.js
-A	deploy/assets/ProcessCheck-Db0BBGIR.js
-A	deploy/assets/TimeStudy-D57vzt_h.js
-A	deploy/assets/ValueScanner-B3y4Kc-O.js
-A	deploy/assets/gembaos-icon-DbwDMkTR.png
-A	deploy/assets/gembaos-logo-B_KGgiFS.png
-A	deploy/assets/index-BNyeEphk.js
-A	deploy/assets/index-CulYsVmU.js
-A	deploy/assets/index-D2CcmsVO.css
-A	deploy/assets/konva-vendor-0FlgFoKP.js
-A	deploy/assets/react-vendor-l0sNRNKZ.js
-A	deploy/assets/three-vendor-DCm3FSQy.js
-A	deploy/test-rig.html
-A	public/test-rig.html
-M	src/App.tsx
-M	src/assets/branding/gembaos-app-icon.png
-M	src/assets/branding/gembaos-favicon.png
-M	src/assets/branding/gembaos-icon.png
-M	src/assets/branding/gembaos-logo.png
-M	src/components/OperatingRoom.tsx
-M	src/components/tools/HardwareConsoleLayout.tsx
-M	src/index.css
-
-commit 1c62f6e0c1d59c935232651ab2c6b17911133f2d
-Author: GembaOS Developer <developer@gembaos.com>
-Date:   Sat Mar 21 00:34:04 2026 -0400
-
-    feat: skeuomorphic UI transition
-
-A	deploy.zip
-M	src/App.tsx
-M	src/components/OperatingRoom.tsx
-M	src/index.css
-
-commit a68a662ccd8c79abb3416b69d5544e284f10d890
-Author: GembaOS Developer <developer@gembaos.com>
-Date:   Fri Mar 20 01:23:47 2026 -0400
-
-    Hotfix: Restore missing JSX return statement in OperatingRoom layout
-
-M	src/components/OperatingRoom.tsx
-
-commit 003fbb6e9f0176fb6cde2ab685c4f5c677b6934c
-Author: GembaOS Developer <developer@gembaos.com>
-Date:   Fri Mar 20 00:58:33 2026 -0400
-
-    Fix: Implement fluid nano-layouts to protect against forced overflow lock amputations in landscape
-
-M	src/App.tsx
-M	src/components/OperatingRoom.tsx
-
-commit 31cdce1cd6e0337bd52f4e6c1f139a459139052d
-Author: GembaOS Developer <developer@gembaos.com>
-Date:   Fri Mar 20 00:22:11 2026 -0400
-
-    Optimize: Strict Mobile App Layout Constraint and Service Worker cache reset
-
-M	index.html
-M	src/App.tsx
-M	src/components/OperatingRoom.tsx
-M	src/index.css
-
-commit ef1efae84d07a7367ee780acd48d39b130a480cd
-Author: GembaOS Developer <developer@gembaos.com>
-Date:   Thu Mar 19 23:34:14 2026 -0400
-
-    Phase 12: Legacy Archive Scrub, 100vh Single Pane UI, and JFI Mass Expansion
-
-R100	src/project_archive/hold_for_adaptation/DefectGuard.tsx	_LEGACY_ARCHIVE/hold_for_adaptation/DefectGuard.tsx
-R100	src/project_archive/hold_for_adaptation/ProcessMap.tsx	_LEGACY_ARCHIVE/hold_for_adaptation/ProcessMap.tsx
-R100	src/project_archive/hold_for_adaptation/ValueStreamMap.tsx	_LEGACY_ARCHIVE/hold_for_adaptation/ValueStreamMap.tsx
-R100	src/project_archive/init_v1_tables.sql	_LEGACY_ARCHIVE/init_v1_tables.sql
-R100	src/project_archive/legacy_ui/A3Template.tsx	_LEGACY_ARCHIVE/legacy_ui/A3Template.tsx
-R100	src/project_archive/unused_modules/AcronymDictionary.tsx	_LEGACY_ARCHIVE/unused_modules/AcronymDictionary.tsx
-R100	src/project_archive/unused_modules/ActionItems.tsx	_LEGACY_ARCHIVE/unused_modules/ActionItems.tsx
-R100	src/project_archive/unused_modules/AdminTools.tsx	_LEGACY_ARCHIVE/unused_modules/AdminTools.tsx
-R095	src/project_archive/unused_modules/CommunicationBestPractices.tsx	_LEGACY_ARCHIVE/unused_modules/CommunicationBestPractices.tsx
-R098	src/project_archive/unused_modules/CommunityHub.tsx	_LEGACY_ARCHIVE/unused_modules/CommunityHub.tsx
-R100	src/project_archive/unused_modules/DailyGembaGrid.tsx	_LEGACY_ARCHIVE/unused_modules/DailyGembaGrid.tsx
-R099	src/project_archive/unused_modules/ExecutionHub.tsx	_LEGACY_ARCHIVE/unused_modules/ExecutionHub.tsx
-R100	src/project_archive/unused_modules/FinishedUnitMap.tsx	_LEGACY_ARCHIVE/unused_modules/FinishedUnitMap.tsx
-R100	src/project_archive/unused_modules/FiveWhys.tsx	_LEGACY_ARCHIVE/unused_modules/FiveWhys.tsx
-R100	src/project_archive/unused_modules/GanttChart.tsx	_LEGACY_ARCHIVE/unused_modules/GanttChart.tsx
-R099	src/project_archive/unused_modules/KPIDictionary.tsx	_LEGACY_ARCHIVE/unused_modules/KPIDictionary.tsx
-R100	src/project_archive/unused_modules/KPITracker.tsx	_LEGACY_ARCHIVE/unused_modules/KPITracker.tsx
-R100	src/project_archive/unused_modules/KamishibaiHub.tsx	_LEGACY_ARCHIVE/unused_modules/KamishibaiHub.tsx
-R100	src/project_archive/unused_modules/LSWBuilder.tsx	_LEGACY_ARCHIVE/unused_modules/LSWBuilder.tsx
-R100	src/project_archive/unused_modules/LeanAcademy.tsx	_LEGACY_ARCHIVE/unused_modules/LeanAcademy.tsx
-R099	src/project_archive/unused_modules/LocationAnalytics.tsx	_LEGACY_ARCHIVE/unused_modules/LocationAnalytics.tsx
-R095	src/components/tools/MotionMapping.tsx	_LEGACY_ARCHIVE/unused_modules/MotionMapping.tsx
-R100	src/project_archive/unused_modules/PCMacroBuilder.tsx	_LEGACY_ARCHIVE/unused_modules/PCMacroBuilder.tsx
-R100	src/project_archive/unused_modules/PerspectiveHub.tsx	_LEGACY_ARCHIVE/unused_modules/PerspectiveHub.tsx
-R100	src/project_archive/unused_modules/ProjectCharter.tsx	_LEGACY_ARCHIVE/unused_modules/ProjectCharter.tsx
-R100	src/project_archive/unused_modules/QRHub.tsx	_LEGACY_ARCHIVE/unused_modules/QRHub.tsx
-R100	src/project_archive/unused_modules/ReportOut.tsx	_LEGACY_ARCHIVE/unused_modules/ReportOut.tsx
-R100	src/project_archive/unused_modules/RoadmapView.tsx	_LEGACY_ARCHIVE/unused_modules/RoadmapView.tsx
-R100	src/project_archive/unused_modules/SignageHub.tsx	_LEGACY_ARCHIVE/unused_modules/SignageHub.tsx
-R100	src/project_archive/unused_modules/TodayChallengeCard.tsx	_LEGACY_ARCHIVE/unused_modules/TodayChallengeCard.tsx
-R098	src/project_archive/unused_modules/TrainingHub.tsx	_LEGACY_ARCHIVE/unused_modules/TrainingHub.tsx
-R100	src/project_archive/unused_modules/WeeklyBingoCard.tsx	_LEGACY_ARCHIVE/unused_modules/WeeklyBingoCard.tsx
-A	nuke_purple.js
-M	src/App.tsx
-M	src/components/KPITracker.tsx
-M	src/components/OperatingRoom.tsx
-M	src/components/ResponsiveSimulator.tsx
-M	src/components/simulations/DiceFlowGame.tsx
-M	src/components/simulations/ScavengerHunt.tsx
-M	src/components/spatial/FloorPlanBuilder.tsx
-M	src/components/tools/GembaWalkGuide.tsx
-M	src/components/tools/ImprovementCard.tsx
-M	src/components/tools/JFIIdeaGenerator.tsx
-M	src/components/tools/LineBalanceBuilder.tsx
-M	src/components/tools/ProcessCheck.tsx
-M	src/components/tools/TimeStudy.tsx
-M	src/components/tools/ValueScanner.tsx
-M	src/components/tools/ar/SpatialViewer.tsx
-M	src/components/tools/kaizen/KaizenSessionCreator.tsx
-M	src/components/tools/kaizen/KaizenSessionHub.tsx
-M	src/components/tools/motion_v2/MotionHostActive.tsx
-M	src/components/tools/motion_v2/MotionParticipantJoin.tsx
-M	src/components/tools/motion_v2/MotionParticipantPathing.tsx
-M	src/data/jfiIdeas.ts
-A	src/data/jfiIdeas_HomeLean.ts
-A	src/data/jfiIdeas_Manufacturing.ts
-A	src/data/jfiIdeas_MassExpansion.ts
-A	src/data/jfiIdeas_Office.ts
-A	src/data/jfiIdeas_Personal.ts
-A	src/data/jfiIdeas_Personal2.ts
-M	src/index.css
-M	src/types/improvement.ts
-
-commit 59b54f9f24e16fddada1fd1745f9a0d938b99fa5
-Author: GembaOS Developer <developer@gembaos.com>
-Date:   Thu Mar 19 13:31:54 2026 -0400
-
-    Force Xcode to output binary locally for Payload zipping
-
-M	.github/workflows/build-ios.yml
+3bb4fd5 fix(mobile): Eliminate pointer-event ghost div and force strict box-sizing to resolve 140px view bleed
+650ddfa Fix blocking transparent overlay and hardcoded blur class on main shell
+ed9d57a Restore high contrast vibe for header and JFI engine
+b453b2f Make JFI layout narrow and low-profile, restore white nav rail
+d41772e Restore and fix 3D icons UI
+991b560 update left railing icons to clean svg
+b7e234e feat: integrate 3D icons, dynamic badges and quiz layout
+a2eff4e fix(ui): flatten JFI idea generator, harden Lean Academy mobile scaling, fix OS shell grid layout
+e4f779e Fix Layout regressions & SVG Path renderer on Motion V2
+cfa8af2 UX Polish: Fix dead ends and data loss
+bd61a63 Restore complex feature logic into new UI shell
+a34b91b fix: hub loading empty state and ts errors
+9c7cae3 fix: ticker text color visibility
+fb1ede9 feat: implement Gemba Challenge and globally persistent Lean Lifestyle Ticker
+8fe8fed Feat: Add interactive Tool Guide Overlays with auto-trigger for first-time visitors
+997d673 Refactor: Convert Value Scanner to strict one-page HardwareConsoleLayout
+ff2e35f Fix remaining tool root wrappers to enforce Single Pane of Glass
+3f88648 Refactor: Convert tools and tabs to strict one-page single pane of glass layouts
+60138a3 feat: Finalized Lean Academy and Video Hub stubs + Typography Polish
+f2fbfa9 chore(ui): Increase top boundary padding on global header to ensure Cart logo brackets clear the viewport edge
+e26f07e chore(ui): Add translateY nudge to GembaOS Cart Logo for precise vertical alignment
+ead6303 chore(ui): Implement Python Cartesian cropping to extract master Cart Logo from textured JPEG, fixing the CSS contain miniaturization bug
+878f75e chore(ui): Refactor GembaOS Cart Logo to massive global header spanning all child components
+70e8b1d chore(ui): Fix CSS logo clipping, map orphaned tools to new widget, and patch Kaizen Hub routing exception
+26884be fix(ui): Wire up action items, video hub, and lean academy to dashboard loose ends
