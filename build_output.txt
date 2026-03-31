@@ -1,5 +1,1 @@
-
-> gemba-os@0.0.0 build
-> tsc -b && vite build
-
-src/components/tools/ValueStreamMap.tsx(176,35): error TS6133: 'pltForStep' is declared but its value is never read.
+src/components/tools/JFIIdeaGenerator.tsx(18,70): error TS6133: 'onNavigate' is declared but its value is never read.

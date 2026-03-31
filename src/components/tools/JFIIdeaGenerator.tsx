@@ -15,7 +15,7 @@ interface JFIIdeaGeneratorProps {
     onNavigate?: (route: string) => void;
 }
 
-export default function JFIIdeaGenerator({ onIdeaGenerated, profile, onNavigate }: JFIIdeaGeneratorProps) {
+export default function JFIIdeaGenerator({ onIdeaGenerated, profile }: JFIIdeaGeneratorProps) {
     const [currentIdeas, setCurrentIdeas] = useState<JFIIdea[]>([]);
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [bugDescription, setBugDescription] = useState('');
