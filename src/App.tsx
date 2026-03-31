@@ -42,14 +42,7 @@ import RankBenefitsModal from './components/tools/RankBenefitsModal';
 import UserProfileModal from './components/auth/UserProfileModal';
 import DynamicBadge from './components/ui/DynamicBadge';
 
-import notionIcon from './assets/icons/notion.png';
-import timeIcon from './assets/icons/time.png';
-import wasteIcon from './assets/icons/waste.png';
-import scanIcon from './assets/icons/scan.png';
-import improvIcon from './assets/icons/improv.png';
-import goalsIcon from './assets/icons/goals.png';
-import learnIcon from './assets/icons/learn.png';
-import videosIcon from './assets/icons/videos.png';
+import { GembaIcon } from './components/ui/IndustrialIcons';
 
 function App() {
   const getInitialView = () => {
@@ -285,15 +278,15 @@ function App() {
             <div style={{ width: '60%', height: '1px', background: 'var(--border-color)', margin: '0.5rem 0' }} />
             
             {[
-                { id: 'forms', name: 'FORMS', icon: '📝', action: 'action-items', imgSrc: notionIcon },
-                { id: 'motion', name: 'MOTION', icon: '📍', action: 'motion-v2', imgSrc: undefined },
-                { id: 'time', name: 'TIME', icon: '⏱️', action: 'time-study', imgSrc: timeIcon },
-                { id: 'waste', name: 'WASTE', icon: '🗑️', action: 'process-check', imgSrc: wasteIcon },
-                { id: 'scan', name: 'SCAN', icon: '🔳', action: 'value-scanner', imgSrc: scanIcon },
-                { id: 'improv', name: 'IMPROVE', icon: '⚡', action: 'improvement-card', imgSrc: improvIcon },
-                { id: 'goals', name: 'GOALS', icon: '🎯', action: 'goal-gap', imgSrc: goalsIcon },
-                { id: 'videos', name: 'VIDEOS', icon: '📺', action: 'video-hub', imgSrc: videosIcon },
-                { id: 'learn', name: 'LEARN', icon: '🧠', action: 'lean-academy', imgSrc: learnIcon }
+                { id: 'forms', name: 'FORMS', action: 'action-items' },
+                { id: 'motion', name: 'MOTION', action: 'motion-v2' },
+                { id: 'time', name: 'TIME', action: 'time-study' },
+                { id: 'waste', name: 'WASTE', action: 'process-check' },
+                { id: 'scan', name: 'SCAN', action: 'value-scanner' },
+                { id: 'improv', name: 'IMPROVE', action: 'improvement-card' },
+                { id: 'goals', name: 'GOALS', action: 'goal-gap' },
+                { id: 'videos', name: 'VIDEOS', action: 'video-hub' },
+                { id: 'learn', name: 'LEARN', action: 'lean-academy' }
             ].map(tool => (
                 <button 
                     key={tool.id} 
@@ -320,24 +313,10 @@ function App() {
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                         position: 'relative'
                     }}>
-                        {tool.imgSrc ? (
-                                <img 
-                                    src={tool.imgSrc} 
-                                    alt={tool.name} 
-                                    style={{
-                                        width: '120%', height: '120%', objectFit: 'contain', 
-                                        filter: currentView === tool.action ? 'drop-shadow(0 0 12px var(--zone-yellow))' : 'grayscale(1) brightness(1.2) opacity(0.7)',
-                                        transform: currentView === tool.action ? 'scale(1.15)' : 'scale(1)',
-                                        transition: 'all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
-                                    }} 
-                                />
-                        ) : (
-                            <span style={{ 
-                                fontSize: '2rem',
-                                transform: currentView === tool.action ? 'scale(1.15)' : 'scale(1)', 
-                                transition: 'transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
-                            }}>{tool.icon}</span>
-                        )}
+                        <GembaIcon 
+                            iconId={tool.id} 
+                            isActive={currentView === tool.action} 
+                        />
                     </div>
                     <span style={{ 
                         fontSize: '0.65rem', 

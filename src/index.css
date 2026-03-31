@@ -171,6 +171,24 @@ h3 {
   gap: 1.5rem;
 }
 
+/* Industrial Navigation Rail Icons */
+.gemba-industrial-icon {
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
+}
+
+.gemba-industrial-icon.inactive-steel {
+  color: var(--steel-gray);
+  opacity: 0.7;
+}
+
+.gemba-industrial-icon.active-neon {
+  color: var(--zone-yellow);
+  opacity: 1;
+  filter: drop-shadow(0 0 10px rgba(255, 194, 14, 0.5)) drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  transform: scale(1.15);
+}
+
 /* 3. Primary Workspace Zone */
 .os-workspace {
   grid-area: os-workspace;
