@@ -213,7 +213,7 @@ h3 {
   .os-shell {
     /* Tablet/Phone Grid Default - PERSISTENT LEFT RAIL */
     grid-template-rows: auto auto auto 1fr;
-    grid-template-columns: 70px 1fr;
+    grid-template-columns: 70px minmax(0, 1fr);
     grid-template-areas:
       "os-nav os-header"
       "os-nav os-ticker"
@@ -223,7 +223,7 @@ h3 {
   
   .os-shell.context-closed {
     grid-template-rows: auto auto auto 1fr;
-    grid-template-columns: 70px 1fr;
+    grid-template-columns: 70px minmax(0, 1fr);
     grid-template-areas:
       "os-nav os-header"
       "os-nav os-ticker"
