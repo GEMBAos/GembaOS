@@ -25,20 +25,22 @@
 <body>
   <div id="root"></div>
     <script>
-      // AGGRESSIVE PWA CACHE BUSTER - FORCED RELOAD
+      // AGGRESSIVE GLOBAL PWA CACHE BUSTER - FORCED THERMONUCLEAR RELOAD
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.getRegistrations().then(function(registrations) {
-          for(let registration of registrations) {
-            // Unregister all old service workers to force the new Netlify payload to load
-            registration.unregister();
-          }
+          for(let registration of registrations) { registration.unregister(); }
         });
       }
-      // Force refresh once per session if ?v=1 is not present
-      if (!window.location.search.includes('v=2')) {
-        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?v=2' + window.location.hash;
-        window.history.replaceState({path: newUrl}, '', newUrl);
-        window.location.reload();
+      if (window.caches) {
+        caches.keys().then(function(names) {
+          for (let name of names) { caches.delete(name); }
+        });
+      }
+      // Force hard refresh if v=4 is not present
+      if (!window.location.search.includes('v=4')) {
+        const querySep = window.location.search ? '&' : '?';
+        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + window.location.search + querySep + 'v=4' + window.location.hash;
+        window.location.replace(newUrl);
       }
     </script>
     <script type="module" src="/src/main.tsx"></script>
