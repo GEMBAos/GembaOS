@@ -55,8 +55,15 @@ function App() {
   const getInitialView = () => {
     const rawHash = window.location.hash.replace('#/', '');
     const hashPath = rawHash.split('?')[0];
-    if (['portal', 'observe', 'diagnose', 'improve', 'motion-v2', 'time-study', 'process-check', 'improvement-card', 'value-scanner', 'line-balance', 'kaizen-hub', 'action-items', 'lean-academy', 'video-hub', 'gemba-challenge'].includes(hashPath)) {
+    if (['portal', 'observe', 'diagnose', 'improve', 'motion-v2', 'time-study', 'process-check', 'improvement-card', 'value-scanner', 'line-balance', 'kaizen-hub', 'action-items', 'lean-academy', 'video-hub', 'gemba-challenge', 'idea-engine'].includes(hashPath)) {
         return hashPath as any;
+    }
+
+    if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+      const isFirstVisit = !localStorage.getItem('has_visited_gemba');
+      if (isFirstVisit) {
+          return 'promo'; 
+      }
     }
 
     const params = new URLSearchParams(window.location.search);
@@ -75,7 +82,7 @@ function App() {
     return 'portal';
   };
 
-  const [currentView, setCurrentView] = useState<'splash' | 'portal' | 'observe' | 'diagnose' | 'improve' | 'dashboard' | 'promo' | 'gemba' | 'goal-gap' | 'motion-mapping' | 'motion-v2' | 'time-study' | 'process-check' | 'improvement-card' | 'value-scanner' | 'line-balance' | 'kaizen-hub' | 'action-items' | 'lean-academy' | 'video-hub' | 'gemba-challenge'>(
+  const [currentView, setCurrentView] = useState<'splash' | 'portal' | 'observe' | 'diagnose' | 'improve' | 'dashboard' | 'promo' | 'gemba' | 'goal-gap' | 'motion-mapping' | 'motion-v2' | 'time-study' | 'process-check' | 'improvement-card' | 'value-scanner' | 'line-balance' | 'kaizen-hub' | 'action-items' | 'lean-academy' | 'video-hub' | 'gemba-challenge' | 'idea-engine'>(
     getInitialView()
   );
   
@@ -92,7 +99,7 @@ function App() {
     const handleHashChange = () => {
         const rawHash = window.location.hash.replace('#/', '');
         const hashPath = rawHash.split('?')[0];
-        if (hashPath && hashPath !== currentView && ['portal', 'observe', 'diagnose', 'improve', 'motion-mapping', 'motion-v2', 'time-study', 'process-check', 'improvement-card', 'value-scanner', 'line-balance', 'kaizen-hub', 'gemba-challenge'].includes(hashPath)) {
+        if (hashPath && hashPath !== currentView && ['portal', 'observe', 'diagnose', 'improve', 'motion-mapping', 'motion-v2', 'time-study', 'process-check', 'improvement-card', 'value-scanner', 'line-balance', 'kaizen-hub', 'gemba-challenge', 'idea-engine'].includes(hashPath)) {
             setCurrentView(hashPath as any);
         }
     };
@@ -206,7 +213,7 @@ function App() {
       <div className={`os-shell ${true ? 'context-closed' : ''}`}>
         
         {/* 1. HEADER ZONE (Massive Fixed Global Logo) */}
-        <header className="os-header" style={{ height: 'auto', padding: '1.5rem 2rem 1rem 2rem', justifyContent: 'space-between', borderBottom: '2px solid #222' }}>
+        <header className="os-header" style={{ height: 'auto', padding: '0.75rem 2rem 0.5rem 2rem', justifyContent: 'space-between', borderBottom: '2px solid #222' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', cursor: 'pointer', flex: 1 }} onClick={() => handleNavigate('portal')}>
                 {/* Optional minor navigation nodes can go here */}
             </div>
@@ -216,7 +223,7 @@ function App() {
                 style={{ 
                     cursor: 'pointer',
                     width: 'clamp(280px, 50vw, 600px)', 
-                    height: 'clamp(60px, 12vh, 140px)',
+                    height: 'clamp(35px, 6vh, 50px)',
                     backgroundImage: `url(${brandLogo})`,
                     backgroundSize: 'contain',
                     backgroundRepeat: 'no-repeat',
@@ -253,13 +260,13 @@ function App() {
             </div>
         </header>
 
-        {/* PERSISTENT LEAN LIFE HACKS TICKER */}
-        <div style={{ gridArea: 'os-ticker' }}>
+        {/* PERSISTENT LEAN LIFE HACKS TICKER (Moved to corner widget) */}
+        <div style={{ gridArea: 'os-ticker', display: 'none' }}>
             <LeanLifestyleTicker />
         </div>
 
-        {/* PERSISTENT FLAT IDEA ENGINE LOGGING BAR */}
-        <div style={{ gridArea: 'os-idea', position: 'relative', zIndex: 45 }}>
+        {/* PERSISTENT FLAT IDEA ENGINE LOGGING BAR (FUSED WITH BLACK HEADER) */}
+        <div style={{ gridArea: 'os-idea', position: 'relative', zIndex: 45, background: '#111', padding: '0.25rem 1rem 0.25rem 1rem', borderBottom: '1px solid #222' }}>
             <JFIIdeaGenerator 
                 onIdeaGenerated={() => {}} 
                 profile={profile} 
@@ -267,17 +274,18 @@ function App() {
             />
         </div>
 
-        {/* 2. NAVIGATION SYSTEM (PERSISTENT LEFT RAIL) */}
+        {/* 2. NAVIGATION SYSTEM (PERSISTENT LEFT RAIL - WHITE AESTHETIC) */}
         <nav className="os-nav-rail" style={{
-            display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1.5rem 0', gap: '0.5rem', overflowY: 'auto', background: '#111', borderRight: '2px solid #222', boxShadow: '5px 0 15px rgba(0,0,0,0.5)', zIndex: 100
+            display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1.5rem 0', gap: '0.5rem', overflowY: 'auto', background: 'var(--lean-white)', borderRight: '1px solid var(--border-color)', zIndex: 100
         }}>
-            <button onClick={() => handleNavigate('portal')} style={{ background: 'transparent', border: 'none', color: currentView === 'portal' ? 'var(--zone-yellow)' : 'var(--steel-gray)', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0.5rem', cursor: 'pointer', transition: 'all 0.2s', marginBottom: '1rem' }} title="Portal">
-                <div style={{ fontSize: '1.75rem', filter: currentView === 'portal' ? 'drop-shadow(0 0 10px rgba(255,255,255,0.8))' : 'none' }}>🔘</div>
+            <button onClick={() => handleNavigate('portal')} style={{ background: 'transparent', border: 'none', color: currentView === 'portal' ? 'var(--gemba-black)' : 'var(--steel-gray)', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0.5rem', cursor: 'pointer', transition: 'all 0.2s', marginBottom: '1rem' }} title="Portal">
+                <div style={{ fontSize: '1.75rem', filter: currentView === 'portal' ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.15))' : 'none' }}>🔘</div>
             </button>
-            <div style={{ width: '60%', height: '2px', background: '#333', margin: '0.5rem 0', boxShadow: '0 1px 0 rgba(255,255,255,0.1)' }} />
+            <div style={{ width: '60%', height: '1px', background: 'var(--border-color)', margin: '0.5rem 0' }} />
             
             {[
                 { id: 'forms', name: 'FORMS', icon: '📝', action: 'action-items', imgSrc: notionIcon },
+                { id: 'motion', name: 'MOTION', icon: '📍', action: 'motion-v2', imgSrc: undefined },
                 { id: 'time', name: 'TIME', icon: '⏱️', action: 'time-study', imgSrc: timeIcon },
                 { id: 'waste', name: 'WASTE', icon: '🗑️', action: 'process-check', imgSrc: wasteIcon },
                 { id: 'scan', name: 'SCAN', icon: '🔳', action: 'value-scanner', imgSrc: scanIcon },
@@ -301,7 +309,7 @@ function App() {
                         position: 'relative',
                         width: '100%',
                         borderLeft: currentView === tool.action ? '4px solid var(--zone-yellow)' : '4px solid transparent',
-                        backgroundColor: currentView === tool.action ? 'rgba(255,194,14,0.05)' : 'transparent',
+                        backgroundColor: currentView === tool.action ? '#f8fafc' : 'transparent',
                         transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
                     }}
                     title={tool.name}
@@ -317,13 +325,14 @@ function App() {
                                     alt={tool.name} 
                                     style={{
                                         width: '120%', height: '120%', objectFit: 'contain', 
-                                        filter: currentView === tool.action ? 'sepia(1) hue-rotate(5deg) saturate(3) brightness(1.2) drop-shadow(0 0 10px rgba(255,194,14,0.7))' : 'sepia(1) hue-rotate(5deg) saturate(2) brightness(0.8)',
+                                        filter: currentView === tool.action ? 'drop-shadow(0 0 12px var(--zone-yellow))' : 'grayscale(1) brightness(1.2) opacity(0.7)',
                                         transform: currentView === tool.action ? 'scale(1.15)' : 'scale(1)',
                                         transition: 'all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
                                     }} 
                                 />
                         ) : (
                             <span style={{ 
+                                fontSize: '2rem',
                                 transform: currentView === tool.action ? 'scale(1.15)' : 'scale(1)', 
                                 transition: 'transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
                             }}>{tool.icon}</span>
@@ -335,7 +344,7 @@ function App() {
                         marginTop: '0.25rem',
                         textAlign: 'center',
                         letterSpacing: '1px',
-                        color: currentView === tool.action ? 'var(--lean-white)' : 'var(--steel-gray)',
+                        color: currentView === tool.action ? 'var(--gemba-black)' : 'var(--steel-gray)',
                         fontFamily: 'var(--font-headings)'
                     }}>
                         {tool.name}
@@ -357,7 +366,6 @@ function App() {
             {currentView === 'portal' && <OperatingRoom onNavigate={handleNavigate} />}
             
             {/* Core Modules Framework */}
-
             {currentView === 'gemba' && <GembaWalkGuide onClose={() => handleNavigate('portal')} />}
             {currentView === 'goal-gap' && <GoalGapMonitor onClose={() => handleNavigate('portal')} />}
             {currentView === 'action-items' && <ActionItems />}

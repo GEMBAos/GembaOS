@@ -1,0 +1,572 @@
+commit 3bb4fd5d3dedd8f273f594f1c837ffd33102c6f0
+Author: GembaOS Developer <developer@gembaos.com>
+Date:   Wed Mar 25 08:45:22 2026 -0400
+
+    fix(mobile): Eliminate pointer-event ghost div and force strict box-sizing to resolve 140px view bleed
+
+diff --git a/GembaOS_Process_Map.csv b/GembaOS_Process_Map.csv
+new file mode 100644
+index 0000000..8848dd8
+--- /dev/null
++++ b/GembaOS_Process_Map.csv
+@@ -0,0 +1,30 @@
++Window 1 (Entry),Window 2 (Hub),Window 3 (Categories),Window 4 (Workspaces),Window 5 (Deep Interaction),Paths Back To Home
++App Launch,,,,,
++Splash Screen,,,,,
++,Promo Landing Page,,,,
++,Operating Room (Main Hub),,,,
++,,Idea Gen Card,,,
++,,,Photo Scan Analysis,,Click Portal Icon
++,,,Text-based Just Fix It,,Click Portal Icon
++,,,Random Quick Win,,Click Portal Icon
++,,Lean Tools Card,,,
++,,,Motion Mapper V2,,
++,,,,Host: Map Layout,End Session Button
++,,,,Participant: Pathing Target,Exit Button
++,,,Time Study,,Click Portal Icon
++,,,Gemba Walk Focus,,Click Portal Icon
++,,,Process Check,,Click Portal Icon
++,,,5S Value Scanner,,Click Portal Icon
++,,,Line Balance Builder,,Click Portal Icon
++,,,Goal Gap Monitor,,Click Portal Icon
++,,,Master Task List,,Click Portal Icon
++,,Academy Card,,,
++,,,Gemba Quizzes,,Click Portal Icon
++,,,Learning To See,,Click Portal Icon
++,,,Video Hub,,Click Portal Icon
++-----
++Global Utilities (Accessible Everywhere),,,,
++,User Profile Modal,,,
++,Badge Showcase,,,
++,Beta Feedback Form,,,
++,Lean Lifestyle Ticker,,,
+diff --git a/GembaOS_Process_Map.md b/GembaOS_Process_Map.md
+new file mode 100644
+index 0000000..54bd840
+--- /dev/null
++++ b/GembaOS_Process_Map.md
+@@ -0,0 +1,113 @@
++# GembaOS Button Tree & Process Map (Window Progression Edition)
++
++This map is structured into strict **App Window Columns**, progressing deeper into the platform from left to right. It maps the forward progression of a user, and shows the explicit return paths back to the "Home" Operating Room via the persistent Left Navigation Rail.
++
++```mermaid
++flowchart LR
++    %% Styling Classes (Sticky Note & Pink Diamond Scheme)
++    classDef sticky fill:#fef08a,stroke:#ca8a04,stroke-width:2px,color:#000000,rx:4,ry:4
++    classDef decision fill:#fbcfe8,stroke:#db2777,stroke-width:2px,color:#000000
++    classDef window fill:none,stroke:#94a3b8,stroke-width:2px,stroke-dasharray: 5 5,color:#334155
++
++    %% Navigation Links Styling
++    linkStyle default stroke:#64748b,stroke-width:2px,fill:none
++
++    %% ==========================================
++    %% WINDOW PROGRESSION COLUMNS
++    %% ==========================================
++
++    subgraph Col1 ["WINDOW 1: Launch & Entry"]
++        Start["App Launch"]
++        Splash{"Splash Screen"}
++    end
++
++    subgraph Col2 ["WINDOW 2: Main Hub (Home)"]
++        Landing["Promo Landing Page"]
++        Hub{"Operating Room (Main Hub)"}
++    end
++
++    subgraph Col3 ["WINDOW 3: Category Select"]
++        IdeaHub["Idea Gen Card"]
++        ToolsHub["Lean Tools Card"]
++        LearnHub["Academy Card"]
++    end
++
++    subgraph Col4 ["WINDOW 4: Tool Workspaces"]
++        PhotoScan["Photo Scan Analysis"]
++        TextGen["Text-based Just Fix It"]
++        RandomGen["Random Quick Win"]
++        
++        Motion["Motion Mapper V2"]
++        TimeStudy["Time Study"]
++        GembaWalk["Gemba Walk Focus"]
++        ProcessCheck["Process Check"]
++        ValueScan["5S Value Scanner"]
++        ActionList["Master Task List"]
++        
++        Quizzes["Gemba Quizzes"]
++        Videos["Video Hub"]
++    end
++
++    subgraph Col5 ["WINDOW 5: Deep Interaction"]
++        HostRole["Host: Map Layout"]
++        PartRole["Participant: Pathing Target"]
++    end
++
++    %% Apply Window Graph Styles
++    class Col1,Col2,Col3,Col4,Col5 window
++
++    %% ==========================================
++    %% FORWARD NAVIGATIONAL FLOW
++    %% ==========================================
++
++    %% Entry
++    Start --> Splash
++    Splash -- "Guest" --> Landing
++    Splash -- "Logged In" --> Hub
++
++    %% Categories
++    Hub -- "Select AI" --> IdeaHub
++    Hub -- "Select Tools" --> ToolsHub
++    Hub -- "Select Learn" --> LearnHub
++
++    %% Idea Selection
++    IdeaHub --> PhotoScan
++    IdeaHub --> TextGen
++    IdeaHub --> RandomGen
++
++    %% Tool Selection
++    ToolsHub --> Motion
++    ToolsHub --> TimeStudy
++    ToolsHub --> GembaWalk
++    ToolsHub --> ProcessCheck
++    ToolsHub --> ValueScan
++    ToolsHub --> ActionList
++
++    %% Learning Selection
++    LearnHub --> Quizzes
++    LearnHub --> Videos
++
++    %% Deep Modules
++    Motion --> HostRole
++    Motion --> PartRole
++
++    %% ==========================================
++    %% RETURN LOGIC (NAVIGATING BACK TO HOME)
++    %% ==========================================
++
++    %% These connect from Window 4 & 5 back to the Hub in Window 2
++    PhotoScan -. "Click Portal" .-> Hub
++    TextGen -. "Click Portal" .-> Hub
++    RandomGen -. "Click Portal" .-> Hub
++    TimeStudy -. "Click Portal" .-> Hub
++    ProcessCheck -. "Click Portal" .-> Hub
++    ValueScan -. "Click Portal" .-> Hub
++    Quizzes -. "Click Portal" .-> Hub
++    Videos -. "Click Portal" .-> Hub
++    HostRole -. "End Session" .-> Hub
++    PartRole -. "Exit" .-> Hub
++
++    %% Apply Node Styles
++    class Start,Landing,IdeaHub,ToolsHub,LearnHub,PhotoScan,TextGen,RandomGen,Motion,TimeStudy,GembaWalk,ProcessCheck,ValueScan,Improvement,LineBalance,GoalGap,ActionList,HostRole,PartRole,Quizzes,Sims,Videos,GlobalUtilities,Profile,Badges,Feedback,Ticker sticky
++    class Splash,Hub decision
++```
+diff --git a/project_guidelines.md b/project_guidelines.md
+new file mode 100644
+index 0000000..47a540e
+--- /dev/null
++++ b/project_guidelines.md
+@@ -0,0 +1,19 @@
++# GembaOS Development Rules: Anti-Regression Protocol
++
++**CRITICAL DIRECTIVE**: The user has established a strict "No Backward Movement" policy. Do not sacrifice forward progress by unintentionally breaking existing functionality to achieve aesthetic updates.
++
++When modifying this project, the AI must adhere to the following locked-in rules:
++
++## 1. Zero-Collateral Damage on Layouts
++- **Z-Index & Overlays**: Before applying global `position: absolute`, `position: fixed`, or `z-index` modifications (e.g. headers, splash screens, simulators), you MUST guarantee that they do not create invisible click-blocking layers (`pointer-events` absorption) over the main `.os-workspace` or `.os-nav-rail`.
++- **CSS Grid Safety**: If making a grid item `height: auto` or adding large padding, ensure the underlying `grid-template-rows` is also `auto` so the visual block does not spill over its container boundaries and block underlying tools.
++
++## 2. Lock-In Existing Scope
++- The application currently has 15+ functional tools (Motion Mapper, Time Study, Value Scanner, 5S, Action Items, etc.). See `ui_functionality_checklist.md`.
++- **DO NOT** delete these modules. 
++- If the screen is getting too crowded (e.g., the Idea Engine taking up too much top header space), **DO NOT DEPRECATE THE TOOL**. Instead, **re-architect it** into its own dedicated routing view or module menu.
++
++## 3. Responsive by Default
++- Always respect the `.os-shell` mobile and desktop breakpoints. The persistent left-hand navigation rail is locked in and should never be pushed off screen or overlapped.
++
++*(By adhering to this file, we ensure the user only experiences improvements on things that are bad, without breaking things that are currently good.)*
+diff --git a/src/App.tsx b/src/App.tsx
+index 590e6fe..95bf73b 100644
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -28,7 +28,7 @@ const ActionItems = React.lazy(() => import('./components/tools/ActionItems'));
+ const LeanAcademy = React.lazy(() => import('./components/tools/LeanAcademy'));
+ const VideoHub = React.lazy(() => import('./components/tools/VideoHub'));
+ const GembaChallengeQuiz = React.lazy(() => import('./components/tools/GembaChallengeQuiz'));
+-import JFIIdeaGenerator from './components/tools/JFIIdeaGenerator';
++const JFIIdeaGenerator = React.lazy(() => import('./components/tools/JFIIdeaGenerator'));
+ 
+ import { userService } from './services/userService';
+ import { storageService } from './services/storageService';
+@@ -55,7 +55,7 @@ function App() {
+   const getInitialView = () => {
+     const rawHash = window.location.hash.replace('#/', '');
+     const hashPath = rawHash.split('?')[0];
+-    if (['portal', 'observe', 'diagnose', 'improve', 'motion-v2', 'time-study', 'process-check', 'improvement-card', 'value-scanner', 'line-balance', 'kaizen-hub', 'action-items', 'lean-academy', 'video-hub', 'gemba-challenge'].includes(hashPath)) {
++    if (['portal', 'observe', 'diagnose', 'improve', 'motion-v2', 'time-study', 'process-check', 'improvement-card', 'value-scanner', 'line-balance', 'kaizen-hub', 'action-items', 'lean-academy', 'video-hub', 'gemba-challenge', 'idea-engine'].includes(hashPath)) {
+         return hashPath as any;
+     }
+ 
+@@ -75,7 +75,7 @@ function App() {
+     return 'portal';
+   };
+ 
+-  const [currentView, setCurrentView] = useState<'splash' | 'portal' | 'observe' | 'diagnose' | 'improve' | 'dashboard' | 'promo' | 'gemba' | 'goal-gap' | 'motion-mapping' | 'motion-v2' | 'time-study' | 'process-check' | 'improvement-card' | 'value-scanner' | 'line-balance' | 'kaizen-hub' | 'action-items' | 'lean-academy' | 'video-hub' | 'gemba-challenge'>(
++  const [currentView, setCurrentView] = useState<'splash' | 'portal' | 'observe' | 'diagnose' | 'improve' | 'dashboard' | 'promo' | 'gemba' | 'goal-gap' | 'motion-mapping' | 'motion-v2' | 'time-study' | 'process-check' | 'improvement-card' | 'value-scanner' | 'line-balance' | 'kaizen-hub' | 'action-items' | 'lean-academy' | 'video-hub' | 'gemba-challenge' | 'idea-engine'>(
+     getInitialView()
+   );
+   
+@@ -92,7 +92,7 @@ function App() {
+     const handleHashChange = () => {
+         const rawHash = window.location.hash.replace('#/', '');
+         const hashPath = rawHash.split('?')[0];
+-        if (hashPath && hashPath !== currentView && ['portal', 'observe', 'diagnose', 'improve', 'motion-mapping', 'motion-v2', 'time-study', 'process-check', 'improvement-card', 'value-scanner', 'line-balance', 'kaizen-hub', 'gemba-challenge'].includes(hashPath)) {
++        if (hashPath && hashPath !== currentView && ['portal', 'observe', 'diagnose', 'improve', 'motion-mapping', 'motion-v2', 'time-study', 'process-check', 'improvement-card', 'value-scanner', 'line-balance', 'kaizen-hub', 'gemba-challenge', 'idea-engine'].includes(hashPath)) {
+             setCurrentView(hashPath as any);
+         }
+     };
+@@ -195,11 +195,13 @@ function App() {
+   return (
+     <ResponsiveSimulator>
+       {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
+-      {showProfileModal && profile && user && (
++      {showProfileModal && (
+         <UserProfileModal
+-          profile={profile}
++          profile={profile || { id: 'guest', username: 'Guest', xp: guestXp, full_name: '', avatar_url: '', linkedin_url: '', contact_info: '', created_at: '', badges: [] } as any}
++          isGuest={!user}
+           onClose={() => setShowProfileModal(false)}
+-          onUpdate={() => fetchProfile(user.id)}
++          onUpdate={() => user && fetchProfile(user.id)}
++          onOpenRanks={() => { setShowProfileModal(false); setShowRankModal(true); }}
+         />
+       )}
+ 
+@@ -226,6 +228,9 @@ function App() {
+             />
+ 
+             <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flex: 1, justifyContent: 'flex-end' }}>
++                <button onClick={() => setShowStreakBoard(true)} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)', color: 'var(--zone-yellow)', fontSize: '1.2rem', cursor: 'pointer', padding: '0.25rem 0.75rem', borderRadius: '30px', display: 'flex', alignItems: 'center', gap: '0.5rem', transition: 'all 0.2s' }} title="Global Leaderboard" onMouseOver={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'} onMouseOut={e => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}>
++                    🏆 <span style={{ fontSize: '0.8rem', fontWeight: 'bold', fontFamily: 'var(--font-headings)', color: '#fff' }} className="hide-on-mobile">LEADERBOARD</span>
++                </button>
+                 {user ? (
+                     <div onClick={() => setShowProfileModal(true)} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', padding: '0.25rem 0.5rem', borderRadius: '30px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)', transition: 'background 0.2s' }} onMouseOver={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'} onMouseOut={e => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}>
+                         <div style={{ textAlign: 'right', paddingRight: '0.5rem' }} className="hide-on-mobile">
+@@ -239,7 +244,7 @@ function App() {
+                         />
+                     </div>
+                 ) : (
+-                    <div onClick={() => {}} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', padding: '0.25rem 0.5rem', borderRadius: '30px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)', transition: 'background 0.2s' }} onMouseOver={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'} onMouseOut={e => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}>
++                    <div onClick={() => setShowProfileModal(true)} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', padding: '0.25rem 0.5rem', borderRadius: '30px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)', transition: 'background 0.2s' }} onMouseOver={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'} onMouseOut={e => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}>
+                         <div style={{ textAlign: 'right', paddingRight: '0.5rem' }} className="hide-on-mobile">
+                             <div style={{ fontSize: '0.8rem', fontWeight: 'bold', color: '#888', fontFamily: 'var(--font-headings)' }}>LOCAL GUEST</div>
+                         </div>
+@@ -254,18 +259,7 @@ function App() {
+         </header>
+ 
+         {/* PERSISTENT LEAN LIFE HACKS TICKER */}
+-        <div style={{ pointerEvents: 'none', position: 'absolute', inset: 0, zIndex: 9999 }}>
+-            <LeanLifestyleTicker />
+-        </div>
+-
+-        {/* PERSISTENT FLAT IDEA ENGINE LOGGING BAR */}
+-        <div style={{ gridArea: 'os-idea', position: 'relative', zIndex: 45, background: 'transparent', padding: '2rem 1rem 0 1rem' }}>
+-            <JFIIdeaGenerator 
+-                onIdeaGenerated={() => {}} 
+-                profile={profile} 
+-                onNavigate={(r) => handleNavigate(r as any)}
+-            />
+-        </div>
++        <LeanLifestyleTicker />
+ 
+         {/* 2. NAVIGATION SYSTEM (PERSISTENT LEFT RAIL) */}
+         <nav className="os-nav-rail">
+@@ -356,7 +350,7 @@ function App() {
+             {currentView === 'portal' && <OperatingRoom onNavigate={handleNavigate} />}
+             
+             {/* Core Modules Framework */}
+-
++            {currentView === 'idea-engine' && <div style={{width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}><JFIIdeaGenerator onIdeaGenerated={() => {}} profile={profile} onNavigate={(r) => handleNavigate(r as any)} /></div>}
+             {currentView === 'gemba' && <GembaWalkGuide onClose={() => handleNavigate('portal')} />}
+             {currentView === 'goal-gap' && <GoalGapMonitor onClose={() => handleNavigate('portal')} />}
+             {currentView === 'action-items' && <ActionItems />}
+@@ -397,11 +391,10 @@ function App() {
+         @media (max-width: 1024px) {
+             /* We NO LONGER hide the left rail. We scale it safely down instead of flattening it to the bottom. */
+             .os-nav-rail {
+-                width: 70px !important;
+                 padding-top: 0.5rem !important;
+             }
+             .os-nav-rail span { font-size: 0.5rem !important; }
+-            .os-nav-rail div { width: 44px !important; height: 44px !important; }
++            .os-nav-rail button > div { width: 44px !important; height: 44px !important; }
+         }
+         @media (min-width: 1025px) {
+             
+diff --git a/src/components/OperatingRoom.tsx b/src/components/OperatingRoom.tsx
+index e2f7d75..c2b0ce5 100644
+--- a/src/components/OperatingRoom.tsx
++++ b/src/components/OperatingRoom.tsx
+@@ -5,7 +5,7 @@ interface OperatingRoomProps {
+     onNavigate: (view: any) => void;
+ }
+ 
+-type BucketType = 'main' | 'learning' | 'waste' | 'system';
++type BucketType = 'main' | 'learning' | 'tools' | 'system';
+ 
+ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
+     const [view, setView] = useState<BucketType | 'create' | 'join'>('main');
+@@ -83,7 +83,7 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
+                 
+                 .bg-learning { background: linear-gradient(135deg, #1e3a8a, #0f172a); }
+                 .bg-waste { background: linear-gradient(135deg, #b91c1c, #450a0a); }
+-                .bg-system { background: linear-gradient(135deg, #047857, #064e3b); }
++                .bg-idea { background: linear-gradient(135deg, #0f172a, #000000); }
+                 
+                 .tool-card:hover { transform: translateY(-4px); border-color: var(--zone-yellow); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
+                 
+@@ -128,9 +128,9 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
+                         </div>
+                         
+                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem' }}>
+-                            {renderBucketCard('Learning & Education', 'Quizzes, Simulations, Win Sharing & Best Practices', '🎓', 'bg-learning', () => setView('learning'))}
+-                            {renderBucketCard('Waste Identification', 'DOWNTIME Analysis, Motion Mapping & 5S Tools', '🗑️', 'bg-waste', () => setView('waste'))}
+-                            {renderBucketCard('Execution & Focus', 'Improvement Logs, Line Balance & KPIs', '📈', 'bg-system', () => setView('system'))}
++                            {renderBucketCard('Idea Generator', 'Fast AI Quick Wins & Photo Scans', '💡', 'bg-idea', () => onNavigate('idea-engine'))}
++                            {renderBucketCard('Lean Tools', 'Time Studies, Motion Mapper, & Dashboards', '🛠️', 'bg-waste', () => setView('tools'))}
++                            {renderBucketCard('Lean Academy', 'Quizzes, Simulations, & Video Library', '🎓', 'bg-learning', () => setView('learning'))}
+                         </div>
+                     </>
+                 )}
+@@ -141,7 +141,7 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
+                         <div className="bucket-header">
+                             <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+                                 <div style={{ fontSize: '5rem', lineHeight: 1 }}>🎓</div>
+-                                <div style={{ flex: 1, minWidth: '300px' }}>
++                                <div style={{ flex: 1, minWidth: '250px' }}>
+                                     <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: 'var(--font-headings)', color: 'var(--gemba-black)', margin: '0 0 1rem 0', textTransform: 'uppercase' }}>Learning & Education</h2>
+                                     <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
+                                         Continuous improvement begins with "training the eye to see." This hub contains interactive simulations, quizzes, safety best practices, and win-sharing from the floor to build your lean muscles.
+@@ -159,57 +159,27 @@ export default function OperatingRoom({ onNavigate }: OperatingRoomProps) {
+                     </div>
+                 )}
+ 
+-                {/* 2. WASTE IDENTIFICATION BUCKET */}
+-                {view === 'waste' && (
++                {/* 2. LEAN TOOLS BUCKET */}
++                {view === 'tools' && (
+                     <div className="animate-fade-in">
+                         <div className="bucket-header">
+                             <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+-                                <div style={{ fontSize: '5rem', lineHeight: 1 }}>🗑️</div>
+-                                <div style={{ flex: 1, minWidth: '300px' }}>
+-                                    <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: 'var(--font-headings)', color: 'var(--gemba-black)', margin: '0 0 1rem 0', textTransform: 'uppercase' }}>Waste Identification</h2>
++                                <div style={{ fontSize: '5rem', lineHeight: 1 }}>🛠️</div>
++                                <div style={{ flex: 1, minWidth: '250px' }}>
++                                    <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: 'var(--font-headings)', color: 'var(--gemba-black)', margin: '0 0 1rem 0', textTransform: 'uppercase' }}>Lean Tools</h2>
+                                     <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: '0 0 1rem 0' }}>
+-                                        Utilize these diagnostic tools to stand in the circle and root out <strong>DOWNTIME</strong> in your processes:
++                                        Utilize these diagnostic tools to root out DOWNTIME and execute countermeasures on the floor.
+                                     </p>
+-                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.5rem', background: 'var(--bg-dark)', padding: '1.5rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+-                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>D</strong>efects</div>
+-                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>O</strong>verproduction</div>
+-                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>W</strong>aiting</div>
+-                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>N</strong>on-utilized Talent</div>
+-                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>T</strong>ransportation</div>
+-                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>I</strong>nventory</div>
+-                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>M</strong>otion</div>
+-                                        <div style={{ color: 'var(--text-main)' }}><strong style={{color: '#d97706'}}>E</strong>xtra-Processing</div>
+-                                    </div>
+                                 </div>
+                             </div>
+                         </div>
+                         
+                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+                             {renderToolBtn('motion-v2', '🏃‍♂️', 'Motion Mapper', 'Track spaghetti diagrams of operator movement in real-time.')}
+-                            {renderToolBtn('process-check', '📋', 'Process Check', 'Structured evaluation of current standardization versus actual execution.')}
+-                            {renderToolBtn('value-scanner', '🔳', '5S Scanner', 'Conduct rapid 5S audits of any workstation layout.')}
+                             {renderToolBtn('time-study', '⏱️', 'Time Study', 'Measure precise cycle times and identify VA vs NVA proportions.')}
+                             {renderToolBtn('gemba', '🧭', 'Gemba Walk', 'Guided floor walk framework to engage operators and spot friction.')}
+-                        </div>
+-                    </div>
+-                )}
+-
+-                {/* 3. SYSTEM EXECUTION BUCKET */}
+-                {view === 'system' && (
+-                    <div className="animate-fade-in">
+-                        <div className="bucket-header">
+-                            <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+-                                <div style={{ fontSize: '5rem', lineHeight: 1 }}>⚙️</div>
+-                                <div style={{ flex: 1, minWidth: '300px' }}>
+-                                    <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontFamily: 'var(--font-headings)', color: 'var(--gemba-black)', margin: '0 0 1rem 0', textTransform: 'uppercase' }}>Execution & Focus</h2>
+-                                    <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
+-                                        Data is useless without action. Use this hub to balance workloads, track global facility KPIs, and drive identified action items to completion.
+-                                    </p>
+-                                </div>
+-                            </div>
+-                        </div>
+-                        
+-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
++                            {renderToolBtn('process-check', '📋', 'Process Check', 'Structured evaluation of current standardization versus actual execution.')}
++                            {renderToolBtn('value-scanner', '🔳', '5S Scanner', 'Conduct rapid 5S audits of any workstation layout.')}
+                             {renderToolBtn('improvement-card', '⚡', 'Improvement Action', 'Log, track, and assign formal countermeasures (Just Fix It).')}
+                             {renderToolBtn('line-balance', '⚖️', 'Line Balance', 'Yamazumi chart builder to eliminate bottleneck operations.')}
+                             {renderToolBtn('goal-gap', '📈', 'Goal Gap Monitor', 'Facility-wide SQDC metric tracking and gap analysis algorithms.')}
+diff --git a/src/components/auth/UserProfileModal.tsx b/src/components/auth/UserProfileModal.tsx
+index 882ee61..d2acca6 100644
+--- a/src/components/auth/UserProfileModal.tsx
++++ b/src/components/auth/UserProfileModal.tsx
+@@ -12,9 +12,11 @@ interface UserProfileModalProps {
+     profile: UserProfile;
+     onClose: () => void;
+     onUpdate: () => void; // Trigger an App.tsx refetch
++    isGuest?: boolean;
++    onOpenRanks?: () => void;
+ }
+ 
+-export default function UserProfileModal({ profile, onClose, onUpdate }: UserProfileModalProps) {
++export default function UserProfileModal({ profile, onClose, onUpdate, isGuest, onOpenRanks }: UserProfileModalProps) {
+     const { i18n } = useTranslation();
+     const [fullName, setFullName] = useState(profile.full_name || '');
+     const [username, setUsername] = useState(profile.username || '');
+@@ -209,6 +211,11 @@ export default function UserProfileModal({ profile, onClose, onUpdate }: UserPro
+                                 </div>
+                             );
+                         })()}
++                        {onOpenRanks && (
++                            <button type="button" onClick={onOpenRanks} style={{ marginTop: '0.5rem', background: 'rgba(255,194,14,0.1)', color: 'var(--zone-yellow)', border: '1px solid var(--zone-yellow)', padding: '0.6rem', borderRadius: '0.5rem', cursor: 'pointer', fontWeight: 'bold', fontSize: '0.8rem', textTransform: 'uppercase', transition: 'all 0.2s' }} onMouseOver={e => e.currentTarget.style.background = 'rgba(255,194,14,0.2)'} onMouseOut={e => e.currentTarget.style.background = 'rgba(255,194,14,0.1)'}>
++                                View Rank Benefits & Unlocks ➔
++                            </button>
++                        )}
+                     </div>
+ 
+                     {/* App Badges Section */}
+@@ -302,8 +309,8 @@ export default function UserProfileModal({ profile, onClose, onUpdate }: UserPro
+                         <button type="button" className="btn btn-secondary" onClick={onClose} style={{ flex: 1 }}>
+                             Cancel
+                         </button>
+-                        <button type="submit" className="btn btn-primary" style={{ flex: 1 }} disabled={loading}>
+-                            {loading ? 'Saving...' : 'Save Profile'}
++                        <button type="submit" className="btn btn-primary" style={{ flex: 1 }} disabled={loading || isGuest}>
++                            {loading ? 'Saving...' : isGuest ? 'Sign In to Save Profile' : 'Save Profile'}
+                         </button>
+                     </div>
+                 </form>
+diff --git a/src/index.css b/src/index.css
+index bc9f187..af37dcd 100644
+--- a/src/index.css
++++ b/src/index.css
+@@ -1,3 +1,7 @@
++*, *::before, *::after {
++  box-sizing: border-box;
++}
++
+ :root {
+   /* GEMBA OS BRAND SYSTEM COLORS */
+   --gemba-black: #111111;
+@@ -128,21 +132,18 @@ h3 {
+   padding-right: env(safe-area-inset-right);
+ 
+   /* Desktop Grid Default (3 Zones) */
+-  grid-template-rows: var(--os-header-height) auto auto 1fr;
+-  grid-template-columns: var(--os-nav-rail-width) 1fr var(--os-context-panel-width);
++  grid-template-rows: auto 1fr;
++  grid-template-columns: var(--os-nav-rail-width) 1fr;
+   grid-template-areas:
+-    "os-nav os-header os-header"
+-    "os-nav os-ticker os-context"
+-    "os-nav os-idea os-context"
+-    "os-nav os-workspace os-context";
++    "os-nav os-header"
++    "os-nav os-workspace";
+ }
+ 
+ .os-shell.context-closed {
++  grid-template-rows: auto 1fr;
+   grid-template-columns: var(--os-nav-rail-width) 1fr;
+   grid-template-areas:
+     "os-nav os-header"
+-    "os-nav os-ticker"
+-    "os-nav os-idea"
+     "os-nav os-workspace";
+ }
+ 
+@@ -215,21 +216,18 @@ h3 {
+ @media (max-width: 1024px) {
+   .os-shell {
+     /* Tablet/Phone Grid Default with Persistent Left Rail */
+-    grid-template-rows: var(--os-header-height) auto auto 1fr;
++    grid-template-rows: auto 1fr;
+     grid-template-columns: 60px 1fr; /* narrower left rail for mobile */
+     grid-template-areas:
+       "os-nav os-header"
+-      "os-nav os-ticker"
+-      "os-nav os-idea"
+       "os-nav os-workspace";
+   }
+   
+   .os-shell.context-closed {
++    grid-template-rows: auto 1fr;
+     grid-template-columns: 60px 1fr;
+     grid-template-areas:
+       "os-nav os-header"
+-      "os-nav os-ticker"
+-      "os-nav os-idea"
+       "os-nav os-workspace";
+   }
+ 
+@@ -491,25 +489,30 @@ h3 {
+   position: fixed;
+   bottom: clamp(1rem, 4vw, 2rem);
+   right: clamp(1rem, 4vw, 2rem);
+-  background-color: var(--bg-panel);
+-  border: 1px solid var(--border-color);
+-  border-radius: 2rem;
+-  padding: 0.5rem 1rem;
+-  color: var(--text-muted);
++  background-color: #0f1115;
++  border: 2px solid var(--zone-yellow);
++  border-radius: 4px;
++  padding: 0.6rem 1.25rem;
++  color: var(--zone-yellow);
+   cursor: pointer;
+   z-index: 9000;
+   display: flex;
+   align-items: center;
+-  gap: 0.5rem;
+-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+-  transition: all 0.2s;
++  gap: 0.75rem;
++  box-shadow: 4px 4px 0 rgba(255, 194, 14, 0.3);
++  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
++  font-family: var(--font-headings);
++  font-weight: 900;
++  letter-spacing: 1px;
++  text-transform: uppercase;
++  font-size: 0.8rem;
+ }
+ 
+ @media (max-width: 1024px), (max-height: 450px) {
+   .feedback-trigger-btn {
+-    bottom: 5rem; /* Move up on mobile to avoid overlapping navigation */
++    bottom: 3rem; /* Move up on mobile to avoid overlapping navigation */
+     right: 1rem;
+-    padding: 0.5rem;
++    padding: 0.75rem;
+   }
+   .feedback-trigger-btn span {
+     display: none; /* Hide text on mobile, just icon */
+@@ -529,9 +532,10 @@ h3 {
+ }
+ 
+ .feedback-trigger-btn:hover {
+-  background-color: var(--bg-panel-hover);
+-  color: var(--text-main);
+-  border-color: var(--accent-primary);
++  transform: translate(-2px, -2px);
++  box-shadow: 6px 6px 0 rgba(255, 194, 14, 0.5);
++  background-color: var(--zone-yellow);
++  color: #0f1115;
+ }
+ 
+ .module-btn {

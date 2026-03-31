@@ -1,0 +1,15 @@
+f2deba8 feat: apply user UI feedback (JFI font, yellow icons, Operating Room terminology)
+b7e234e feat: integrate 3D icons, dynamic badges and quiz layout
+a2eff4e fix(ui): flatten JFI idea generator, harden Lean Academy mobile scaling, fix OS shell grid layout
+e4f779e Fix Layout regressions & SVG Path renderer on Motion V2
+cfa8af2 UX Polish: Fix dead ends and data loss
+bd61a63 Restore complex feature logic into new UI shell
+a34b91b fix: hub loading empty state and ts errors
+9c7cae3 fix: ticker text color visibility
+fb1ede9 feat: implement Gemba Challenge and globally persistent Lean Lifestyle Ticker
+8fe8fed Feat: Add interactive Tool Guide Overlays with auto-trigger for first-time visitors
+997d673 Refactor: Convert Value Scanner to strict one-page HardwareConsoleLayout
+ff2e35f Fix remaining tool root wrappers to enforce Single Pane of Glass
+3f88648 Refactor: Convert tools and tabs to strict one-page single pane of glass layouts
+60138a3 feat: Finalized Lean Academy and Video Hub stubs + Typography Polish
+f2fbfa9 chore(ui): Increase top boundary padding on global header to ensure Cart logo brackets clear the viewport edge

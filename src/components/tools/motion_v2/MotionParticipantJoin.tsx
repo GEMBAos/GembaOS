@@ -148,7 +148,7 @@ export default function MotionParticipantJoin({ sessionId, onJoined }: Props) {
     if (!session) {
         return (
             <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-muted)' }}>
-                <div className="spinner" style={{ margin: '0 auto 1.5rem auto', border: '4px solid rgba(255,255,255,0.1)', borderTop: '4px solid #71717a', borderRadius: '50%', width: '40px', height: '40px', animation: 'spin 1s linear infinite' }} />
+                <div className="spinner" style={{ margin: '0 auto 1.5rem auto', border: '4px solid rgba(255,255,255,0.1)', borderTop: '4px solid var(--zone-yellow)', borderRadius: '50%', width: '40px', height: '40px', animation: 'spin 1s linear infinite' }} />
                 Loading session...
                 <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
             </div>
@@ -156,11 +156,11 @@ export default function MotionParticipantJoin({ sessionId, onJoined }: Props) {
     }
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', alignItems: 'center', justifyContent: 'center', padding: '1rem', background: 'var(--bg-dark)' }}>
-            <div className="card" style={{ maxWidth: '400px', width: '100%', textAlign: 'center', border: '1px solid #71717a', boxShadow: '0 0 20px rgba(139, 92, 246, 0.2)', background: 'rgba(26,26,26,0.9)' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', flex: 1, alignItems: 'center', justifyContent: 'center', padding: '1rem', background: 'var(--bg-dark)' }}>
+            <div className="card" style={{ maxWidth: '400px', width: '100%', textAlign: 'center', border: '1px solid var(--zone-yellow)', boxShadow: '0 0 20px rgba(255, 194, 14, 0.1)', background: 'var(--bg-panel)' }}>
                 <div style={{ marginBottom: '2rem' }}>
-                    <div className="spinner" style={{ margin: '0 auto 1.5rem auto', border: '4px solid rgba(255,255,255,0.1)', borderTop: '4px solid #71717a', borderRadius: '50%', width: '40px', height: '40px', animation: 'spin 1s linear infinite' }} />
-                    <h2 style={{ margin: 0, color: 'var(--text-main)', fontFamily: '"Orbitron", sans-serif', textTransform: 'uppercase', letterSpacing: '2px' }}>Connecting</h2>
+                    <div className="spinner" style={{ margin: '0 auto 1.5rem auto', border: '4px solid rgba(255,194,14,0.1)', borderTop: '4px solid var(--zone-yellow)', borderRadius: '50%', width: '40px', height: '40px', animation: 'spin 1s linear infinite' }} />
+                    <h2 style={{ margin: 0, color: 'var(--text-main)', fontFamily: 'var(--font-headings)', textTransform: 'uppercase', letterSpacing: '2px' }}>Connecting</h2>
                     <p style={{ color: 'var(--text-muted)', marginTop: '0.5rem' }}>Joining {session.sessionName}...</p>
                 </div>
                 <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>

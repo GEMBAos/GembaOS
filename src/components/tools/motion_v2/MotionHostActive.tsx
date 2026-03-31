@@ -283,9 +283,9 @@ export default function MotionHostActive({ sessionId, onBack }: Props) {
                 </div>
                 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(139, 92, 246, 0.15)', padding: '0.4rem 1rem', borderRadius: '20px', border: '1px solid rgba(139, 92, 246, 0.3)' }}>
-                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#71717a', boxShadow: '0 0 8px #71717a', animation: 'pulse 2s infinite' }}></div>
-                        <span style={{ color: '#71717a', fontWeight: 800, fontSize: '0.85rem', letterSpacing: '1px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255, 194, 14, 0.15)', padding: '0.4rem 1rem', borderRadius: '20px', border: '1px solid rgba(255, 194, 14, 0.3)' }}>
+                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--zone-yellow)', boxShadow: '0 0 8px var(--zone-yellow)', animation: 'pulse 2s infinite' }}></div>
+                        <span style={{ color: 'var(--zone-yellow)', fontWeight: 800, fontSize: '0.85rem', letterSpacing: '1px' }}>
                             {participants.length} LIVE
                         </span>
                     </div>
@@ -310,7 +310,7 @@ export default function MotionHostActive({ sessionId, onBack }: Props) {
                         
                         <div style={{ textAlign: 'center' }}>
                             <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.3rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Direct Join Code:</div>
-                            <div style={{ fontSize: '2rem', fontFamily: '"Orbitron", monospace', fontWeight: 'bold', color: 'var(--text-main)', letterSpacing: '6px', textShadow: '0 0 10px rgba(139, 92, 246, 0.3)' }}>
+                            <div style={{ fontSize: '2rem', fontFamily: '"Orbitron", monospace', fontWeight: 'bold', color: 'var(--text-main)', letterSpacing: '6px', textShadow: '0 0 10px rgba(255, 194, 14, 0.3)' }}>
                                 {session.accessCode}
                             </div>
                         </div>
@@ -318,7 +318,7 @@ export default function MotionHostActive({ sessionId, onBack }: Props) {
                         <button 
                             className="btn btn-primary" 
                             onClick={handleDiagnose}
-                            style={{ width: '100%', padding: '1rem', fontWeight: 800, letterSpacing: '1px', fontSize: '0.9rem', background: '#71717a', color: 'white', border: 'none' }}
+                            style={{ width: '100%', padding: '1rem', fontWeight: 900, letterSpacing: '1px', fontSize: '0.9rem', background: 'var(--zone-yellow)', color: 'var(--gemba-black)', border: 'none', boxShadow: '0 4px 10px rgba(0,0,0,0.5)' }}
                         >
                             END SESSION & DIAGNOSE
                         </button>
@@ -345,7 +345,7 @@ export default function MotionHostActive({ sessionId, onBack }: Props) {
                                                 <div style={{ fontSize: '0.85rem', color: '#fff', fontFamily: 'monospace', fontWeight: 'bold' }}>
                                                     {p.pathCoordinates?.length || 0} pts • {p.totalDistance.toFixed(1)} {session.calibrationUnit !== 'none' ? session.calibrationUnit : ''}
                                                 </div>
-                                                <div style={{ fontSize: '0.7rem', color: isSending ? '#71717a' : 'var(--text-muted)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px' }}>
+                                                <div style={{ fontSize: '0.7rem', color: isSending ? 'var(--zone-yellow)' : 'var(--text-muted)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px' }}>
                                                     {isSending ? '● Sending...' : 'Idle'}
                                                 </div>
                                             </div>

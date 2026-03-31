@@ -6,7 +6,7 @@
   --steel-gray: #6b7280; /* Neutral grey, formerly #6b6b8b */
   --shadow-gray: #374151; /* Neutral dark grey, formerly #2a2aab */
   
-  --bg-dark: #f8fafc; /* Pristine lean white workspace */
+  --bg-dark: #eaecf0; /* Light concrete floor */
   --bg-panel: var(--gemba-black);
   --bg-panel-hover: #1f1f1f; 
 
@@ -34,7 +34,7 @@
   --tape-blue: #3b82f6;
 
   /* FIXED OS SHELL VARS */
-  --os-header-height: 60px;
+  --os-header-height: 72px;
   --os-nav-rail-width: 100px;
   --os-context-panel-width: 360px;
   --os-bottom-dock-height: 80px;
@@ -63,6 +63,8 @@ body,
 body {
   font-family: var(--font-family);
   background-color: var(--bg-dark);
+  /* Subtle, matte plaster/concrete micro-texture */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
   color: var(--text-main);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -126,12 +128,10 @@ h3 {
   padding-right: env(safe-area-inset-right);
 
   /* Desktop Grid Default (3 Zones) */
-  grid-template-rows: var(--os-header-height) auto auto 1fr;
+  grid-template-rows: var(--os-header-height) 1fr;
   grid-template-columns: var(--os-nav-rail-width) 1fr var(--os-context-panel-width);
   grid-template-areas:
     "os-nav os-header os-header"
-    "os-nav os-ticker os-context"
-    "os-nav os-idea os-context"
     "os-nav os-workspace os-context";
 }
 
@@ -139,8 +139,6 @@ h3 {
   grid-template-columns: var(--os-nav-rail-width) 1fr;
   grid-template-areas:
     "os-nav os-header"
-    "os-nav os-ticker"
-    "os-nav os-idea"
     "os-nav os-workspace";
 }
 
@@ -211,29 +209,25 @@ h3 {
    ========================================= */
 @media (max-width: 1024px) {
   .os-shell {
-    /* Tablet/Phone Grid Default - PERSISTENT LEFT RAIL */
-    grid-template-rows: auto auto auto 1fr;
-    grid-template-columns: 70px 1fr;
+    /* Tablet/Phone Grid Default */
+    grid-template-rows: var(--os-header-height) 1fr calc(var(--os-bottom-dock-height) + env(safe-area-inset-bottom));
+    grid-template-columns: 1fr;
     grid-template-areas:
-      "os-nav os-header"
-      "os-nav os-ticker"
-      "os-nav os-idea"
-      "os-nav os-workspace";
+      "os-header"
+      "os-workspace"
+      "os-nav-dock";
   }
   
   .os-shell.context-closed {
-    grid-template-rows: auto auto auto 1fr;
-    grid-template-columns: 70px 1fr;
+    grid-template-columns: 1fr;
     grid-template-areas:
-      "os-nav os-header"
-      "os-nav os-ticker"
-      "os-nav os-idea"
-      "os-nav os-workspace";
+      "os-header"
+      "os-workspace"
+      "os-nav-dock";
   }
 
   .os-nav-rail {
-    /* Kept visible, styled via App.tsx inline overrides (70px wide) */
-    display: flex; 
+    display: none; /* Hide left rail on mobile */
   }
 
   .os-context-panel {
