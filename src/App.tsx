@@ -27,6 +27,7 @@ const LeanAcademy = React.lazy(() => import('./components/tools/LeanAcademy'));
 const VideoHub = React.lazy(() => import('./components/tools/VideoHub'));
 const GembaChallengeQuiz = React.lazy(() => import('./components/tools/GembaChallengeQuiz'));
 import JFIIdeaGenerator from './components/tools/JFIIdeaGenerator';
+const CalculatorsHub = React.lazy(() => import('./components/tools/CalculatorsHub'));
 
 import { userService } from './services/userService';
 import { storageService } from './services/storageService';
@@ -46,7 +47,7 @@ function App() {
   const getInitialView = () => {
     const rawHash = window.location.hash.replace('#/', '');
     const hashPath = rawHash.split('?')[0];
-    if (['portal', 'observe', 'diagnose', 'improve', 'motion-v2', 'time-study', 'process-check', 'improvement-card', 'value-scanner', 'line-balance', 'kaizen-hub', 'action-items', 'lean-academy', 'video-hub', 'gemba-challenge', 'idea-engine'].includes(hashPath)) {
+    if (['portal', 'observe', 'diagnose', 'improve', 'motion-v2', 'time-study', 'process-check', 'improvement-card', 'value-scanner', 'line-balance', 'kaizen-hub', 'action-items', 'lean-academy', 'video-hub', 'gemba-challenge', 'idea-engine', 'calculators'].includes(hashPath)) {
         return hashPath as any;
     }
 
@@ -72,7 +73,7 @@ function App() {
     return 'portal';
   };
 
-  const [currentView, setCurrentView] = useState<'splash' | 'portal' | 'observe' | 'diagnose' | 'improve' | 'dashboard' | 'promo' | 'gemba' | 'goal-gap' | 'motion-mapping' | 'motion-v2' | 'time-study' | 'process-check' | 'improvement-card' | 'value-scanner' | 'line-balance' | 'kaizen-hub' | 'action-items' | 'lean-academy' | 'video-hub' | 'gemba-challenge' | 'idea-engine'>(
+  const [currentView, setCurrentView] = useState<'splash' | 'portal' | 'observe' | 'diagnose' | 'improve' | 'dashboard' | 'promo' | 'gemba' | 'goal-gap' | 'motion-mapping' | 'motion-v2' | 'time-study' | 'process-check' | 'improvement-card' | 'value-scanner' | 'line-balance' | 'kaizen-hub' | 'action-items' | 'lean-academy' | 'video-hub' | 'gemba-challenge' | 'idea-engine' | 'calculators'>(
     getInitialView()
   );
   
@@ -89,7 +90,7 @@ function App() {
     const handleHashChange = () => {
         const rawHash = window.location.hash.replace('#/', '');
         const hashPath = rawHash.split('?')[0];
-        if (hashPath && hashPath !== currentView && ['portal', 'observe', 'diagnose', 'improve', 'motion-mapping', 'motion-v2', 'time-study', 'process-check', 'improvement-card', 'value-scanner', 'line-balance', 'kaizen-hub', 'gemba-challenge', 'idea-engine'].includes(hashPath)) {
+        if (hashPath && hashPath !== currentView && ['portal', 'observe', 'diagnose', 'improve', 'motion-mapping', 'motion-v2', 'time-study', 'process-check', 'improvement-card', 'value-scanner', 'line-balance', 'kaizen-hub', 'gemba-challenge', 'idea-engine', 'calculators'].includes(hashPath)) {
             setCurrentView(hashPath as any);
         }
     };
@@ -281,7 +282,8 @@ function App() {
                 { id: 'improv', name: 'IMPROVE', action: 'improvement-card' },
                 { id: 'goals', name: 'GOALS', action: 'goal-gap' },
                 { id: 'videos', name: 'VIDEOS', action: 'video-hub' },
-                { id: 'learn', name: 'LEARN', action: 'lean-academy' }
+                { id: 'learn', name: 'LEARN', action: 'lean-academy' },
+                { id: 'calcs', name: 'CALCS', action: 'calculators' }
             ].map(tool => (
                 <button 
                     key={tool.id} 
@@ -317,6 +319,11 @@ function App() {
             {/* Core Modules Framework */}
             {currentView === 'gemba' && <GembaWalkGuide onClose={() => handleNavigate('portal')} />}
             {currentView === 'goal-gap' && <GoalGapMonitor onClose={() => handleNavigate('portal')} />}
+            {currentView === 'calculators' && (
+                <Suspense fallback={<div className="loading-state">Loading Calculators...</div>}>
+                    <CalculatorsHub onClose={() => handleNavigate('portal')} />
+                </Suspense>
+            )}
             {currentView === 'action-items' && <ActionItems />}
             {currentView === 'video-hub' && <VideoHub onClose={() => handleNavigate('portal')} />}
             {currentView === 'motion-v2' && <MotionMappingV2 onClose={() => handleNavigate('portal')} />}

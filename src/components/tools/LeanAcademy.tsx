@@ -7,6 +7,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { userService } from '../../services/userService';
+import BumpingSimulation from './simulations/BumpingSimulation';
 
 // Hardcoded Curriculum for MVP with intense, visual lessons
 export interface LeanLesson {
@@ -104,6 +105,34 @@ const LEAN_ACADEMY_MODULES: LeanModule[] = [
             {
                 id: 't4',
                 prompt: 'Take an "After 5S" photo of the area and describe the improvements made.',
+                requiresPhoto: true,
+                requiresDescription: true,
+                minSubmissions: 1
+            }
+        ]
+    },
+    {
+        id: 'module-3',
+        title: 'Lean 103: Baton-Zone (Bumping) Flow',
+        description: 'See why passing products smoothly between workers is faster than piling up huge batches of waste. En la producción por lotes (Batch), el material espera. En Bumping, el material fluye.',
+        rewardPoints: 2000,
+        lessons: [
+            {
+                id: 'l5',
+                title: 'The Disease of Batching',
+                content: 'Building 10 things at once feels efficient to the operator, but it creates huge delays for the customer. Piles of inventory hide defects and slow down cycle times.'
+            },
+            {
+                id: 'l6',
+                title: 'Baton-Zone (Bumping)',
+                content: 'Instead of staying at one station, operators take a product and walk it down the line until they "bump" into the next available operator. They hand it off (like a baton) and walk back to get another piece. This enables One-Piece Flow.'
+            }
+        ],
+        homeworkDescription: 'Run the interactive Bumping Simulation below in both English and Spanish.',
+        homeworkTasks: [
+            {
+                id: 't5',
+                prompt: 'What was the cycle time difference between Batching and Flow in the simulation? Provide a screenshot.',
                 requiresPhoto: true,
                 requiresDescription: true,
                 minSubmissions: 1
@@ -324,6 +353,13 @@ export default function LeanAcademy() {
                                             </div>
                                         ))}
                                     </div>
+
+                                    {/* Custom Simulation Injector */}
+                                    {mod.id === 'module-3' && (
+                                        <div style={{ padding: '1rem', background: '#000', border: '1px solid #333', borderRadius: '12px', marginBottom: '3rem' }}>
+                                            <BumpingSimulation />
+                                        </div>
+                                    )}
 
                                     {/* Advanced Homework Section */}
                                     <div style={{

@@ -30,6 +30,11 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
     const [pacerElapsed, setPacerElapsed] = useState(0);
     const [pacerRunning, setPacerRunning] = useState(false);
 
+    // Video Stack-Up Intake State
+    const [videoScanMode, setVideoScanMode] = useState(false);
+    const [finishedGoodPhoto, setFinishedGoodPhoto] = useState<string | null>(null);
+    const [videoSteps, setVideoSteps] = useState<{id: number, name: string, cycleSecs: number, videoBlob?: string}[]>([]);
+
     const refreshData = () => {
         const existingData = ImprovementEngine.getItemsByType<CycleTime>('CycleTime');
         // If empty, generate default ones for demonstration
@@ -213,6 +218,114 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
             toolName="LINE BALANCE BUILDER" 
             onClose={onClose}
         >
+            {/* Video Stack-Up Intake Modal */}
+            {videoScanMode && (
+                <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'var(--bg-main)', zIndex: 10000, display: 'flex', flexDirection: 'column', padding: '1rem', overflowY: 'auto' }}>
+                    <div style={{ maxWidth: '800px', margin: '0 auto', width: '100%' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', borderBottom: '1px solid #333', paddingBottom: '1rem' }}>
+                            <div>
+                                <h2 style={{ margin: 0, color: 'var(--zone-yellow)', fontFamily: 'var(--font-headings)' }}>CURRENT STATE STACK-UP</h2>
+                                <p style={{ color: 'var(--text-muted)', margin: '0.25rem 0 0 0', fontSize: '0.9rem' }}>Capture footage of your exact process flow to instantly build a baseline balance chart.</p>
+                            </div>
+                            <button onClick={() => setVideoScanMode(false)} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', fontSize: '2rem', cursor: 'pointer' }}>×</button>
+                        </div>
+
+                        {/* Top: Finished Good Photo */}
+                        <div style={{ background: 'var(--bg-panel)', padding: '1.5rem', borderRadius: '12px', border: '1px solid #333', marginBottom: '2rem' }}>
+                            <h3 style={{ color: 'var(--lean-white)', margin: '0 0 1rem 0', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span>📷</span> Step 1: Finished Product Condition</h3>
+                            {!finishedGoodPhoto ? (
+                                <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '150px', border: '2px dashed #444', borderRadius: '8px', cursor: 'pointer', color: '#888' }}>
+                                    <span style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>+</span>
+                                    <span>Capture / Upload Finished Good</span>
+                                    <input type="file" accept="image/*" style={{ display: 'none' }} onChange={(e) => {
+                                        if (e.target.files && e.target.files[0]) {
+                                            const reader = new FileReader();
+                                            reader.onload = (ev) => { if (ev.target?.result) setFinishedGoodPhoto(ev.target.result as string); };
+                                            reader.readAsDataURL(e.target.files[0]);
+                                        }
+                                    }} />
+                                </label>
+                            ) : (
+                                <div style={{ position: 'relative', width: '100%', maxWidth: '300px' }}>
+                                    <img src={finishedGoodPhoto} alt="Finished Good" style={{ width: '100%', borderRadius: '8px' }} />
+                                    <button onClick={() => setFinishedGoodPhoto(null)} style={{ position: 'absolute', top: '0.5rem', right: '0.5rem', background: 'rgba(0,0,0,0.5)', color: 'white', border: 'none', borderRadius: '50%', width: '30px', height: '30px', cursor: 'pointer' }}>×</button>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Bottom: Process Sequence Array */}
+                        <div style={{ background: 'var(--bg-panel)', padding: '1.5rem', borderRadius: '12px', border: '1px solid #333', marginBottom: '2rem' }}>
+                            <h3 style={{ color: 'var(--lean-white)', margin: '0 0 1rem 0', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span>🎥</span> Step 2: Sequential Process Captures</h3>
+                            
+                            {videoSteps.map((step, idx) => (
+                                <div key={step.id} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start', background: '#111', padding: '1rem', borderRadius: '8px', marginBottom: '1rem', border: '1px solid #222' }}>
+                                    <div style={{ padding: '0.5rem', background: '#333', borderRadius: '50%', width: '30px', height: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>{idx + 1}</div>
+                                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                        <input 
+                                            value={step.name} 
+                                            onChange={(e) => setVideoSteps(prev => prev.map(p => p.id === step.id ? {...p, name: e.target.value} : p))} 
+                                            placeholder="Process Segment Name (e.g. Sub-Assembly)" 
+                                            style={{ background: 'transparent', border: 'none', borderBottom: '1px solid #444', color: 'white', padding: '0.5rem 0', fontSize: '1rem' }} 
+                                        />
+                                        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                                            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'var(--zone-yellow)', color: '#000', padding: '0.5rem 1rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 'bold' }}>
+                                                Upload Segment Video
+                                                <input type="file" accept="video/*" style={{ display: 'none' }} onChange={() => {
+                                                    // Simulated upload parsing mapping string "file" to fake blob URL
+                                                    setVideoSteps(prev => prev.map(p => p.id === step.id ? {...p, videoBlob: 'loaded'} : p));
+                                                }} />
+                                            </label>
+                                            <div style={{ color: step.videoBlob ? '#4ade80' : '#f87171', fontSize: '0.8rem', fontWeight: 'bold' }}>
+                                                {step.videoBlob ? '✓ Video Loaded' : 'Missing Video'}
+                                            </div>
+                                            
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginLeft: 'auto' }}>
+                                                <label style={{ color: '#888', fontSize: '0.8rem' }}>Extracted Base Time (s):</label>
+                                                <input 
+                                                    type="number" 
+                                                    value={step.cycleSecs || ''} 
+                                                    onChange={(e) => setVideoSteps(prev => prev.map(p => p.id === step.id ? {...p, cycleSecs: Number(e.target.value)} : p))} 
+                                                    style={{ width: '80px', background: '#222', border: '1px solid #444', color: 'white', padding: '0.5rem', borderRadius: '4px' }} 
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button onClick={() => setVideoSteps(prev => prev.filter(p => p.id !== step.id))} style={{ background: 'transparent', border: 'none', color: '#ff4444', cursor: 'pointer', fontSize: '1.2rem' }}>×</button>
+                                </div>
+                            ))}
+
+                            <button onClick={() => setVideoSteps([...videoSteps, { id: Date.now(), name: '', cycleSecs: 0 }])} style={{ width: '100%', padding: '1rem', background: 'rgba(255,255,255,0.05)', border: '1px dashed #444', color: '#aaa', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}>
+                                + Add Next Process Segment
+                            </button>
+                        </div>
+
+                        {/* Execute */}
+                        <button 
+                            onClick={() => {
+                                // Overwrite existing stations with the new video stack up
+                                const existing = ImprovementEngine.getItemsByType<CycleTime>('CycleTime');
+                                existing.forEach(item => ImprovementEngine.deleteItem(item.id));
+                                videoSteps.forEach(step => {
+                                    if (step.name && step.cycleSecs > 0) {
+                                        ImprovementEngine.createItem<CycleTime>({
+                                            type: 'CycleTime',
+                                            stationName: step.name,
+                                            operatorsCount: 1,
+                                            workContent: [step.cycleSecs],
+                                            recordedTimes: [step.cycleSecs]
+                                        });
+                                    }
+                                });
+                                refreshData();
+                                setVideoScanMode(false);
+                            }}
+                            style={{ width: '100%', padding: '1.5rem', background: 'var(--accent-primary)', border: 'none', color: '#000', borderRadius: '8px', fontSize: '1.2rem', fontWeight: 800, cursor: 'pointer', opacity: videoSteps.length > 0 ? 1 : 0.5 }}
+                        >
+                            GENERATE CURRENT STATE YAMAZUMI
+                        </button>
+                    </div>
+                </div>
+            )}
             {/* Database Import Modal Overaly */}
             {importingStationId && (
                 <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(10, 10, 10, 0.95)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
@@ -291,6 +404,16 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
                 <div style={{ flex: '1 1 min(100%, 300px)', display: 'flex', flexDirection: 'column', gap: 'clamp(1rem, 2vw, 1.5rem)' }}>
                     <div className="card" style={{ background: 'var(--bg-panel)', padding: 'clamp(1rem, 2vw, 1.5rem)', border: '1px solid var(--border-color)', borderRadius: '12px' }}>
                         <h3 style={{ textTransform: 'uppercase', fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)', color: 'var(--text-muted)', letterSpacing: '1px', marginBottom: 'clamp(0.75rem, 1.5vw, 1rem)' }}>Global Settings</h3>
+                        
+                        {/* New Camera Intake Button */}
+                        <button 
+                            onClick={() => setVideoScanMode(true)}
+                            style={{ width: '100%', padding: '1rem', background: '#0a0a0c', border: '1px dashed var(--zone-yellow)', color: 'var(--zone-yellow)', borderRadius: '8px', marginBottom: '1.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', fontWeight: 'bold' }}
+                        >
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+                            START NEW VIDEO STACK-UP
+                        </button>
+
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                             <div>
                                 <label style={{ display: 'block', fontSize: 'clamp(0.8rem, 1.5vw, 0.9rem)', color: 'var(--text-main)', marginBottom: '0.25rem' }}>Target Output (Units/Hr)</label>
