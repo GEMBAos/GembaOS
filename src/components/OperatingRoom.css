@@ -1,0 +1,169 @@
+/* OperatingRoom.css - Premium Heavy Industrial Aesthetic */
+
+.or-master-container {
+    background-image: url('../assets/branding/industrial-texture.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: scroll;
+    background-repeat: repeat;
+    /* Soften the background slightly so buttons pop */
+    box-shadow: inset 0 0 150px rgba(0,0,0,0.9);
+}
+
+.or-dashboard-grid {
+    display: grid;
+    /* 9 buttons = 3 columns of 3, or responsive */
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2.5rem;
+    padding: 2rem;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* The Heavy Metal Button Base */
+.industrial-btn {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1rem 1.5rem 1rem;
+    gap: 1.5rem;
+    cursor: pointer;
+    
+    /* Dark metallic gradient base */
+    background: linear-gradient(145deg, #1c1c1e 0%, #0d0d0e 100%);
+    border-radius: 12px;
+    
+    /* Inner plate cutout + outer block shadow to simulate thick metal plate */
+    border: 2px solid #000;
+    box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.15),
+        inset 0 0 20px rgba(0, 0, 0, 0.9),
+        0 15px 30px rgba(0, 0, 0, 0.8),
+        0 4px 6px rgba(0, 0, 0, 0.6);
+        
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-style: preserve-3d;
+}
+
+/* Active / Hover State */
+.industrial-btn:hover {
+    transform: translateY(-4px) scale(1.02);
+    /* Bring up the inner highlight significantly to simulate a light hitting the metal */
+    box-shadow: 
+        inset 0 2px 4px rgba(255, 194, 14, 0.3),
+        inset 0 0 20px rgba(0, 0, 0, 0.9),
+        0 20px 40px rgba(0, 0, 0, 0.9),
+        0 8px 12px rgba(255, 194, 14, 0.1);
+    border-color: #333;
+}
+
+/* Procedural Rivets (screws in the 4 corners) */
+.industrial-btn::before {
+    content: '';
+    position: absolute;
+    top: 10px; left: 10px; right: 10px; bottom: 10px;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    
+    /* 4 Radial gradients using fixed pixels to prevent scaling blowouts */
+    background-image: 
+        radial-gradient(circle at 14px 14px, #444 4px, transparent 5px),
+        radial-gradient(circle at calc(100% - 14px) 14px, #444 4px, transparent 5px),
+        radial-gradient(circle at 14px calc(100% - 14px), #444 4px, transparent 5px),
+        radial-gradient(circle at calc(100% - 14px) calc(100% - 14px), #444 4px, transparent 5px);
+    
+    /* A subtle inset shadow on the "frame" for extra depth */
+    box-shadow: 
+        inset 0 2px 2px rgba(0,0,0,0.8),
+        inset 0 -1px 1px rgba(255,255,255,0.05);
+    border-radius: 6px;
+    z-index: 1;
+}
+
+/* Inner screw highlights (inner drop shadow for the rivets) */
+.industrial-btn::after {
+    content: '';
+    position: absolute;
+    top: 10px; left: 10px; right: 10px; bottom: 10px;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    
+    background-image: 
+        radial-gradient(circle at 13px 13px, rgba(255,255,255,0.4) 1px, transparent 2px),
+        radial-gradient(circle at calc(100% - 15px) 13px, rgba(255,255,255,0.4) 1px, transparent 2px),
+        radial-gradient(circle at 13px calc(100% - 15px), rgba(255,255,255,0.4) 1px, transparent 2px),
+        radial-gradient(circle at calc(100% - 15px) calc(100% - 15px), rgba(255,255,255,0.4) 1px, transparent 2px);
+    z-index: 2;
+}
+
+/* Icon Container - Ensures the SVG glows like neon */
+.industrial-icon-glow {
+    position: relative;
+    z-index: 5;
+    /* Yellow neon glow filter */
+    filter: drop-shadow(0 0 12px rgba(255, 194, 14, 0.8)) drop-shadow(0 0 2px rgba(255, 255, 255, 0.4));
+    color: var(--zone-yellow);
+    transition: all 0.3s ease;
+}
+
+.industrial-btn:hover .industrial-icon-glow {
+    filter: drop-shadow(0 0 20px rgba(255, 194, 14, 1)) drop-shadow(0 0 4px rgba(255, 255, 255, 0.8));
+    transform: scale(1.1);
+}
+
+/* Label Container */
+.industrial-label {
+    position: relative;
+    z-index: 5;
+    color: #e2e8f0;
+    font-family: var(--font-headings);
+    font-size: 1.15rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 4px rgba(0,0,0,1);
+    
+    /* Small separator line */
+    padding-top: 0.75rem;
+    border-top: 2px solid rgba(255, 194, 14, 0.1);
+    width: 80%;
+    text-align: center;
+    transition: border-color 0.3s;
+}
+
+.industrial-btn:hover .industrial-label {
+    color: #ffffff;
+    border-top-color: rgba(255, 194, 14, 0.6);
+    text-shadow: 0 0 10px rgba(255, 194, 14, 0.3), 0 2px 4px rgba(0,0,0,1);
+}
+
+/* Sub-text for the footer mantra */
+.industrial-mantra {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.industrial-mantra-line {
+    height: 1px;
+    flex: 1;
+    background: linear-gradient(90deg, transparent, rgba(255, 194, 14, 0.5), transparent);
+}
+
+.industrial-mantra-text {
+    color: var(--zone-yellow);
+    font-family: var(--font-headings);
+    font-weight: 900;
+    font-size: 1.1rem;
+    letter-spacing: 4px;
+    text-shadow: 0 0 10px rgba(255, 194, 14, 0.3), 0 2px 4px #000;
+}

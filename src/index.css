@@ -589,10 +589,10 @@ h3 {
   width: 100%;
   padding: 0.75rem 1rem;
   min-height: 44px;
-  background-color: #f8fafc !important;
-  border: 1px solid #94a3b8 !important;
+  background-color: #f8fafc;
+  border: 1px solid #94a3b8;
   border-radius: 0.5rem;
-  color: #0f172a !important;
+  color: #0f172a;
   font-family: var(--font-family);
   font-size: 1rem;
   transition: border-color 0.2s ease;
@@ -600,40 +600,30 @@ h3 {
 }
 
 .input-field::placeholder {
-  color: #64748b !important;
+  color: #64748b;
 }
 
 /* Specific override for explicit light-theme inputs if user meant complete inversion */
 .input-field-light {
   width: 100%;
   padding: 0.5rem 0.75rem;
-  background-color: #f8fafc !important;
-  border: 1px solid #94a3b8 !important;
+  background-color: #f8fafc;
+  border: 1px solid #94a3b8;
   border-radius: 0.5rem;
-  color: #0f172a !important;
+  color: #0f172a;
   font-family: var(--font-family);
   font-size: 0.875rem;
   transition: border-color 0.2s ease;
 }
 
 .input-field-light::placeholder {
-  color: #64748b !important;
+  color: #64748b;
 }
 
-input[type="text"],
-input[type="number"],
-input[type="email"],
-input[type="password"],
-textarea,
-select {
-  background-color: #f8fafc !important;
-  color: #0f172a !important;
-  border: 1px solid #94a3b8 !important;
-}
 
 input::placeholder,
 textarea::placeholder {
-  color: #64748b !important;
+  color: #64748b;
 }
 
 .input-field:focus {
@@ -1671,5 +1661,50 @@ textarea::placeholder {
 }
 .gemba-input::placeholder {
   color: var(--steel-gray);
+}
+
+/* ========================================================
+   RESPONSIVE GLOBAL OS-SHELL FIXES
+   ======================================================== */
+@media (max-width: 768px) {
+  /* Convert layout to drop Nav Rail to the Bottom Row */
+  .os-shell {
+    grid-template-columns: 1fr;
+    grid-template-rows: var(--os-header-height) auto auto 1fr auto;
+    grid-template-areas:
+      "os-header"
+      "os-ticker"
+      "os-idea"
+      "os-workspace"
+      "os-nav";
+    height: 100dvh;
+  }
+  
+  .os-shell.context-closed {
+    grid-template-columns: 1fr;
+    grid-template-rows: var(--os-header-height) auto auto 1fr auto;
+    grid-template-areas:
+      "os-header"
+      "os-ticker"
+      "os-idea"
+      "os-workspace"
+      "os-nav";
+  }
+
+  /* Make Nav-Rail horizontally scrollable at bottom */
+  .os-nav-rail {
+    flex-direction: row;
+    width: 100vw;
+    height: auto;
+    border-right: none;
+    border-top: 2px solid rgba(0,0,0,0.8);
+    background: var(--gemba-black);
+    padding: 0.5rem 1rem;
+    padding-bottom: calc(0.5rem + env(safe-area-inset-bottom, 5px));
+    gap: 1rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    z-index: 100;
+  }
 }
 

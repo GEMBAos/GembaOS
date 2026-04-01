@@ -5,8 +5,6 @@ import SplashScreen from './components/SplashScreen';
 import FeedbackOverlay from './components/FeedbackOverlay';
 import LeanLifestyleTicker from './components/LeanLifestyleTicker';
 
-import ResponsiveSimulator from './components/ResponsiveSimulator';
-import PromoLanding from './components/PromoLanding';
 import { supabase } from './lib/supabase';
 
 
@@ -43,7 +41,7 @@ import UserProfileModal from './components/auth/UserProfileModal';
 import DynamicBadge from './components/ui/DynamicBadge';
 
 import { GembaIcon } from './components/ui/IndustrialIcons';
-
+import './NavRailIndustrial.css';
 function App() {
   const getInitialView = () => {
     const rawHash = window.location.hash.replace('#/', '');
@@ -55,12 +53,11 @@ function App() {
     if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
       const isFirstVisit = !localStorage.getItem('has_visited_gemba');
       if (isFirstVisit) {
-          return 'promo'; 
+          localStorage.setItem('has_visited_gemba', 'true');
       }
     }
 
     const params = new URLSearchParams(window.location.search);
-    if (params.get('promo') === 'true') return 'promo';
     
     const flow = params.get('flow');
     if (flow === 'guest_challenge' || flow === 'jfi' || flow === 'register') return 'portal';
@@ -193,7 +190,7 @@ function App() {
   }, []);
 
   return (
-    <ResponsiveSimulator>
+    <>
       {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
       {showProfileModal && profile && user && (
         <UserProfileModal
@@ -205,8 +202,8 @@ function App() {
 
       <div className={`os-shell ${true ? 'context-closed' : ''}`}>
         
-        {/* 1. HEADER ZONE (Massive Fixed Global Logo) */}
-        <header className="os-header" style={{ height: 'auto', padding: '0.75rem 1rem 0.5rem 1rem', justifyContent: 'space-between', borderBottom: '2px solid #222' }}>
+        {/* 1. HEADER ZONE */}
+        <header className="os-header" style={{ padding: '0 1rem', justifyContent: 'space-between', borderBottom: '2px solid #222' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', cursor: 'pointer', flex: 1, minWidth: 0 }} onClick={() => handleNavigate('portal')}>
                 {/* Optional minor navigation nodes can go here */}
             </div>
@@ -216,13 +213,13 @@ function App() {
                 style={{ 
                     cursor: 'pointer',
                     width: '100%', 
-                    maxWidth: 'clamp(180px, 45vw, 600px)',
-                    height: 'clamp(40px, 7vh, 60px)',
+                    maxWidth: 'clamp(150px, 30vw, 300px)',
+                    height: '40px',
                     backgroundImage: `url(${brandLogo})`,
                     backgroundSize: 'contain',
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center center',
-                    filter: 'drop-shadow(0 0 20px rgba(255,255,255,0.15)) drop-shadow(0 0 4px rgba(255,255,255,0.5))'
+                    filter: 'drop-shadow(0 0 10px rgba(255,194,14,0.15)) drop-shadow(0 0 2px rgba(255,255,255,0.4))'
                 }} 
             />
 
@@ -268,12 +265,10 @@ function App() {
             />
         </div>
 
-        {/* 2. NAVIGATION SYSTEM (PERSISTENT LEFT RAIL - WHITE AESTHETIC) */}
-        <nav className="os-nav-rail" style={{
-            display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1.5rem 0', gap: '0.5rem', overflowY: 'auto', background: 'var(--lean-white)', borderRight: '1px solid var(--border-color)', zIndex: 100
-        }}>
-            <button onClick={() => handleNavigate('portal')} style={{ background: 'transparent', border: 'none', color: currentView === 'portal' ? 'var(--gemba-black)' : 'var(--steel-gray)', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0.5rem', cursor: 'pointer', transition: 'all 0.2s', marginBottom: '1rem' }} title="Portal">
-                <div style={{ fontSize: '1.75rem', filter: currentView === 'portal' ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.15))' : 'none' }}>🔘</div>
+        {/* 2. NAVIGATION SYSTEM (PERSISTENT LEFT RAIL - HEAVY INDUSTRIAL AESTHETIC) */}
+        <nav className="os-nav-rail">
+            <button onClick={() => handleNavigate('portal')} style={{ background: 'transparent', border: 'none', color: currentView === 'portal' ? 'var(--zone-yellow)' : 'var(--steel-gray)', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0.5rem', cursor: 'pointer', transition: 'all 0.2s', marginBottom: '1rem' }} title="Portal">
+                <div style={{ fontSize: '1.75rem', filter: currentView === 'portal' ? 'drop-shadow(0 2px 4px rgba(255,194,14,0.5))' : 'none' }}>🔘</div>
             </button>
             <div style={{ width: '60%', height: '1px', background: 'var(--border-color)', margin: '0.5rem 0' }} />
             
@@ -291,42 +286,17 @@ function App() {
                 <button 
                     key={tool.id} 
                     onClick={() => handleNavigate(tool.action as any)}
-                    style={{ 
-                        background: 'transparent', 
-                        border: 'none', 
-                        display: 'flex', 
-                        flexDirection: 'column', 
-                        alignItems: 'center', 
-                        gap: '0.4rem', 
-                        cursor: 'pointer', 
-                        padding: '0.75rem 0.25rem',
-                        position: 'relative',
-                        width: '100%',
-                        borderLeft: currentView === tool.action ? '4px solid var(--zone-yellow)' : '4px solid transparent',
-                        backgroundColor: currentView === tool.action ? '#f8fafc' : 'transparent',
-                        transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
-                    }}
+                    className={`nav-industrial-btn ${currentView === tool.action ? 'active' : ''}`}
                     title={tool.name}
                 >
-                    <div style={{
-                        width: '54px', height: '54px', borderRadius: '12px',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        position: 'relative'
-                    }}>
+                    <div className="nav-icon-glow">
                         <GembaIcon 
                             iconId={tool.id} 
                             isActive={currentView === tool.action} 
+                            size={26}
                         />
                     </div>
-                    <span style={{ 
-                        fontSize: '0.65rem', 
-                        fontWeight: 900, 
-                        marginTop: '0.25rem',
-                        textAlign: 'center',
-                        letterSpacing: '1px',
-                        color: currentView === tool.action ? 'var(--gemba-black)' : 'var(--steel-gray)',
-                        fontFamily: 'var(--font-headings)'
-                    }}>
+                    <span className="nav-industrial-label">
                         {tool.name}
                     </span>
                 </button>
@@ -342,7 +312,6 @@ function App() {
               <style dangerouslySetInnerHTML={{__html: `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}} />
             </div>
           }>
-            {currentView === 'promo' && <PromoLanding onSignUp={() => { handleNavigate('portal'); }} />}
             {currentView === 'portal' && <OperatingRoom onNavigate={handleNavigate} />}
             
             {/* Core Modules Framework */}
@@ -382,21 +351,7 @@ function App() {
       {showRankModal && <RankBenefitsModal onClose={() => setShowRankModal(false)} currentScore={parseInt(localStorage.getItem('kaizen_user_score') || '0', 10)} />}
       {showStreakBoard && <StreakRankingBoard onClose={() => setShowStreakBoard(false)} />}
 
-      <style dangerouslySetInnerHTML={{__html: `
-        @media (max-width: 1024px) {
-            /* We NO LONGER hide the left rail. We scale it safely down instead of flattening it to the bottom. */
-            .os-nav-rail {
-                width: 70px !important;
-                padding-top: 0.5rem !important;
-            }
-            .os-nav-rail span { font-size: 0.5rem !important; }
-            .os-nav-rail div { width: 44px !important; height: 44px !important; }
-        }
-        @media (min-width: 1025px) {
-            
-        }
-      `}} />
-    </ResponsiveSimulator>
+    </>
   );
 }
 

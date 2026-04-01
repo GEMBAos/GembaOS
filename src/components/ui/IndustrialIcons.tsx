@@ -17,7 +17,7 @@ export function GembaIcon({ iconId, isActive = false, size = 26, className = '',
         strokeWidth: "2",
         strokeLinecap: "round" as const,
         strokeLinejoin: "round" as const,
-        className: `gemba-industrial-icon ${isActive ? 'active-neon' : 'inactive-steel'} ${className}`,
+        className: `gemba-industrial-icon ${className}`,
         ...rest
     };
 
