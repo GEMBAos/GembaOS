@@ -7,13 +7,30 @@ const FeedbackOverlay: React.FC = () => {
     const [submitted, setSubmitted] = useState(false);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        // Handle locally to prevent SPA 404 routing errors on Netlify without backend
         e.preventDefault();
-        setSubmitted(true);
-        setTimeout(() => {
-            setSubmitted(false);
-            setIsOpen(false);
-        }, 2000);
+        
+        const form = e.currentTarget;
+        const formData = new FormData(form);
+        
+        // Append context info
+        formData.append('url', window.location.href);
+        formData.append('userAgent', window.navigator.userAgent);
+        
+        const urlEncodedData = new URLSearchParams(formData as any).toString();
+
+        fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: urlEncodedData,
+        })
+        .then(() => {
+            setSubmitted(true);
+            setTimeout(() => {
+                setSubmitted(false);
+                setIsOpen(false);
+            }, 3000);
+        })
+        .catch((error) => console.error('Feedback submit error:', error));
     };
 
     return (
