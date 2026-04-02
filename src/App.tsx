@@ -1,5 +1,4 @@
 import React, { useState, useEffect, Suspense } from 'react';
-import type { KaizenProject } from './types';
 import OperatingRoom from './components/OperatingRoom';
 import SplashScreen from './components/SplashScreen';
 import FeedbackOverlay from './components/FeedbackOverlay';
@@ -61,7 +60,7 @@ function App() {
     const params = new URLSearchParams(window.location.search);
     
     const flow = params.get('flow');
-    if (flow === 'guest_challenge' || flow === 'jfi' || flow === 'register') return 'portal';
+    if (flow === 'guest_challenge' || flow === 'jfi' || flow === 'register') return 'dashboard';
     const hashParams = new URLSearchParams(window.location.hash.split('?')[1] || "");
     const sessionUrlParam = params.get('session') || hashParams.get('session');
     
@@ -70,7 +69,7 @@ function App() {
         return 'motion-v2';
     }
 
-    return 'portal';
+    return 'dashboard';
   };
 
   const [currentView, setCurrentView] = useState<'splash' | 'portal' | 'observe' | 'diagnose' | 'improve' | 'dashboard' | 'promo' | 'gemba' | 'goal-gap' | 'motion-mapping' | 'motion-v2' | 'time-study' | 'process-check' | 'improvement-card' | 'value-scanner' | 'line-balance' | 'kaizen-hub' | 'action-items' | 'lean-academy' | 'video-hub' | 'gemba-challenge' | 'idea-engine' | 'calculators'>(
@@ -97,8 +96,6 @@ function App() {
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, [currentView]);
-  
-  const [project, setProject] = useState<KaizenProject | null>(null);
 
   // Auth & Profile State
   const [user, setUser] = useState<User | null>(null);
@@ -205,12 +202,12 @@ function App() {
         
         {/* 1. HEADER ZONE */}
         <header className="os-header" style={{ padding: '0 1rem', justifyContent: 'space-between', borderBottom: '2px solid #222' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', cursor: 'pointer', flex: 1, minWidth: 0 }} onClick={() => handleNavigate('portal')}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', cursor: 'pointer', flex: 1, minWidth: 0 }} onClick={() => handleNavigate('dashboard')}>
                 {/* Optional minor navigation nodes can go here */}
             </div>
             
             <div 
-                onClick={() => handleNavigate('portal')}
+                onClick={() => handleNavigate('dashboard')}
                 style={{ 
                     cursor: 'pointer',
                     width: '100%', 
@@ -268,8 +265,8 @@ function App() {
 
         {/* 2. NAVIGATION SYSTEM (PERSISTENT LEFT RAIL - HEAVY INDUSTRIAL AESTHETIC) */}
         <nav className="os-nav-rail">
-            <button onClick={() => handleNavigate('portal')} style={{ background: 'transparent', border: 'none', color: currentView === 'portal' ? 'var(--zone-yellow)' : 'var(--steel-gray)', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0.5rem', cursor: 'pointer', transition: 'all 0.2s', marginBottom: '1rem' }} title="Portal">
-                <div style={{ fontSize: '1.75rem', filter: currentView === 'portal' ? 'drop-shadow(0 2px 4px rgba(255,194,14,0.5))' : 'none' }}>🔘</div>
+            <button onClick={() => handleNavigate('dashboard')} style={{ background: 'transparent', border: 'none', color: currentView === 'dashboard' ? 'var(--zone-yellow)' : 'var(--steel-gray)', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0.5rem', cursor: 'pointer', transition: 'all 0.2s', marginBottom: '1rem' }} title="Dashboard">
+                <div style={{ fontSize: '1.75rem', filter: currentView === 'dashboard' ? 'drop-shadow(0 2px 4px rgba(255,194,14,0.5))' : 'none' }}>🔘</div>
             </button>
             <div style={{ width: '60%', height: '1px', background: 'var(--border-color)', margin: '0.5rem 0' }} />
             
@@ -343,7 +340,7 @@ function App() {
                     <GembaChallengeQuiz onClose={() => handleNavigate('portal')} />
                 </Suspense>
             )}
-            {currentView === 'dashboard' && <Dashboard project={project} profile={profile} onStartNew={() => { setProject(null); }} onContinue={() => {}} />}
+            {currentView === 'dashboard' && <Dashboard profile={profile} onNavigate={(view) => handleNavigate(view as any)} />}
           </Suspense>
         </main>
 

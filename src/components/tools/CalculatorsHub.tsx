@@ -143,7 +143,7 @@ export default function CalculatorsHub({ onClose }: CalculatorsHubProps) {
             boxShadow: '0 10px 30px rgba(0,0,0,0.5), inset 0 2px 0 rgba(255,194,14,0.3)',
             marginTop: '2rem'
         }}>
-            <h4 style={{ color: 'var(--stone-gray)', margin: 0, fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '2px', fontFamily: 'var(--font-headings)' }}>{subtitle}</h4>
+            <h4 style={{ color: 'var(--steel-gray)', margin: 0, fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '2px', fontFamily: 'var(--font-headings)' }}>{subtitle}</h4>
             <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: '0.5rem', marginTop: '1rem' }}>
                 <span style={{ fontSize: '4rem', fontWeight: 800, color: 'var(--zone-yellow)', lineHeight: 1, fontFamily: 'var(--font-mono)', textShadow: '0 0 20px rgba(255,194,14,0.4)' }}>
                     {typeof value === 'number' ? value.toFixed(2) : value}
