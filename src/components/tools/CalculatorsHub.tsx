@@ -206,9 +206,9 @@ export default function CalculatorsHub({}: CalculatorsHubProps) {
                 )}
             </header>
 
-            <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+            <div style={{ display: 'flex', flex: 1, overflow: 'hidden', minHeight: 0 }}>
                 {/* Calculator Stage */}
-                <div style={{ flex: 1, padding: '2rem', overflowY: 'auto', background: '#f8fafc' }}>
+                <div style={{ flex: 1, padding: '2rem', overflowY: 'auto', background: '#f8fafc', minHeight: 0, WebkitOverflowScrolling: 'touch', overscrollBehaviorY: 'contain' }}>
                     
                     {activeCalc === 'menu' && (
                         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
