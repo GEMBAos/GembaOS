@@ -259,22 +259,31 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile }: JFIIdeaGe
 
             {/* Result State Block (Absolute Overlay Dropdown) */}
             {currentIdeas.length > 0 && !isAnalyzing && (
-                <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 100, display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', marginTop: '1rem', paddingBottom: '2rem' }}>
-                    {currentIdeas.map((idea, idx) => (
-                        <div key={idx} style={{
-                            width: '100%',
-                            padding: '2rem',
-                            background: '#040404',
-                            border: '1px solid var(--zone-yellow)',
-                            borderRadius: '12px',
-                            boxShadow: '0 20px 40px rgba(0,0,0,0.8)',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: '1.5rem',
-                            animation: `slideDownFade 0.4s ease forwards ${idx * 0.15}s`,
-                            opacity: 0,
-                            transform: 'translateY(-10px)'
-                        }}>
+                <>
+                    <div 
+                        onClick={() => setCurrentIdeas([])}
+                        style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)', zIndex: 90, cursor: 'pointer' }}
+                    />
+                    <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 100, display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%', maxWidth: '800px', margin: '1rem auto', paddingBottom: '2rem' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#111', padding: '1rem 1.5rem', borderRadius: '8px', border: '1px solid #333' }}>
+                            <h3 style={{ margin: 0, color: 'var(--zone-yellow)', fontFamily: 'var(--font-headings)', fontSize: '1rem' }}>{currentIdeas.length} IDEAS LOGGED</h3>
+                            <button onClick={() => setCurrentIdeas([])} style={{ background: 'transparent', border: 'none', color: 'var(--steel-gray)', cursor: 'pointer', fontSize: '1.25rem', lineHeight: 1, padding: '0.5rem' }}>✖</button>
+                        </div>
+                        {currentIdeas.map((idea, idx) => (
+                            <div key={idx} style={{
+                                width: '100%',
+                                padding: '1.5rem',
+                                background: '#1a1a1c',
+                                border: '1px solid #333',
+                                borderRadius: '8px',
+                                boxShadow: '0 10px 25px rgba(0,0,0,0.5)',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '1rem',
+                                animation: `slideDownFade 0.3s ease forwards ${idx * 0.1}s`,
+                                opacity: 0,
+                                transform: 'translateY(-10px)'
+                            }}>
                             <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
                                 {capturedPhotoUrl && idx === 0 && (
                                     <img src={capturedPhotoUrl} alt="Captured Friction" style={{ width: '140px', height: '140px', objectFit: 'cover', border: '2px solid var(--border-light)', borderRadius: '8px' }} />
@@ -289,16 +298,17 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile }: JFIIdeaGe
                                 </div>
                             </div>
 
-                            <div style={{ background: 'var(--bg-dark)', padding: '1rem 1.5rem', borderLeft: '4px solid var(--zone-yellow)', display: 'flex', alignItems: 'center', gap: '1rem', borderRadius: '4px' }}>
-                                <span style={{ fontSize: '1.5rem', color: '#000' }}>📉</span>
+                            <div style={{ background: '#0a0a0c', padding: '1rem', borderLeft: '3px solid var(--zone-yellow)', display: 'flex', alignItems: 'center', gap: '1rem', borderRadius: '4px' }}>
+                                <span style={{ fontSize: '1.25rem' }}>📉</span>
                                 <div>
-                                    <div style={{ fontSize: '0.7rem', color: 'var(--gemba-black)', fontWeight: '900', letterSpacing: '1px' }}>EXPECTED IMPACT</div>
-                                    <div style={{ fontSize: '1rem', color: 'var(--gemba-black)', fontWeight: '700' }}>{idea.impact}</div>
+                                    <div style={{ fontSize: '0.7rem', color: 'var(--steel-gray)', fontWeight: '900', letterSpacing: '1px' }}>EXPECTED IMPACT</div>
+                                    <div style={{ fontSize: '0.95rem', color: 'var(--lean-white)', fontWeight: '700' }}>{idea.impact}</div>
                                 </div>
                             </div>
                         </div>
                     ))}
-                </div>
+                    </div>
+                </>
             )}
             
             <style dangerouslySetInnerHTML={{__html: `
