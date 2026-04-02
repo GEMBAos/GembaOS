@@ -60,7 +60,7 @@ function App() {
     const params = new URLSearchParams(window.location.search);
     
     const flow = params.get('flow');
-    if (flow === 'guest_challenge' || flow === 'jfi' || flow === 'register') return 'dashboard';
+    if (flow === 'guest_challenge' || flow === 'jfi' || flow === 'register') return 'calculators';
     const hashParams = new URLSearchParams(window.location.hash.split('?')[1] || "");
     const sessionUrlParam = params.get('session') || hashParams.get('session');
     
@@ -69,7 +69,7 @@ function App() {
         return 'motion-v2';
     }
 
-    return 'dashboard';
+    return 'calculators';
   };
 
   const [currentView, setCurrentView] = useState<'splash' | 'portal' | 'observe' | 'diagnose' | 'improve' | 'dashboard' | 'promo' | 'gemba' | 'goal-gap' | 'motion-mapping' | 'motion-v2' | 'time-study' | 'process-check' | 'improvement-card' | 'value-scanner' | 'line-balance' | 'kaizen-hub' | 'action-items' | 'lean-academy' | 'video-hub' | 'gemba-challenge' | 'idea-engine' | 'calculators'>(
@@ -202,12 +202,12 @@ function App() {
         
         {/* 1. HEADER ZONE */}
         <header className="os-header" style={{ padding: '0 1rem', justifyContent: 'space-between', borderBottom: '2px solid #222' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', cursor: 'pointer', flex: 1, minWidth: 0 }} onClick={() => handleNavigate('dashboard')}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', cursor: 'pointer', flex: 1, minWidth: 0 }} onClick={() => handleNavigate('calculators' as any)}>
                 {/* Optional minor navigation nodes can go here */}
             </div>
             
             <div 
-                onClick={() => handleNavigate('dashboard')}
+                onClick={() => handleNavigate('calculators' as any)}
                 style={{ 
                     cursor: 'pointer',
                     width: '100%', 
@@ -255,18 +255,67 @@ function App() {
         </div>
 
         {/* PERSISTENT FLAT IDEA ENGINE LOGGING BAR (FUSED WITH BLACK HEADER) */}
-        <div style={{ gridArea: 'os-idea', position: 'relative', zIndex: 45, background: '#111', padding: '0.25rem 1rem 0.25rem 1rem', borderBottom: '1px solid #222' }}>
-            <JFIIdeaGenerator 
-                onIdeaGenerated={() => {}} 
-                profile={profile} 
-                onNavigate={(r) => handleNavigate(r as any)}
-            />
+        <div style={{ gridArea: 'os-idea', position: 'relative', zIndex: 45, background: '#111', borderBottom: '1px solid #222' }}>
+            <div style={{ padding: '0.25rem 1rem 0.25rem 1rem' }}>
+                <JFIIdeaGenerator 
+                    onIdeaGenerated={() => {}} 
+                    profile={profile} 
+                    onNavigate={(r) => handleNavigate(r as any)}
+                />
+            </div>
+            
+            {/* Quick Calcs Ribbon */}
+            <div style={{ 
+                display: 'flex', 
+                gap: '0.5rem', 
+                overflowX: 'auto', 
+                padding: '0.5rem 1rem', 
+                background: '#0a0a0c', 
+                borderTop: '1px solid #222',
+                scrollbarWidth: 'none'
+            }}>
+                {(['takt', 'oee', 'kanban', 'rty', 'smed', 'labor', 'uph', 'safety', 'roi'] as const).map(c => (
+                    <button 
+                        key={c}
+                        onClick={() => {
+                            window.location.hash = `#/calculators?calc=${c}`;
+                            setCurrentView('calculators');
+                        }}
+                        style={{
+                            whiteSpace: 'nowrap',
+                            padding: '0.4rem 1rem',
+                            background: 'rgba(255,255,255,0.05)',
+                            border: '1px solid rgba(255,255,255,0.1)',
+                            borderRadius: '4px',
+                            color: 'var(--steel-gray)',
+                            cursor: 'pointer',
+                            fontFamily: 'var(--font-headings)',
+                            fontSize: '0.75rem',
+                            fontWeight: 800,
+                            textTransform: 'uppercase',
+                            transition: 'all 0.2s',
+                        }}
+                        onMouseEnter={e => { e.currentTarget.style.color = 'var(--zone-yellow)'; e.currentTarget.style.borderColor = 'rgba(255,194,14,0.3)'; e.currentTarget.style.background = 'rgba(255,194,14,0.05)'; }}
+                        onMouseLeave={e => { e.currentTarget.style.color = 'var(--steel-gray)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; }}
+                    >
+                        {c === 'takt' && 'Takt Time'}
+                        {c === 'oee' && 'OEE'}
+                        {c === 'kanban' && 'Kanban Size'}
+                        {c === 'rty' && 'True Yield'}
+                        {c === 'smed' && 'Setup Cost'}
+                        {c === 'labor' && 'Labor Cost'}
+                        {c === 'uph' && 'UPH Target'}
+                        {c === 'safety' && 'Facility 5S'}
+                        {c === 'roi' && 'Kaizen ROI'}
+                    </button>
+                ))}
+            </div>
         </div>
 
         {/* 2. NAVIGATION SYSTEM (PERSISTENT LEFT RAIL - HEAVY INDUSTRIAL AESTHETIC) */}
         <nav className="os-nav-rail">
-            <button onClick={() => handleNavigate('dashboard')} style={{ background: 'transparent', border: 'none', color: currentView === 'dashboard' ? 'var(--zone-yellow)' : 'var(--steel-gray)', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0.5rem', cursor: 'pointer', transition: 'all 0.2s', marginBottom: '1rem' }} title="Dashboard">
-                <div style={{ fontSize: '1.75rem', filter: currentView === 'dashboard' ? 'drop-shadow(0 2px 4px rgba(255,194,14,0.5))' : 'none' }}>🔘</div>
+            <button onClick={() => handleNavigate('calculators' as any)} style={{ background: 'transparent', border: 'none', color: currentView === 'calculators' ? 'var(--zone-yellow)' : 'var(--steel-gray)', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0.5rem', cursor: 'pointer', transition: 'all 0.2s', marginBottom: '1rem' }} title="Home">
+                <div style={{ fontSize: '1.75rem', filter: currentView === 'calculators' ? 'drop-shadow(0 2px 4px rgba(255,194,14,0.5))' : 'none' }}>🔘</div>
             </button>
             <div style={{ width: '60%', height: '1px', background: 'var(--border-color)', margin: '0.5rem 0' }} />
             

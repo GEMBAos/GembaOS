@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
 interface CalculatorsHubProps {
     onClose?: () => void;
@@ -6,6 +6,22 @@ interface CalculatorsHubProps {
 
 export default function CalculatorsHub({ onClose }: CalculatorsHubProps) {
     const [activeCalc, setActiveCalc] = useState<'takt' | 'oee' | 'labor' | 'uph' | 'safety' | 'rty' | 'kanban' | 'smed' | 'roi'>('takt');
+
+    useEffect(() => {
+        const handleHashChange = () => {
+            const hash = window.location.hash;
+            if (hash.includes('calc=')) {
+                const params = new URLSearchParams(hash.split('?')[1] || "");
+                const calc = params.get('calc');
+                if (calc && ['takt', 'oee', 'labor', 'uph', 'safety', 'rty', 'kanban', 'smed', 'roi'].includes(calc)) {
+                    setActiveCalc(calc as any);
+                }
+            }
+        };
+        handleHashChange(); // check on mount
+        window.addEventListener('hashchange', handleHashChange);
+        return () => window.removeEventListener('hashchange', handleHashChange);
+    }, []);
 
     // Takt State
     const [taktShiftHours, setTaktShiftHours] = useState(8);
