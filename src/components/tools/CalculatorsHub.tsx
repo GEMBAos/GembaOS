@@ -174,12 +174,12 @@ export default function CalculatorsHub({}: CalculatorsHubProps) {
     );
 
     return (
-        <div className="module-container" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <div className="module-container" style={{ display: 'flex', flexDirection: 'column', height: '100%', background: '#ffffff' }}>
             {/* Header */}
             <header style={{ 
                 padding: '1.5rem', 
-                background: 'linear-gradient(180deg, #1a1a1c 0%, #111 100%)', 
-                borderBottom: '1px solid #333',
+                background: '#ffffff', 
+                borderBottom: '1px solid #e2e8f0',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '1rem',
@@ -195,12 +195,12 @@ export default function CalculatorsHub({}: CalculatorsHubProps) {
                 </div>
                 <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
                     <div>
-                        <h1 style={{ margin: 0, color: 'var(--lean-white)', fontSize: '1.25rem', fontFamily: 'var(--font-headings)', letterSpacing: '1px' }}>INDUSTRIAL CALCULATORS</h1>
-                        <p style={{ margin: 0, color: 'var(--steel-gray)', fontSize: '0.8rem', marginTop: '0.25rem' }}>Core Lean Math Engines</p>
+                        <h1 style={{ margin: 0, color: '#111827', fontSize: '1.25rem', fontFamily: 'var(--font-headings)', letterSpacing: '1px' }}>INDUSTRIAL CALCULATORS</h1>
+                        <p style={{ margin: 0, color: '#64748b', fontSize: '0.8rem', marginTop: '0.25rem' }}>Core Lean Math Engines</p>
                     </div>
                 </div>
                 {activeCalc !== 'menu' && (
-                    <button onClick={() => window.location.hash = `#/calculators`} style={{ background: 'rgba(255,194,14,0.1)', border: '1px solid rgba(255,194,14,0.3)', color: 'var(--zone-yellow)', cursor: 'pointer', padding: '0.5rem 1rem', borderRadius: '4px', fontFamily: 'var(--font-headings)', fontSize: '0.75rem', fontWeight: 'bold', transition: 'all 0.2s' }}>
+                    <button onClick={() => window.location.hash = `#/calculators`} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', color: '#0f172a', cursor: 'pointer', padding: '0.5rem 1rem', borderRadius: '4px', fontFamily: 'var(--font-headings)', fontSize: '0.75rem', fontWeight: 'bold', transition: 'all 0.2s' }}>
                         ⬅ VIEW ALL
                     </button>
                 )}
@@ -208,7 +208,7 @@ export default function CalculatorsHub({}: CalculatorsHubProps) {
 
             <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
                 {/* Calculator Stage */}
-                <div style={{ flex: 1, padding: '2rem', overflowY: 'auto', background: 'var(--bg-panel)' }}>
+                <div style={{ flex: 1, padding: '2rem', overflowY: 'auto', background: '#f8fafc' }}>
                     
                     {activeCalc === 'menu' && (
                         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
@@ -228,8 +228,8 @@ export default function CalculatorsHub({}: CalculatorsHubProps) {
                                         key={c.id} 
                                         onClick={() => window.location.hash = `#/calculators?calc=${c.id}`}
                                         style={{
-                                            background: 'linear-gradient(145deg, #161619 0%, #111 100%)',
-                                            border: '1px solid #333',
+                                            background: '#ffffff',
+                                            border: '1px solid #e2e8f0',
                                             borderRadius: '12px',
                                             padding: '2rem',
                                             cursor: 'pointer',
@@ -237,26 +237,26 @@ export default function CalculatorsHub({}: CalculatorsHubProps) {
                                             display: 'flex',
                                             flexDirection: 'column',
                                             gap: '1rem',
-                                            boxShadow: '0 4px 20px rgba(0,0,0,0.5)',
+                                            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
                                             position: 'relative',
                                             overflow: 'hidden'
                                         }}
                                         onMouseEnter={e => {
-                                            e.currentTarget.style.borderColor = 'rgba(255,194,14,0.5)';
+                                            e.currentTarget.style.borderColor = 'var(--zone-yellow)';
                                             e.currentTarget.style.transform = 'translateY(-4px)';
-                                            e.currentTarget.style.boxShadow = '0 10px 30px rgba(255,194,14,0.1)';
+                                            e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02)';
                                         }}
                                         onMouseLeave={e => {
-                                            e.currentTarget.style.borderColor = '#333';
+                                            e.currentTarget.style.borderColor = '#e2e8f0';
                                             e.currentTarget.style.transform = 'none';
-                                            e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.5)';
+                                            e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)';
                                         }}
                                     >
                                         <div style={{ fontSize: '3rem', lineHeight: 1 }}>{c.icon}</div>
                                         <div>
-                                            <h3 style={{ margin: 0, color: 'var(--lean-white)', fontFamily: 'var(--font-headings)', fontSize: '1.4rem', letterSpacing: '1px', textTransform: 'uppercase' }}>{c.name}</h3>
-                                            <div style={{ width: '40px', height: '2px', background: 'var(--zone-yellow)', margin: '0.75rem 0' }} />
-                                            <p style={{ margin: 0, color: 'var(--steel-gray)', fontSize: '0.9rem', lineHeight: 1.5 }}>{c.desc}</p>
+                                            <h3 style={{ margin: 0, color: '#0f172a', fontFamily: 'var(--font-headings)', fontSize: '1.4rem', letterSpacing: '0.5px', textTransform: 'uppercase', fontWeight: 800 }}>{c.name}</h3>
+                                            <div style={{ width: '40px', height: '3px', background: 'var(--zone-yellow)', margin: '0.75rem 0', borderRadius: '2px' }} />
+                                            <p style={{ margin: 0, color: '#64748b', fontSize: '0.95rem', lineHeight: 1.6, fontWeight: 500 }}>{c.desc}</p>
                                         </div>
                                     </div>
                                 ))}
