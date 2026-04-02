@@ -5,7 +5,7 @@ interface CalculatorsHubProps {
 }
 
 export default function CalculatorsHub({ onClose }: CalculatorsHubProps) {
-    const [activeCalc, setActiveCalc] = useState<'takt' | 'oee' | 'labor' | 'uph' | 'safety' | 'rty' | 'kanban' | 'smed'>('takt');
+    const [activeCalc, setActiveCalc] = useState<'takt' | 'oee' | 'labor' | 'uph' | 'safety' | 'rty' | 'kanban' | 'smed' | 'roi'>('takt');
 
     // Takt State
     const [taktShiftHours, setTaktShiftHours] = useState(8);
@@ -92,6 +92,19 @@ export default function CalculatorsHub({ onClose }: CalculatorsHubProps) {
         const cost = lostUnits * smedMargin;
         return cost;
     }, [smedTimeMins, smedUPH, smedMargin]);
+
+    // ROI State
+    const [roiInvestment, setRoiInvestment] = useState(5000);
+    const [roiDailySavings, setRoiDailySavings] = useState(150);
+
+    const roiPayback = useMemo(() => {
+        if (!roiDailySavings || roiDailySavings <= 0) return 0;
+        return roiInvestment / roiDailySavings;
+    }, [roiInvestment, roiDailySavings]);
+
+    const roiAnnual = useMemo(() => {
+        return roiDailySavings * 250; // standard 250 operating days
+    }, [roiDailySavings]);
 
     const renderInput = (label: string, value: number, setter: (v: number) => void, unit?: string, step: number = 1, min: number = 0) => (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', marginBottom: '1rem' }}>
@@ -181,7 +194,7 @@ export default function CalculatorsHub({ onClose }: CalculatorsHubProps) {
                     flexDirection: 'column',
                     padding: '1rem 0'
                 }}>
-                    {(['takt', 'oee', 'kanban', 'rty', 'smed', 'labor', 'uph', 'safety'] as const).map(c => (
+                    {(['takt', 'oee', 'kanban', 'rty', 'smed', 'labor', 'uph', 'safety', 'roi'] as const).map(c => (
                         <button 
                             key={c}
                             onClick={() => setActiveCalc(c)}
@@ -208,6 +221,7 @@ export default function CalculatorsHub({ onClose }: CalculatorsHubProps) {
                             {c === 'labor' && 'Labor Cost'}
                             {c === 'uph' && 'UPH Target'}
                             {c === 'safety' && 'Facility 5S'}
+                            {c === 'roi' && 'Kaizen ROI'}
                         </button>
                     ))}
                 </div>
@@ -330,6 +344,23 @@ export default function CalculatorsHub({ onClose }: CalculatorsHubProps) {
                             </div>
                             
                             {renderMetrics(smedResult, '$ Lost', 'Total Opportunity Cost')}
+                        </div>
+                    )}
+
+                    {activeCalc === 'roi' && (
+                        <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+                            <h2 style={{ fontFamily: 'var(--font-headings)', color: 'var(--lean-white)', marginBottom: '1.5rem', fontSize: '1.5rem' }}>Kaizen Hard ROI Engine</h2>
+                            <p style={{ color: '#888', marginBottom: '2rem', fontSize: '0.9rem', lineHeight: 1.5 }}>Translates shop floor improvements into financial reality for leadership. Calculates the exact break-even point and annualized operational savings.</p>
+                            
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                                {renderInput('Total Kaizen Investment', roiInvestment, setRoiInvestment, '$')}
+                                {renderInput('Daily Financial Savings', roiDailySavings, setRoiDailySavings, '$/day')}
+                            </div>
+                            
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                                {renderMetrics(roiPayback, 'Days', 'Payback Period')}
+                                {renderMetrics(roiAnnual, '$$$', 'Annualized Value')}
+                            </div>
                         </div>
                     )}
 

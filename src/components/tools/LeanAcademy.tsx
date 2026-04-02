@@ -7,6 +7,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { userService } from '../../services/userService';
+import { storageService } from '../../services/storageService';
 import BumpingSimulation from './simulations/BumpingSimulation';
 
 // Hardcoded Curriculum for MVP with intense, visual lessons
@@ -15,6 +16,7 @@ export interface LeanLesson {
     title: string;
     content: string;
     imageUrl?: string;
+    videoUrl?: string;
 }
 
 export interface LeanHomeworkTask {
@@ -45,17 +47,20 @@ const LEAN_ACADEMY_MODULES: LeanModule[] = [
             {
                 id: 'l1',
                 title: 'What is Value Add (VA)?',
-                content: 'In Lean, a process is only "Value Add" if it meets THREE strict criteria: 1) The customer is willing to pay for it. 2) The product or information physically transforms. 3) It is done right the first time. If it fails any of these, it is waste. Everything else is NVA (Non-Value Add).'
+                content: 'In Lean, a process is only "Value Add" if it meets THREE strict criteria: 1) The customer is willing to pay for it. 2) The product or information physically transforms. 3) It is done right the first time. If it fails any of these, it is waste. Everything else is NVA (Non-Value Add).',
+                videoUrl: 'https://www.youtube.com/embed/yQd-h10-L0M'
             },
             {
                 id: 'l2',
                 title: 'The 8 Wastes (DOWNTIME)',
-                content: 'Waste is anything that consumes resources but adds no value to the customer. Memorize DOWNTIME: Defects, Overproduction, Waiting, Non-utilized Talent, Transportation, Inventory, Motion, Extra-Processing. Your job is to physically see these on the shop floor.'
+                content: 'Waste is anything that consumes resources but adds no value to the customer. Memorize DOWNTIME: Defects, Overproduction, Waiting, Non-utilized Talent, Transportation, Inventory, Motion, Extra-Processing. Your job is to physically see these on the shop floor.',
+                videoUrl: 'https://www.youtube.com/embed/F2zXpZOSYp0'
             },
             {
                 id: 'l3',
                 title: 'Training the Eye to See',
-                content: 'We often become "waste blind" because we are so used to our daily struggles. To see waste, you must stand in the Gemba (the real place) and observe relentlessly. Don\'t fix it immediately in your mind—just observe it.'
+                content: 'We often become "waste blind" because we are so used to our daily struggles. To see waste, you must stand in the Gemba (the real place) and observe relentlessly. Don\'t fix it immediately in your mind—just observe it.',
+                videoUrl: 'https://www.youtube.com/embed/sZ5oM2wK1pI'
             }
         ],
         homeworkDescription: 'To prove you understand, you must photograph and describe both Value Add and Non-Value Add activities directly within your job role. Identify the NVA and immediately propose a Just-Fix-It (JFI) to eliminate it.',
@@ -85,12 +90,14 @@ const LEAN_ACADEMY_MODULES: LeanModule[] = [
             {
                 id: 'l3',
                 title: 'The 3-Second Rule',
-                content: 'A process should be so comprehensively visual that anyone walking by can tell if you are winning or losing in 3 seconds or less. If they have to ask questions, your visual management has failed.'
+                content: 'A process should be so comprehensively visual that anyone walking by can tell if you are winning or losing in 3 seconds or less. If they have to ask questions, your visual management has failed.',
+                videoUrl: 'https://www.youtube.com/embed/JvOOhq3N-kI'
             },
             {
                 id: 'l4',
                 title: '5S Principles',
-                content: 'Sort: Eliminate what is not needed. Set in Order: A place for everything, and everything in its place. Shine: Clean to inspect. Standardize: Create rules to maintain the first 3S. Sustain: Build the discipline to follow the rules.'
+                content: 'Sort: Eliminate what is not needed. Set in Order: A place for everything, and everything in its place. Shine: Clean to inspect. Standardize: Create rules to maintain the first 3S. Sustain: Build the discipline to follow the rules.',
+                videoUrl: 'https://www.youtube.com/embed/w7mU2d5V4yM'
             }
         ],
         homeworkDescription: 'Apply 5S to a small, messy workstation, drawer, or digital folder structure.',
@@ -120,12 +127,14 @@ const LEAN_ACADEMY_MODULES: LeanModule[] = [
             {
                 id: 'l5',
                 title: 'The Disease of Batching',
-                content: 'Building 10 things at once feels efficient to the operator, but it creates huge delays for the customer. Piles of inventory hide defects and slow down cycle times.'
+                content: 'Building 10 things at once feels efficient to the operator, but it creates huge delays for the customer. Piles of inventory hide defects and slow down cycle times.',
+                videoUrl: 'https://www.youtube.com/embed/w5qZc_hD75Q'
             },
             {
                 id: 'l6',
                 title: 'Baton-Zone (Bumping)',
-                content: 'Instead of staying at one station, operators take a product and walk it down the line until they "bump" into the next available operator. They hand it off (like a baton) and walk back to get another piece. This enables One-Piece Flow.'
+                content: 'Instead of staying at one station, operators take a product and walk it down the line until they "bump" into the next available operator. They hand it off (like a baton) and walk back to get another piece. This enables One-Piece Flow.',
+                videoUrl: 'https://www.youtube.com/embed/yQd-h10-L0M'
             }
         ],
         homeworkDescription: 'Run the interactive Bumping Simulation below in both English and Spanish.',
@@ -209,15 +218,14 @@ export default function LeanAcademy() {
         });
     };
 
-    const handleProofUpload = (moduleId: string, taskId: string, index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleProofUpload = async (moduleId: string, taskId: string, index: number, e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                if (event.target?.result) {
-                    handleSubmissionChange(moduleId, taskId, index, 'photoUrl', event.target.result as string);
-                }
-            };
-            reader.readAsDataURL(e.target.files[0]);
+            const file = e.target.files[0];
+            // Render a temporary fast loading state or just directly upload to supabase
+            const url = await storageService.uploadJFIPhoto(file);
+            if (url) {
+                handleSubmissionChange(moduleId, taskId, index, 'photoUrl', url);
+            }
         }
     };
 
@@ -349,6 +357,17 @@ export default function LeanAcademy() {
                                                 borderLeft: '6px solid var(--zone-yellow)'
                                             }}>
                                                 <h4 style={{ margin: '0 0 1rem 0', color: 'var(--lean-white)', fontSize: '1.6rem', fontFamily: 'var(--font-headings)' }}>{lesson.title}</h4>
+                                                {lesson.videoUrl && (
+                                                    <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', maxWidth: '100%', background: '#000', marginBottom: '1.5rem', borderRadius: '4px', border: '1px solid var(--border-color)' }}>
+                                                        <iframe
+                                                            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
+                                                            src={lesson.videoUrl}
+                                                            title={lesson.title}
+                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                            allowFullScreen
+                                                        ></iframe>
+                                                    </div>
+                                                )}
                                                 <p style={{ margin: 0, color: '#e2e8f0', lineHeight: '1.8', fontSize: '1.2rem' }}>{lesson.content}</p>
                                             </div>
                                         ))}

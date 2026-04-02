@@ -124,6 +124,7 @@ h3 {
   padding-top: env(safe-area-inset-top);
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
 
   /* Desktop Grid Default (3 Zones) */
   grid-template-rows: var(--os-header-height) auto auto 1fr;
@@ -194,7 +195,8 @@ h3 {
   grid-area: os-workspace;
   background: var(--bg-dark);
   /* CRITICAL: ONLY internal scroll allowed, never windows scroll */
-  overflow: hidden; 
+  overflow-y: auto; 
+  overflow-x: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
