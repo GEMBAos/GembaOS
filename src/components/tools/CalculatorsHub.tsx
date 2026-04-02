@@ -4,8 +4,8 @@ interface CalculatorsHubProps {
     onClose?: () => void;
 }
 
-export default function CalculatorsHub({ onClose }: CalculatorsHubProps) {
-    const [activeCalc, setActiveCalc] = useState<'takt' | 'oee' | 'labor' | 'uph' | 'safety' | 'rty' | 'kanban' | 'smed' | 'roi'>('takt');
+export default function CalculatorsHub({}: CalculatorsHubProps) {
+    const [activeCalc, setActiveCalc] = useState<'menu' | 'takt' | 'oee' | 'labor' | 'uph' | 'safety' | 'rty' | 'kanban' | 'smed' | 'roi'>('menu');
 
     useEffect(() => {
         const handleHashChange = () => {
@@ -15,7 +15,11 @@ export default function CalculatorsHub({ onClose }: CalculatorsHubProps) {
                 const calc = params.get('calc');
                 if (calc && ['takt', 'oee', 'labor', 'uph', 'safety', 'rty', 'kanban', 'smed', 'roi'].includes(calc)) {
                     setActiveCalc(calc as any);
+                } else {
+                    setActiveCalc('menu');
                 }
+            } else {
+                setActiveCalc('menu');
             }
         };
         handleHashChange(); // check on mount
@@ -189,61 +193,76 @@ export default function CalculatorsHub({ onClose }: CalculatorsHubProps) {
                 }}>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16.01" y1="10" y2="10"/><line x1="16" x2="16.01" y1="14" y2="14"/><line x1="16" x2="16.01" y1="18" y2="18"/><path d="M8 10h.01"/><path d="M12 10h.01"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/></svg>
                 </div>
-                <div style={{ flex: 1 }}>
-                    <h1 style={{ margin: 0, color: 'var(--lean-white)', fontSize: '1.25rem', fontFamily: 'var(--font-headings)', letterSpacing: '1px' }}>INDUSTRIAL CALCULATORS</h1>
-                    <p style={{ margin: 0, color: 'var(--steel-gray)', fontSize: '0.8rem', marginTop: '0.25rem' }}>Core Lean Math Engines</p>
+                <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                    <div>
+                        <h1 style={{ margin: 0, color: 'var(--lean-white)', fontSize: '1.25rem', fontFamily: 'var(--font-headings)', letterSpacing: '1px' }}>INDUSTRIAL CALCULATORS</h1>
+                        <p style={{ margin: 0, color: 'var(--steel-gray)', fontSize: '0.8rem', marginTop: '0.25rem' }}>Core Lean Math Engines</p>
+                    </div>
                 </div>
-                {onClose && (
-                    <button onClick={onClose} style={{ background: 'transparent', border: 'none', color: '#666', cursor: 'pointer', padding: '0.5rem' }}>
-                        ✕
+                {activeCalc !== 'menu' && (
+                    <button onClick={() => window.location.hash = `#/calculators`} style={{ background: 'rgba(255,194,14,0.1)', border: '1px solid rgba(255,194,14,0.3)', color: 'var(--zone-yellow)', cursor: 'pointer', padding: '0.5rem 1rem', borderRadius: '4px', fontFamily: 'var(--font-headings)', fontSize: '0.75rem', fontWeight: 'bold', transition: 'all 0.2s' }}>
+                        ⬅ VIEW ALL
                     </button>
                 )}
             </header>
 
             <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-                {/* Horizontal / Left Nav for specific calcs */}
-                <div style={{
-                    width: '120px',
-                    borderRight: '1px solid #333',
-                    background: '#111',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    padding: '1rem 0'
-                }}>
-                    {(['takt', 'oee', 'kanban', 'rty', 'smed', 'labor', 'uph', 'safety', 'roi'] as const).map(c => (
-                        <button 
-                            key={c}
-                            onClick={() => setActiveCalc(c)}
-                            style={{
-                                padding: '1rem',
-                                background: activeCalc === c ? 'rgba(255,194,14,0.1)' : 'transparent',
-                                border: 'none',
-                                borderRight: activeCalc === c ? '3px solid var(--zone-yellow)' : '3px solid transparent',
-                                color: activeCalc === c ? 'var(--zone-yellow)' : 'var(--steel-gray)',
-                                textAlign: 'left',
-                                cursor: 'pointer',
-                                fontFamily: 'var(--font-headings)',
-                                fontWeight: activeCalc === c ? 800 : 500,
-                                fontSize: '0.8rem',
-                                textTransform: 'uppercase',
-                                transition: 'all 0.2s'
-                            }}
-                        >
-                            {c === 'takt' && 'Takt Time'}
-                            {c === 'oee' && 'OEE'}
-                            {c === 'kanban' && 'Kanban Size'}
-                            {c === 'rty' && 'True Yield'}
-                            {c === 'smed' && 'Setup Cost'}
-                            {c === 'labor' && 'Labor Cost'}
-                            {c === 'uph' && 'UPH Target'}
-                            {c === 'safety' && 'Facility 5S'}
-                            {c === 'roi' && 'Kaizen ROI'}
-                        </button>
-                    ))}
-                </div>
-
                 {/* Calculator Stage */}
                 <div style={{ flex: 1, padding: '2rem', overflowY: 'auto', background: 'var(--bg-panel)' }}>
+                    
+                    {activeCalc === 'menu' && (
+                        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.5rem', paddingBottom: '3rem' }}>
+                                {[
+                                    { id: 'takt', name: 'Takt Time', desc: 'Pace required to meet customer demand based on available time.', icon: '⏱️' },
+                                    { id: 'oee', name: 'OEE Matrix', desc: 'Measure true manufacturing productivity via Availability, Performance & Quality.', icon: '📊' },
+                                    { id: 'kanban', name: 'Kanban Sizer', desc: 'Calculate accurate bins and loops using daily demand & lead time variance.', icon: '🔄' },
+                                    { id: 'rty', name: 'True Yield (RTY)', desc: 'Discover real system throughput capability across continuous operational stations.', icon: '🎯' },
+                                    { id: 'smed', name: 'Setup Cost', desc: 'Quantify the agonizing financial bleeding of machine changeover downtime.', icon: '⚙️' },
+                                    { id: 'labor', name: 'Labor Cost', desc: 'Determine raw labor burden per single unit manufactured.', icon: '👷' },
+                                    { id: 'uph', name: 'UPH Target', desc: 'Calculate theoretical maximum throughput purely from bottleneck cycle times.', icon: '📈' },
+                                    { id: 'safety', name: 'Facility 5S', desc: 'Auto-score the facility based on the definitive 5 pillars of the Gemba.', icon: '🧹' },
+                                    { id: 'roi', name: 'Kaizen ROI', desc: 'Translate isolated shop floor improvements directly into executive financial reality.', icon: '💰' }
+                                ].map(c => (
+                                    <div 
+                                        key={c.id} 
+                                        onClick={() => window.location.hash = `#/calculators?calc=${c.id}`}
+                                        style={{
+                                            background: 'linear-gradient(145deg, #161619 0%, #111 100%)',
+                                            border: '1px solid #333',
+                                            borderRadius: '12px',
+                                            padding: '2rem',
+                                            cursor: 'pointer',
+                                            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            gap: '1rem',
+                                            boxShadow: '0 4px 20px rgba(0,0,0,0.5)',
+                                            position: 'relative',
+                                            overflow: 'hidden'
+                                        }}
+                                        onMouseEnter={e => {
+                                            e.currentTarget.style.borderColor = 'rgba(255,194,14,0.5)';
+                                            e.currentTarget.style.transform = 'translateY(-4px)';
+                                            e.currentTarget.style.boxShadow = '0 10px 30px rgba(255,194,14,0.1)';
+                                        }}
+                                        onMouseLeave={e => {
+                                            e.currentTarget.style.borderColor = '#333';
+                                            e.currentTarget.style.transform = 'none';
+                                            e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.5)';
+                                        }}
+                                    >
+                                        <div style={{ fontSize: '3rem', lineHeight: 1 }}>{c.icon}</div>
+                                        <div>
+                                            <h3 style={{ margin: 0, color: 'var(--lean-white)', fontFamily: 'var(--font-headings)', fontSize: '1.4rem', letterSpacing: '1px', textTransform: 'uppercase' }}>{c.name}</h3>
+                                            <div style={{ width: '40px', height: '2px', background: 'var(--zone-yellow)', margin: '0.75rem 0' }} />
+                                            <p style={{ margin: 0, color: 'var(--steel-gray)', fontSize: '0.9rem', lineHeight: 1.5 }}>{c.desc}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                     
                     {activeCalc === 'takt' && (
                         <div style={{ maxWidth: '600px', margin: '0 auto' }}>
