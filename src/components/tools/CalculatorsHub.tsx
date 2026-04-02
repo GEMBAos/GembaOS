@@ -5,7 +5,7 @@ interface CalculatorsHubProps {
 }
 
 export default function CalculatorsHub({ onClose }: CalculatorsHubProps) {
-    const [activeCalc, setActiveCalc] = useState<'takt' | 'oee' | 'labor' | 'uph' | 'safety'>('takt');
+    const [activeCalc, setActiveCalc] = useState<'takt' | 'oee' | 'labor' | 'uph' | 'safety' | 'rty' | 'kanban' | 'smed'>('takt');
 
     // Takt State
     const [taktShiftHours, setTaktShiftHours] = useState(8);
@@ -58,6 +58,40 @@ export default function CalculatorsHub({ onClose }: CalculatorsHubProps) {
         const total = safetySort + safetySet + safetyShine + safetyStand + safetySustain;
         return (total / 25) * 100;
     }, [safetySort, safetySet, safetyShine, safetyStand, safetySustain]);
+
+    // RTY State
+    const [rtyYield1, setRtyYield1] = useState(98);
+    const [rtyYield2, setRtyYield2] = useState(97);
+    const [rtyYield3, setRtyYield3] = useState(95);
+    const [rtyYield4, setRtyYield4] = useState(99);
+
+    const rtyResult = useMemo(() => {
+        return ((rtyYield1/100) * (rtyYield2/100) * (rtyYield3/100) * (rtyYield4/100)) * 100;
+    }, [rtyYield1, rtyYield2, rtyYield3, rtyYield4]);
+
+    // Kanban State
+    const [kanbanDemand, setKanbanDemand] = useState(500);
+    const [kanbanLeadTime, setKanbanLeadTime] = useState(2);
+    const [kanbanSafetyFactor, setKanbanSafetyFactor] = useState(20);
+    const [kanbanBinQty, setKanbanBinQty] = useState(50);
+
+    const kanbanResult = useMemo(() => {
+        if (!kanbanBinQty || kanbanBinQty <= 0) return 0;
+        const totalStockNeeded = kanbanDemand * kanbanLeadTime * (1 + (kanbanSafetyFactor / 100));
+        return Math.ceil(totalStockNeeded / kanbanBinQty);
+    }, [kanbanDemand, kanbanLeadTime, kanbanSafetyFactor, kanbanBinQty]);
+
+    // SMED State
+    const [smedTimeMins, setSmedTimeMins] = useState(45);
+    const [smedUPH, setSmedUPH] = useState(120);
+    const [smedMargin, setSmedMargin] = useState(15);
+
+    const smedResult = useMemo(() => {
+        const unitsPerMin = smedUPH / 60;
+        const lostUnits = smedTimeMins * unitsPerMin;
+        const cost = lostUnits * smedMargin;
+        return cost;
+    }, [smedTimeMins, smedUPH, smedMargin]);
 
     const renderInput = (label: string, value: number, setter: (v: number) => void, unit?: string, step: number = 1, min: number = 0) => (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', marginBottom: '1rem' }}>
@@ -147,7 +181,7 @@ export default function CalculatorsHub({ onClose }: CalculatorsHubProps) {
                     flexDirection: 'column',
                     padding: '1rem 0'
                 }}>
-                    {(['takt', 'oee', 'labor', 'uph', 'safety'] as const).map(c => (
+                    {(['takt', 'oee', 'kanban', 'rty', 'smed', 'labor', 'uph', 'safety'] as const).map(c => (
                         <button 
                             key={c}
                             onClick={() => setActiveCalc(c)}
@@ -168,9 +202,12 @@ export default function CalculatorsHub({ onClose }: CalculatorsHubProps) {
                         >
                             {c === 'takt' && 'Takt Time'}
                             {c === 'oee' && 'OEE'}
+                            {c === 'kanban' && 'Kanban Size'}
+                            {c === 'rty' && 'True Yield'}
+                            {c === 'smed' && 'Setup Cost'}
                             {c === 'labor' && 'Labor Cost'}
                             {c === 'uph' && 'UPH Target'}
-                            {c === 'safety' && 'Facility'}
+                            {c === 'safety' && 'Facility 5S'}
                         </button>
                     ))}
                 </div>
@@ -246,6 +283,53 @@ export default function CalculatorsHub({ onClose }: CalculatorsHubProps) {
                             {renderInput('Sustain (Discipline)', safetySustain, setSafetySustain, '/ 5', 1, 1)}
                             
                             {renderMetrics(safetyResult, '%', 'Diagnostic Score')}
+                        </div>
+                    )}
+
+                    {activeCalc === 'rty' && (
+                        <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+                            <h2 style={{ fontFamily: 'var(--font-headings)', color: 'var(--lean-white)', marginBottom: '1.5rem', fontSize: '1.5rem' }}>Rolled Throughput Yield (RTY)</h2>
+                            <p style={{ color: '#888', marginBottom: '2rem', fontSize: '0.9rem', lineHeight: 1.5 }}>Calculates the true probability that a single unit will pass completely through 4 continuous stations completely defect-free (First Pass Yield multiplying).</p>
+                            
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                                {renderInput('Station 1 First Pass Yield', rtyYield1, setRtyYield1, '%')}
+                                {renderInput('Station 2 First Pass Yield', rtyYield2, setRtyYield2, '%')}
+                                {renderInput('Station 3 First Pass Yield', rtyYield3, setRtyYield3, '%')}
+                                {renderInput('Station 4 First Pass Yield', rtyYield4, setRtyYield4, '%')}
+                            </div>
+                            
+                            {renderMetrics(rtyResult, '%', 'Total Rolled Yield')}
+                        </div>
+                    )}
+
+                    {activeCalc === 'kanban' && (
+                        <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+                            <h2 style={{ fontFamily: 'var(--font-headings)', color: 'var(--lean-white)', marginBottom: '1.5rem', fontSize: '1.5rem' }}>Kanban Card Sizer</h2>
+                            <p style={{ color: '#888', marginBottom: '2rem', fontSize: '0.9rem', lineHeight: 1.5 }}>Uses daily demand and replenishment intervals to calculate the exact number of Kanban loops or bins required to never stock out.</p>
+                            
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                                {renderInput('Avg Daily Demand', kanbanDemand, setKanbanDemand, 'units')}
+                                {renderInput('Replenishment Lead Time', kanbanLeadTime, setKanbanLeadTime, 'days')}
+                                {renderInput('Safety Stock Buffer', kanbanSafetyFactor, setKanbanSafetyFactor, '%')}
+                                {renderInput('Units Per Kanban/Bin', kanbanBinQty, setKanbanBinQty, 'qty')}
+                            </div>
+                            
+                            {renderMetrics(kanbanResult, 'Cards/Bins', 'Total Kanban Loops Needed')}
+                        </div>
+                    )}
+
+                    {activeCalc === 'smed' && (
+                        <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+                            <h2 style={{ fontFamily: 'var(--font-headings)', color: 'var(--lean-white)', marginBottom: '1.5rem', fontSize: '1.5rem' }}>Changeover Opportunity Cost</h2>
+                            <p style={{ color: '#888', marginBottom: '2rem', fontSize: '0.9rem', lineHeight: 1.5 }}>Calculates the raw financial bleeding associated with equipment downtime during a product changeover or setup.</p>
+                            
+                            {renderInput('Duration of Changeover', smedTimeMins, setSmedTimeMins, 'mins')}
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                                {renderInput('Baseline Target UPH', smedUPH, setSmedUPH, 'units')}
+                                {renderInput('Profit Margin per Unit', smedMargin, setSmedMargin, '$')}
+                            </div>
+                            
+                            {renderMetrics(smedResult, '$ Lost', 'Total Opportunity Cost')}
                         </div>
                     )}
 
