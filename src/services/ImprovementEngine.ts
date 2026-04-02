@@ -200,6 +200,20 @@ class ImprovementEngineService {
                 updated_at: p.updatedAt
             });
         }
+        else if (item.type === 'CycleTime') {
+            if (!userId) return;
+            const c = item as unknown as import('../types/improvement').CycleTime;
+            await supabase.from('cycle_times').upsert({
+                id: c.id,
+                user_id: userId,
+                station_name: c.stationName,
+                operators_count: c.operatorsCount,
+                work_content: c.workContent,
+                recorded_times: c.recordedTimes,
+                created_at: c.createdAt,
+                updated_at: c.updatedAt
+            });
+        }
         else if (item.type === 'MotionSessionV2') {
             const m = item as unknown as MotionSessionV2;
             console.log(`[ImprovementEngine] Syncing MotionSessionV2: ${m.id}`);
@@ -384,6 +398,24 @@ class ImprovementEngineService {
                     createdAt: row.created_at,
                     updatedAt: row.updated_at
                 } as ImprovementCard;
+            });
+            updated = true;
+        }
+
+        // Load Cycle Times
+        const { data: ct } = await supabase.from('cycle_times').select('*').eq('user_id', userId);
+        if (ct && ct.length > 0) {
+            ct.forEach((row: any) => {
+                this.data[row.id] = {
+                    id: row.id,
+                    type: 'CycleTime',
+                    stationName: row.station_name,
+                    operatorsCount: row.operators_count,
+                    workContent: row.work_content,
+                    recordedTimes: row.recorded_times,
+                    createdAt: row.created_at,
+                    updatedAt: row.updated_at
+                } as import('../types/improvement').CycleTime;
             });
             updated = true;
         }
