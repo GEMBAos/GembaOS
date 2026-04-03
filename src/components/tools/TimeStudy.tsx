@@ -77,6 +77,9 @@ export default function TimeStudy({ project, onUpdateProject, onClose, onNavigat
         if (onClose) {
             onClose();
         }
+        if (onNavigate) {
+            setTimeout(() => onNavigate('line-balance'), 100);
+        }
     };
 
     const handleReset = () => {

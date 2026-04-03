@@ -320,11 +320,11 @@ function App() {
             <div style={{ width: '60%', height: '1px', background: 'var(--border-color)', margin: '0.5rem 0' }} />
             
             {[
-                { id: 'forms', name: 'FORMS', action: 'action-items' },
+                { id: 'gemba', name: 'WALK', action: 'gemba' },
                 { id: 'motion', name: 'MOTION', action: 'motion-v2' },
                 { id: 'time', name: 'TIME', action: 'time-study' },
                 { id: 'waste', name: 'WASTE', action: 'process-check' },
-                { id: 'scan', name: 'SCAN', action: 'value-scanner' },
+                { id: 'vsm', name: 'VSM', action: 'value-scanner' },
                 { id: 'improv', name: 'IMPROVE', action: 'improvement-card' },
                 { id: 'goals', name: 'GOALS', action: 'goal-gap' },
                 { id: 'videos', name: 'VIDEOS', action: 'video-hub' },

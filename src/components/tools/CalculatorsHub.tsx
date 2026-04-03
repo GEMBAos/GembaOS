@@ -327,6 +327,35 @@ export default function CalculatorsHub({}: CalculatorsHubProps) {
                             {renderInput('Sustain (Discipline)', safetySustain, setSafetySustain, '/ 5', 1, 1)}
                             
                             {renderMetrics(safetyResult, '%', 'Diagnostic Score')}
+
+                            <div style={{ marginTop: '3rem', background: 'var(--gemba-black)', border: '1px solid #333', borderRadius: '8px', padding: '1.5rem', boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.5)' }}>
+                                <h3 style={{ margin: '0 0 1.5rem 0', color: 'var(--zone-yellow)', fontFamily: 'var(--font-headings)', fontSize: '1.1rem', letterSpacing: '1px' }}>5S SCORING ROADMAP</h3>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                                    {[
+                                        { score: 1, level: 'Initial Phase', desc: 'No formal standards. Clutter is present.', action: 'Execute an initial red-tag event (Sort).' },
+                                        { score: 2, level: 'Awareness', desc: 'Basic sorting done, but locations are inconsistent.', action: 'Label & shadow-board all storage locations (Set in Order).' },
+                                        { score: 3, level: 'Developing', desc: 'Locations marked, basic daily cleaning exists.', action: 'Implement visual daily checklists to regulate habits (Standardize).' },
+                                        { score: 4, level: 'Standardized', desc: 'Abnormalities are instantly obvious to outsiders.', action: 'Focus on root-cause dust/defect prevention.' },
+                                        { score: 5, level: 'World-Class', desc: 'Self-sustaining discipline & continuous Kaizen.', action: 'Yokoten (Share practices across other work centers).' },
+                                    ].map(tier => (
+                                        <div key={tier.score} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+                                            <div style={{ background: '#111', border: '2px solid #555', minWidth: '36px', height: '36px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 'bold', fontSize: '1.1rem', fontFamily: 'var(--font-headings)' }}>
+                                                {tier.score}
+                                            </div>
+                                            <div style={{ paddingTop: '0.2rem' }}>
+                                                <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.5rem', marginBottom: '0.3rem' }}>
+                                                    <span style={{ color: '#fff', fontWeight: 'bold', fontSize: '1rem' }}>{tier.level}</span>
+                                                    <span style={{ color: '#555', fontSize: '0.8rem', paddingTop: '2px' }} className="hide-on-mobile">|</span>
+                                                    <span style={{ color: '#aaa', fontSize: '0.85rem' }}>{tier.desc}</span>
+                                                </div>
+                                                <div style={{ color: 'var(--zone-yellow)', fontSize: '0.8rem', fontWeight: 800, display: 'flex', gap: '0.4rem', alignItems: 'center', letterSpacing: '0.5px' }}>
+                                                    <span style={{ fontSize: '1rem' }}>➔</span> ACTION: {tier.action}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     )}
 

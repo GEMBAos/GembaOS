@@ -2,9 +2,9 @@ import HardwareConsoleLayout from './HardwareConsoleLayout';
 
 const MOCK_VIDEOS = [
     { title: 'Lippert: Yokoten & Report Out', duration: '4:15', thumbnail: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&q=80', description: 'See how Lippert Components uses a Report Out process to celebrate and drive employee engagement.', url: 'https://www.youtube.com/watch?v=1-NtbHh_ZJ4' },
-    { title: 'Gemba Walks 101: Go and See', duration: '5:42', thumbnail: 'https://images.unsplash.com/photo-1542382103-2470659a224a?w=500&q=80', description: 'Learn the proper technique for executing a daily Gemba Walk.', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
-    { title: 'Standardized Work Basics', duration: '8:30', thumbnail: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=500&q=80', description: 'How to write effective, visual standard operating procedures.', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
-    { title: '5S Organization Tour', duration: '15:20', thumbnail: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=500&q=80', description: 'A walk-through of a world-class 5S-certified production line.', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
+    { title: 'Gemba Walks 101: Go and See', duration: '5:42', thumbnail: 'https://images.unsplash.com/photo-1542382103-2470659a224a?w=500&q=80', description: 'Learn the proper technique for executing a daily Gemba Walk.', url: 'https://www.youtube.com/results?search_query=Gemba+Walk+Toyota' },
+    { title: 'Standardized Work Basics', duration: 'WEB', thumbnail: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=500&q=80', description: 'Industry leading tool for creating and maintaining visual Standard Operating Procedures.', url: 'https://gembadocs.com' },
+    { title: '5S Organization Tour', duration: '15:20', thumbnail: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=500&q=80', description: 'A walk-through of a world-class 5S-certified production line.', url: 'https://www.youtube.com/results?search_query=5S+Lean+Manufacturing+Tour' },
 ];
 
 export default function VideoHub({ onClose }: { onClose: () => void }) {

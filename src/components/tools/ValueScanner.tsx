@@ -77,29 +77,28 @@ export default function ValueScanner({ onClose }: { onClose: () => void }) {
                 {/* Map Builder Area */}
                 <div className="card" style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: 0, overflow: 'hidden', border: '1px solid var(--border-color)', minHeight: '400px' }}>
                     <div style={{ padding: '1rem', borderBottom: '1px solid var(--border-color)', display: 'flex', gap: '1rem', background: 'var(--bg-dark)' }}>
-                        <button className="shadow-btn-accent" onClick={() => addBlock('process')} style={{ padding: '0.5rem 1rem', fontSize: '0.9rem', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 800 }}>+ ADD PROCESS (VA)</button>
-                        <button className="shadow-btn-danger" onClick={() => addBlock('wait')} style={{ padding: '0.5rem 1rem', fontSize: '0.9rem', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 800 }}>+ ADD WAIT (NVA)</button>
+                        <button className="shadow-btn-accent" onClick={() => addBlock('process')} style={{ padding: '0.5rem 1rem', fontSize: '0.9rem', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 800, flex: 1 }}>+ ADD PROCESS (VA)</button>
+                        <button className="shadow-btn-danger" onClick={() => addBlock('wait')} style={{ padding: '0.5rem 1rem', fontSize: '0.9rem', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 800, flex: 1 }}>+ ADD WAIT (NVA)</button>
                     </div>
                     
-                    {/* The Mapping Canvas */}
-                    <div style={{ flex: 1, padding: '2rem', overflowX: 'auto', overflowY: 'hidden', display: 'flex', alignItems: 'center', background: 'var(--gemba-black)' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0', minWidth: 'min-content', paddingBottom: '2rem' }}>
+                    {/* The Mapping Canvas - Vertical Flow */}
+                    <div style={{ flex: 1, padding: '2rem', overflowY: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'var(--gemba-black)' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0', width: '100%', maxWidth: '400px', paddingBottom: '2rem' }}>
                             {blocks.map((block, index) => (
-                                <div key={block.id} style={{ display: 'flex', alignItems: 'center' }}>
+                                <div key={block.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
                                     
                                     {/* The Block */}
                                     <div style={{ 
-                                        width: '220px', 
+                                        width: '100%', 
                                         background: 'var(--bg-panel)', 
                                         border: `2px solid ${block.type === 'process' ? 'var(--accent-success)' : 'var(--accent-danger)'}`,
-                                        borderRadius: block.type === 'process' ? '0' : '100px',
+                                        borderRadius: block.type === 'process' ? '4px' : '50px',
                                         padding: '1.5rem',
                                         position: 'relative',
                                         boxShadow: '0 10px 15px -3px rgba(0,0,0,0.5)',
                                         display: 'flex',
                                         flexDirection: 'column',
-                                        gap: '1rem',
-                                        flexShrink: 0
+                                        gap: '1rem'
                                     }}>
                                         <button 
                                             onClick={() => removeBlock(block.id)}
@@ -131,52 +130,17 @@ export default function ValueScanner({ onClose }: { onClose: () => void }) {
                                         </div>
                                     </div>
 
-                                    {/* Arrow connection to next block */}
+                                    {/* Arrow connection to next block (Downward) */}
                                     {index < blocks.length - 1 && (
-                                        <div style={{ width: '60px', height: '4px', background: 'var(--steel-gray)', position: 'relative', flexShrink: 0 }}>
-                                            <div style={{ position: 'absolute', right: '-5px', top: '-6px', width: '0', height: '0', borderTop: '8px solid transparent', borderBottom: '8px solid transparent', borderLeft: '12px solid var(--steel-gray)' }}></div>
+                                        <div style={{ height: '40px', width: '4px', background: 'var(--steel-gray)', position: 'relative' }}>
+                                            <div style={{ position: 'absolute', bottom: '-5px', left: '-6px', width: '0', height: '0', borderLeft: '8px solid transparent', borderRight: '8px solid transparent', borderTop: '12px solid var(--steel-gray)' }}></div>
                                         </div>
                                     )}
                                 </div>
                             ))}
                             {blocks.length === 0 && (
-                                <div style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>Map is empty. Add a process or wait block to begin mapping the value stream.</div>
+                                <div style={{ color: 'var(--text-muted)', fontStyle: 'italic', textAlign: 'center' }}>Map is empty. Add a process or wait block to begin mapping the value stream.</div>
                             )}
-                        </div>
-                    </div>
-                    
-                    {/* Time Line (Classic VSM Castle Wall shape) */}
-                    <div style={{ height: '120px', background: 'var(--bg-panel)', borderTop: '1px solid var(--border-color)', display: 'flex', alignItems: 'flex-end', padding: '0 2rem 2rem 2rem', overflowX: 'auto', overflowY: 'hidden' }}>
-                        <div style={{ display: 'flex', alignItems: 'flex-end', height: '100%', minWidth: 'min-content' }}>
-                            {blocks.map((block, index) => (
-                                <div key={`tl-${block.id}`} style={{ display: 'flex', alignItems: 'flex-end', width: index === blocks.length - 1 ? '220px' : '280px', flexShrink: 0 }}>
-                                    {/* Bottom segment for Process, Top segment for Wait */}
-                                    <div style={{ 
-                                        width: '100%', 
-                                        height: block.type === 'process' ? '20px' : '60px', 
-                                        border: `2px solid ${block.type === 'process' ? 'var(--accent-success)' : 'var(--accent-danger)'}`,
-                                        borderBottom: 'none',
-                                        borderRight: 'none',
-                                        position: 'relative'
-                                    }}>
-                                        <div style={{ position: 'absolute', bottom: block.type === 'process' ? '-25px' : '5px', left: '10px', color: 'var(--lean-white)', fontSize: '0.85rem', fontWeight: 'bold' }}>
-                                            {formatTime(block.time)}
-                                        </div>
-                                        {block.type === 'wait' && (
-                                            <div style={{ position: 'absolute', top: '-25px', left: '10px', color: 'var(--accent-danger)', fontSize: '0.75rem', fontWeight: 'bold' }}>
-                                                NON-VAL
-                                            </div>
-                                        )}
-                                        {block.type === 'process' && (
-                                            <div style={{ position: 'absolute', top: '5px', left: '10px', color: 'var(--accent-success)', fontSize: '0.75rem', fontWeight: 'bold' }}>
-                                                VALUE ADD
-                                            </div>
-                                        )}
-                                    </div>
-                                    {/* Right vertical drop to connect */}
-                                    <div style={{ width: '2px', height: block.type === 'process' ? '20px' : '60px', background: block.type === 'process' ? 'var(--accent-success)' : 'var(--accent-danger)' }}></div>
-                                </div>
-                            ))}
                         </div>
                     </div>
                 </div>

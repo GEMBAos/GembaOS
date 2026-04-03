@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ImprovementEngine } from '../../../services/ImprovementEngine';
 import type { MotionSessionV2, MotionParticipantPathV2, PathNodeEvent } from '../../../types/motion_v2';
 import { useMotionRealtime } from '../../../hooks/useMotionRealtime';
+import { useDeadReckoning } from '../../../hooks/useDeadReckoning';
 
 interface Props {
     sessionId: string;
@@ -17,7 +18,7 @@ export default function MotionParticipantPathing({ sessionId, participantId, onL
     const [path, setPath] = useState(participant?.pathCoordinates || []);
     const [totalDistance, setTotalDistance] = useState(participant?.totalDistance || 0);
     const [mode, setMode] = useState<PathNodeEvent>('MOVE');
-    const [isTraceMode, setIsTraceMode] = useState(false);
+    const [isTraceMode] = useState(false);
     const [isDrawing, setIsDrawing] = useState(false);
     const lastDrawTime = useRef(0);
     
@@ -26,6 +27,33 @@ export default function MotionParticipantPathing({ sessionId, participantId, onL
     // Feature 3: Web Speech API Observer Pins for Participants
     const [isListening, setIsListening] = useState(false);
     const recognitionRef = useRef<any>(null);
+
+    // Dead Reckoning Engine
+    const { position, heading, resetPosition } = useDeadReckoning();
+    const [isAutoTracking, setIsAutoTracking] = useState(false);
+    const lastDrawnPos = useRef({ x: 0, y: 0 });
+
+    useEffect(() => {
+        if (!isAutoTracking) return;
+        
+        // Auto-plot when moving if distance moved is significant (e.g. > 0.5 units) to avoid spamming dots
+        const dx = position.x - lastDrawnPos.current.x;
+        const dy = position.y - lastDrawnPos.current.y;
+        if (Math.sqrt(dx*dx + dy*dy) > 1.0) {
+            lastDrawnPos.current = { ...position };
+            
+            setPath(prev => [...prev, {
+                // Since dead reckoning returns pure meters/feet displacement, 
+                // we treat X/Y as percentage-equivalent on infinite canvas (1 unit = 1 pixel map coordinate approx, visually scaled)
+                x: 50 + position.x * 2, // Centered at 50, scale up slightly
+                y: 50 - position.y * 2, // Invert Y because dead reckoning positive Y is North, but SVG 0 is top
+                timestamp: Date.now(),
+                eventType: 'MOVE'
+            }]);
+            
+            setTotalDistance(prev => prev + Math.sqrt(dx*dx + dy*dy));
+        }
+    }, [position, isAutoTracking]);
 
     useEffect(() => {
         const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
@@ -232,7 +260,7 @@ export default function MotionParticipantPathing({ sessionId, participantId, onL
                 {session.layoutImageUrl ? (
                     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
                         <div style={{ position: 'absolute', top: '20px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(26,26,26,0.85)', color: 'white', padding: '8px 16px', borderRadius: '24px', fontSize: '0.85rem', pointerEvents: 'none', border: '1px solid #71717a', zIndex: 10, letterSpacing: '1px', fontWeight: 800, whiteSpace: 'nowrap', boxShadow: '0 4px 12px rgba(0,0,0,0.5)' }}>
-                            {isTraceMode ? '✍️ DRAW DIRECTLY ON MAP TO TRACE PATH' : `📍 TAP VIEWPORT TO DROP ${mode === 'STOP' ? 'STOP' : 'POINT'}`}
+                            {isAutoTracking ? `📡 AUTO-TRACKING via Pedometer | Hdg: ${heading}°` : '⏸️ AUTO-TRACKING PAUSED'}
                         </div>
                         <img 
                             ref={imgRef}
@@ -310,7 +338,7 @@ export default function MotionParticipantPathing({ sessionId, participantId, onL
                 ) : (
                     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
                         <div style={{ position: 'absolute', top: '20px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(26,26,26,0.85)', color: 'white', padding: '8px 16px', borderRadius: '24px', fontSize: '0.85rem', pointerEvents: 'none', border: '1px solid var(--zone-yellow)', zIndex: 10, letterSpacing: '1px', fontWeight: 800, whiteSpace: 'nowrap', boxShadow: '0 4px 12px rgba(0,0,0,0.5)' }}>
-                            {isTraceMode ? '✍️ DRAW DIRECTLY ON MAP TO TRACE PATH' : `📍 TAP VIEWPORT TO DROP ${mode === 'STOP' ? 'STOP' : 'POINT'}`}
+                            {isAutoTracking ? `📡 AUTO-TRACKING via Pedometer | Hdg: ${heading}°` : '⏸️ AUTO-TRACKING PAUSED'}
                         </div>
                         <div 
                             ref={imgRef as any}
@@ -401,25 +429,37 @@ export default function MotionParticipantPathing({ sessionId, participantId, onL
             <div style={{ padding: '0.75rem 1rem', background: 'rgba(26,26,26,1)', display: 'flex', gap: '0.5rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
                 <button 
                     className="btn" 
-                    style={{ flex: 1, background: mode === 'MOVE' && !isTraceMode ? 'var(--zone-yellow)' : 'rgba(255,255,255,0.05)', color: mode === 'MOVE' && !isTraceMode ? 'var(--gemba-black)' : 'var(--text-muted)', fontWeight: 900, letterSpacing: '1px', textTransform: 'uppercase', fontSize: '0.75rem', border: mode === 'MOVE' && !isTraceMode ? 'none' : '1px solid rgba(255,255,255,0.1)' }}
-                    onClick={() => { setMode('MOVE'); setIsTraceMode(false); }}
+                    title="Start automatic dead-reckoning tracking"
+                    style={{ flex: 1.5, background: isAutoTracking ? 'var(--zone-yellow)' : 'rgba(255,255,255,0.05)', color: isAutoTracking ? 'var(--gemba-black)' : 'var(--text-muted)', fontWeight: 900, letterSpacing: '1px', textTransform: 'uppercase', fontSize: '0.75rem', border: isAutoTracking ? 'none' : '1px solid rgba(255,255,255,0.1)' }}
+                    onClick={() => {
+                        if (!isAutoTracking) {
+                            if (path.length === 0) {
+                                // Initialize center origin
+                                setPath([{ x: 50, y: 50, timestamp: Date.now(), eventType: 'MOVE' }]);
+                                resetPosition();
+                            }
+                        }
+                        setIsAutoTracking(!isAutoTracking);
+                    }}
                 >
-                    📍 Point
-                </button>
-                <button 
-                    className="btn" 
-                    title="Manual Trace Fallback"
-                    style={{ flex: 1.5, background: isTraceMode ? 'var(--zone-yellow)' : 'rgba(255,255,255,0.05)', color: isTraceMode ? 'var(--gemba-black)' : 'var(--text-muted)', fontWeight: 900, letterSpacing: '1px', textTransform: 'uppercase', fontSize: '0.75rem', border: isTraceMode ? 'none' : '1px solid rgba(255,255,255,0.1)' }}
-                    onClick={() => { setMode('MOVE'); setIsTraceMode(true); }}
-                >
-                    ✍️ Trace Map
+                    {isAutoTracking ? '📡 TRACKING ON' : '🚶 START WALK'}
                 </button>
                 <button 
                     className="btn" 
                     style={{ flex: 1, background: mode === 'STOP' ? '#D84315' : 'rgba(255,255,255,0.05)', color: mode === 'STOP' ? '#fff' : 'var(--text-muted)', fontWeight: 800, letterSpacing: '1px', textTransform: 'uppercase', fontSize: '0.75rem', border: mode === 'STOP' ? 'none' : '1px solid rgba(255,255,255,0.1)' }}
-                    onClick={() => { setMode('STOP'); setIsTraceMode(false); }}
+                    onClick={() => {
+                        setMode('STOP');
+                        setIsAutoTracking(false);
+                        // Add hard stop pin
+                        let lx = 50, ly = 50;
+                        if (path.length > 0) {
+                            lx = path[path.length - 1].x;
+                            ly = path[path.length - 1].y;
+                        }
+                        setPath(prev => [...prev, { x: lx, y: ly, timestamp: Date.now(), eventType: 'STOP' }]);
+                    }}
                 >
-                    🛑 Stop
+                    🛑 Drop Stop
                 </button>
                 <button 
                     className="btn" 

@@ -6,7 +6,6 @@
 
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import gembaosIcon from '../../assets/branding/gembaos-icon.png';
 
 export interface ActionItem {
     id: string;
@@ -79,7 +78,6 @@ export default function ActionItems() {
         <div style={{ maxWidth: '1000px', margin: '0 auto', paddingBottom: '2rem' }}>
             <header style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
-                    <img src={gembaosIcon} alt="GembaOS Icon" style={{ width: '48px', height: '48px', borderRadius: '0.5rem', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }} />
                     <div>
                         <h2 style={{ fontSize: '2rem', margin: 0, color: 'var(--text-main)', fontWeight: 700 }}>
                             Action Item Tracker

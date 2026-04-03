@@ -234,7 +234,6 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile }: JFIIdeaGe
                         <input 
                             type="file" 
                             accept="image/*" 
-                            capture="environment" 
                             onChange={handlePhotoCapture} 
                             disabled={isAnalyzing}
                             style={{ display: 'none' }} 

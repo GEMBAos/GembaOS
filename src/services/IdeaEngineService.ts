@@ -61,13 +61,32 @@ export class IdeaEngineService {
         return finalIdeas.slice(0, 3);
     }
 
-    /**
-     * Simulated Vision API hook. Right now it just passes through to the text analyzer.
-     */
     static async analyzePhotoWithContext(_imageFile: File, userDescription: string): Promise<JFIIdea[]> {
         // Artificial delay to simulate processing time, establishing the AI pacing UX
         await new Promise(resolve => setTimeout(resolve, 1800));
         
+        if (!userDescription || userDescription.trim() === '') {
+            // Provide intuitive structural visual analysis defaults
+            const visualKeywords = ['5s', 'label', 'visual', 'clutter', 'sort', 'shadow', 'board', 'clean', 'organize', 'safety'];
+            const scoredIdeas = JFI_IDEAS.map(idea => {
+                let score = 0;
+                const text = (idea.title + ' ' + idea.description + ' ' + idea.category).toLowerCase();
+                for (const kw of visualKeywords) {
+                    if (text.includes(kw)) score += 2;
+                }
+                // Randomize slightly for variety among top visual hits
+                score += Math.random(); 
+                return { idea, score };
+            }).filter(i => i.score > 1).sort((a,b) => b.score - a.score);
+
+            const bestVisuals = scoredIdeas.slice(0, 3).map(i => i.idea);
+            while (bestVisuals.length < 3) {
+                const random = this.getRandomIdea();
+                if (!bestVisuals.find(i => i.title === random.title)) bestVisuals.push(random);
+            }
+            return bestVisuals.slice(0, 3);
+        }
+
         return this.analyzeProblemDescription(userDescription);
     }
     
