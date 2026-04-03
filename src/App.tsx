@@ -393,11 +393,6 @@ function App() {
           </Suspense>
         </main>
 
-        {/* 4. CONTEXT PANEL (Desktop Right / Mobile Bottom Sheet) */}
-        {/* Intentionally left collapsed in this iteration to prioritize workspace max width */}
-
-        {/* DELETED BOTTOM DOCK - User rule strictly enforces persistent left rail */}
-
       </div>
 
       <FeedbackOverlay />

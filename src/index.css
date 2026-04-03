@@ -511,7 +511,7 @@ h3 {
 
 .feedback-trigger-btn {
   position: fixed;
-  bottom: clamp(1rem, 4vw, 2rem);
+  bottom: calc(1.5rem + env(safe-area-inset-bottom));
   right: clamp(1rem, 4vw, 2rem);
   background-color: var(--bg-panel);
   border: 1px solid var(--border-color);
@@ -527,14 +527,36 @@ h3 {
   transition: all 0.2s;
 }
 
+.dev-trigger-btn {
+  position: fixed;
+  bottom: calc(1.5rem + env(safe-area-inset-bottom));
+  right: calc(clamp(1rem, 4vw, 2rem) + 11rem);
+  background: #111;
+  color: #0f0;
+  border: 1px solid #333;
+  padding: 0.25rem 0.6rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  z-index: 9000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
 @media (max-width: 1024px), (max-height: 450px) {
   .feedback-trigger-btn {
-    bottom: 5rem; /* Move up on mobile to avoid overlapping navigation */
+    bottom: calc(1.5rem + env(safe-area-inset-bottom));
     right: 1rem;
     padding: 0.5rem;
   }
   .feedback-trigger-btn span {
     display: none; /* Hide text on mobile, just icon */
+  }
+  .dev-trigger-btn {
+    bottom: calc(1.5rem + env(safe-area-inset-bottom));
+    right: 3.5rem; /* Position neatly to the left of the feedback icon */
   }
 }
 
