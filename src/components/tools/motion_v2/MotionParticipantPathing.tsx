@@ -18,7 +18,7 @@ export default function MotionParticipantPathing({ sessionId, participantId, onL
     const [path, setPath] = useState(participant?.pathCoordinates || []);
     const [totalDistance, setTotalDistance] = useState(participant?.totalDistance || 0);
     const [mode, setMode] = useState<PathNodeEvent>('MOVE');
-    const [isTraceMode] = useState(false);
+    const [isTraceMode, setIsTraceMode] = useState(false);
     const [isDrawing, setIsDrawing] = useState(false);
     const lastDrawTime = useRef(0);
     
@@ -29,7 +29,7 @@ export default function MotionParticipantPathing({ sessionId, participantId, onL
     const recognitionRef = useRef<any>(null);
 
     // Dead Reckoning Engine
-    const { position, heading, resetPosition } = useDeadReckoning();
+    const { position, heading, error: drError, resetPosition } = useDeadReckoning();
     const [isAutoTracking, setIsAutoTracking] = useState(false);
     const lastDrawnPos = useRef({ x: 0, y: 0 });
 
@@ -259,8 +259,8 @@ export default function MotionParticipantPathing({ sessionId, participantId, onL
             >
                 {session.layoutImageUrl ? (
                     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-                        <div style={{ position: 'absolute', top: '20px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(26,26,26,0.85)', color: 'white', padding: '8px 16px', borderRadius: '24px', fontSize: '0.85rem', pointerEvents: 'none', border: '1px solid #71717a', zIndex: 10, letterSpacing: '1px', fontWeight: 800, whiteSpace: 'nowrap', boxShadow: '0 4px 12px rgba(0,0,0,0.5)' }}>
-                            {isAutoTracking ? `📡 AUTO-TRACKING via Pedometer | Hdg: ${heading}°` : '⏸️ AUTO-TRACKING PAUSED'}
+                        <div style={{ position: 'absolute', top: '20px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(26,26,26,0.85)', color: drError ? '#ef4444' : 'white', padding: '8px 16px', borderRadius: '24px', fontSize: '0.85rem', pointerEvents: 'none', border: `1px solid ${drError ? '#ef4444' : '#71717a'}`, zIndex: 10, letterSpacing: '1px', fontWeight: 800, whiteSpace: 'nowrap', boxShadow: '0 4px 12px rgba(0,0,0,0.5)' }}>
+                            {drError ? `⚠️ SENSORS UNAVAILABLE: ${drError.includes('denied') ? 'Permission Denied' : 'Requires HTTPS'}. Use Trace Map below.` : isTraceMode ? '✍️ MANUAL TRACE MODE' : isAutoTracking ? `📡 AUTO-TRACKING via Pedometer | Hdg: ${heading}°` : '⏸️ AUTO-TRACKING PAUSED'}
                         </div>
                         <img 
                             ref={imgRef}
@@ -337,8 +337,8 @@ export default function MotionParticipantPathing({ sessionId, participantId, onL
                     </div>
                 ) : (
                     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-                        <div style={{ position: 'absolute', top: '20px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(26,26,26,0.85)', color: 'white', padding: '8px 16px', borderRadius: '24px', fontSize: '0.85rem', pointerEvents: 'none', border: '1px solid var(--zone-yellow)', zIndex: 10, letterSpacing: '1px', fontWeight: 800, whiteSpace: 'nowrap', boxShadow: '0 4px 12px rgba(0,0,0,0.5)' }}>
-                            {isAutoTracking ? `📡 AUTO-TRACKING via Pedometer | Hdg: ${heading}°` : '⏸️ AUTO-TRACKING PAUSED'}
+                        <div style={{ position: 'absolute', top: '20px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(26,26,26,0.85)', color: drError ? '#ef4444' : 'white', padding: '8px 16px', borderRadius: '24px', fontSize: '0.85rem', pointerEvents: 'none', border: `1px solid ${drError ? '#ef4444' : 'var(--zone-yellow)'}`, zIndex: 10, letterSpacing: '1px', fontWeight: 800, whiteSpace: 'nowrap', boxShadow: '0 4px 12px rgba(0,0,0,0.5)' }}>
+                            {drError ? `⚠️ SENSORS MSG: ${drError.includes('denied') ? 'Permission Denied' : 'Requires HTTPS'}. Use Trace Map below.` : isTraceMode ? '✍️ MANUAL TRACE MODE' : isAutoTracking ? `📡 AUTO-TRACKING via Pedometer | Hdg: ${heading}°` : '⏸️ AUTO-TRACKING PAUSED'}
                         </div>
                         <div 
                             ref={imgRef as any}
@@ -430,8 +430,10 @@ export default function MotionParticipantPathing({ sessionId, participantId, onL
                 <button 
                     className="btn" 
                     title="Start automatic dead-reckoning tracking"
-                    style={{ flex: 1.5, background: isAutoTracking ? 'var(--zone-yellow)' : 'rgba(255,255,255,0.05)', color: isAutoTracking ? 'var(--gemba-black)' : 'var(--text-muted)', fontWeight: 900, letterSpacing: '1px', textTransform: 'uppercase', fontSize: '0.75rem', border: isAutoTracking ? 'none' : '1px solid rgba(255,255,255,0.1)' }}
+                    disabled={!!drError}
+                    style={{ flex: 1.5, background: drError ? 'rgba(255,100,100,0.1)' : isAutoTracking ? 'var(--zone-yellow)' : 'rgba(255,255,255,0.05)', color: drError ? 'rgba(255,255,255,0.3)' : isAutoTracking ? 'var(--gemba-black)' : 'var(--text-muted)', fontWeight: 900, letterSpacing: '1px', textTransform: 'uppercase', fontSize: '0.75rem', border: isAutoTracking ? 'none' : '1px solid rgba(255,255,255,0.1)', cursor: drError ? 'not-allowed' : 'pointer' }}
                     onClick={() => {
+                        setIsTraceMode(false);
                         if (!isAutoTracking) {
                             if (path.length === 0) {
                                 // Initialize center origin
@@ -442,7 +444,15 @@ export default function MotionParticipantPathing({ sessionId, participantId, onL
                         setIsAutoTracking(!isAutoTracking);
                     }}
                 >
-                    {isAutoTracking ? '📡 TRACKING ON' : '🚶 START WALK'}
+                    {isAutoTracking ? '📡 TRACKING ON' : drError ? '🚫 SENSOR LOCKOUT' : '🚶 START WALK'}
+                </button>
+                <button 
+                    className="btn" 
+                    title="Manual Trace Fallback"
+                    style={{ flex: 1.5, background: isTraceMode ? 'var(--zone-yellow)' : 'rgba(255,255,255,0.05)', color: isTraceMode ? 'var(--gemba-black)' : 'var(--text-muted)', fontWeight: 900, letterSpacing: '1px', textTransform: 'uppercase', fontSize: '0.75rem', border: isTraceMode ? 'none' : '1px solid rgba(255,255,255,0.1)' }}
+                    onClick={() => { setMode('MOVE'); setIsTraceMode(true); setIsAutoTracking(false); }}
+                >
+                    ✍️ Trace Map
                 </button>
                 <button 
                     className="btn" 

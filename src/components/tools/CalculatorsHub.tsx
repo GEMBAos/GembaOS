@@ -191,7 +191,7 @@ export default function CalculatorsHub({}: CalculatorsHubProps) {
             }}>
                 <div style={{ textAlign: 'center', flex: 1, display: 'flex', justifyContent: 'center', position: 'relative', alignItems: 'center' }}>
                     <h1 style={{ margin: 0, color: '#ffffff', fontSize: '0.8rem', fontFamily: 'var(--font-headings)', letterSpacing: '4px', textTransform: 'uppercase', textShadow: '0 1px 2px rgba(0,0,0,0.5)', fontWeight: 900 }}>
-                        INDUSTRIAL CALCULATORS
+                        {activeCalc === 'menu' ? 'GEMBAOS SYSTEM HUB' : 'INDUSTRIAL CALCULATORS'}
                     </h1>
                     {activeCalc !== 'menu' && (
                         <button onClick={() => window.location.hash = `#/calculators`} style={{ position: 'absolute', right: '0', background: 'transparent', border: 'none', color: '#fff', cursor: 'pointer', fontFamily: 'var(--font-headings)', fontSize: '0.7rem', fontWeight: 'bold', textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>
@@ -206,55 +206,55 @@ export default function CalculatorsHub({}: CalculatorsHubProps) {
                 <div style={{ flex: 1, padding: '2rem', overflowY: 'auto', background: '#f8fafc', minHeight: 0, WebkitOverflowScrolling: 'touch', overscrollBehaviorY: 'contain' }}>
                     
                     {activeCalc === 'menu' && (
-                        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '1rem', paddingBottom: '3rem' }}>
-                                {[
-                                    { id: 'takt', name: 'Takt Time', desc: 'Pace required to meet customer demand based on available time.', icon: '⏱️' },
-                                    { id: 'oee', name: 'OEE Matrix', desc: 'Measure true manufacturing productivity via Availability, Performance & Quality.', icon: '📊' },
-                                    { id: 'kanban', name: 'Kanban Sizer', desc: 'Calculate accurate bins and loops using daily demand & lead time variance.', icon: '🔄' },
-                                    { id: 'rty', name: 'True Yield (RTY)', desc: 'Discover real system throughput capability across continuous operational stations.', icon: '🎯' },
-                                    { id: 'smed', name: 'Setup Cost', desc: 'Quantify the agonizing financial bleeding of machine changeover downtime.', icon: '⚙️' },
-                                    { id: 'labor', name: 'Labor Cost', desc: 'Determine raw labor burden per single unit manufactured.', icon: '👷' },
-                                    { id: 'uph', name: 'UPH Target', desc: 'Calculate theoretical maximum throughput purely from bottleneck cycle times.', icon: '📈' },
-                                    { id: 'safety', name: 'Facility 5S', desc: 'Auto-score the facility based on the definitive 5 pillars of the Gemba.', icon: '🧹' },
-                                    { id: 'roi', name: 'Kaizen ROI', desc: 'Translate isolated shop floor improvements directly into executive financial reality.', icon: '💰' }
-                                ].map(c => (
-                                    <div 
-                                        key={c.id} 
-                                        onClick={() => window.location.hash = `#/calculators?calc=${c.id}`}
-                                        style={{
-                                            background: '#ffffff',
-                                            border: '1px solid #e2e8f0',
-                                            borderRadius: '8px',
-                                            padding: '1.25rem',
-                                            cursor: 'pointer',
-                                            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            gap: '0.75rem',
-                                            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
-                                            position: 'relative',
-                                            overflow: 'hidden'
-                                        }}
-                                        onMouseEnter={e => {
-                                            e.currentTarget.style.borderColor = 'var(--zone-yellow)';
-                                            e.currentTarget.style.transform = 'translateY(-2px)';
-                                            e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02)';
-                                        }}
-                                        onMouseLeave={e => {
-                                            e.currentTarget.style.borderColor = '#e2e8f0';
-                                            e.currentTarget.style.transform = 'none';
-                                            e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)';
-                                        }}
-                                    >
-                                        <div style={{ fontSize: '2rem', lineHeight: 1 }}>{c.icon}</div>
-                                        <div>
-                                            <h3 style={{ margin: 0, color: '#0f172a', fontFamily: 'var(--font-headings)', fontSize: '1.1rem', letterSpacing: '0.5px', textTransform: 'uppercase', fontWeight: 800 }}>{c.name}</h3>
-                                            <div style={{ width: '30px', height: '3px', background: 'var(--zone-yellow)', margin: '0.5rem 0', borderRadius: '2px' }} />
-                                            <p style={{ margin: 0, color: '#64748b', fontSize: '0.85rem', lineHeight: 1.5, fontWeight: 500 }}>{c.desc}</p>
-                                        </div>
+                        <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '3rem', paddingBottom: '4rem' }}>
+                            <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
+                                <h2 style={{ color: '#0f172a', fontFamily: 'var(--font-headings)', margin: '0 0 1rem 0', fontSize: '2rem', textTransform: 'uppercase', letterSpacing: '2px' }}>Site Map & Workflows</h2>
+                                <p style={{ color: '#64748b', fontSize: '1rem', maxWidth: '600px', margin: '0 auto' }}>Navigate directly to your core Lean Manufacturing tools to execute observations and build process models.</p>
+                            </div>
+
+                            {/* FLOW: OBSERVE */}
+                            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '2rem', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', borderBottom: '2px solid #f1f5f9', paddingBottom: '1rem', marginBottom: '1.5rem' }}>
+                                    <div style={{ background: 'var(--zone-yellow)', color: 'var(--gemba-black)', padding: '0.5rem', borderRadius: '8px', fontSize: '1.5rem' }}>👀</div>
+                                    <h3 style={{ margin: 0, color: '#0f172a', fontFamily: 'var(--font-headings)', fontSize: '1.25rem', letterSpacing: '1px' }}>1. OBSERVE THE CURRENT STATE</h3>
+                                </div>
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
+                                    <div onClick={() => window.location.hash = '#/observe'} style={{ padding: '1.5rem', border: '1px solid #e2e8f0', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }} onMouseOver={e => {e.currentTarget.style.borderColor='var(--zone-yellow)'; e.currentTarget.style.background='#fdfdfc'}} onMouseOut={e => {e.currentTarget.style.borderColor='#e2e8f0'; e.currentTarget.style.background='transparent'}}>
+                                        <h4 style={{ margin: '0 0 0.5rem 0', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span>🎥</span> VALUE STREAM SCANNER</h4>
+                                        <p style={{ margin: 0, fontSize: '0.85rem', color: '#64748b' }}>Log process steps and generate immediate Kaizen Action Items from field anomalies.</p>
                                     </div>
-                                ))}
+                                    <div onClick={() => window.location.hash = '#/motion-v2'} style={{ padding: '1.5rem', border: '1px solid #e2e8f0', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }} onMouseOver={e => {e.currentTarget.style.borderColor='var(--zone-yellow)'; e.currentTarget.style.background='#fdfdfc'}} onMouseOut={e => {e.currentTarget.style.borderColor='#e2e8f0'; e.currentTarget.style.background='transparent'}}>
+                                        <h4 style={{ margin: '0 0 0.5rem 0', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span>🗺️</span> MOTION MAPPER</h4>
+                                        <p style={{ margin: 0, fontSize: '0.85rem', color: '#64748b' }}>Use device pedometers to trace physical walking routes and detect transportation waste.</p>
+                                    </div>
+                                    <div onClick={() => window.location.hash = '#/time-study'} style={{ padding: '1.5rem', border: '1px solid #e2e8f0', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }} onMouseOver={e => {e.currentTarget.style.borderColor='var(--zone-yellow)'; e.currentTarget.style.background='#fdfdfc'}} onMouseOut={e => {e.currentTarget.style.borderColor='#e2e8f0'; e.currentTarget.style.background='transparent'}}>
+                                        <h4 style={{ margin: '0 0 0.5rem 0', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span>⏱️</span> TIME STUDY ENGINE</h4>
+                                        <p style={{ margin: 0, fontSize: '0.85rem', color: '#64748b' }}>Capture exact process cycle times against Takt Time benchmarks and export to Line Balance.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* FLOW: ARCHITECT */}
+                            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '2rem', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', borderBottom: '2px solid #f1f5f9', paddingBottom: '1rem', marginBottom: '1.5rem' }}>
+                                    <div style={{ background: '#0ea5e9', color: 'white', padding: '0.5rem', borderRadius: '8px', fontSize: '1.5rem' }}>🏗️</div>
+                                    <h3 style={{ margin: 0, color: '#0f172a', fontFamily: 'var(--font-headings)', fontSize: '1.25rem', letterSpacing: '1px' }}>2. DESIGN THE FUTURE STATE</h3>
+                                </div>
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
+                                    <div onClick={() => window.location.hash = '#/line-balance'} style={{ padding: '1.5rem', border: '1px solid #e2e8f0', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }} onMouseOver={e => {e.currentTarget.style.borderColor='#0ea5e9'; e.currentTarget.style.background='#f0f9ff'}} onMouseOut={e => {e.currentTarget.style.borderColor='#e2e8f0'; e.currentTarget.style.background='transparent'}}>
+                                        <h4 style={{ margin: '0 0 0.5rem 0', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span>⚖️</span> LINE BALANCE BUILDER</h4>
+                                        <p style={{ margin: 0, fontSize: '0.85rem', color: '#64748b' }}>Import Time Studies to construct Yamazumi stack charts and achieve perfect line flow.</p>
+                                    </div>
+                                    <div onClick={() => window.location.hash = '#/action-items'} style={{ padding: '1.5rem', border: '1px solid #e2e8f0', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }} onMouseOver={e => {e.currentTarget.style.borderColor='#0ea5e9'; e.currentTarget.style.background='#f0f9ff'}} onMouseOut={e => {e.currentTarget.style.borderColor='#e2e8f0'; e.currentTarget.style.background='transparent'}}>
+                                        <h4 style={{ margin: '0 0 0.5rem 0', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span>📋</span> KAIZEN ACTION LOG</h4>
+                                        <p style={{ margin: 0, fontSize: '0.85rem', color: '#64748b' }}>Track execution of countermeasures generated during your observation walks.</p>
+                                    </div>
+                                    {/* Link to Calculators which drops down the top rail */}
+                                    <div style={{ padding: '1.5rem', border: '1px solid #000', background: '#0f172a', borderRadius: '8px' }}>
+                                        <h4 style={{ margin: '0 0 0.5rem 0', color: '#fff', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span>💡</span> INDUSTRIAL CALCULATORS</h4>
+                                        <p style={{ margin: 0, fontSize: '0.85rem', color: '#94a3b8' }}>Access Takt, OEE, and Labor tools using the dark quick-access ribbon situated at the top of your screen.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     )}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
-import { type JFIIdea } from '../../data/jfiIdeas';
+import { type JFIIdea, type JFICategory, JFI_IDEAS } from '../../data/jfiIdeas';
 import { userService } from '../../services/userService';
 import { storageService } from '../../services/storageService';
 import { jfiService } from '../../services/jfiService';
@@ -18,7 +18,6 @@ interface JFIIdeaGeneratorProps {
 export default function JFIIdeaGenerator({ onIdeaGenerated, profile }: JFIIdeaGeneratorProps) {
     const [currentIdeas, setCurrentIdeas] = useState<JFIIdea[]>([]);
     const [isAnalyzing, setIsAnalyzing] = useState(false);
-    const [bugDescription, setBugDescription] = useState('');
     const [capturedPhotoUrl, setCapturedPhotoUrl] = useState<string | null>(null);
     
     // Cooldown State
@@ -66,10 +65,25 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile }: JFIIdeaGe
         return true;
     };
 
-    const handleGenerateRandom = async () => {
+    const handleGenerateCategory = async (category: JFICategory | 'Random') => {
         if (!checkAndConsumeCooldown()) return;
 
-        const ideas = IdeaEngineService.getMultipleRandomIdeas(3);
+        let ideas: JFIIdea[] = [];
+        if (category === 'Random') {
+            ideas = IdeaEngineService.getMultipleRandomIdeas(3);
+        } else {
+            const pool = JFI_IDEAS.filter(i => i.category === category);
+            // Shuffle
+            const shuffled = [...pool].sort(() => 0.5 - Math.random());
+            // Need exactly 3, if not enough grab from Random to fill
+            ideas = shuffled.slice(0, 3);
+            if (ideas.length < 3) {
+                const missing = 3 - ideas.length;
+                const randomFill = IdeaEngineService.getMultipleRandomIdeas(missing);
+                ideas = [...ideas, ...randomFill];
+            }
+        }
+        
         setCurrentIdeas(ideas);
         setCapturedPhotoUrl(null);
         onIdeaGenerated(ideas);
@@ -102,7 +116,7 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile }: JFIIdeaGe
             const uploadedUrl = await storageService.uploadJFIPhoto(file);
             
             // Trigger semantic Vision AI engine (fallback to heuristic text until key is provided)
-            const ideas = await IdeaEngineService.analyzePhotoWithContext(file, bugDescription);
+            const ideas = await IdeaEngineService.analyzePhotoWithContext(file, 'Visual AI Scan');
             
             setCurrentIdeas(ideas);
             onIdeaGenerated(ideas);
@@ -151,95 +165,119 @@ export default function JFIIdeaGenerator({ onIdeaGenerated, profile }: JFIIdeaGe
             background: 'transparent'
         }}>
             
-            {/* Core Row: Input + Action Buttons side-by-side to save height */}
-            <div style={{ display: 'flex', width: '100%', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
+            {/* Core Row: Category Pills SCROLLABLE */}
+            <div style={{ display: 'flex', width: '100%', gap: '0.75rem', alignItems: 'center', overflowX: 'auto', paddingBottom: '0.5rem', scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}>
+                <span style={{ fontSize: '0.75rem', fontWeight: 900, color: '#666', textTransform: 'uppercase', letterSpacing: '1px', whiteSpace: 'nowrap' }}>INSPIRATION:</span>
                 
-                {/* Core Idea Input */}
-                <div style={{ flex: '1 1 300px', position: 'relative', filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.5))' }}>
-                    <div style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', opacity: 0.7, fontSize: '1rem' }}>🕵️‍♂️</div>
+                {/* PHOTO SCAN ACTS AS A CATEGORY */}
+                <label
+                    style={{ 
+                        flexShrink: 0,
+                        padding: '0.4rem 1rem', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: '0.4rem', 
+                        cursor: isAnalyzing ? 'not-allowed' : 'pointer', 
+                        opacity: isAnalyzing ? 0.7 : 1, 
+                        background: 'linear-gradient(145deg, var(--zone-yellow), #d4a000)', 
+                        border: '1px solid #b8860b', 
+                        color: '#000', 
+                        borderRadius: '20px', 
+                        fontWeight: '900', 
+                        fontFamily: 'var(--font-headings)',
+                        fontSize: '0.7rem',
+                        boxShadow: '0 4px 10px rgba(0,0,0,0.4), inset 0 2px 0 rgba(255,255,255,0.4)',
+                        whiteSpace: 'nowrap'
+                    }}
+                    title="Scans environment"
+                >
+                    {isAnalyzing ? (
+                         <span>SCANNING...</span>
+                    ) : (
+                        <>
+                            <span style={{ fontSize: '1rem' }}>📷</span> 
+                            <span>PHOTO</span>
+                        </>
+                    )}
                     <input 
-                        type="text" 
-                        placeholder="Type what you observed, or what outcome you want..."
-                        value={bugDescription}
-                        onChange={(e) => setBugDescription(e.target.value)}
-                        style={{ 
-                            width: '100%', 
-                            fontSize: '0.85rem',
-                            fontFamily: 'var(--font-sans)', 
-                            padding: '0.6rem 1rem 0.6rem 2.5rem', 
-                            margin: 0, 
-                            background: '#111', 
-                            border: '1px solid #333', 
-                            color: 'white', 
-                            borderRadius: '30px',
-                            boxShadow: 'inset 0 4px 6px rgba(0,0,0,0.6)'
-                        }}
+                        type="file" 
+                        accept="image/*" 
+                        onChange={handlePhotoCapture} 
+                        disabled={isAnalyzing}
+                        style={{ display: 'none' }} 
                     />
-                </div>
+                </label>
 
-                {/* AI Action Buttons - Directly next to input */}
-                <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                {/* THE CATEGORIES */}
+                {(['Motion Waste', 'Ergonomics', 'Workstation Organization', 'Safety', 'Visual Management'] as JFICategory[]).map(cat => (
                     <button
-                        onClick={handleGenerateRandom}
+                        key={cat}
+                        onClick={() => handleGenerateCategory(cat)}
                         disabled={cooldownTime > 0}
                         style={{ 
-                            padding: '0.5rem 1rem', 
+                            flexShrink: 0,
+                            padding: '0.4rem 1rem', 
                             display: 'flex', 
                             alignItems: 'center', 
                             gap: '0.4rem', 
                             opacity: cooldownTime > 0 ? 0.5 : 1, 
                             cursor: cooldownTime > 0 ? 'not-allowed' : 'pointer', 
-                            background: 'linear-gradient(145deg, #1f1f1f, #0a0a0a)', 
+                            background: '#111', 
                             border: '1px solid #333', 
                             color: 'var(--lean-white)', 
                             borderRadius: '20px', 
                             fontWeight: '800', 
                             fontFamily: 'var(--font-headings)',
                             fontSize: '0.65rem',
-                            boxShadow: '0 4px 10px rgba(0,0,0,0.4)',
-                            letterSpacing: '0.5px'
+                            boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.05)',
+                            letterSpacing: '0.5px',
+                            whiteSpace: 'nowrap',
+                            transition: 'all 0.2s'
                         }}
-                        title={cooldownTime > 0 ? `COOLDOWN: ${cooldownTime}m` : 'Generate Random Idea'}
+                        onMouseOver={e => {
+                            if (cooldownTime === 0) {
+                                e.currentTarget.style.borderColor = 'var(--zone-yellow)';
+                                e.currentTarget.style.color = 'var(--zone-yellow)';
+                            }
+                        }}
+                        onMouseOut={e => {
+                            if (cooldownTime === 0) {
+                                e.currentTarget.style.borderColor = '#333';
+                                e.currentTarget.style.color = 'var(--lean-white)';
+                            }
+                        }}
+                        title={cooldownTime > 0 ? `COOLDOWN: ${cooldownTime}m` : `View ${cat} examples`}
                     >
-                        <span style={{ fontSize: '0.9rem' }}>🎲</span>
-                        <span className="hide-on-mobile">RANDOM IDEA</span>
+                        {cat}
                     </button>
-                    <label
-                        style={{ 
-                            padding: '0.5rem 1.2rem', 
-                            display: 'flex', 
-                            alignItems: 'center', 
-                            gap: '0.4rem', 
-                            cursor: isAnalyzing ? 'not-allowed' : 'pointer', 
-                            opacity: isAnalyzing ? 0.7 : 1, 
-                            background: 'linear-gradient(145deg, var(--zone-yellow), #d4a000)', 
-                            border: '1px solid #b8860b', 
-                            color: '#000', 
-                            borderRadius: '20px', 
-                            fontWeight: '900', 
-                            fontFamily: 'var(--font-headings)',
-                            fontSize: '0.7rem',
-                            boxShadow: '0 4px 10px rgba(0,0,0,0.4), inset 0 2px 0 rgba(255,255,255,0.4)'
-                        }}
-                        title="Scans environment"
-                    >
-                        {isAnalyzing ? (
-                             <span>SCANNING...</span>
-                        ) : (
-                            <>
-                                <span style={{ fontSize: '1rem' }}>📷</span> 
-                                <span>PHOTO</span>
-                            </>
-                        )}
-                        <input 
-                            type="file" 
-                            accept="image/*" 
-                            onChange={handlePhotoCapture} 
-                            disabled={isAnalyzing}
-                            style={{ display: 'none' }} 
-                        />
-                    </label>
-                </div>
+                ))}
+
+                <button
+                    onClick={() => handleGenerateCategory('Random')}
+                    disabled={cooldownTime > 0}
+                    style={{ 
+                        flexShrink: 0,
+                        padding: '0.4rem 1rem', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: '0.4rem', 
+                        opacity: cooldownTime > 0 ? 0.5 : 1, 
+                        cursor: cooldownTime > 0 ? 'not-allowed' : 'pointer', 
+                        background: 'transparent', 
+                        border: '1px dashed #666', 
+                        color: '#888', 
+                        borderRadius: '20px', 
+                        fontWeight: '800', 
+                        fontFamily: 'var(--font-headings)',
+                        fontSize: '0.65rem',
+                        letterSpacing: '0.5px',
+                        whiteSpace: 'nowrap'
+                    }}
+                    title={cooldownTime > 0 ? `COOLDOWN: ${cooldownTime}m` : 'Generate Random Idea'}
+                >
+                    <span style={{ fontSize: '0.9rem' }}>🎲</span>
+                    <span>SURPRISE ME</span>
+                </button>
             </div>
 
             {/* Loading State Overlay */}
