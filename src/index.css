@@ -212,6 +212,12 @@ h3 {
   min-width: 0;
 }
 
+@media (max-width: 1024px) {
+  .os-workspace {
+    padding: 0;
+  }
+}
+
 /* 4. Context Panel Zone (Desktop) */
 .os-context-panel {
   grid-area: os-context;

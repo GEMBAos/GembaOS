@@ -174,7 +174,7 @@ export default function CalculatorsHub({}: CalculatorsHubProps) {
     );
 
     return (
-        <div className="module-container" style={{ display: 'flex', flexDirection: 'column', height: '100%', background: '#ffffff' }}>
+        <div className="module-container" style={{ display: 'flex', flexDirection: 'column', minHeight: '100%', flex: 1, background: '#ffffff' }}>
             {/* Header */}
             <header style={{ 
                 padding: '1.5rem', 
