@@ -175,31 +175,30 @@ export default function CalculatorsHub({}: CalculatorsHubProps) {
 
     return (
         <div className="module-container" style={{ display: 'flex', flexDirection: 'column', minHeight: '100%', flex: 1, background: '#ffffff' }}>
-            {/* Header */}
+            {/* Low-Profile Header Banner */}
             <header style={{ 
-                padding: '1rem', 
+                padding: '0.35rem 1rem', 
                 background: 'var(--zone-yellow)', 
                 borderBottom: '1px solid var(--border-color)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: '1rem',
                 position: 'sticky',
                 top: 0,
                 zIndex: 10,
                 width: '100%',
                 boxShadow: '0 4px 6px rgba(0,0,0,0.3)'
             }}>
-                <div style={{ textAlign: 'center' }}>
-                    <h1 style={{ margin: 0, color: '#ffffff', fontSize: '1.25rem', fontFamily: 'var(--font-headings)', letterSpacing: '2px', textTransform: 'uppercase', textShadow: '0 2px 4px rgba(0,0,0,0.4)' }}>
+                <div style={{ textAlign: 'center', flex: 1, display: 'flex', justifyContent: 'center', position: 'relative', alignItems: 'center' }}>
+                    <h1 style={{ margin: 0, color: '#ffffff', fontSize: '0.8rem', fontFamily: 'var(--font-headings)', letterSpacing: '4px', textTransform: 'uppercase', textShadow: '0 1px 2px rgba(0,0,0,0.5)', fontWeight: 900 }}>
                         INDUSTRIAL CALCULATORS
                     </h1>
+                    {activeCalc !== 'menu' && (
+                        <button onClick={() => window.location.hash = `#/calculators`} style={{ position: 'absolute', right: '0', background: 'transparent', border: 'none', color: '#fff', cursor: 'pointer', fontFamily: 'var(--font-headings)', fontSize: '0.7rem', fontWeight: 'bold', textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>
+                            ⬅ BACK
+                        </button>
+                    )}
                 </div>
-                {activeCalc !== 'menu' && (
-                    <button onClick={() => window.location.hash = `#/calculators`} style={{ position: 'absolute', right: '1rem', background: 'var(--gemba-black)', border: '1px solid #333', color: '#fff', cursor: 'pointer', padding: '0.5rem 1rem', borderRadius: '4px', fontFamily: 'var(--font-headings)', fontSize: '0.75rem', fontWeight: 'bold', transition: 'all 0.2s', boxShadow: '0 2px 4px rgba(0,0,0,0.4)' }}>
-                        ⬅ VIEW ALL
-                    </button>
-                )}
             </header>
 
             <div style={{ display: 'flex', flex: 1, overflow: 'hidden', minHeight: 0 }}>
