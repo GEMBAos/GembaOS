@@ -212,7 +212,7 @@ export default function CalculatorsHub({}: CalculatorsHubProps) {
                     
                     {activeCalc === 'menu' && (
                         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.5rem', paddingBottom: '3rem' }}>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '1rem', paddingBottom: '3rem' }}>
                                 {[
                                     { id: 'takt', name: 'Takt Time', desc: 'Pace required to meet customer demand based on available time.', icon: '⏱️' },
                                     { id: 'oee', name: 'OEE Matrix', desc: 'Measure true manufacturing productivity via Availability, Performance & Quality.', icon: '📊' },
@@ -230,21 +230,21 @@ export default function CalculatorsHub({}: CalculatorsHubProps) {
                                         style={{
                                             background: '#ffffff',
                                             border: '1px solid #e2e8f0',
-                                            borderRadius: '12px',
-                                            padding: '2rem',
+                                            borderRadius: '8px',
+                                            padding: '1.25rem',
                                             cursor: 'pointer',
                                             transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                                             display: 'flex',
                                             flexDirection: 'column',
-                                            gap: '1rem',
+                                            gap: '0.75rem',
                                             boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
                                             position: 'relative',
                                             overflow: 'hidden'
                                         }}
                                         onMouseEnter={e => {
                                             e.currentTarget.style.borderColor = 'var(--zone-yellow)';
-                                            e.currentTarget.style.transform = 'translateY(-4px)';
-                                            e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02)';
+                                            e.currentTarget.style.transform = 'translateY(-2px)';
+                                            e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02)';
                                         }}
                                         onMouseLeave={e => {
                                             e.currentTarget.style.borderColor = '#e2e8f0';
@@ -252,11 +252,11 @@ export default function CalculatorsHub({}: CalculatorsHubProps) {
                                             e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)';
                                         }}
                                     >
-                                        <div style={{ fontSize: '3rem', lineHeight: 1 }}>{c.icon}</div>
+                                        <div style={{ fontSize: '2rem', lineHeight: 1 }}>{c.icon}</div>
                                         <div>
-                                            <h3 style={{ margin: 0, color: '#0f172a', fontFamily: 'var(--font-headings)', fontSize: '1.4rem', letterSpacing: '0.5px', textTransform: 'uppercase', fontWeight: 800 }}>{c.name}</h3>
-                                            <div style={{ width: '40px', height: '3px', background: 'var(--zone-yellow)', margin: '0.75rem 0', borderRadius: '2px' }} />
-                                            <p style={{ margin: 0, color: '#64748b', fontSize: '0.95rem', lineHeight: 1.6, fontWeight: 500 }}>{c.desc}</p>
+                                            <h3 style={{ margin: 0, color: '#0f172a', fontFamily: 'var(--font-headings)', fontSize: '1.1rem', letterSpacing: '0.5px', textTransform: 'uppercase', fontWeight: 800 }}>{c.name}</h3>
+                                            <div style={{ width: '30px', height: '3px', background: 'var(--zone-yellow)', margin: '0.5rem 0', borderRadius: '2px' }} />
+                                            <p style={{ margin: 0, color: '#64748b', fontSize: '0.85rem', lineHeight: 1.5, fontWeight: 500 }}>{c.desc}</p>
                                         </div>
                                     </div>
                                 ))}

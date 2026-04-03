@@ -38,7 +38,7 @@ export default function LeanLifestyleTicker() {
     const activeQuote = quotes[currentIndex];
 
     return (
-        <div style={{
+        <div className="ticker-container" style={{
             position: 'fixed',
             bottom: '2rem',
             right: '2rem',
@@ -89,10 +89,14 @@ export default function LeanLifestyleTicker() {
                     100% { opacity: 0.7; transform: scale(1); }
                 }
                 @media (max-width: 768px) {
-                    /* On mobile, float above the bottom dock */
-                    .os-nav-dock ~ div {
-                        bottom: 90px !important;
+                    .ticker-container {
+                        bottom: 5rem !important;
                         right: 1rem !important;
+                        left: 1rem !important;
+                        align-items: stretch !important;
+                    }
+                    .ticker-container > div {
+                        width: auto !important;
                     }
                 }
             `}} />

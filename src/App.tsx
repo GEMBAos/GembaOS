@@ -211,7 +211,7 @@ function App() {
                 style={{ 
                     cursor: 'pointer',
                     width: '100%', 
-                    maxWidth: 'clamp(150px, 30vw, 300px)',
+                    maxWidth: 'clamp(100px, 20vw, 250px)',
                     height: '40px',
                     backgroundImage: `url(${brandLogo})`,
                     backgroundSize: 'contain',
@@ -255,7 +255,7 @@ function App() {
         </div>
 
         {/* PERSISTENT FLAT IDEA ENGINE LOGGING BAR (FUSED WITH BLACK HEADER) */}
-        <div style={{ gridArea: 'os-idea', position: 'relative', zIndex: 45, background: '#111', borderBottom: '1px solid #222' }}>
+        <div style={{ gridArea: 'os-idea', position: 'sticky', top: 'var(--os-header-height)', zIndex: 45, background: '#111', borderBottom: '1px solid #222', minWidth: 0 }}>
             <div style={{ padding: '0.25rem 1rem 0.25rem 1rem' }}>
                 <JFIIdeaGenerator 
                     onIdeaGenerated={() => {}} 

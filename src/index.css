@@ -52,10 +52,9 @@
 html,
 body,
 #root {
-  height: 100%;
+  min-height: 100%;
   width: 100%;
-  overflow: hidden;
-  overscroll-behavior: none;
+  overflow-x: hidden;
 }
 
 body {
@@ -67,6 +66,7 @@ body {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  overscroll-behavior-y: none;
 }
 
 /* Typography - Fluid Scaling */
@@ -111,10 +111,9 @@ h3 {
 /* --- OS SHELL FIXED ARCHITECTURE --- */
 .os-shell {
   display: grid;
-  height: 100dvh;
-  width: 100vw;
+  min-height: 100dvh;
+  width: 100%;
   background-color: var(--bg-dark);
-  overflow: hidden;
   position: relative;
   
   /* Safe area defaults */
@@ -145,9 +144,12 @@ h3 {
 /* 1. Header Zone */
 .os-header {
   grid-area: os-header;
+  position: sticky;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-width: 0;
   padding: 0 2rem;
   background: var(--gemba-black);
   border-bottom: 2px solid rgba(0,0,0,0.8);
@@ -159,6 +161,10 @@ h3 {
 /* 2. Navigation Zone */
 .os-nav-rail {
   grid-area: os-nav;
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   background: var(--gemba-black);
@@ -167,6 +173,14 @@ h3 {
   z-index: 40;
   align-items: center;
   gap: 1.5rem;
+}
+
+.os-nav-rail::-webkit-scrollbar {
+  display: none;
+}
+.os-nav-rail {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 /* Industrial Navigation Rail Icons */
@@ -191,19 +205,11 @@ h3 {
 .os-workspace {
   grid-area: os-workspace;
   background: var(--bg-dark);
-  /* CRITICAL: ONLY internal scroll allowed, never windows scroll */
-  overflow-y: auto; 
-  overflow-x: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
   padding: clamp(1rem, 2vw, 2rem);
-  
-  /* CRITICAL MOBILE SCROLL FIXES (Safari bounds locking) */
-  min-height: 0;
   min-width: 0;
-  overscroll-behavior-y: contain;
-  -webkit-overflow-scrolling: touch;
 }
 
 /* 4. Context Panel Zone (Desktop) */
@@ -220,7 +226,7 @@ h3 {
 
 /* Bottom Action Layer (Floating Desktop) */
 .os-action-layer {
-  position: absolute;
+  position: fixed;
   bottom: clamp(1rem, 3vw, 2rem);
   left: 50%;
   transform: translateX(-50%);
@@ -350,7 +356,7 @@ h3 {
 /* Mobile Bottom Dock */
 .app-bottom-dock {
   display: none;
-  position: absolute;
+  position: fixed;
   bottom: 0; left: 0; right: 0;
   height: calc(env(safe-area-inset-bottom) + 80px);
   background: var(--gemba-black);
