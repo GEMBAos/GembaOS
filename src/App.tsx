@@ -34,7 +34,7 @@ import { ImprovementEngine } from './services/ImprovementEngine';
 import type { UserProfile } from './services/userService';
 import type { User } from '@supabase/supabase-js';
 import StreakRankingBoard from './components/tools/StreakRankingBoard';
-import brandLogo from './assets/branding/gemba_os_industrial_logo.png';
+import brandLogo from './assets/branding/brand-cart-transparent.png';
 
 import RankBenefitsModal from './components/tools/RankBenefitsModal';
 import UserProfileModal from './components/auth/UserProfileModal';
