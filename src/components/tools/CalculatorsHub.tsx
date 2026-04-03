@@ -177,30 +177,26 @@ export default function CalculatorsHub({}: CalculatorsHubProps) {
         <div className="module-container" style={{ display: 'flex', flexDirection: 'column', minHeight: '100%', flex: 1, background: '#ffffff' }}>
             {/* Header */}
             <header style={{ 
-                padding: '0.75rem 1rem', 
-                background: '#ffffff', 
-                borderBottom: '1px solid #e2e8f0',
+                padding: '1rem', 
+                background: 'var(--zone-yellow)', 
+                borderBottom: '1px solid var(--border-color)',
                 display: 'flex',
                 alignItems: 'center',
+                justifyContent: 'center',
                 gap: '1rem',
                 position: 'sticky',
                 top: 0,
-                zIndex: 10
+                zIndex: 10,
+                width: '100%',
+                boxShadow: '0 4px 6px rgba(0,0,0,0.3)'
             }}>
-                <div style={{
-                    width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(255,194,14,0.1)', border: '1px solid rgba(255,194,14,0.3)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--zone-yellow)'
-                }}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16.01" y1="10" y2="10"/><line x1="16" x2="16.01" y1="14" y2="14"/><line x1="16" x2="16.01" y1="18" y2="18"/><path d="M8 10h.01"/><path d="M12 10h.01"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/></svg>
-                </div>
-                <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-                    <div>
-                        <h1 style={{ margin: 0, color: '#111827', fontSize: '1.1rem', fontFamily: 'var(--font-headings)', letterSpacing: '0.5px' }}>INDUSTRIAL CALCULATORS</h1>
-                        <p style={{ margin: 0, color: '#64748b', fontSize: '0.75rem', marginTop: '0.15rem' }}>Core Lean Math Engines</p>
-                    </div>
+                <div style={{ textAlign: 'center' }}>
+                    <h1 style={{ margin: 0, color: '#ffffff', fontSize: '1.25rem', fontFamily: 'var(--font-headings)', letterSpacing: '2px', textTransform: 'uppercase', textShadow: '0 2px 4px rgba(0,0,0,0.4)' }}>
+                        INDUSTRIAL CALCULATORS
+                    </h1>
                 </div>
                 {activeCalc !== 'menu' && (
-                    <button onClick={() => window.location.hash = `#/calculators`} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', color: '#0f172a', cursor: 'pointer', padding: '0.5rem 1rem', borderRadius: '4px', fontFamily: 'var(--font-headings)', fontSize: '0.75rem', fontWeight: 'bold', transition: 'all 0.2s' }}>
+                    <button onClick={() => window.location.hash = `#/calculators`} style={{ position: 'absolute', right: '1rem', background: 'var(--gemba-black)', border: '1px solid #333', color: '#fff', cursor: 'pointer', padding: '0.5rem 1rem', borderRadius: '4px', fontFamily: 'var(--font-headings)', fontSize: '0.75rem', fontWeight: 'bold', transition: 'all 0.2s', boxShadow: '0 2px 4px rgba(0,0,0,0.4)' }}>
                         ⬅ VIEW ALL
                     </button>
                 )}
