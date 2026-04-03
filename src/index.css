@@ -52,9 +52,11 @@
 html,
 body,
 #root {
-  min-height: 100%;
+  height: 100dvh;
   width: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
 }
 
 body {
@@ -111,10 +113,11 @@ h3 {
 /* --- OS SHELL FIXED ARCHITECTURE --- */
 .os-shell {
   display: grid;
-  min-height: 100dvh;
+  height: 100dvh;
   width: 100%;
   background-color: var(--bg-dark);
   position: relative;
+  overflow: hidden;
   
   /* Safe area defaults */
   padding-top: env(safe-area-inset-top);

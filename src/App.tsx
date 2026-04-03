@@ -105,6 +105,7 @@ function App() {
   const [showStreakBoard, setShowStreakBoard] = useState(false);
   const [showRankModal, setShowRankModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
+  const [showJfiModal, setShowJfiModal] = useState(false);
   const [guestXp, setGuestXp] = useState(parseInt(localStorage.getItem('gembaos_guest_tokens') || '0', 10));
 
   // PWA Install Prompt
@@ -254,64 +255,6 @@ function App() {
             <LeanLifestyleTicker />
         </div>
 
-        {/* PERSISTENT FLAT IDEA ENGINE LOGGING BAR (FUSED WITH BLACK HEADER) */}
-        <div style={{ gridArea: 'os-idea', position: 'sticky', top: 'var(--os-header-height)', zIndex: 45, background: '#111', borderBottom: '1px solid #222', minWidth: 0 }}>
-            <div style={{ padding: '0.25rem 1rem 0.25rem 1rem' }}>
-                <JFIIdeaGenerator 
-                    onIdeaGenerated={() => {}} 
-                    profile={profile} 
-                    onNavigate={(r) => handleNavigate(r as any)}
-                />
-            </div>
-            
-            {/* Quick Calcs Ribbon */}
-            <div style={{ 
-                display: 'flex', 
-                gap: '0.5rem', 
-                overflowX: 'auto', 
-                padding: '0.5rem 1rem', 
-                background: '#0a0a0c', 
-                borderTop: '1px solid #222',
-                scrollbarWidth: 'none'
-            }}>
-                {(['takt', 'oee', 'kanban', 'rty', 'smed', 'labor', 'uph', 'safety', 'roi'] as const).map(c => (
-                    <button 
-                        key={c}
-                        onClick={() => {
-                            window.location.hash = `#/calculators?calc=${c}`;
-                            setCurrentView('calculators');
-                        }}
-                        style={{
-                            whiteSpace: 'nowrap',
-                            padding: '0.4rem 1rem',
-                            background: 'rgba(255,255,255,0.05)',
-                            border: '1px solid rgba(255,255,255,0.1)',
-                            borderRadius: '4px',
-                            color: 'var(--steel-gray)',
-                            cursor: 'pointer',
-                            fontFamily: 'var(--font-headings)',
-                            fontSize: '0.75rem',
-                            fontWeight: 800,
-                            textTransform: 'uppercase',
-                            transition: 'all 0.2s',
-                        }}
-                        onMouseEnter={e => { e.currentTarget.style.color = 'var(--zone-yellow)'; e.currentTarget.style.borderColor = 'rgba(255,194,14,0.3)'; e.currentTarget.style.background = 'rgba(255,194,14,0.05)'; }}
-                        onMouseLeave={e => { e.currentTarget.style.color = 'var(--steel-gray)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; }}
-                    >
-                        {c === 'takt' && 'Takt Time'}
-                        {c === 'oee' && 'OEE'}
-                        {c === 'kanban' && 'Kanban Size'}
-                        {c === 'rty' && 'True Yield'}
-                        {c === 'smed' && 'Setup Cost'}
-                        {c === 'labor' && 'Labor Cost'}
-                        {c === 'uph' && 'UPH Target'}
-                        {c === 'safety' && 'Facility 5S'}
-                        {c === 'roi' && 'Kaizen ROI'}
-                    </button>
-                ))}
-            </div>
-        </div>
-
         {/* 2. NAVIGATION SYSTEM (PERSISTENT LEFT RAIL - HEAVY INDUSTRIAL AESTHETIC) */}
         <nav className="os-nav-rail">
             <button onClick={() => handleNavigate('calculators' as any)} style={{ background: 'transparent', border: 'none', color: currentView === 'calculators' ? 'var(--zone-yellow)' : 'var(--steel-gray)', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0.5rem', cursor: 'pointer', transition: 'all 0.2s', marginBottom: '1rem' }} title="Home">
@@ -398,6 +341,53 @@ function App() {
       <FeedbackOverlay />
       {showRankModal && <RankBenefitsModal onClose={() => setShowRankModal(false)} currentScore={parseInt(localStorage.getItem('kaizen_user_score') || '0', 10)} />}
       {showStreakBoard && <StreakRankingBoard onClose={() => setShowStreakBoard(false)} />}
+
+      {/* NEW MODAL JFI ENGINE */}
+      {showJfiModal && (
+        <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(4px)' }} onClick={() => setShowJfiModal(false)}>
+            <div style={{ background: '#111', border: '1px solid #333', borderRadius: '12px', padding: '2rem 1.5rem', width: '90%', maxWidth: '600px', boxShadow: '0 20px 40px rgba(0,0,0,0.8)', position: 'relative' }} onClick={e => e.stopPropagation()}>
+                <button onClick={() => setShowJfiModal(false)} style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'transparent', border: 'none', color: '#888', cursor: 'pointer', fontSize: '1.5rem' }}>✖</button>
+                <h3 style={{ margin: '0 0 1.5rem 0', color: 'var(--zone-yellow)', fontFamily: 'var(--font-headings)', fontSize: '1.2rem', textAlign: 'center' }}>JFI IDEA GENERATOR</h3>
+                <JFIIdeaGenerator 
+                    onIdeaGenerated={() => {}} 
+                    profile={profile} 
+                    onNavigate={(r) => {
+                        setShowJfiModal(false);
+                        handleNavigate(r as any);
+                    }}
+                />
+            </div>
+        </div>
+      )}
+
+      {/* FAB FOR JFI ENGINE */}
+      <button 
+        onClick={() => setShowJfiModal(true)}
+        style={{
+            position: 'fixed',
+            bottom: 'calc(5rem + env(safe-area-inset-bottom))',
+            right: 'clamp(1rem, 4vw, 2rem)',
+            width: '56px',
+            height: '56px',
+            borderRadius: '28px',
+            background: 'var(--zone-yellow)',
+            color: '#000',
+            border: 'none',
+            boxShadow: '0 4px 12px rgba(255,194,14,0.4)',
+            cursor: 'pointer',
+            zIndex: 8000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '1.8rem',
+            transition: 'transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+        }}
+        onMouseOver={e => e.currentTarget.style.transform = 'scale(1.1)'}
+        onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+        title="Report friction or generate idea"
+      >
+        💡
+      </button>
 
     </>
   );
