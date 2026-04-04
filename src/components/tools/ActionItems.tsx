@@ -6,6 +6,7 @@
 
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import HardwareConsoleLayout from './HardwareConsoleLayout';
 
 export interface ActionItem {
     id: string;
@@ -16,7 +17,11 @@ export interface ActionItem {
     createdAt: string;
 }
 
-export default function ActionItems() {
+interface ActionItemsProps {
+    onClose?: () => void;
+}
+
+export default function ActionItems({ onClose }: ActionItemsProps = {}) {
     const { t } = useTranslation();
     const [items, setItems] = useState<ActionItem[]>([]);
 
@@ -75,9 +80,10 @@ export default function ActionItems() {
     const completionRate = total > 0 ? Math.round((completed / total) * 100) : 0;
 
     return (
-        <div style={{ maxWidth: '1000px', margin: '0 auto', paddingBottom: '2rem' }}>
-            <header style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
+        <HardwareConsoleLayout toolId="ACT-01" toolName="KAIZEN LOG" onClose={onClose || (() => {})}>
+            <div style={{ maxWidth: '1000px', margin: '0 auto', paddingBottom: '2rem' }}>
+                <header style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '0' }}>
                     <div>
                         <h2 style={{ fontSize: '2rem', margin: 0, color: 'var(--text-main)', fontWeight: 700 }}>
                             Action Item Tracker
@@ -205,21 +211,22 @@ export default function ActionItems() {
                                     <td style={{ padding: '1rem', color: 'var(--text-muted)', fontSize: '0.875rem' }}>
                                         {new Date(item.dueDate + 'T00:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
                                     </td>
-                                    <td style={{ padding: '1rem', textAlign: 'right' }}>
-                                        <button
-                                            onClick={() => handleDelete(item.id)}
-                                            style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '1.2rem' }}
-                                            title="Delete Item"
-                                        >
-                                            ✕
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))
-                        )}
-                    </tbody>
-                </table>
+                                        <td style={{ padding: '1rem', textAlign: 'right' }}>
+                                            <button
+                                                onClick={() => handleDelete(item.id)}
+                                                className="global-action-btn"
+                                                title="Delete Item"
+                                            >
+                                                ✕
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+        </HardwareConsoleLayout>
     );
 }

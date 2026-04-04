@@ -1,5 +1,4 @@
 import React, { useState, useEffect, Suspense } from 'react';
-import OperatingRoom from './components/OperatingRoom';
 import SplashScreen from './components/SplashScreen';
 import FeedbackOverlay from './components/FeedbackOverlay';
 import LeanLifestyleTicker from './components/LeanLifestyleTicker';
@@ -360,33 +359,33 @@ function App() {
               <style dangerouslySetInnerHTML={{__html: `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}} />
             </div>
           }>
-            {currentView === 'portal' && <OperatingRoom onNavigate={handleNavigate} />}
+            {currentView === 'portal' && <GoalGapMonitor onClose={() => handleNavigate('calculators')} />}
             
             {/* Core Modules Framework */}
-            {currentView === 'gemba' && <GembaWalkGuide onClose={() => handleNavigate('portal')} />}
-            {currentView === 'goal-gap' && <GoalGapMonitor onClose={() => handleNavigate('portal')} />}
+            {currentView === 'gemba' && <GembaWalkGuide onClose={() => handleNavigate('calculators')} />}
+            {currentView === 'goal-gap' && <GoalGapMonitor onClose={() => handleNavigate('calculators')} />}
             {currentView === 'calculators' && (
                 <Suspense fallback={<div className="loading-state">Loading Calculators...</div>}>
-                    <CalculatorsHub onClose={() => handleNavigate('portal')} />
+                    <CalculatorsHub />
                 </Suspense>
             )}
-            {currentView === 'action-items' && <ActionItems />}
-            {currentView === 'video-hub' && <VideoHub onClose={() => handleNavigate('portal')} />}
-            {currentView === 'motion-v2' && <MotionMappingV2 onClose={() => handleNavigate('portal')} />}
-            {currentView === 'time-study' && <TimeStudy onClose={() => handleNavigate('portal')} onNavigate={(t: string) => handleNavigate(t as any)} />}
-            {currentView === 'process-check' && <ProcessCheck onClose={() => handleNavigate('portal')} onNavigate={(t) => handleNavigate(t as any)} />}
-            {currentView === 'improvement-card' && <ImprovementCard onClose={() => handleNavigate('portal')} />}
-            {currentView === 'value-scanner' && <ValueScanner onClose={() => handleNavigate('portal')} />}
-            {currentView === 'line-balance' && <LineBalanceBuilder onClose={() => handleNavigate('portal')} />}
-            {currentView === 'kaizen-hub' && <KaizenSessionHub onNavigate={handleNavigate} />}
+            {currentView === 'action-items' && <ActionItems onClose={() => handleNavigate('calculators')} />}
+            {currentView === 'video-hub' && <VideoHub onClose={() => handleNavigate('calculators')} />}
+            {currentView === 'motion-v2' && <MotionMappingV2 onClose={() => handleNavigate('calculators')} />}
+            {currentView === 'time-study' && <TimeStudy onClose={() => handleNavigate('calculators')} onNavigate={(t: string) => handleNavigate(t as any)} />}
+            {currentView === 'process-check' && <ProcessCheck onClose={() => handleNavigate('calculators')} onNavigate={(t) => handleNavigate(t as any)} />}
+            {currentView === 'improvement-card' && <ImprovementCard onClose={() => handleNavigate('calculators')} />}
+            {currentView === 'value-scanner' && <ValueScanner onClose={() => handleNavigate('calculators')} />}
+            {currentView === 'line-balance' && <LineBalanceBuilder onClose={() => handleNavigate('calculators')} />}
+            {currentView === 'kaizen-hub' && <KaizenSessionHub onNavigate={handleNavigate} onClose={() => handleNavigate('calculators')} />}
             {currentView === 'lean-academy' && (
                 <Suspense fallback={<div className="loading-state">Loading Academy...</div>}>
-                    <LeanAcademy />
+                    <LeanAcademy onClose={() => handleNavigate('calculators')} />
                 </Suspense>
             )}
             {currentView === 'gemba-challenge' && (
                 <Suspense fallback={<div className="loading-state">Loading Challenge...</div>}>
-                    <GembaChallengeQuiz onClose={() => handleNavigate('portal')} />
+                    <GembaChallengeQuiz onClose={() => handleNavigate('calculators')} />
                 </Suspense>
             )}
             {currentView === 'dashboard' && <Dashboard profile={profile} onNavigate={(view) => handleNavigate(view as any)} />}

@@ -5,6 +5,19 @@ import type { CycleTime } from '../../types/improvement';
 
 const SETTINGS_KEY = 'gembaos_line_balance_settings';
 
+function StationNameInput({ initialValue, onSave, style }: { initialValue: string, onSave: (val: string) => void, style?: React.CSSProperties }) {
+    const [val, setVal] = useState(initialValue);
+    useEffect(() => { setVal(initialValue); }, [initialValue]);
+    return (
+        <input 
+            value={val}
+            onChange={(e) => setVal(e.target.value)}
+            onBlur={() => { if (val !== initialValue) onSave(val); }}
+            style={style}
+        />
+    );
+}
+
 export default function LineBalanceBuilder({ onClose }: { onClose: () => void }) {
     const getInitialSettings = () => {
         try {
@@ -595,9 +608,9 @@ export default function LineBalanceBuilder({ onClose }: { onClose: () => void })
                                     <div style={{ fontWeight: 'bold', color: '#64748b', width: '20px', marginTop: '0.5rem' }}>{idx + 1}.</div>
                                     
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', flex: '1 1 200px' }}>
-                                        <input 
-                                            value={station.stationName} 
-                                            onChange={(e) => updateStationName(station.id, e.target.value)}
+                                        <StationNameInput 
+                                            initialValue={station.stationName} 
+                                            onSave={(val) => updateStationName(station.id, val)}
                                             style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', padding: '0.5rem', width: '100%', borderRadius: '4px', fontSize: 'clamp(0.9rem, 1.5vw, 1rem)', fontWeight: 'bold' }}
                                         />
                                         <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem', fontSize: 'clamp(0.75rem, 1.5vw, 0.85rem)' }}>

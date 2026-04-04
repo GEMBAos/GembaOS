@@ -1,10 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 
-interface CalculatorsHubProps {
-    onClose?: () => void;
-}
-
-export default function CalculatorsHub({}: CalculatorsHubProps) {
+export default function CalculatorsHub() {
     const [activeCalc, setActiveCalc] = useState<'menu' | 'takt' | 'oee' | 'labor' | 'uph' | 'safety' | 'rty' | 'kanban' | 'smed' | 'roi'>('menu');
 
     useEffect(() => {
@@ -249,10 +245,40 @@ export default function CalculatorsHub({}: CalculatorsHubProps) {
                                         <h4 style={{ margin: '0 0 0.5rem 0', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span>📋</span> KAIZEN ACTION LOG</h4>
                                         <p style={{ margin: 0, fontSize: '0.85rem', color: '#64748b' }}>Track execution of countermeasures generated during your observation walks.</p>
                                     </div>
+                                    <div onClick={() => window.location.hash = '#/goal-gap'} style={{ padding: '1.5rem', border: '1px solid #e2e8f0', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }} onMouseOver={e => {e.currentTarget.style.borderColor='#0ea5e9'; e.currentTarget.style.background='#f0f9ff'}} onMouseOut={e => {e.currentTarget.style.borderColor='#e2e8f0'; e.currentTarget.style.background='transparent'}}>
+                                        <h4 style={{ margin: '0 0 0.5rem 0', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span>📉</span> GOAL GAP TRACKER</h4>
+                                        <p style={{ margin: 0, fontSize: '0.85rem', color: '#64748b' }}>Monitor KPI variance and set target metrics for your workflows.</p>
+                                    </div>
                                     {/* Link to Calculators which drops down the top rail */}
                                     <div style={{ padding: '1.5rem', border: '1px solid #000', background: '#0f172a', borderRadius: '8px' }}>
                                         <h4 style={{ margin: '0 0 0.5rem 0', color: '#fff', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span>💡</span> INDUSTRIAL CALCULATORS</h4>
                                         <p style={{ margin: 0, fontSize: '0.85rem', color: '#94a3b8' }}>Access Takt, OEE, and Labor tools using the dark quick-access ribbon situated at the top of your screen.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* FLOW: SUSTAIN & LEARN */}
+                            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '2rem', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', borderBottom: '2px solid #f1f5f9', paddingBottom: '1rem', marginBottom: '1.5rem' }}>
+                                    <div style={{ background: '#10b981', color: 'white', padding: '0.5rem', borderRadius: '8px', fontSize: '1.5rem' }}>🌱</div>
+                                    <h3 style={{ margin: 0, color: '#0f172a', fontFamily: 'var(--font-headings)', fontSize: '1.25rem', letterSpacing: '1px' }}>3. SUSTAIN & LEARN</h3>
+                                </div>
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
+                                    <div onClick={() => window.location.hash = '#/kaizen-hub'} style={{ padding: '1.5rem', border: '1px solid #e2e8f0', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }} onMouseOver={e => {e.currentTarget.style.borderColor='#10b981'; e.currentTarget.style.background='#ecfdf5'}} onMouseOut={e => {e.currentTarget.style.borderColor='#e2e8f0'; e.currentTarget.style.background='transparent'}}>
+                                        <h4 style={{ margin: '0 0 0.5rem 0', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span>⚡</span> KAIZEN HUB</h4>
+                                        <p style={{ margin: 0, fontSize: '0.85rem', color: '#64748b' }}>Join or host a synchronized execution event with your team.</p>
+                                    </div>
+                                    <div onClick={() => window.location.hash = '#/lean-academy'} style={{ padding: '1.5rem', border: '1px solid #e2e8f0', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }} onMouseOver={e => {e.currentTarget.style.borderColor='#10b981'; e.currentTarget.style.background='#ecfdf5'}} onMouseOut={e => {e.currentTarget.style.borderColor='#e2e8f0'; e.currentTarget.style.background='transparent'}}>
+                                        <h4 style={{ margin: '0 0 0.5rem 0', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span>🎓</span> LEAN ACADEMY</h4>
+                                        <p style={{ margin: 0, fontSize: '0.85rem', color: '#64748b' }}>Interactive continuous improvement lessons and certifications.</p>
+                                    </div>
+                                    <div onClick={() => window.location.hash = '#/video-hub'} style={{ padding: '1.5rem', border: '1px solid #e2e8f0', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }} onMouseOver={e => {e.currentTarget.style.borderColor='#10b981'; e.currentTarget.style.background='#ecfdf5'}} onMouseOut={e => {e.currentTarget.style.borderColor='#e2e8f0'; e.currentTarget.style.background='transparent'}}>
+                                        <h4 style={{ margin: '0 0 0.5rem 0', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span>🎬</span> VIDEO HUB</h4>
+                                        <p style={{ margin: 0, fontSize: '0.85rem', color: '#64748b' }}>Browse operator video submissions for Gemba analysis.</p>
+                                    </div>
+                                    <div onClick={() => window.location.hash = '#/gemba-challenge'} style={{ padding: '1.5rem', border: '1px solid #e2e8f0', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }} onMouseOver={e => {e.currentTarget.style.borderColor='#10b981'; e.currentTarget.style.background='#ecfdf5'}} onMouseOut={e => {e.currentTarget.style.borderColor='#e2e8f0'; e.currentTarget.style.background='transparent'}}>
+                                        <h4 style={{ margin: '0 0 0.5rem 0', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span>🏆</span> GEMBA CHALLENGE</h4>
+                                        <p style={{ margin: 0, fontSize: '0.85rem', color: '#64748b' }}>Test your operational knowledge in the challenge arena to earn XP.</p>
                                     </div>
                                 </div>
                             </div>

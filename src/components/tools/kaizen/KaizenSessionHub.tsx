@@ -5,9 +5,10 @@ import type { MotionSessionV2 } from '../../../types/motion_v2';
 
 interface KaizenSessionHubProps {
     onNavigate: (view: any) => void;
+    onClose?: () => void;
 }
 
-export default function KaizenSessionHub({ onNavigate }: KaizenSessionHubProps) {
+export default function KaizenSessionHub({ onNavigate, onClose }: KaizenSessionHubProps) {
     const [session, setSession] = useState<MotionSessionV2 | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [copySuccess, setCopySuccess] = useState(false);
@@ -80,7 +81,7 @@ export default function KaizenSessionHub({ onNavigate }: KaizenSessionHubProps) 
             
             {/* Header / Top Strip */}
             <div style={{ display: 'flex', alignItems: 'center', padding: '1rem 2rem', borderBottom: '1px solid rgba(255,255,255,0.05)', background: 'rgba(0,0,0,0.2)' }}>
-                <button onClick={() => { window.location.hash = '/'; onNavigate('dashboard'); }} className="global-action-btn" style={{ padding: '0.5rem 1rem', background: 'transparent', border: 'none' }}>
+                <button onClick={() => { if(onClose) { onClose(); } else { window.location.hash = '/'; onNavigate('dashboard'); } }} className="global-action-btn" style={{ padding: '0.5rem 1rem', background: 'transparent', border: 'none' }}>
                     ← Exit & Suspend
                 </button>
                 <div style={{ flex: 1, textAlign: 'center', cursor: 'pointer' }} onClick={handleCopySync} title="Click to copy join link">

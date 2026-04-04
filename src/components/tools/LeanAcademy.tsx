@@ -150,7 +150,11 @@ const LEAN_ACADEMY_MODULES: LeanModule[] = [
     }
 ];
 
-export default function LeanAcademy() {
+interface LeanAcademyProps {
+    onClose?: () => void;
+}
+
+export default function LeanAcademy({ onClose }: LeanAcademyProps = {}) {
     const [completedModules, setCompletedModules] = useState<string[]>([]);
     const [selectedModule, setSelectedModule] = useState<string | null>(null);
 
@@ -264,11 +268,18 @@ export default function LeanAcademy() {
     return (
         <div style={{ maxWidth: '1200px', margin: '0 auto', paddingBottom: '4rem' }}>
             <header style={{ marginBottom: '3rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1.5rem' }}>
-                <div>
-                    <h2 style={{ fontSize: 'clamp(3rem, 5vw, 4rem)', marginBottom: '0.5rem', color: 'var(--accent-primary)', fontFamily: 'var(--font-headings)' }}>
-                        Lean Leader Academy
-                    </h2>
-                    <p style={{ color: 'var(--steel-gray)', fontSize: '1.3rem', margin: 0 }}>Intense, visual learning modules to forge true Lean Leaders.</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                    {onClose && (
+                        <button onClick={onClose} className="global-action-btn" style={{ background: 'transparent', border: '1px solid var(--border-color)', color: 'var(--text-muted)' }}>
+                            ← Exit
+                        </button>
+                    )}
+                    <div>
+                        <h2 style={{ fontSize: 'clamp(3rem, 5vw, 4rem)', marginBottom: '0.5rem', color: 'var(--accent-primary)', fontFamily: 'var(--font-headings)' }}>
+                            Lean Leader Academy
+                        </h2>
+                        <p style={{ color: 'var(--steel-gray)', fontSize: '1.3rem', margin: 0 }}>Intense, visual learning modules to forge true Lean Leaders.</p>
+                    </div>
                 </div>
 
                 <div style={{ background: 'var(--bg-panel)', padding: '1.5rem', borderRadius: '0.5rem', border: '1px solid var(--border-color)', minWidth: '300px' }}>
