@@ -1,5 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { SystemHealthEngine, type HealthEvent } from '../../services/SystemHealthEngine';
+import { supabase } from '../../lib/supabase';
+import { userService } from '../../services/userService';
 
 export default function SystemHealthHUD() {
     const [isVisible, setIsVisible] = useState(false);
@@ -30,6 +32,31 @@ export default function SystemHealthHUD() {
         }
     }, []);
 
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    useEffect(() => {
+        const checkAdmin = async () => {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user) {
+                const profile = await userService.getProfile(session.user.id);
+                setIsAdmin(profile?.role === 'admin');
+            }
+        };
+        checkAdmin();
+
+        const { data: authListener } = supabase.auth.onAuthStateChange(async (_event, session) => {
+            if (session?.user) {
+                const profile = await userService.getProfile(session.user.id);
+                setIsAdmin(profile?.role === 'admin');
+            } else {
+                setIsAdmin(false);
+            }
+        });
+
+        return () => authListener.subscription.unsubscribe();
+    }, []);
+
+    if (!isAdmin) return null;
     if (!isVisible) return null;
 
     const failuresCount = logs.filter(l => l.status === 'FAILURE').length;

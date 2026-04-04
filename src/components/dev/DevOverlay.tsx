@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { supabase } from '../../lib/supabase';
+import { userService } from '../../services/userService';
 
 const ROUTES = [
   'portal',
@@ -31,6 +33,32 @@ export default function DevOverlay() {
     window.addEventListener('hashchange', handleHash);
     return () => window.removeEventListener('hashchange', handleHash);
   }, []);
+
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const checkAdmin = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user) {
+        const profile = await userService.getProfile(session.user.id);
+        setIsAdmin(profile?.role === 'admin');
+      }
+    };
+    checkAdmin();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      if (session?.user) {
+        const profile = await userService.getProfile(session.user.id);
+        setIsAdmin(profile?.role === 'admin');
+      } else {
+        setIsAdmin(false);
+      }
+    });
+
+    return () => authListener.subscription.unsubscribe();
+  }, []);
+
+  if (!isAdmin) return null;
 
   if (import.meta.env?.MODE === 'production') {
     // Optionally hide in true production, but if user strictly wants it, we can leave it.

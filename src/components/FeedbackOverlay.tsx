@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { SystemHealthEngine } from '../services/SystemHealthEngine';
 
 const FeedbackOverlay: React.FC = () => {
     const { t } = useTranslation();
@@ -15,6 +16,10 @@ const FeedbackOverlay: React.FC = () => {
         // Append context info
         formData.append('url', window.location.href);
         formData.append('userAgent', window.navigator.userAgent);
+        
+        // Auto-Loop Beta Logs (Take last 10 issues/interactions to give devs context)
+        const recentLogs = SystemHealthEngine.getLogs().slice(0, 10);
+        formData.append('diagnostic_logs', JSON.stringify(recentLogs));
         
         const urlEncodedData = new URLSearchParams(formData as any).toString();
 
@@ -96,6 +101,7 @@ const FeedbackOverlay: React.FC = () => {
                                     style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
                                 >
                                     <input type="hidden" name="form-name" value="beta-feedback" />
+                                    <input type="hidden" name="diagnostic_logs" value="" />
 
                                     <div>
                                         <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
